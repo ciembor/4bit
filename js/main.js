@@ -26,8 +26,6 @@
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 	})();
 
-	//$("#social-media").css('display', 'inline-block');
-
 })();
 
 // jquery ui vertial radio ////////////////////////////////////////////////////////////////////////
@@ -305,11 +303,9 @@ _4bit = function() {
 		
 		initialize: function() {
 			_.bindAll(this, 'render');
-//			this.model.bind('change', _.bind(this.render, this));
 			this.render();
 			
 			$("#advanced").tabs();
-			$(this.el).css('visibility', 'visible');
 		},
 		
 		render: function() {
@@ -388,7 +384,6 @@ _4bit = function() {
 			$('#display').css('background-color', that.model.get('colors')['background']);
 			_.each(COLOR_NAMES, function(name) {
 				$('.' + name).css('color', that.model.get('colors')[name]);
-				//$('.' + name).css('cssText', 'color: ' + that.model.get('colors')[name] + ' !important');
 				$('.bg-' + name).css('background-color', that.model.get('colors')[name]);
 			});
 		}
@@ -412,14 +407,21 @@ _4bit = function() {
 		
 		render: function() {
 			var that = this;
-			var xresources = '! --- generated with 4bit Terminal Color Scheme Designer ---\n\n';
+			var xresources = ''
 			var counter = 0;
+
+			xresources += '! --- ~/.Xresources ------------------------------------------------------------\n';
+			xresources += '! ------------------------------------------------------------------------------\n';
+			xresources += '! --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
+			xresources += '! ------------------------------------------------------------------------------\n';
+			xresources += '! --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			xresources += '! ------------------------------------------------------------------------------\n\n';
 
 			xresources += '! --- special colors ---\n\n'
 			xresources += '*background: ' + that.model.get('colors')['background'] + '\n';
 			xresources += '*foreground: ' + that.model.get('colors')['foreground'] + '\n\n';
 
-			xresources += '! --- usual colors ---\n\n';
+			xresources += '! --- standard colors ---\n\n';
 			_.each(COLOR_NAMES, function(name) {
 				var number = counter / 2;
 				
@@ -431,7 +433,10 @@ _4bit = function() {
 				xresources += '*color' + number + ': ' + that.model.get('colors')[name] + '\n\n';
 				counter += 1;
 			});
-			xresources += '\n! --- end of terminal colors section ---\n\n';
+			
+			xresources += '\n! ------------------------------------------------------------------------------\n';
+			xresources += '! --- end of terminal colors section -------------------------------------------\n';
+			xresources += '! ------------------------------------------------------------------------------\n\n';
 
 			$('#xresources-button').attr('href', 'data:text/plain,' + encodeURIComponent(xresources));
 		}
@@ -586,12 +591,6 @@ _4bit = function() {
 			$('#foreground .alpha .ui-draggable').removeClass('ui-draggable handle');
 
 			$(".radio-group").buttonsetv();
-			
-			this.render();
-			$(this.el).css('visibility', 'visible');
-		},
-		
-		render: function() {
 
 		}
 		
@@ -614,6 +613,13 @@ _4bit = function() {
 			$(this).find('a').removeAttr("style");
 		}
 	);
+
+	$(window).bind("load", function() {
+		$('#display').css('visibility', 'visible');
+		$('#controls').css('visibility', 'visible');
+		$('#skews').fadeIn(700);
+		$('#app').animate({opacity: 1}, 700);
+	});
 
 }
 
