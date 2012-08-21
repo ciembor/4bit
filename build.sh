@@ -21,4 +21,3 @@ lessc -i ${APP_PATH}/less/main.less -o ${APP_PATH}/css/_compiled_main.css -yui-c
 cat ${APP_PATH}/css/jquery-ui-1.8.23.custom.css > ${APP_PATH}/css/merged.css
 cat ${APP_PATH}/css/jquery.ui.colorPicker.css >> ${APP_PATH}/css/merged.css
 cat ${APP_PATH}/css/_compiled_main.css >> ${APP_PATH}/css/merged.css
-

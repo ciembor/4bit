@@ -131,10 +131,10 @@ _4bit = function() {
 		'bright_yellow',
 		'blue',
 		'bright_blue',
-		'cyan',
-		'bright_cyan',
 		'magenta',
 		'bright_magenta',
+		'cyan',
+		'bright_cyan',
 		'white',
 		'bright_white'
 	]
@@ -181,10 +181,10 @@ _4bit = function() {
 					bright_yellow: this.get('bright')[1],
 					blue: this.get('normal')[4],
 					bright_blue: this.get('bright')[4],
-					cyan: this.get('normal')[3],
-					bright_cyan: this.get('bright')[3],
 					magenta: this.get('normal')[5],
 					bright_magenta: this.get('bright')[5],
+					cyan: this.get('normal')[3],
+					bright_cyan: this.get('bright')[3],
 					white: this.get('white')[0],
 					bright_white: this.get('white')[1]
 				}
