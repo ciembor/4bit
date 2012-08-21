@@ -1,0 +1,67 @@
+div.colorpicker {
+  margin: 0;
+  position: relative;
+}
+div.colorpicker canvas {
+  float: left;
+}
+div.colorpicker div.circle {
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  background-clip: padding-box;
+}
+div.colorpicker div.circle.alpha {
+  background-image: url('../images/transparent.gif');
+  opacity: 0.0;
+}
+div.colorpicker div.circle.lightness {
+  background-color: rgba(0,0,0,0.0);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  border: 1px solid #fff;
+  margin: -1px 0 0 -1px;
+}
+div.colorpicker span.picker, div.colorpicker span.handle {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0.4);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5), 0 0 4px #000 inset;
+  border: 1px solid #fff;
+  cursor: pointer;
+  margin: -5px;
+  position: absolute;
+  z-index: 2;
+}
+div.colorpicker div.slider {
+  width: 6px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-radius: 6px;
+  border: 1px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.2) inset;
+  float: left;
+  margin: -1px 0 0 10px;
+}
+div.colorpicker div.slider span.handle {
+  margin: -5px -2px -5px -2px;
+}
+div.colorpicker div.slider.lightness {
+  background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,1));
+  background-image: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,1));
+  background-image: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,1));
+}
+div.colorpicker div.slider.alpha {
+  background: -webkit-linear-gradient(top, rgba(255,255,255,1.0), rgba(255,255,255,0.6)), url('../images/transparent.gif') center;
+  background: -moz-linear-gradient(top, rgba(255,255,255,1.0), rgba(255,255,255,0.6)), url('../images/transparent.gif') center;
+  background: linear-gradient(top, rgba(255,255,255,1.0), rgba(255,255,255,0.6)), url('../images/transparent.gif') center;
+}
+div.colorpicker input.colorInput {
+  margin-top: 10px;
+  border: 1px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  background-color: #fafafa;
+  border-radius: 3px;
+  padding: 5px 8px;
+}

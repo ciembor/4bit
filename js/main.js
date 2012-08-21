@@ -6,25 +6,25 @@
 // social media ///////////////////////////////////////////////////////////////////////////////////
 
 (function() {
-  
-  // facebook button
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+	
+	// facebook button
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
  
-  // twitter button
-  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+	// twitter button
+	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 	
 	// google plus button
 	(function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
+		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		po.src = 'https://apis.google.com/js/plusone.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	})();
 
 	//$("#social-media").css('display', 'inline-block');
 
@@ -35,24 +35,26 @@
 (function( $ ){
 	//plugin buttonset vertical
 	$.fn.buttonsetv = function() {
-	  $(':radio, :checkbox', this).wrap('<div style="margin: 1px"/>');
-	  $(this).buttonset();
-	  $('label:first', this).removeClass('ui-corner-left').addClass('ui-corner-top');
-	  $('label:last', this).removeClass('ui-corner-right').addClass('ui-corner-bottom');
-	  mw = 0; // max witdh
-	  $('label', this).each(function(index){
-	     w = $(this).width();
-	     if (w > mw) mw = w; 
-	  })
-	  $('label', this).each(function(index){
-	    $(this).width(mw);
-	  })
+		$(':radio, :checkbox', this).wrap('<div style="margin: 1px"/>');
+		$(this).buttonset();
+		$('label:first', this).removeClass('ui-corner-left').addClass('ui-corner-top');
+		$('label:last', this).removeClass('ui-corner-right').addClass('ui-corner-bottom');
+		mw = 0; // max witdh
+		$('label', this).each(function(index){
+			 w = $(this).width();
+			 if (w > mw) mw = w; 
+		})
+		$('label', this).each(function(index){
+			$(this).width(mw);
+		})
 	};
 })( jQuery );
 
 // Backbone app ///////////////////////////////////////////////////////////////////////////////////
 
-//(function($) {
+_4bit = function() {
+	
+	goog.require('goog.color');
 
 /**
  * Creates HSL color objects
@@ -447,67 +449,67 @@
 
 			var that = this;
 
-		  $("#hue-slider").slider({
-		    value: that.model.get('hue') + 30,
-		    min: 0,
-		    max: 60,
-		    step: 1,
-		    slide: function( event, ui ) {
-		      that.model.setHue((ui.value - 30) - that.model.get('hue'));
-		    }
-		  });
+			$("#hue-slider").slider({
+				value: that.model.get('hue') + 30,
+				min: 0,
+				max: 60,
+				step: 1,
+				slide: function( event, ui ) {
+					that.model.setHue((ui.value - 30) - that.model.get('hue'));
+				}
+			});
 
-		  $("#saturation-slider").slider({
-		    value: that.model.get('saturation') * 256,
-		    min: 0,
-		    max: 256,
-		    step: 1,
-		    slide: function( event, ui ) {
-		      that.model.setSaturation(ui.value / 256);
-		    }
-		  });
-		  
-		  $("#lightness-slider").slider({
-		  	range: true,
-		    values: [that.model.get('normal_lightness') * 256, that.model.get('bright_lightness') * 256],
-		    min: 0,
-		    max: 256,
-		    step: 1,
-		    slide: function( event, ui ) {
-		      that.model.setLightness('normal', ui.values[0] / 256);
-		      that.model.setLightness('bright', ui.values[1] / 256);
-		    }
-		  });
-		  
-		  $("#black-slider").slider({
-		  	range: true,
-		    values: [
-		    	that.model.get('colors').black.getLightness() * 256, 
-		    	that.model.get('colors').bright_black.getLightness() * 256
-		    ],
-		    min: 0,
-		    max: 128,
-		    step: 1,
-		    slide: function( event, ui ) {
-		      that.model.setLightness('black', ui.values[0] / 256);
-		      that.model.setLightness('bright_black', ui.values[1] / 256);
-		    }
-		  });
-		  
-		  $("#white-slider").slider({
-		  	range: true,
-		    values: [
-		    	that.model.get('colors').white.getLightness() * 256, 
-		    	that.model.get('colors').bright_white.getLightness() * 256
-		    ],
-		    min: 128,
-		    max: 256,
-		    step: 1,
-		    slide: function( event, ui ) {
-		      that.model.setLightness('white', ui.values[0] / 256);
-		      that.model.setLightness('bright_white', ui.values[1] / 256);
-		    }
-		  });
+			$("#saturation-slider").slider({
+				value: that.model.get('saturation') * 256,
+				min: 0,
+				max: 256,
+				step: 1,
+				slide: function( event, ui ) {
+					that.model.setSaturation(ui.value / 256);
+				}
+			});
+			
+			$("#lightness-slider").slider({
+				range: true,
+				values: [that.model.get('normal_lightness') * 256, that.model.get('bright_lightness') * 256],
+				min: 0,
+				max: 256,
+				step: 1,
+				slide: function( event, ui ) {
+					that.model.setLightness('normal', ui.values[0] / 256);
+					that.model.setLightness('bright', ui.values[1] / 256);
+				}
+			});
+			
+			$("#black-slider").slider({
+				range: true,
+				values: [
+					that.model.get('colors').black.getLightness() * 256, 
+					that.model.get('colors').bright_black.getLightness() * 256
+				],
+				min: 0,
+				max: 128,
+				step: 1,
+				slide: function( event, ui ) {
+					that.model.setLightness('black', ui.values[0] / 256);
+					that.model.setLightness('bright_black', ui.values[1] / 256);
+				}
+			});
+			
+			$("#white-slider").slider({
+				range: true,
+				values: [
+					that.model.get('colors').white.getLightness() * 256, 
+					that.model.get('colors').bright_white.getLightness() * 256
+				],
+				min: 128,
+				max: 256,
+				step: 1,
+				slide: function( event, ui ) {
+					that.model.setLightness('white', ui.values[0] / 256);
+					that.model.setLightness('bright_white', ui.values[1] / 256);
+				}
+			});
 
 			$('#dye-colorpicker').colorPicker({
 				format: 'hsla',
@@ -516,7 +518,7 @@
 					var pattern, _ref, h, s, l, a;
 					var type = $('input[name=dye]:checked').val()
 					pattern = /^hsla\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)\)$/;
-		      _ref = pattern.exec(ui.color), h = _ref[1], s = _ref[2] / 100, l = _ref[3] / 100, a = _ref[4];
+					_ref = pattern.exec(ui.color), h = _ref[1], s = _ref[2] / 100, l = _ref[3] / 100, a = _ref[4];
 
 					switch(type) {
 						case 'none':
@@ -534,7 +536,7 @@
 							that.model.dye(h, s, l, a, 'all');
 							break;
 					}
-        }
+				}
 			});
 			
 			$('#dye-colorpicker').colorPicker('setColor', 210, 50, 50, 0.2);
@@ -552,7 +554,7 @@
 					pattern = /^hsl\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%\)$/;
 					_ref = pattern.exec(ui.color), h = _ref[1], s = _ref[2] / 100, l = _ref[3] / 100;
 					that.model.setBackground(h, s, l, option);
-        }
+				}
 			});
 			
 			$('#background-colorpicker').colorPicker('setColor', 210, 50, 10);
@@ -572,7 +574,7 @@
 					pattern = /^hsl\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%\)$/;
 					_ref = pattern.exec(ui.color), h = _ref[1], s = _ref[2] / 100, l = _ref[3] / 100;
 					that.model.setForeground(h, s, l, option);
-        }
+				}
 			});
 			
 			$('#foreground-colorpicker').colorPicker('setColor', 210, 50, 90);
@@ -613,5 +615,5 @@
 		}
 	);
 
-//})(jQuery);
+}
 
