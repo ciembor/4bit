@@ -76,17 +76,6 @@ a {
 	font-style: normal;
 }
 
-@font-face {
-	font-family: 'InconsolataBold';
-	src: url('../fonts/inconsolata-bold/inconsolata-bold-webfont.eot');
-	src: url('../fonts/inconsolata-bold/inconsolata-bold-webfont.eot?#iefix') format('embedded-opentype'),
-			 url('../fonts/inconsolata-bold/inconsolata-bold-webfont.woff') format('woff'),
-			 url('../fonts/inconsolata-bold/inconsolata-bold-webfont.ttf') format('truetype'),
-			 url('../fonts/inconsolata-bold/inconsolata-bold-webfont.svg#webfontregular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 @app_width: 1190px;
@@ -118,6 +107,7 @@ body {
 		overflow: visible;
 	}
 	footer {
+		// display: none;
 		min-width: @app_width;
 		height: @footer_height;
 		overflow: visible;
@@ -127,9 +117,6 @@ body {
 			display: inline-block;
 		}
 		.left {
-			// position: absolute;
-			// bottom: 20px;
-			// left: 20px;
 			float: left;
 			margin-left: 20px;
 			padding-bottom: 20px;
@@ -140,9 +127,6 @@ body {
 			}
 		}
 		.right {
-			// position: absolute;
-			// bottom: 20px;
-			// right: 20px;
 			float: right;
 			margin-right: 20px;
 			padding-bottom: 20px;
@@ -195,6 +179,7 @@ body {
 }
 
 #skews {
+	display: none;
 	position: absolute;
 	top: 23px;
 	right: 23px;
@@ -294,10 +279,16 @@ body {
 	}
 }
 
+#app {
+	opacity: 0;
+	white-space: nowrap;
+}
+
 #controls {
+	vertical-align: top;
 	visibility: hidden;
-	float: left;
-	margin-left: 20px;
+	display: inline-block;
+	margin-left: 16px;
 	width: 300px;
 	
 	h2 {
@@ -370,7 +361,7 @@ body {
 
 #display {
 	visibility: hidden;
-	float: left;
+	display: inline-block;
 	font-family: Inconsolata;
 	font-size: 20px;
 	margin: 26px 0 0 20px;
@@ -398,7 +389,6 @@ body {
 }
 
 .bold {
-	//font-family: InconsolataBold;
 	font-weight: bold; // opera sux
 }
 
