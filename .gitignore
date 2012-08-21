@@ -1,6 +1,3 @@
-lib/*
-fonts/*
-images/*
 js/compiled.js
 css/_compiled_main.css
 css/merged.css
