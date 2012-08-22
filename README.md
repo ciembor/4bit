@@ -10,6 +10,8 @@ For users
 4. Run `xrdb ~/.Xresources`.
 5. Get back to work (or to the first step).
 
+__Note:__ Only libXt based terminals. This includes at least __aterm__, __eterm__, __urxvt__ and __xterm__. If you use another one, you must copy hex codes into it's configuration file or tool.
+
 For developers
 ---------
 
@@ -20,5 +22,5 @@ After `git clone` please edit `build.sh` and make sure that paths are correct. A
 Resources
 --------
 * [ArchLinux Wiki - X resources](https://wiki.archlinux.org/index.php/X_resources)
-* [original color.sh](http://code.google.com/p/iterm2/source/browse/trunk/tests/colors.sh)
+* [original colors.sh](http://code.google.com/p/iterm2/source/browse/trunk/tests/colors.sh)
 
