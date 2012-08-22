@@ -10,7 +10,7 @@ For users
 4. Run `xrdb ~/.Xresources`.
 5. Get back to work (or to the first step).
 
-__Note:__ Only libXt based terminals. This includes at least __aterm__, __eterm__, __urxvt__ and __xterm__. If you use another one, you must copy hex codes into it's configuration file or tool.
+__Note:__ Only __libXt__ based terminals uses `.Xresources` file. This includes at least __aterm__, __eterm__, __urxvt__ and __xterm__. If you use another one, you must copy hex codes into it's configuration file or tool.
 
 For developers
 ---------
