@@ -389,6 +389,82 @@ _4bit = function() {
 		}
 		
 	});
+  var SchemeKonsoleView = Backbone.View.extend({
+    model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#konsole-button').hover(function() {
+				that.render();
+			});
+			$('#konsole-button').focus(function() {
+				that.render();
+			});
+		},
+
+    hex2Rgb: function(hex) {
+      part = hex.replace("#","")
+      var bigint = parseInt(part, 16);
+      var r = (bigint >> 16) & 255;
+      var g = (bigint >> 8) & 255;
+      var b = bigint & 255;
+
+      return r + "," + g + "," + b;
+    },
+    colorRgb: function(context, color) {
+      return context.hex2Rgb(context.model.get("colors")[color].toString());
+    },
+
+
+		render: function() {
+    window.bla = this.model.get("colors")
+			var that = this;
+			var out = ''
+			var counter = 0;
+      var tpf = "Transparency=false" + '\n' + '\n'
+      var name = '4bit-' + that.model.get("colors")["foreground"] + "-on-" + that.model.get("colors")["background"]
+      name = name.replace(/#/g,'')
+
+      out += "# put this file to" + '\n'
+      out += "# ~/.kde/share/apps/konsole/NAME.colorscheme" + '\n'
+      out += "# applies for Yakuake and Konsole" + '\n'
+			out += '[Background]' + '\n'
+      out += 'Color='  + that.colorRgb(that, "background") + '\n';
+			out += tpf;
+			out += '[BackgroundIntense]' + '\n'
+      out += 'color='  + that.colorRgb(that, "background") + '\n';
+			out += tpf;
+			out += '[Foreground]' + '\n'
+      out += 'Color='  + that.colorRgb(that, "foreground") + '\n';
+			out += tpf;
+			out += '[ForegroundIntense]' + '\n'
+      out += 'Color='  + that.colorRgb(that, "foreground") + '\n';
+      out += "Bold=true" + '\n'
+			out += tpf;
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2;
+
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+        if (number > 7) {
+          colorsuffix = number % 8 + "Intense";
+        } else {
+          colorsuffix = number % 8;
+        }
+        out += "[Color" + colorsuffix + "]" + '\n';
+        out += "Color=" + that.colorRgb(that, name) + '\n'
+        out += tpf + '\n';
+        counter++;
+      });
+      out += '\n\n'
+      out += '[General]\nDescription=' + name + '\nOpacity=1'
+
+			$('#konsole-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+    }
+
+  });
 
 	var SchemeXresourcesView = Backbone.View.extend({
 
@@ -599,6 +675,7 @@ _4bit = function() {
 	var schemeView = new SchemeView();
 	var schemeCSSView = new SchemeCSSView();
 	var schemeXresourcesView = new SchemeXresourcesView();
+	var schemeKonsoleView = new SchemeKonsoleView();
 	var controlsView = new ControlsView();
 
 	// basic layout behaviour /////////////////////////////
