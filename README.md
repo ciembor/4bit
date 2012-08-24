@@ -24,3 +24,8 @@ Resources
 * [ArchLinux Wiki - X resources](https://wiki.archlinux.org/index.php/X_resources)
 * [original colors.sh](http://code.google.com/p/iterm2/source/browse/trunk/tests/colors.sh)
 
+
+Konsole/Yakuake
+---------------
+similiar to the Xresources, there is a button for generating Konsole/Yakuake colorschemes.
+Put the generated file to ``~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme``  and restart the terminal.
