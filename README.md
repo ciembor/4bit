@@ -4,13 +4,23 @@
 For users
 ---------
 
+General
+---
 1. Go to http://ciembor.github.com/4bit.
 2. Design your terminal look.
-3. Click `.Xresources` button and save it to `~/.Xresources`.
-4. Run `xrdb ~/.Xresources`.
-5. Get back to work (or to the first step).
+3. Click `Get Scheme` button and select the format of configuration file.
 
-__Note:__ Only __libXt__ based terminals uses `.Xresources` file. This includes at least __aterm__, __eterm__, __urxvt__ and __xterm__. If you use another one, you must copy hex codes into it's configuration file or tool.
+ATerm, Urxvt, Rxvt, XTerm and other libXt terminals
+---
+Copy the generated text to `~/.Xresources` file (you may have to create it) and run `xrdb ~/.Xresources`
+
+Konsole and Yakuake
+---
+Put the generated file to `~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme` and restart the terminal.
+
+Other terminals
+---
+Generate one of the supported formats and copy hex values into the configuration file (or tool) of your terminal.
 
 For developers
 ---------
@@ -19,13 +29,24 @@ I pushed to this repository all fonts, images and most of third-party libraries.
 
 After `git clone` please edit `build.sh` and make sure that paths are correct. After that run `./build.sh`. It generates compiled JavaScript, compiled LESS, and merged CSS.
 
+Author
+---------
+
+Maciej Ciemborowicz
+---
+* http://ciemborowicz.pl
+* http://twitter.com/ciembor
+
+Contributors
+---------
+
+Stefan Wienert
+---
+* http://stefanwienert.net
+* http://github.com/zealot128
+
 Resources
---------
+---------
+
 * [ArchLinux Wiki - X resources](https://wiki.archlinux.org/index.php/X_resources)
 * [original colors.sh](http://code.google.com/p/iterm2/source/browse/trunk/tests/colors.sh)
-
-
-Konsole/Yakuake
----------------
-similiar to the Xresources, there is a button for generating Konsole/Yakuake colorschemes.
-Put the generated file to ``~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme``  and restart the terminal.
