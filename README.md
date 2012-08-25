@@ -4,20 +4,22 @@
 For users
 ---------
 
-General
----
+__General__
+
 1. Go to http://ciembor.github.com/4bit.
 2. Design your terminal look.
 3. Click `Get Scheme` button and select the format of configuration file.
 
 __ATerm, Urxvt, Rxvt, XTerm and other libXt terminals__
+
 Copy the generated text to `~/.Xresources` file (you may have to create it) and run `xrdb ~/.Xresources`
 
 __Konsole and Yakuake__
+
 Put the generated file to `~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme` and restart the terminal.
 
-Other terminals
---
+__Other terminals__
+
 Generate one of the supported formats and copy hex values into the configuration file (or tool) of your terminal.
 
 For developers
@@ -31,6 +33,7 @@ Author
 ---------
 
 __Maciej Ciemborowicz__
+
 * http://ciemborowicz.pl
 * http://twitter.com/ciembor
 
@@ -38,6 +41,7 @@ Contributors
 ---------
 
 __Stefan Wienert__
+
 * http://stefanwienert.net
 * http://github.com/zealot128
 
