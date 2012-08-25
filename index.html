@@ -4,16 +4,16 @@
 		<meta charset="utf-8">
 		<meta name="author" content="Maciej Ciemborowicz" />
 		<title>4bit. Terminal Color Scheme Designer</title>
-		<meta name="description" content="This application allows you to create custom theme for a Linux terminal and export it to the .Xresources / .Xdefaults configuration file."/>
+		<meta name="description" content="This application allows you to create custom theme for a Linux terminal and export it to the .Xresources / .Xdefaults configuration file (xterm, aterm, eterm, rxvt, urxvt) and *.colorscheme (konsole, yakuake)."/>
 		<link href="css/merged.css" rel="stylesheet" />
 		<style id="outline-fix"></style>
 	</head>
 	<body onmousedown="document.getElementById('outline-fix').innerHTML='a{outline:none}';" onkeydown="document.getElementById('outline-fix').innerHTML=''">
 		
+		<div id="fb-root"></div>
+		
 		<div class="wrapper">
-			
-			<div id="fb-root"></div>
-			
+		
 			<header>
 				<h1><a href="http://ciembor.github.com/4bit"><span class="blue">4</span><span class="cyan">b</span><span class="magenta">i</span><span class="red">t</span></a> Terminal Color Scheme Designer</h1>
 				<section id="skews">
@@ -28,11 +28,10 @@
 							</div>
 						</div>
 					</div>
-					<a href="#" target="_blank" id="xresources-button" class="background skew foreground"><span class="foreground">.Xresources</span></a>
-					<a href="#" target="_blank" id="konsole-button" class="background skew foreground"><span class="foreground">konsole.colorscheme</span></a>
+					<a href="#" id="get-scheme-button" class="skew"><span>Get Scheme</span></a>
 				</section>
 			</header>
-	
+
 			<div class="distance"></div>
 
 			<div id="app" class="vertical-center">
@@ -98,8 +97,19 @@
 		
 		<footer id="footer">
 			<p class="left"><a href="http://github.com/ciembor/4bit" target="_blank"><img src="images/github.png" alt="" /> Fork 4bit on GitHub.</a></p>
-			<p class="right">Developed by <a href="http://ciemborowicz.pl" rel="me" target="_blank">Maciej Ciemborowicz</a> <a href="https://twitter.com/ciembor" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">follow</a> in 2012.</p>
+			<p class="right">Developed by <a href="http://ciemborowicz.pl" rel="me" target="_blank">Maciej Ciemborowicz</a> <a href="https://twitter.com/ciembor" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">follow</a> and contributors in 2012.</p>
 		</footer>
+		
+		<div id="dialog-modal" title="Export scheme to the configuration file">
+			<ul>
+				<li>
+					<p>xterm / aterm / rxvt / urxvt <a href="#" target="_blank" id="xresources-button" class="get-scheme-link">.Xresources</a></p>
+				</li>
+				<li>
+					<p>konsole / yakuake <a href="#" target="_blank" id="konsole-button" class="get-scheme-link">*.colorscheme</a>
+				</li>
+			</ul>
+		</div>
 		
 		<!-- JavaScript ------------------------------------------------------------------------------>
 		

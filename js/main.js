@@ -54,15 +54,15 @@ _4bit = function() {
 	
 	goog.require('goog.color');
 
-/**
- * Creates HSL color objects
- * 
- * @param {Number} h	Hue between 0 and 360
- * @param {Number} s	Saturation between 0 and 1
- * @param {Number} l	Lightness between 0 and 1
- * 
- * @return {Object}	HSL color
- */
+	/**
+	 * Creates HSL color objects
+	 * 
+	 * @param {Number} h	Hue between 0 and 360
+	 * @param {Number} s	Saturation between 0 and 1
+	 * @param {Number} l	Lightness between 0 and 1
+	 * 
+	 * @return {Object}	HSL color
+	 */
 	function HSL(h, s, l) {
 		var color = [h, s, l];
 		var dye = [0, 0, 0, 0];	// hsla tint
@@ -99,14 +99,18 @@ _4bit = function() {
 			color = [h, s, l];
 		}
 
-		toString = function() {
+		stringify = function() {
 			var blended = goog.color.hslArrayToRgb(color);
 			var blender = goog.color.hslToRgb(dye[0], dye[1], dye[2]);
 			var factor = dye[3];
 			var rgb = goog.color.blend(blender, blended, factor);
 			return goog.color.rgbArrayToHex(rgb);
 		}
-	
+
+		toRgb = function() {
+			return goog.color.hslArrayToRgb(color);
+		}
+
 		return {
 			getHue: getHue,
 			getSaturation: getSaturation,
@@ -116,7 +120,8 @@ _4bit = function() {
 			setLightness: setLightness,
 			setDye: setDye,
 			setHsl: setHsl,
-			toString: toString
+			toString: stringify,
+			toRgb: toRgb
 		}
 	}
 
@@ -389,8 +394,10 @@ _4bit = function() {
 		}
 		
 	});
-  var SchemeKonsoleView = Backbone.View.extend({
-    model: scheme,
+	
+	var SchemeKonsoleView = Backbone.View.extend({
+		
+		model: scheme,
 
 		initialize: function() {
 			_.bindAll(this, 'render');
@@ -402,69 +409,67 @@ _4bit = function() {
 				that.render();
 			});
 		},
-
-    hex2Rgb: function(hex) {
-      part = hex.replace("#","")
-      var bigint = parseInt(part, 16);
-      var r = (bigint >> 16) & 255;
-      var g = (bigint >> 8) & 255;
-      var b = bigint & 255;
-
-      return r + "," + g + "," + b;
-    },
-    colorRgb: function(context, color) {
-      return context.hex2Rgb(context.model.get("colors")[color].toString());
-    },
-
+		
+		colorRgb: function(context, color) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			return rgbArray[0] + ',' + rgbArray[1] + ',' + rgbArray[2];
+		},
 
 		render: function() {
-    window.bla = this.model.get("colors")
 			var that = this;
-			var out = ''
+			var out = '';
 			var counter = 0;
-      var tpf = "Transparency=false" + '\n' + '\n'
-      var name = '4bit-' + that.model.get("colors")["foreground"] + "-on-" + that.model.get("colors")["background"]
-      name = name.replace(/#/g,'')
+			var tpf = "Transparency=false" + '\n' + '\n';
+			var name = '4bit-' + that.model.get("colors")["foreground"] + "-on-" + that.model.get("colors")["background"];
+			name = name.replace(/#/g,'');
 
-      out += "# put this file to" + '\n'
-      out += "# ~/.kde/share/apps/konsole/NAME.colorscheme" + '\n'
-      out += "# applies for Yakuake and Konsole" + '\n'
-			out += '[Background]' + '\n'
-      out += 'Color='  + that.colorRgb(that, "background") + '\n';
+			out += '# --- ~/.kde/share/apps/konsole/NAME.colorscheme -------------------------------\n';
+			out += '# ------------------------------------------------------------------------------\n';
+			out += '# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
+			out += '# ------------------------------------------------------------------------------\n';
+			out += '# --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			out += '# ------------------------------------------------------------------------------\n\n';
+			
+			out += '# --- special colors ---\n\n';
+			out += '[Background]\n';
+			out += 'Color='	+ that.colorRgb(that, "background") + '\n';
 			out += tpf;
-			out += '[BackgroundIntense]' + '\n'
-      out += 'color='  + that.colorRgb(that, "background") + '\n';
+			out += '[BackgroundIntense]\n';
+			out += 'color='	+ that.colorRgb(that, "background") + '\n';
 			out += tpf;
-			out += '[Foreground]' + '\n'
-      out += 'Color='  + that.colorRgb(that, "foreground") + '\n';
+			out += '[Foreground]\n';
+			out += 'Color='	+ that.colorRgb(that, "foreground") + '\n';
 			out += tpf;
-			out += '[ForegroundIntense]' + '\n'
-      out += 'Color='  + that.colorRgb(that, "foreground") + '\n';
-      out += "Bold=true" + '\n'
+			out += '[ForegroundIntense]\n';
+			out += 'Color='	+ that.colorRgb(that, "foreground") + '\n';
+			out += 'Bold=true\n';
 			out += tpf;
+			
+			out += '# --- standard colors ---\n\n';
 			_.each(COLOR_NAMES, function(name) {
 				var number = counter / 2;
 
 				if (0 === name.indexOf('bright_')) {
 					number += 7.5;
 				}
-        if (number > 7) {
-          colorsuffix = number % 8 + "Intense";
-        } else {
-          colorsuffix = number % 8;
-        }
-        out += "[Color" + colorsuffix + "]" + '\n';
-        out += "Color=" + that.colorRgb(that, name) + '\n'
-        out += tpf + '\n';
-        counter++;
-      });
-      out += '\n\n'
-      out += '[General]\nDescription=' + name + '\nOpacity=1'
+				if (number > 7) {
+					colorsuffix = number % 8 + "Intense";
+				} else {
+					colorsuffix = number % 8;
+				}
+				out += '[Color' + colorsuffix + ']\n';
+				out += 'Color=' + that.colorRgb(that, name) + '\n';
+				out += tpf;
+				counter++;
+			});
+
+			out += '# --- general options ---\n\n';
+			out += '[General]\nDescription=' + name + '\nOpacity=1\n';
 
 			$('#konsole-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
-    }
+		}
 
-  });
+	});
 
 	var SchemeXresourcesView = Backbone.View.extend({
 
@@ -483,7 +488,7 @@ _4bit = function() {
 		
 		render: function() {
 			var that = this;
-			var xresources = ''
+			var xresources = '';
 			var counter = 0;
 
 			xresources += '! --- ~/.Xresources ------------------------------------------------------------\n';
@@ -493,7 +498,7 @@ _4bit = function() {
 			xresources += '! --- http://ciembor.github.com/4bit -------------------------------------------\n';
 			xresources += '! ------------------------------------------------------------------------------\n\n';
 
-			xresources += '! --- special colors ---\n\n'
+			xresources += '! --- special colors ---\n\n';
 			xresources += '*background: ' + that.model.get('colors')['background'] + '\n';
 			xresources += '*foreground: ' + that.model.get('colors')['foreground'] + '\n\n';
 
@@ -696,6 +701,15 @@ _4bit = function() {
 		$('#controls').css('visibility', 'visible');
 		$('#skews').fadeIn(700);
 		$('#app').animate({opacity: 1}, 700);
+		$("#get-scheme-button").click(function(button) {
+			$("#dialog-modal").dialog({
+				height: 192,
+				width: 450,
+				modal: true,
+				draggable: false,
+				resizable: false
+			});
+		});
 	});
 
 }
