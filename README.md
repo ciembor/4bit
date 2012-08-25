@@ -10,16 +10,14 @@ General
 2. Design your terminal look.
 3. Click `Get Scheme` button and select the format of configuration file.
 
-ATerm, Urxvt, Rxvt, XTerm and other libXt terminals
----
+__ATerm, Urxvt, Rxvt, XTerm and other libXt terminals__
 Copy the generated text to `~/.Xresources` file (you may have to create it) and run `xrdb ~/.Xresources`
 
-Konsole and Yakuake
----
+__Konsole and Yakuake__
 Put the generated file to `~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme` and restart the terminal.
 
 Other terminals
----
+--
 Generate one of the supported formats and copy hex values into the configuration file (or tool) of your terminal.
 
 For developers
@@ -32,16 +30,14 @@ After `git clone` please edit `build.sh` and make sure that paths are correct. A
 Author
 ---------
 
-Maciej Ciemborowicz
----
+__Maciej Ciemborowicz__
 * http://ciemborowicz.pl
 * http://twitter.com/ciembor
 
 Contributors
 ---------
 
-Stefan Wienert
----
+__Stefan Wienert__
 * http://stefanwienert.net
 * http://github.com/zealot128
 
