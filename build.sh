@@ -1,12 +1,12 @@
 #!/bin/bash
 
 ################################################################################
-#
-# Usage:
-# 
-# ./build.sh                - building in development (simple merging)
-# ./build.sh production     - building in production (with compressing)
-#
+#                                                                              #
+# Usage:                                                                       #
+#                                                                              #
+# ./build.sh                - building in development (simple merging)         #
+# ./build.sh production     - building in production (with compressing)        #
+#                                                                              #
 ################################################################################
 
 ################################################################################
