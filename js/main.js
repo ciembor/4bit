@@ -524,6 +524,48 @@ _4bit = function() {
 		
 	});
 	
+	var SchemeXfceTerminalView = Backbone.View.extend({
+
+		model: scheme,
+		
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#xfce-terminal-button').hover(function() {
+				that.render();
+			});
+			$('#xfce-terminal-button').focus(function() {
+				that.render();
+			});
+		},
+		
+		render: function() {
+			var that = this;
+			var terminalrc = '[Configuration]\n';
+			var counter = 1;
+
+			// special colors
+			terminalrc += 'ColorBackground=' + that.model.get('colors')['background'] + '\n';
+			terminalrc += 'ColorForeground=' + that.model.get('colors')['foreground'] + '\n';
+			terminalrc += 'ColorCursor=' + that.model.get('colors')['foreground'] + '\n';
+
+			// standard colors
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2 + 0.5;
+				
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+				
+				terminalrc += 'ColorPalette' + number + '=' + that.model.get('colors')[name] + '\n';
+				counter += 1;
+			});
+
+			$('#xfce-terminal-button').attr('href', 'data:text/plain,' + encodeURIComponent(terminalrc));
+		}
+		
+	});
+	
 	var ControlsView = Backbone.View.extend({
 		
 		el: $('#controls'),
@@ -681,6 +723,7 @@ _4bit = function() {
 	var schemeCSSView = new SchemeCSSView();
 	var schemeXresourcesView = new SchemeXresourcesView();
 	var schemeKonsoleView = new SchemeKonsoleView();
+	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var controlsView = new ControlsView();
 
 	// basic layout behaviour /////////////////////////////
@@ -703,7 +746,7 @@ _4bit = function() {
 		$('#app').animate({opacity: 1}, 700);
 		$("#get-scheme-button").click(function(button) {
 			$("#dialog-modal").dialog({
-				height: 192,
+				height: 90 + 50 * $('.get-scheme-link').length,
 				width: 450,
 				modal: true,
 				draggable: false,

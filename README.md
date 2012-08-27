@@ -14,6 +14,9 @@ Copy the generated text to `~/.Xresources` file (you may have to create it) and 
 * __Konsole and Yakuake:__
 Put the generated file to `~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme` and restart the terminal.
 
+* __XFCE4 Terminal:__
+Backup `~/.config/Terminal/terminalrc` file and replace it with generated text. Take into account that this file contains all XFCE4 Terminal settings, not only color scheme.
+
 * __Other terminals:__
 Generate one of the supported formats and copy hex values into the configuration file (or tool) of your terminal.
 
