@@ -6,7 +6,7 @@
 // social media ///////////////////////////////////////////////////////////////////////////////////
 
 (function() {
-	
+
 	// facebook button
 	(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
@@ -15,10 +15,10 @@
 		js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
- 
+
 	// twitter button
 	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-	
+
 	// google plus button
 	(function() {
 		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -40,7 +40,7 @@
 		mw = 0; // max witdh
 		$('label', this).each(function(index){
 			 w = $(this).width();
-			 if (w > mw) mw = w; 
+			 if (w > mw) mw = w;
 		})
 		$('label', this).each(function(index){
 			$(this).width(mw);
@@ -51,34 +51,34 @@
 // Backbone app ///////////////////////////////////////////////////////////////////////////////////
 
 _4bit = function() {
-	
+
 	goog.require('goog.color');
 
 	/**
 	 * Creates HSL color objects
-	 * 
+	 *
 	 * @param {Number} h	Hue between 0 and 360
 	 * @param {Number} s	Saturation between 0 and 1
 	 * @param {Number} l	Lightness between 0 and 1
-	 * 
+	 *
 	 * @return {Object}	HSL color
 	 */
 	function HSL(h, s, l) {
 		var color = [h, s, l];
 		var dye = [0, 0, 0, 0];	// hsla tint
-		
+
 		getHue = function() {
 			return color[0];
 		}
-		
+
 		getSaturation = function() {
 			return color[1];
 		}
-		
+
 		getLightness = function() {
 			return color[2];
 		}
-		
+
 		setHue = function(h) {
 			color[0] = h;
 		}
@@ -86,7 +86,7 @@ _4bit = function() {
 		setSaturation = function(s) {
 			color[1] = s;
 		}
-	
+
 		setLightness = function(l) {
 			color[2] = l;
 		}
@@ -145,7 +145,7 @@ _4bit = function() {
 	]
 
 	var Scheme = Backbone.Model.extend({
-		
+
 		defaults: {
 			hue: 0,
 			saturation: 0.3,
@@ -154,9 +154,9 @@ _4bit = function() {
 			black: [HSL(0, 0, 0), HSL(0, 0, 0.15)],
 			white: [HSL(0, 0, 0.85), HSL(0, 0, 1)],
 			background: HSL(0, 0, 0),
-			foreground: HSL(0, 0, 1)			
+			foreground: HSL(0, 0, 1)
 		},
-		
+
 		initialize: function() {
 			var that = this
 			var degrees = [0, 60, 120, 180, 240, 300];
@@ -171,7 +171,7 @@ _4bit = function() {
 				bright: bright_array,
 				normal: normal_array
 			});
-			
+
 			this.set({
 				colors: {
 					background: this.get('background'),
@@ -195,7 +195,7 @@ _4bit = function() {
 				}
 			});
 		},
-		
+
 		setHue: function(hue) {
 			this.set('hue', this.get('hue') + hue)
 			_.each([this.get('bright'), this.get('normal')], function(colors) {
@@ -205,7 +205,7 @@ _4bit = function() {
 			});
 			this.trigger('change');
 		},
-		
+
 		setSaturation: function(saturation) {
 			this.set('saturation', saturation)
 			_.each([this.get('bright'), this.get('normal')], function(colors) {
@@ -215,9 +215,9 @@ _4bit = function() {
 			});
 			this.trigger('change');
 		},
-		
+
 		setLightness: function(type, lightness) {
-			
+
 			switch(type) {
 				case 'normal':
 					this.set('normal_lightness', lightness)
@@ -234,10 +234,10 @@ _4bit = function() {
 				default:
 					this.get('colors')[type].setLightness(lightness);
 			}
-			
+
 			this.trigger('change');
 		},
-		
+
 		dye: function(h, s, l, a, type) {
 			var colors = this.get('colors');
 			var achromatic = [
@@ -247,7 +247,7 @@ _4bit = function() {
 				colors.bright_white
 			];
 			var colors_array = [];
-			
+
 			if ('achromatic' === type) {
 				colors_array.push(achromatic);
 			} else if ('color' === type) {
@@ -258,61 +258,61 @@ _4bit = function() {
 				colors_array.push(this.get('bright'));
 				colors_array.push(this.get('normal'));
 			}
-			
+
 			this.set('dye', [h, s, l, a]);
-			
+
 			_.each(colors_array, function(colors) {
 				_.each(colors, function(color) {
 					color.setDye([h, s, l, a]);
 				});
 			});
-			
+
 			this.trigger('change');
 		},
 
 		setBackground: function(h, s, l, option) {
 			var background = this.get('background');
-		
+
 			if ('custom' === option) {
 				background.setHsl(h, s, l);
 				this.get('colors')['background'] = background;
 			} else {
 				this.get('colors')['background'] = this.get('colors')[option];
 			}
-			
+
 			this.trigger('change');
 		},
 
 		setForeground: function(h, s, l, option) {
 			var foreground = this.get('foreground');
-		
+
 			if ('custom' === option) {
 				foreground.setHsl(h, s, l);
 				this.get('colors')['foreground'] = foreground;
 			} else {
 				this.get('colors')['foreground'] = this.get('colors')[option];
 			}
-			
+
 			this.trigger('change');
 		}
 
 	});
-	
+
 	var scheme = new Scheme();
-	
+
 	var SchemeView = Backbone.View.extend({
-		
+
 		el: $('#display'),
-		
+
 		model: scheme,
-		
+
 		initialize: function() {
 			_.bindAll(this, 'render');
 			this.render();
-			
+
 			$("#advanced").tabs();
 		},
-		
+
 		render: function() {
 			var string = '';
 			var color_names = ['foreground', 'bright_foreground'];
@@ -320,12 +320,12 @@ _4bit = function() {
 			var columns_th = [' ', ' ', '40m', '41m', '42m', '43m', '44m', '45m', '46m', '47m'];
 			var rows_th =['m','1m','30m','1;30m','31m','1;31m','32m','1;32m','33m','1;33m','34m','1;34m','35m','1;35m','36m','1;36m','37m','1;37m'];
 			var row_index = 0;
-			
+
 			string += '<p>Welcome to fish, the friendly interactive shell</p>';
 			string += '<p>Type <span class="green">help</span> for instructions on how to use fish</p>'
 			string += '<p><span class="cyan">ciembor</span>@browser <span class="cyan">~</span>> <span class="blue">./colors.sh</span></p>'
 			string += '<br />';
-			
+
 			/* table with colors */
 			string += '<table id="colors">';
 
@@ -334,19 +334,19 @@ _4bit = function() {
 				string += '<th>' + th + '</th>';
 			});
 			string += '</tr>';
-			
+
 			_.each(COLOR_NAMES, function(name) {
 				if (0 !== name.indexOf('bright_')) {
 					bg_names.push(name);
 				}
 				color_names.push(name);
 			});
-			
+
 			_.each(color_names, function(name) {
 				string += '<tr>';
 				string += '<th class="row-th">' + rows_th[row_index] + '</th>';
 				row_index += 1;
-				
+
 				_.each(bg_names, function(bg_name) {
 					string += '<td class="';
 					if (0 === name.indexOf('bright_')) {
@@ -360,29 +360,29 @@ _4bit = function() {
 					string += ' bg-' + bg_name;
 					string += '">gYw</td>';
 				})
-				
+
 				string += '</tr>';
 			})
 			string += '</table>';
-			
+
 			string += '<br />';
 			string += '<p><span class="cyan">ciembor</span>@browser <span class="cyan">~</span>></p>';
-			
+
 			$(this.el).html(string);
 		}
-		
+
 	});
 
 	var SchemeCSSView = Backbone.View.extend({
 
 		model: scheme,
-		
+
 		initialize: function() {
 			_.bindAll(this, 'render');
 			this.model.bind('change', _.bind(this.render, this));
 			this.render();
 		},
-		
+
 		render: function() {
 			var that = this;
 			$('#display').css('color', that.model.get('colors')['foreground']);
@@ -392,13 +392,13 @@ _4bit = function() {
 				$('.bg-' + name).css('background-color', that.model.get('colors')[name]);
 			});
 		}
-		
+
 	});
-	
+
 	var SchemeGuakeView = Backbone.View.extend({
-		
+
 		model: scheme,
-		
+
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
@@ -414,16 +414,16 @@ _4bit = function() {
 			var that = this;
 			var palette = [];
 			var colors = that.model.get("colors");
-			
+
 			// Duplicate: #ab1224 -> #abab12122424, which is the expected format
 			function gnomeColor(color) {
 				return color.toString().replace(/#(.{2})(.{2})(.{2})/, '#$1$1$2$2$3$3');
 			}
-			
+
 			_.each(COLOR_NAMES, function(name) {
 				palette.push( gnomeColor(colors[name]) )
 			});
-			
+
 			out = '#!/bin/bash \n\n';
 			out += '# Save this script into set_colors.sh, make this file executable and run it: \n';
 			out += '# \n';
@@ -442,7 +442,7 @@ _4bit = function() {
 	});
 
 	var SchemeKonsoleView = Backbone.View.extend({
-		
+
 		model: scheme,
 
 		initialize: function() {
@@ -455,7 +455,7 @@ _4bit = function() {
 				that.render();
 			});
 		},
-		
+
 		colorRgb: function(context, color) {
 			var rgbArray = context.model.get("colors")[color].toRgb();
 			return rgbArray[0] + ',' + rgbArray[1] + ',' + rgbArray[2];
@@ -475,7 +475,7 @@ _4bit = function() {
 			out += '# ------------------------------------------------------------------------------\n';
 			out += '# --- http://ciembor.github.com/4bit -------------------------------------------\n';
 			out += '# ------------------------------------------------------------------------------\n\n';
-			
+
 			out += '# --- special colors ---\n\n';
 			out += '[Background]\n';
 			out += 'Color='	+ that.colorRgb(that, "background") + '\n';
@@ -490,7 +490,7 @@ _4bit = function() {
 			out += 'Color='	+ that.colorRgb(that, "foreground") + '\n';
 			out += 'Bold=true\n';
 			out += tpf;
-			
+
 			out += '# --- standard colors ---\n\n';
 			_.each(COLOR_NAMES, function(name) {
 				var number = counter / 2;
@@ -517,10 +517,97 @@ _4bit = function() {
 
 	});
 
+	var SchemeITerm2View = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#iterm2-button').hover(function() {
+				that.render();
+			});
+			$('#iterm2-button').focus(function() {
+				that.render();
+			});
+		},
+
+		colorRgb: function(context, color) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			return rgbArray[0] + ',' + rgbArray[1] + ',' + rgbArray[2];
+		},
+
+		colorKeyDict: function(context, color, name) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			var out = '';
+			out += '	<key>'+name+' Color</key>\n';
+			out += '	<dict>\n';
+			out += '		<key>Blue Component</key>\n';
+			out += '		<real>'+rgbArray[2]+'</real>\n';
+			out += '		<key>Green Component</key>\n';
+			out += '		<real>'+rgbArray[1]+'</real>\n';
+			out += '		<key>Red Component</key>\n';
+			out += '		<real>'+rgbArray[0]+'</real>\n';
+			out += '	</dict>\n';
+			return out;
+		},
+
+		render: function() {
+			var that = this;
+			var out = '';
+			var counter = 0;
+			var name = '4bit-' + that.model.get("colors")["foreground"] + "-on-" + that.model.get("colors")["background"];
+			name = name.replace(/#/g,'');
+
+			out += '<?xml version="1.0" encoding="UTF-8"?>\n';
+			out += '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n';
+			out += '\n<!--\n';
+			out += '      NAME.itermcolors                                                          \n';
+			out += '      Load it with iTerm2 Preferences panel                                     \n';
+			out += '                                                                                \n';
+			out += '      generated with 4bit Terminal Color Scheme Designer                        \n';
+			out += '                                                                                \n';
+			out += '      http://ciembor.github.com/4bit                                            \n';
+			out += '                                                                                \n';
+			out += '-->\n\n';
+
+			out += '<plist version="1.0">\n';
+			out += '<dict>\n';
+
+			out += '<!-- special colors -->\n';
+			out += that.colorKeyDict(that, "background", "Background");
+			out += that.colorKeyDict(that, "foreground", "Foreground");
+			out += that.colorKeyDict(that, "foreground", "Cursor");
+			out += that.colorKeyDict(that, "background", "Cursor Text");
+
+			out += '<!-- standard colors -->\n';
+
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2;
+
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+
+				out += '<!-- ' + name + ' -->\n';
+				out += that.colorKeyDict(that, name, "Ansi "+number);
+
+				counter += 1;
+			});
+
+			out += '</dict>\n';
+			out += '</plist>\n';
+			out += '\n';
+
+			$('#iterm2-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+		}
+
+	});
+
 	var SchemeXresourcesView = Backbone.View.extend({
 
 		model: scheme,
-		
+
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
@@ -531,7 +618,7 @@ _4bit = function() {
 				that.render();
 			});
 		},
-		
+
 		render: function() {
 			var that = this;
 			var xresources = '';
@@ -551,29 +638,29 @@ _4bit = function() {
 			xresources += '! --- standard colors ---\n\n';
 			_.each(COLOR_NAMES, function(name) {
 				var number = counter / 2;
-				
+
 				if (0 === name.indexOf('bright_')) {
 					number += 7.5;
 				}
-				
+
 				xresources += '! ' + name + '\n';
 				xresources += '*color' + number + ': ' + that.model.get('colors')[name] + '\n\n';
 				counter += 1;
 			});
-			
+
 			xresources += '\n! ------------------------------------------------------------------------------\n';
 			xresources += '! --- end of terminal colors section -------------------------------------------\n';
 			xresources += '! ------------------------------------------------------------------------------\n\n';
 
 			$('#xresources-button').attr('href', 'data:text/plain,' + encodeURIComponent(xresources));
 		}
-		
+
 	});
-	
+
 	var SchemeXfceTerminalView = Backbone.View.extend({
 
 		model: scheme,
-		
+
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
@@ -584,7 +671,7 @@ _4bit = function() {
 				that.render();
 			});
 		},
-		
+
 		render: function() {
 			var that = this;
 			var terminalrc = '[Configuration]\n';
@@ -598,26 +685,26 @@ _4bit = function() {
 			// standard colors
 			_.each(COLOR_NAMES, function(name) {
 				var number = counter / 2 + 0.5;
-				
+
 				if (0 === name.indexOf('bright_')) {
 					number += 7.5;
 				}
-				
+
 				terminalrc += 'ColorPalette' + number + '=' + that.model.get('colors')[name] + '\n';
 				counter += 1;
 			});
 
 			$('#xfce-terminal-button').attr('href', 'data:text/plain,' + encodeURIComponent(terminalrc));
 		}
-		
+
 	});
-	
+
 	var ControlsView = Backbone.View.extend({
-		
+
 		el: $('#controls'),
-		
+
 		model: scheme,
-		
+
 		initialize: function() {
 			_.bindAll(this, 'render');
 
@@ -642,7 +729,7 @@ _4bit = function() {
 					that.model.setSaturation(ui.value / 256);
 				}
 			});
-			
+
 			$("#lightness-slider").slider({
 				range: true,
 				values: [that.model.get('normal_lightness') * 256, that.model.get('bright_lightness') * 256],
@@ -654,11 +741,11 @@ _4bit = function() {
 					that.model.setLightness('bright', ui.values[1] / 256);
 				}
 			});
-			
+
 			$("#black-slider").slider({
 				range: true,
 				values: [
-					that.model.get('colors').black.getLightness() * 256, 
+					that.model.get('colors').black.getLightness() * 256,
 					that.model.get('colors').bright_black.getLightness() * 256
 				],
 				min: 0,
@@ -669,11 +756,11 @@ _4bit = function() {
 					that.model.setLightness('bright_black', ui.values[1] / 256);
 				}
 			});
-			
+
 			$("#white-slider").slider({
 				range: true,
 				values: [
-					that.model.get('colors').white.getLightness() * 256, 
+					that.model.get('colors').white.getLightness() * 256,
 					that.model.get('colors').bright_white.getLightness() * 256
 				],
 				min: 128,
@@ -712,7 +799,7 @@ _4bit = function() {
 					}
 				}
 			});
-			
+
 			$('#dye-colorpicker').colorPicker('setColor', 210, 50, 50, 0.2);
 
 			$("input[name=dye]").change(function() {
@@ -730,7 +817,7 @@ _4bit = function() {
 					that.model.setBackground(h, s, l, option);
 				}
 			});
-			
+
 			$('#background-colorpicker').colorPicker('setColor', 210, 50, 10);
 
 			$("input[name=background]").change(function() {
@@ -750,25 +837,26 @@ _4bit = function() {
 					that.model.setForeground(h, s, l, option);
 				}
 			});
-			
+
 			$('#foreground-colorpicker').colorPicker('setColor', 210, 50, 90);
 
 			$("input[name=foreground]").change(function() {
 				$('#foreground-colorpicker').change();
 			});
-			
+
 			$('#foreground .alpha .ui-draggable').removeClass('ui-draggable handle');
 
 			$(".radio-group").buttonsetv();
 
 		}
-		
+
 	});
 
 	var schemeView = new SchemeView();
 	var schemeCSSView = new SchemeCSSView();
 	var schemeXresourcesView = new SchemeXresourcesView();
 	var schemeKonsoleView = new SchemeKonsoleView();
+	var schemeITerm2View = new SchemeITerm2View();
 	var schemeGuakeView = new SchemeGuakeView();
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var controlsView = new ControlsView();
