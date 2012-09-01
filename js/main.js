@@ -395,40 +395,49 @@ _4bit = function() {
 		
 	});
 	
-  var SchemeGuakeView = Backbone.View.extend({
-    model: scheme,
-    initialize: function() {
-      _.bindAll(this, 'render');
-      var that = this;
-      $('#guake-button').hover(function() {
-        that.render();
-      });
-      $('#guake-button').focus(function() {
-        that.render();
-      });
-    },
+	var SchemeGuakeView = Backbone.View.extend({
+		model: scheme,
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#guake-button').hover(function() {
+				that.render();
+			});
+			$('#guake-button').focus(function() {
+				that.render();
+			});
+		},
 
-    render: function() {
-      var that = this;
-      var palette = [];
-      var colors = that.model.get("colors");
-      _.each(COLOR_NAMES, function(name) {
-        palette.push( that.gnomeColor(colors[name]) )
-      });
-      out = "# save this script and run it as file " + '\n';
-      out +="# or copy the lines below directly into your shell " + '\n';
+		render: function() {
+			var that = this;
+			var palette = [];
+			var colors = that.model.get("colors");
+			
+			// Duplicate: #ab1224 -> #abab12122424, which is the expected format
+			function gnomeColor(color) {
+				return color.toString().replace(/#(.{2})(.{2})(.{2})/, '#$1$1$2$2$3$3');
+			}
+			
+			_.each(COLOR_NAMES, function(name) {
+				palette.push( gnomeColor(colors[name]) )
+			});
+			
+			out = '#!/bin/bash \n\n';
+			out += '# Save this script into set_colors.sh, make this file executable and run it: \n';
+			out += '# \n';
+			out += '# $ chmod +x set_colors.sh \n';
+			out += '# $ ./set_colors.sh \n';
+			out += '# \n';
+			out += '# Alternatively copy lines below directly into your shell. \n\n';
 
-      out += "gconftool-2 -s -t string /apps/guake/style/background/color '" + that.gnomeColor(colors["background"]) + "'" +'\n';
-      out += "gconftool-2 -s -t string /apps/guake/style/font/color '" + that.gnomeColor(colors["foreground"]) + "'" + '\n';
-      out += "gconftool-2 -s -t string /apps/guake/style/font/palette '" + palette.join(":") + "'" + '\n';
-      $('#guake-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
-    },
+			out += "gconftool-2 -s -t string /apps/guake/style/background/color '" + gnomeColor(colors["background"]) + "'" +'\n';
+			out += "gconftool-2 -s -t string /apps/guake/style/font/color '" + gnomeColor(colors["foreground"]) + "'" + '\n';
+			out += "gconftool-2 -s -t string /apps/guake/style/font/palette '" + palette.join(":") + "'" + '\n';
 
-    // Duplicate: #ab1224 -> #abab12122424, which is the expected format
-    gnomeColor: function(color) {
-      return color.toString().replace(/#(.{2})(.{2})(.{2})/, '#$1$1$2$2$3$3');
-    }
-  });
+			$('#guake-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+		},
+
+	});
 
 	var SchemeKonsoleView = Backbone.View.extend({
 		
