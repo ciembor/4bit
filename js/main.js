@@ -517,6 +517,93 @@ _4bit = function() {
 
 	});
 
+	var SchemeITerm2View = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#iterm2-button').hover(function() {
+				that.render();
+			});
+			$('#iterm2-button').focus(function() {
+				that.render();
+			});
+		},
+
+		colorRgb: function(context, color) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			return rgbArray[0] + ',' + rgbArray[1] + ',' + rgbArray[2];
+		},
+
+		colorKeyDict: function(context, color, name) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			var out = '';
+			out += '	<key>'+name+' Color</key>\n';
+			out += '	<dict>\n';
+			out += '		<key>Blue Component</key>\n';
+			out += '		<real>'+rgbArray[2]+'</real>\n';
+			out += '		<key>Green Component</key>\n';
+			out += '		<real>'+rgbArray[1]+'</real>\n';
+			out += '		<key>Red Component</key>\n';
+			out += '		<real>'+rgbArray[0]+'</real>\n';
+			out += '	</dict>\n';
+			return out;
+		},
+
+		render: function() {
+			var that = this;
+			var out = '';
+			var counter = 0;
+			var name = '4bit-' + that.model.get("colors")["foreground"] + "-on-" + that.model.get("colors")["background"];
+			name = name.replace(/#/g,'');
+
+			out += '<?xml version="1.0" encoding="UTF-8"?>\n';
+			out += '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n';
+			out += '\n<!--\n';
+			out += '      NAME.itermcolors                                                          \n';
+			out += '      Load it with iTerm2 Preferences panel                                     \n';
+			out += '                                                                                \n';
+			out += '      generated with 4bit Terminal Color Scheme Designer                        \n';
+			out += '                                                                                \n';
+			out += '      http://ciembor.github.com/4bit                                            \n';
+			out += '                                                                                \n';
+			out += '-->\n\n';
+
+			out += '<plist version="1.0">\n';
+			out += '<dict>\n';
+
+			out += '<!-- special colors -->\n';
+			out += that.colorKeyDict(that, "background", "Background");
+			out += that.colorKeyDict(that, "foreground", "Foreground");
+			out += that.colorKeyDict(that, "foreground", "Cursor");
+			out += that.colorKeyDict(that, "background", "Cursor Text");
+
+			out += '<!-- standard colors -->\n';
+
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2;
+
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+
+				out += '<!-- ' + name + ' -->\n';
+				out += that.colorKeyDict(that, name, "Ansi "+number);
+
+				counter += 1;
+			});
+
+			out += '</dict>\n';
+			out += '</plist>\n';
+			out += '\n';
+
+			$('#iterm2-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+		}
+
+	});
+
 	var SchemeXresourcesView = Backbone.View.extend({
 
 		model: scheme,
@@ -769,6 +856,7 @@ _4bit = function() {
 	var schemeCSSView = new SchemeCSSView();
 	var schemeXresourcesView = new SchemeXresourcesView();
 	var schemeKonsoleView = new SchemeKonsoleView();
+	var schemeITerm2View = new SchemeITerm2View();
 	var schemeGuakeView = new SchemeGuakeView();
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var controlsView = new ControlsView();
