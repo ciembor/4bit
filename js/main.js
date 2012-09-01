@@ -396,7 +396,9 @@ _4bit = function() {
 	});
 	
 	var SchemeGuakeView = Backbone.View.extend({
+		
 		model: scheme,
+		
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
@@ -435,7 +437,7 @@ _4bit = function() {
 			out += "gconftool-2 -s -t string /apps/guake/style/font/palette '" + palette.join(":") + "'" + '\n';
 
 			$('#guake-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
-		},
+		}
 
 	});
 
