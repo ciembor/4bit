@@ -561,7 +561,7 @@ _4bit = function() {
 
 			out += '<?xml version="1.0" encoding="UTF-8"?>\n';
 			out += '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n';
-			out += '\n<!--\n';
+			out += '\n<!--\n\n';
 			out += '      Save this file to '+name+'.itermcolors                                    \n';
 			out += '      and load it with iTerm2 Preferences panel                                 \n';
 			out += '                                                                                \n';
