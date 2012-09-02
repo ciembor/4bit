@@ -4,16 +4,21 @@
 		<meta charset="utf-8">
 		<meta name="author" content="Maciej Ciemborowicz" />
 		<title>4bit. Terminal Color Scheme Designer</title>
-		<meta name="description" content="This application allows you to create custom theme for a Linux terminal and export it to the .Xresources / .Xdefaults configuration file (xterm, aterm, eterm, rxvt, urxvt) and *.colorscheme (konsole, yakuake)."/>
-		<link href="css/merged.css?modified=20120901" rel="stylesheet" />
+		<meta name="description" content="This application
+		allows you to create custom theme for a Linux terminal
+		and export it to the .Xresources / .Xdefaults
+		configuration file (xterm, aterm, eterm, rxvt, urxvt),
+		*.colorscheme (konsole, yakuake) and *.itermcolors
+		(iTerm2 for Mac)"/>
+		<link href="css/merged.css?modified=20120902" rel="stylesheet" />
 		<style id="outline-fix"></style>
 	</head>
 	<body onmousedown="document.getElementById('outline-fix').innerHTML='a{outline:none}';" onkeydown="document.getElementById('outline-fix').innerHTML=''">
-		
+
 		<div id="fb-root"></div>
-		
+
 		<div class="wrapper">
-		
+
 			<header>
 				<h1><a href="http://ciembor.github.com/4bit"><span class="blue">4</span><span class="cyan">b</span><span class="magenta">i</span><span class="red">t</span></a> Terminal Color Scheme Designer</h1>
 				<section id="skews">
@@ -61,13 +66,13 @@
 							<li><a href="#foreground">Foreground</a></li>
 						</ul>
 						<div id="dye">
-							<input type="text" id="dye-colorpicker" />	
+							<input type="text" id="dye-colorpicker" />
 							<form class="radio-group" id="dye-radio">
 								<input id="dye-1" type="radio" name="dye" value="none" checked="checked" /><label for="dye-1">none</label>
 								<input id="dye-2" type="radio" name="dye" value="all" /><label for="dye-2">all</label>
 								<input id="dye-3" type="radio" name="dye" value="achromatic" /><label for="dye-3">achromatic</label>
 								<input id="dye-4" type="radio" name="dye" value="color" /><label for="dye-4">color</label>
-							</form>				
+							</form>
 						</div>
 						<div id="background">
 							<input type="text" id="background-colorpicker" />
@@ -77,7 +82,7 @@
 								<input id="bg-3" type="radio" name="background" value="bright_black" /><label for="bg-3">bright_black</label>
 								<input id="bg-4" type="radio" name="background" value="white" /><label for="bg-4">white</label>
 								<input id="bg-5" type="radio" name="background" value="bright_white" /><label for="bg-5">bright_white</label>
-							</form>				
+							</form>
 						</div>
 						<div id="foreground">
 							<input type="text" id="foreground-colorpicker" />
@@ -87,19 +92,19 @@
 								<input id="fg-3" type="radio" name="foreground" value="bright_black" /><label for="fg-3">bright_black</label>
 								<input id="fg-4" type="radio" name="foreground" value="white" /><label for="fg-4">white</label>
 								<input id="fg-5" type="radio" name="foreground" value="bright_white" /><label for="fg-5">bright_white</label>
-							</form>					
+							</form>
 						</div>
 					</section>
 				</section>
 			</div>
 
 		</div>
-		
+
 		<footer id="footer">
 			<p class="left"><a href="http://github.com/ciembor/4bit" target="_blank"><img src="images/github.png" alt="" /> Fork 4bit on GitHub.</a></p>
 			<p class="right">Developed by <a href="http://ciemborowicz.pl" rel="me" target="_blank">Maciej Ciemborowicz</a> <a href="https://twitter.com/ciembor" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">follow</a> and <a href="https://github.com/ciembor/4bit#contributors" target="_blank">contributors</a> in 2012.</p>
 		</footer>
-		
+
 		<div id="dialog-modal" title="Export scheme to the configuration file">
 			<ul>
 				<li>
@@ -114,25 +119,28 @@
 				<li>
 					<p>guake <a href="#" target="_blank" id="guake-button" class="get-scheme-link">shell</a>
 				</li>
+				<li>
+					<p>iTerm2<a href="#" target="_blank" id="iterm2-button" class="get-scheme-link">*.itermcolors</a>
+				</li>
 			</ul>
 		</div>
-		
+
 		<!-- JavaScript =========================================================================== -->
-		
+
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 		<script>window.jQuery || document.write("<script src='lib/js/jquery-1.8.0.min.js'>\x3C/script>")</script>
-		
+
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"></script>
 		<script>window._ || document.write("<script src='lib/js/underscore-min.js'>\x3C/script>")</script>
 
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
 		<script>window.Backbone || document.write("<script src='lib/js/backbone-min.js'>\x3C/script>")</script>
-		
-		<script src="js/compiled.js?modified=20120901"></script>
-		
+
+		<script src="js/compiled.js?modified=20120902"></script>
+
 		<script>_4bit();</script>
-		
+
 		<!-- End of JavaScript ==================================================================== -->
-		
+
 	</body>
 </html>
