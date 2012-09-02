@@ -543,11 +543,11 @@ _4bit = function() {
 			out += '	<key>'+name+' Color</key>\n';
 			out += '	<dict>\n';
 			out += '		<key>Blue Component</key>\n';
-			out += '		<real>'+rgbArray[2]+'</real>\n';
+			out += '		<real>'+rgbArray[2]/255+'</real>\n';
 			out += '		<key>Green Component</key>\n';
-			out += '		<real>'+rgbArray[1]+'</real>\n';
+			out += '		<real>'+rgbArray[1]/255+'</real>\n';
 			out += '		<key>Red Component</key>\n';
-			out += '		<real>'+rgbArray[0]+'</real>\n';
+			out += '		<real>'+rgbArray[0]/255+'</real>\n';
 			out += '	</dict>\n';
 			return out;
 		},
@@ -562,8 +562,8 @@ _4bit = function() {
 			out += '<?xml version="1.0" encoding="UTF-8"?>\n';
 			out += '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n';
 			out += '\n<!--\n';
-			out += '      NAME.itermcolors                                                          \n';
-			out += '      Load it with iTerm2 Preferences panel                                     \n';
+			out += '      Save this file to '+name+'.itermcolors                                    \n';
+			out += '      and load it with iTerm2 Preferences panel                                 \n';
 			out += '                                                                                \n';
 			out += '      generated with 4bit Terminal Color Scheme Designer                        \n';
 			out += '                                                                                \n';
@@ -589,7 +589,7 @@ _4bit = function() {
 					number += 7.5;
 				}
 
-				out += '<!-- ' + name + ' -->\n';
+				out += '	<!-- ' + name + ' -->\n';
 				out += that.colorKeyDict(that, name, "Ansi "+number);
 
 				counter += 1;
