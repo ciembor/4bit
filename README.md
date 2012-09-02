@@ -17,6 +17,11 @@ Put the generated file to `~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme`
 * __XFCE4 Terminal:__
 Backup `~/.config/Terminal/terminalrc` file and replace it with generated text. Take into account that this file contains all XFCE4 Terminal settings, not only color scheme.
 
+* __iTerm2 for Mac:__
+Create a file `~/NAME-OF-SCHEME.itermcolors` with the generated xml
+content and load it with the `Load Presets ...` button under
+`iTerm2 / Preferences / Profiles / <Your Profile> / Colors`.
+
 * __Other terminals:__
 Generate one of the supported formats and copy hex values into the configuration file (or tool) of your terminal.
 
