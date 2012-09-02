@@ -50,8 +50,13 @@ Contributors
 
 __Stefan Wienert__
 
-* http://stefanwienert.net
 * http://github.com/zealot128
+* http://stefanwienert.net
+
+__Victor Hugo Borja__
+
+* http://github.com/vic
+* http://twitter.com/vborja
 
 Resources
 ---------
