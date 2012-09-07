@@ -699,6 +699,52 @@ _4bit = function() {
 
 	});
 
+	var SchemeMinttyView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#mintty-button').hover(function() {
+				that.render();
+			});
+			$('#mintty-button').focus(function() {
+				that.render();
+			});
+		},
+
+		colorRgb: function(context, color) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			return rgbArray[0] + ',' + rgbArray[1] + ',' + rgbArray[2];
+		},
+
+		render: function() {
+			function MinttyName(name) {
+				if (0 === name.indexOf('bright_')) {
+					name = name.substring('bright_'.length);
+					return 'Bold' + name.charAt(0).toUpperCase() + name.slice(1);
+				} else {
+					return name.charAt(0).toUpperCase() + name.slice(1);
+				}
+			}
+
+			var that = this;
+			var out = '';
+
+			out += 'BackgroundColour='	+ that.colorRgb(that, "background") + '\n';
+			out += 'ForegroundColour='	+ that.colorRgb(that, "foreground") + '\n';
+			out += 'CursorColour='	+ that.colorRgb(that, "foreground") + '\n';
+
+			_.each(COLOR_NAMES, function(name) {
+				out += MinttyName(name) + '=' + that.colorRgb(that, name) + '\n';
+			});
+
+			$('#mintty-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+		}
+
+	});
+
 	var ControlsView = Backbone.View.extend({
 
 		el: $('#controls'),
@@ -856,6 +902,7 @@ _4bit = function() {
 	var schemeCSSView = new SchemeCSSView();
 	var schemeXresourcesView = new SchemeXresourcesView();
 	var schemeKonsoleView = new SchemeKonsoleView();
+	var schemeMinttyView = new SchemeMinttyView();
 	var schemeITerm2View = new SchemeITerm2View();
 	var schemeGuakeView = new SchemeGuakeView();
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
