@@ -441,6 +441,62 @@ _4bit = function() {
 
 	});
 
+	var SchemeGnomeTerminalView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#gnome-terminal-button').hover(function() {
+				that.render();
+			});
+			$('#gnome-terminal-button').focus(function() {
+				that.render();
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var palette = [];
+			var colors = that.model.get("colors");
+
+			// Duplicate: #ab1224 -> #abab12122424, which is the expected format
+			function gnomeColor(color) {
+				return color.toString().replace(/#(.{2})(.{2})(.{2})/, '#$1$1$2$2$3$3');
+			}
+
+			_.each(COLOR_NAMES, function(name) {
+				if (0 !== name.indexOf('bright_')) {
+					palette.push( gnomeColor(colors[name]) );
+				}	
+			});
+			
+			_.each(COLOR_NAMES, function(name) {
+				if (0 === name.indexOf('bright_')) {
+					palette.push( gnomeColor(colors[name]) );
+				}	
+			});
+
+			out = '#!/bin/bash \n\n';
+			out += '# Save this script into set_colors.sh, make this file executable and run it: \n';
+			out += '# \n';
+			out += '# $ chmod +x set_colors.sh \n';
+			out += '# $ ./set_colors.sh \n';
+			out += '# \n';
+			out += '# Alternatively copy lines below directly into your shell. \n\n';
+
+			out += "gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_theme_background --type bool false \n";
+			out += "gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_theme_colors --type bool false \n";
+			out += "gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/background_color '" + gnomeColor(colors["background"]) + "'" +'\n';
+			out += "gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/foreground_color '" + gnomeColor(colors["foreground"]) + "'" + '\n';
+			out += "gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/palette '" + palette.join(":") + "'" + '\n';
+
+			$('#gnome-terminal-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+		}
+
+	});
+
 	var SchemeKonsoleView = Backbone.View.extend({
 
 		model: scheme,
@@ -905,6 +961,7 @@ _4bit = function() {
 	var schemeMinttyView = new SchemeMinttyView();
 	var schemeITerm2View = new SchemeITerm2View();
 	var schemeGuakeView = new SchemeGuakeView();
+	var schemeGnomeTerminalView = new SchemeGnomeTerminalView();
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var controlsView = new ControlsView();
 

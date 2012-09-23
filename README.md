@@ -11,11 +11,17 @@ For users
 * __ATerm, Urxvt, Rxvt, XTerm and other libXt terminals:__
 Copy the generated text to `~/.Xresources` file (you may have to create it) and run `xrdb ~/.Xresources`.
 
-* __Konsole and Yakuake:__
-Put the generated file to `~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme` and restart the terminal.
+* __Gnome Terminal, Guake__
+Save the generated script into set_colors.sh, make this file executable and run it: 
+`$ chmod +x set_colors.sh` 
+`$ ./set_colors.sh`
+Alternatively copy generated lines directly into your shell.
 
 * __XFCE4 Terminal:__
 Backup `~/.config/Terminal/terminalrc` file and replace it with generated text. Take into account that this file contains all XFCE4 Terminal settings, not only color scheme.
+
+* __Konsole and Yakuake:__
+Put the generated file to `~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme` and restart the terminal.
 
 * __iTerm2 for Mac:__
 Create a file `~/NAME-OF-SCHEME.itermcolors` with the generated xml
