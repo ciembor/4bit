@@ -11,7 +11,7 @@ For users
 * __ATerm, Urxvt, Rxvt, XTerm and other libXt terminals:__
 Copy the generated text to `~/.Xresources` file (you may have to create it) and run `xrdb ~/.Xresources`.
 
-* __Gnome Terminal, Guake__:
+* __Gnome Terminal, Guake:__
 Save the generated script into set_colors.sh, make this file executable `$ chmod +x set_colors.sh` and run it `$ ./set_colors.sh`. Alternatively copy generated lines directly into your shell.
 
 * __XFCE4 Terminal:__
@@ -24,6 +24,9 @@ Put the generated file to `~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme`
 Create a file `~/NAME-OF-SCHEME.itermcolors` with the generated xml
 content and load it with the `Load Presets ...` button under
 `iTerm2 / Preferences / Profiles / <Your Profile> / Colors`.
+
+* __Putty:__
+Save the generated file with `.reg` extension and double click it.
 
 * __Other terminals:__
 Generate one of the supported formats and copy hex values into the configuration file (or tool) of your terminal.
