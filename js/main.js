@@ -801,6 +801,50 @@ _4bit = function() {
 
 	});
 
+	var SchemePuttyView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#putty-button').hover(function() {
+				that.render();
+			});
+			$('#putty-button').focus(function() {
+				that.render();
+			});
+		},
+
+		colorRgb: function(context, color) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			return rgbArray[0] + ',' + rgbArray[1] + ',' + rgbArray[2];
+		},
+
+		render: function() {
+			var that = this;
+			var out = '';
+			var counter = 6;
+			out += 'Windows Registry Editor Version 5.00 \n\n';
+			out += '[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\Default%20Settings]\n';
+
+			out += '"Colour0"="' + that.colorRgb(that, "foreground") + '"\n';
+			out += '"Colour1"="' + that.colorRgb(that, "foreground") + '"\n';
+			out += '"Colour2"="' + that.colorRgb(that, "background") + '"\n';
+			out += '"Colour3"="' + that.colorRgb(that, "background") + '"\n';
+			out += '"Colour4"="' + that.colorRgb(that, "background") + '"\n';
+			out += '"Colour5"="' + that.colorRgb(that, "foreground") + '"\n';
+
+			_.each(COLOR_NAMES, function(name) {
+				out += '"Colour' + counter + '"="' + that.colorRgb(that, name) + '"\n';
+				counter += 1;
+			});
+
+			$('#putty-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+		}
+
+	});
+
 	var ControlsView = Backbone.View.extend({
 
 		el: $('#controls'),
@@ -963,6 +1007,7 @@ _4bit = function() {
 	var schemeGuakeView = new SchemeGuakeView();
 	var schemeGnomeTerminalView = new SchemeGnomeTerminalView();
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
+	var schemePuttyView = new SchemePuttyView();
 	var controlsView = new ControlsView();
 
 	// basic layout behaviour /////////////////////////////
