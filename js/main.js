@@ -845,6 +845,46 @@ _4bit = function() {
 
 	});
 
+	var SchemeTerminatorView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#terminator-button').hover(function() {
+				that.render();
+			});
+			$('#terminator-button').focus(function() {
+				that.render();
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var out = '';
+			var palette = [];
+			var colors = that.model.get('colors');
+			var name = '4bit-' + (new Date()).getTime();
+
+			_.each(COLOR_NAMES, function(name) {
+				palette.push(colors[name]);
+			});
+
+			out += '# Color scheme configuration for Terminator terminal emulator (http://www.tenshu.net/terminator/ and https://launchpad.net/terminator)\n';
+			out += '# \n';
+			out += '# Copy the following lines within the [profiles] section of terminator configuration file at ~/.config/terminator/config\n\n';
+
+			out += '[[' + name + ']]\n';
+			out += '  use_theme_colors = False\n';
+			out += '  background_color = "' + colors['background'] + '"\n';
+			out += '  foreground_color = "' + colors['foreground'] + '"\n';
+			out += '  palette = "' + palette.join(':') + '"' + '\n';
+
+			$('#terminator-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+		}
+	});
+
 	var ControlsView = Backbone.View.extend({
 
 		el: $('#controls'),
@@ -1008,6 +1048,7 @@ _4bit = function() {
 	var schemeGnomeTerminalView = new SchemeGnomeTerminalView();
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var schemePuttyView = new SchemePuttyView();
+	var schemeTerminatorView = new SchemeTerminatorView();
 	var controlsView = new ControlsView();
 
 	// basic layout behaviour /////////////////////////////
