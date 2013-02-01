@@ -863,13 +863,19 @@ _4bit = function() {
 		render: function() {
 			var that = this;
 			var out = '';
-			var palette = [];
+			var palette_normal = [];
+			var palette_bright = [];
 			var colors = that.model.get('colors');
 			var name = '4bit-' + (new Date()).getTime();
 
 			_.each(COLOR_NAMES, function(name) {
-				palette.push(colors[name]);
+				if (0 === name.indexOf('bright_')) {
+					palette_bright.push(colors[name]);
+					palette_normal.push(colors[name.substr('bright_'.length)]);
+				}
 			});
+
+			var palette = palette_normal.concat(palette_bright);
 
 			out += '# Color scheme configuration for Terminator terminal emulator (http://www.tenshu.net/terminator/ and https://launchpad.net/terminator)\n';
 			out += '# \n';
