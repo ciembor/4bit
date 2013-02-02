@@ -27,6 +27,8 @@ content and load it with the `Load Presets ...` button under
 
 * __Putty:__
 Save the generated file with `.reg` extension and double click it.
+
+* __Terminator:__
 Copy lines within the [profiles] section of the generated configuration file to ~/.config/terminator/config file.
 
 * __Other terminals:__
