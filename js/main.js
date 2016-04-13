@@ -877,7 +877,7 @@ _4bit = function() {
 
 			var palette = palette_normal.concat(palette_bright);
 
-			out += '# Color scheme configuration for Terminator terminal emulator (http://www.tenshu.net/terminator/ and https://launchpad.net/terminator)\n';
+			out += '# Color scheme configuration for Terminator terminal emulator (http://gnometerminator.blogspot.com/p/introduction.html and https://launchpad.net/terminator)\n';
 			out += '# \n';
 			out += '# Copy the following lines within the [profiles] section of terminator configuration file at ~/.config/terminator/config\n\n';
 
