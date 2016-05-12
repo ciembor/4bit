@@ -31,6 +31,9 @@ Save the generated file with `.reg` extension and double click it.
 * __Terminator:__
 Copy lines within the [profiles] section of the generated configuration file to ~/.config/terminator/config file.
 
+* __Termite:__
+Copy lines within the [colors] section of the generated configuration file into your `~/.config/termite/config` file.
+
 * __Other terminals:__
 Generate one of the supported formats and copy hex values into the configuration file (or tool) of your terminal.
 
