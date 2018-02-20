@@ -919,13 +919,13 @@ _4bit = function() {
 			var counter = 1;
 			var name = '4bit generated ' + Math.floor(date.getTime()/1000);
 
-			out += '    <value name="Name" type="string" data="' + name +'" />\n';
-			out += '    <value name="ExtendColors" type="hex" data="00" />\n';
-			out += '    <value name="ExtendColorIdx" type="hex" data="0E" />\n';
-			out += '    <value name="TextColorIdx" type="hex" data="10"/>\n';
-			out += '    <value name="BackColorIdx" type="hex" data="10"/>\n';
-			out += '    <value name="PopTextColorIdx" type="hex" data="10"/>\n';
-			out += '    <value name="PopBackColorIdx" type="hex" data="10"/>\n';
+			out += '\t<value name="Name" type="string" data="' + name +'" />\n';
+			out += '\t<value name="ExtendColors" type="hex" data="00" />\n';
+			out += '\t<value name="ExtendColorIdx" type="hex" data="0E" />\n';
+			out += '\t<value name="TextColorIdx" type="hex" data="10"/>\n';
+			out += '\t<value name="BackColorIdx" type="hex" data="10"/>\n';
+			out += '\t<value name="PopTextColorIdx" type="hex" data="10"/>\n';
+			out += '\t<value name="PopBackColorIdx" type="hex" data="10"/>\n';
 
 			// special colors (not used in ConEmu)
 			// out += 'ColorBackground=' + that.model.get('colors')['background'] + '\n';
@@ -933,40 +933,40 @@ _4bit = function() {
 			// out += 'ColorCursor=' + that.model.get('colors')['foreground'] + '\n';
 
 			// standard colors
-			out += '    <value name="ColorTable00" type="dword" data="00' + that.colorBgrHex(that, "black") + '" />\n'; 
-			out += '    <value name="ColorTable01" type="dword" data="00' + that.colorBgrHex(that, "blue") + '" />\n'; 
-			out += '    <value name="ColorTable02" type="dword" data="00' + that.colorBgrHex(that, "green") + '" />\n'; 
-			out += '    <value name="ColorTable03" type="dword" data="00' + that.colorBgrHex(that, "cyan") + '" />\n'; 
-			out += '    <value name="ColorTable04" type="dword" data="00' + that.colorBgrHex(that, "red") + '" />\n'; 
-			out += '    <value name="ColorTable05" type="dword" data="00' + that.colorBgrHex(that, "magenta") + '" />\n'; 
-			out += '    <value name="ColorTable06" type="dword" data="00' + that.colorBgrHex(that, "yellow") + '" />\n'; 
-			out += '    <value name="ColorTable07" type="dword" data="00' + that.colorBgrHex(that, "white") + '" />\n'; 
-			out += '    <value name="ColorTable08" type="dword" data="00' + that.colorBgrHex(that, "bright_black") + '" />\n'; 
-			out += '    <value name="ColorTable09" type="dword" data="00' + that.colorBgrHex(that, "bright_blue") + '" />\n'; 
-			out += '    <value name="ColorTable10" type="dword" data="00' + that.colorBgrHex(that, "bright_green") + '" />\n'; 
-			out += '    <value name="ColorTable11" type="dword" data="00' + that.colorBgrHex(that, "bright_cyan") + '" />\n'; 
-			out += '    <value name="ColorTable12" type="dword" data="00' + that.colorBgrHex(that, "bright_red") + '" />\n'; 
-			out += '    <value name="ColorTable13" type="dword" data="00' + that.colorBgrHex(that, "bright_magenta") + '" />\n'; 
-			out += '    <value name="ColorTable14" type="dword" data="00' + that.colorBgrHex(that, "bright_yellow") + '" />\n'; 
-			out += '    <value name="ColorTable15" type="dword" data="00' + that.colorBgrHex(that, "bright_white") + '" />\n'; 
+			out += '\t<value name="ColorTable00" type="dword" data="00' + that.colorBgrHex(that, "black") + '"/>\n'; 
+			out += '\t<value name="ColorTable01" type="dword" data="00' + that.colorBgrHex(that, "blue") + '"/>\n'; 
+			out += '\t<value name="ColorTable02" type="dword" data="00' + that.colorBgrHex(that, "green") + '"/>\n'; 
+			out += '\t<value name="ColorTable03" type="dword" data="00' + that.colorBgrHex(that, "cyan") + '"/>\n'; 
+			out += '\t<value name="ColorTable04" type="dword" data="00' + that.colorBgrHex(that, "red") + '"/>\n'; 
+			out += '\t<value name="ColorTable05" type="dword" data="00' + that.colorBgrHex(that, "magenta") + '"/>\n'; 
+			out += '\t<value name="ColorTable06" type="dword" data="00' + that.colorBgrHex(that, "yellow") + '"/>\n'; 
+			out += '\t<value name="ColorTable07" type="dword" data="00' + that.colorBgrHex(that, "white") + '"/>\n'; 
+			out += '\t<value name="ColorTable08" type="dword" data="00' + that.colorBgrHex(that, "bright_black") + '"/>\n'; 
+			out += '\t<value name="ColorTable09" type="dword" data="00' + that.colorBgrHex(that, "bright_blue") + '"/>\n'; 
+			out += '\t<value name="ColorTable10" type="dword" data="00' + that.colorBgrHex(that, "bright_green") + '"/>\n'; 
+			out += '\t<value name="ColorTable11" type="dword" data="00' + that.colorBgrHex(that, "bright_cyan") + '"/>\n'; 
+			out += '\t<value name="ColorTable12" type="dword" data="00' + that.colorBgrHex(that, "bright_red") + '"/>\n'; 
+			out += '\t<value name="ColorTable13" type="dword" data="00' + that.colorBgrHex(that, "bright_magenta") + '"/>\n'; 
+			out += '\t<value name="ColorTable14" type="dword" data="00' + that.colorBgrHex(that, "bright_yellow") + '"/>\n'; 
+			out += '\t<value name="ColorTable15" type="dword" data="00' + that.colorBgrHex(that, "bright_white") + '"/>\n'; 
 
 			// extended colors (static/defaults)
-			out += '    <value name="ColorTable16" type="dword" data="00000000"/>';
-			out += '    <value name="ColorTable17" type="dword" data="00800000"/>';
-			out += '    <value name="ColorTable18" type="dword" data="00008000"/>';
-			out += '    <value name="ColorTable19" type="dword" data="00808000"/>';
-			out += '    <value name="ColorTable20" type="dword" data="00000080"/>';
-			out += '    <value name="ColorTable21" type="dword" data="00800080"/>';
-			out += '    <value name="ColorTable22" type="dword" data="00008080"/>';
-			out += '    <value name="ColorTable23" type="dword" data="00c0c0c0"/>';
-			out += '    <value name="ColorTable24" type="dword" data="00808080"/>';
-			out += '    <value name="ColorTable25" type="dword" data="00ff0000"/>';
-			out += '    <value name="ColorTable26" type="dword" data="0000ff00"/>';
-			out += '    <value name="ColorTable27" type="dword" data="00ffff00"/>';
-			out += '    <value name="ColorTable28" type="dword" data="000000ff"/>';
-			out += '    <value name="ColorTable29" type="dword" data="00ff00ff"/>';
-			out += '    <value name="ColorTable30" type="dword" data="0000ffff"/>';
-			out += '    <value name="ColorTable31" type="dword" data="00ffffff"/>';
+			out += '\t<value name="ColorTable16" type="dword" data="00000000"/>\n';
+			out += '\t<value name="ColorTable17" type="dword" data="00800000"/>\n';
+			out += '\t<value name="ColorTable18" type="dword" data="00008000"/>\n';
+			out += '\t<value name="ColorTable19" type="dword" data="00808000"/>\n';
+			out += '\t<value name="ColorTable20" type="dword" data="00000080"/>\n';
+			out += '\t<value name="ColorTable21" type="dword" data="00800080"/>\n';
+			out += '\t<value name="ColorTable22" type="dword" data="00008080"/>\n';
+			out += '\t<value name="ColorTable23" type="dword" data="00c0c0c0"/>\n';
+			out += '\t<value name="ColorTable24" type="dword" data="00808080"/>\n';
+			out += '\t<value name="ColorTable25" type="dword" data="00ff0000"/>\n';
+			out += '\t<value name="ColorTable26" type="dword" data="0000ff00"/>\n';
+			out += '\t<value name="ColorTable27" type="dword" data="00ffff00"/>\n';
+			out += '\t<value name="ColorTable28" type="dword" data="000000ff"/>\n';
+			out += '\t<value name="ColorTable29" type="dword" data="00ff00ff"/>\n';
+			out += '\t<value name="ColorTable30" type="dword" data="0000ffff"/>\n';
+			out += '\t<value name="ColorTable31" type="dword" data="00ffffff"/>\n';
 			out += '</key>';
 
 			/*
