@@ -891,6 +891,82 @@ _4bit = function() {
 		}
 	});
 
+	var SchemeConemuView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#conemu-button').hover(function() {
+				that.render();
+			});
+			$('#conemu-button').focus(function() {
+				that.render();
+			});
+		},
+
+		colorBgrHex: function(context, color) {
+			var rgbHex = context.model.get("colors")[color].toString();
+			return rgbHex.substr(5,2) + rgbHex.substr(3,2) + rgbHex.substr(1,2);
+
+		},
+
+		render: function() {
+			var that = this;
+			var out = '<key name="Palette1" modified="' + (new Date()).toISOString() + '" build="180131">\n';
+			var counter = 1;
+			var name = '4bit generated';
+
+			out += '    <value name="Name" type="string" data="' + name +'" />\n';
+			out += '    <value name="ExtendColors" type="hex" data="00" />\n';
+			out += '    <value name="ExtendColorIdx" type="hex" data="0E" />\n';
+			out += '    <value name="TextColorIdx" type="hex" data="10"/>\n';
+			out += '    <value name="BackColorIdx" type="hex" data="10"/>\n';
+			out += '    <value name="PopTextColorIdx" type="hex" data="10"/>\n';
+			out += '    <value name="PopBackColorIdx" type="hex" data="10"/>\n';
+			// special colors
+			// out += 'ColorBackground=' + that.model.get('colors')['background'] + '\n';
+			// out += 'ColorForeground=' + that.model.get('colors')['foreground'] + '\n';
+			// out += 'ColorCursor=' + that.model.get('colors')['foreground'] + '\n';
+
+			// standard colors
+			out += '    <value name="ColorTable00" type="dword" data="00' + that.colorBgrHex(that, "black") + '" />\n'; 
+			out += '    <value name="ColorTable01" type="dword" data="00' + that.colorBgrHex(that, "blue") + '" />\n'; 
+			out += '    <value name="ColorTable02" type="dword" data="00' + that.colorBgrHex(that, "green") + '" />\n'; 
+			out += '    <value name="ColorTable03" type="dword" data="00' + that.colorBgrHex(that, "cyan") + '" />\n'; 
+			out += '    <value name="ColorTable04" type="dword" data="00' + that.colorBgrHex(that, "red") + '" />\n'; 
+			out += '    <value name="ColorTable05" type="dword" data="00' + that.colorBgrHex(that, "magenta") + '" />\n'; 
+			out += '    <value name="ColorTable06" type="dword" data="00' + that.colorBgrHex(that, "yellow") + '" />\n'; 
+			out += '    <value name="ColorTable07" type="dword" data="00' + that.colorBgrHex(that, "white") + '" />\n'; 
+			out += '    <value name="ColorTable08" type="dword" data="00' + that.colorBgrHex(that, "bright_black") + '" />\n'; 
+			out += '    <value name="ColorTable09" type="dword" data="00' + that.colorBgrHex(that, "bright_blue") + '" />\n'; 
+			out += '    <value name="ColorTable10" type="dword" data="00' + that.colorBgrHex(that, "bright_green") + '" />\n'; 
+			out += '    <value name="ColorTable11" type="dword" data="00' + that.colorBgrHex(that, "bright_cyan") + '" />\n'; 
+			out += '    <value name="ColorTable12" type="dword" data="00' + that.colorBgrHex(that, "bright_red") + '" />\n'; 
+			out += '    <value name="ColorTable13" type="dword" data="00' + that.colorBgrHex(that, "bright_magenta") + '" />\n'; 
+			out += '    <value name="ColorTable14" type="dword" data="00' + that.colorBgrHex(that, "bright_yellow") + '" />\n'; 
+			out += '    <value name="ColorTable15" type="dword" data="00' + that.colorBgrHex(that, "bright_white") + '" />\n'; 
+			out += '</key>';
+
+			/*
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2 + 0.5;
+
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+
+				// out += 'ColorPalette' + number + '=' + that.model.get('colors')[name] + '\n';
+				counter += 1;
+			});
+			*/
+
+			$('#conemu-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+		}
+
+	});
+
 	var ControlsView = Backbone.View.extend({
 
 		el: $('#controls'),
@@ -1055,6 +1131,7 @@ _4bit = function() {
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var schemePuttyView = new SchemePuttyView();
 	var schemeTerminatorView = new SchemeTerminatorView();
+	var schemeConemuView = new SchemeConemuView();
 	var controlsView = new ControlsView();
 
 	// basic layout behaviour /////////////////////////////
