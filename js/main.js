@@ -914,9 +914,10 @@ _4bit = function() {
 
 		render: function() {
 			var that = this;
-			var out = '<key name="Palette1" modified="' + (new Date()).toISOString() + '" build="180131">\n';
+			var date = new Date();
+			var out = '<key name="Palette1" modified="' + date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '" build="180131">\n';
 			var counter = 1;
-			var name = '4bit generated';
+			var name = '4bit generated ' + Math.floor(date.getTime()/1000);
 
 			out += '    <value name="Name" type="string" data="' + name +'" />\n';
 			out += '    <value name="ExtendColors" type="hex" data="00" />\n';
