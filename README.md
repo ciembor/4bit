@@ -32,7 +32,7 @@ Save the generated file with `.reg` extension and double click it.
 Copy lines within the [profiles] section of the generated configuration file to ~/.config/terminator/config file.
 
 * __ConEmu:__
-Copy and paste the generated XML into `%APPDATA%\ConEmu.xml` at the bottom of the `<key name="Colors"...` node. _If necessary, rename `Palette1` to reflect the new palette count._ Save and reload ConEmu settings.
+Copy and paste the generated XML into `%APPDATA%\ConEmu.xml` at the bottom of the `<key name="Colors"...` node. _If necessary, rename `Palette1` and change `<value name="Count"...` to reflect the new palette count._ Save and reload ConEmu settings.
 
 * __Other terminals:__
 Generate one of the supported formats and copy hex values into the configuration file (or tool) of your terminal.

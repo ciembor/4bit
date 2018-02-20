@@ -926,7 +926,8 @@ _4bit = function() {
 			out += '    <value name="BackColorIdx" type="hex" data="10"/>\n';
 			out += '    <value name="PopTextColorIdx" type="hex" data="10"/>\n';
 			out += '    <value name="PopBackColorIdx" type="hex" data="10"/>\n';
-			// special colors
+
+			// special colors (not used in ConEmu)
 			// out += 'ColorBackground=' + that.model.get('colors')['background'] + '\n';
 			// out += 'ColorForeground=' + that.model.get('colors')['foreground'] + '\n';
 			// out += 'ColorCursor=' + that.model.get('colors')['foreground'] + '\n';
@@ -948,6 +949,24 @@ _4bit = function() {
 			out += '    <value name="ColorTable13" type="dword" data="00' + that.colorBgrHex(that, "bright_magenta") + '" />\n'; 
 			out += '    <value name="ColorTable14" type="dword" data="00' + that.colorBgrHex(that, "bright_yellow") + '" />\n'; 
 			out += '    <value name="ColorTable15" type="dword" data="00' + that.colorBgrHex(that, "bright_white") + '" />\n'; 
+
+			// extended colors (static/defaults)
+			out += '    <value name="ColorTable16" type="dword" data="00000000"/>';
+			out += '    <value name="ColorTable17" type="dword" data="00800000"/>';
+			out += '    <value name="ColorTable18" type="dword" data="00008000"/>';
+			out += '    <value name="ColorTable19" type="dword" data="00808000"/>';
+			out += '    <value name="ColorTable20" type="dword" data="00000080"/>';
+			out += '    <value name="ColorTable21" type="dword" data="00800080"/>';
+			out += '    <value name="ColorTable22" type="dword" data="00008080"/>';
+			out += '    <value name="ColorTable23" type="dword" data="00c0c0c0"/>';
+			out += '    <value name="ColorTable24" type="dword" data="00808080"/>';
+			out += '    <value name="ColorTable25" type="dword" data="00ff0000"/>';
+			out += '    <value name="ColorTable26" type="dword" data="0000ff00"/>';
+			out += '    <value name="ColorTable27" type="dword" data="00ffff00"/>';
+			out += '    <value name="ColorTable28" type="dword" data="000000ff"/>';
+			out += '    <value name="ColorTable29" type="dword" data="00ff00ff"/>';
+			out += '    <value name="ColorTable30" type="dword" data="0000ffff"/>';
+			out += '    <value name="ColorTable31" type="dword" data="00ffffff"/>';
 			out += '</key>';
 
 			/*
