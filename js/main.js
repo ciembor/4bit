@@ -469,13 +469,13 @@ _4bit = function() {
 			_.each(COLOR_NAMES, function(name) {
 				if (0 !== name.indexOf('bright_')) {
 					palette.push( gnomeColor(colors[name]) );
-				}	
+				}
 			});
-			
+
 			_.each(COLOR_NAMES, function(name) {
 				if (0 === name.indexOf('bright_')) {
 					palette.push( gnomeColor(colors[name]) );
-				}	
+				}
 			});
 
 			out = '#!/bin/bash \n\n';
@@ -912,7 +912,7 @@ _4bit = function() {
 			var counter = 0;
 
 			lsResult += '// --- ~/.settings.json ---------------------------------------------------------\n';
-			lsResult += '// --- Copy the text below including the curly braces {...} and past into     ---\n';
+			lsResult += '// --- Copy the text below including the curly braces {...} and paste into    ---\n';
 			lsResult += '// --- schemes [] array in settings.json of Windows Terminal.                 ---\n';
 			lsResult += '// ------------------------------------------------------------------------------\n';
 			lsResult += '// --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
