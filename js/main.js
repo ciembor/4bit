@@ -891,6 +891,68 @@ _4bit = function() {
 		}
 	});
 
+	var SchemeWindowsTerminalView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#windows-terminal-button').hover(function() {
+				that.render();
+			});
+			$('#windows-terminal-button').focus(function() {
+				that.render();
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var lsResult = '';
+			var counter = 0;
+
+			lsResult += '// --- ~/.settings.json ---------------------------------------------------------\n';
+			lsResult += '// --- Copy the text below including the curly braces {...} and past into     ---\n';
+			lsResult += '// --- schemes [] array in settings.json of Windows Terminal.                 ---\n';
+			lsResult += '// ------------------------------------------------------------------------------\n';
+			lsResult += '// --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
+			lsResult += '// ------------------------------------------------------------------------------\n';
+			lsResult += '// --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			lsResult += '// --- with Windows Terminal code by Victor Wheeler. ----------------------------\n';
+			lsResult += '// ------------------------------------------------------------------------------\n\n';
+			lsResult += '      {\n';
+
+			lsResult += '          "name" : "your_name",\n\n';
+			lsResult += '          // --- special colors ---\n\n';
+			lsResult += '          "background"   : "' + that.model.get('colors')['background'] + '",\n';
+			lsResult += '          "foreground"   : "' + that.model.get('colors')['foreground'] + '",\n\n';
+			lsResult += '          // --- standard colors ---\n\n';
+			lsResult += '          "black"        : "' + that.model.get('colors')['black'] + '",\n';
+			lsResult += '          "blue"         : "' + that.model.get('colors')['blue'] + '",\n';
+			lsResult += '          "cyan"         : "' + that.model.get('colors')['cyan'] + '",\n';
+			lsResult += '          "green"        : "' + that.model.get('colors')['green'] + '",\n';
+			lsResult += '          "purple"       : "' + that.model.get('colors')['magenta'] + '",\n';
+			lsResult += '          "red"          : "' + that.model.get('colors')['red'] + '",\n';
+			lsResult += '          "white"        : "' + that.model.get('colors')['white'] + '",\n';
+			lsResult += '          "yellow"       : "' + that.model.get('colors')['yellow'] + '",\n';
+			lsResult += '          "brightBlack"  : "' + that.model.get('colors')['bright_black'] + '",\n';
+			lsResult += '          "brightBlue"   : "' + that.model.get('colors')['bright_blue'] + '",\n';
+			lsResult += '          "brightCyan"   : "' + that.model.get('colors')['bright_cyan'] + '",\n';
+			lsResult += '          "brightGreen"  : "' + that.model.get('colors')['bright_green'] + '",\n';
+			lsResult += '          "brightPurple" : "' + that.model.get('colors')['bright_magenta'] + '",\n';
+			lsResult += '          "brightRed"    : "' + that.model.get('colors')['bright_red'] + '",\n';
+			lsResult += '          "brightWhite"  : "' + that.model.get('colors')['bright_white'] + '",\n';
+			lsResult += '          "brightYellow" : "' + that.model.get('colors')['bright_yellow'] + '"\n';
+			lsResult += '      },\n\n';
+			lsResult += '// ------------------------------------------------------------------------------\n';
+			lsResult += '// --- end of terminal colors section -------------------------------------------\n';
+			lsResult += '// ------------------------------------------------------------------------------\n\n';
+
+			$('#windows-terminal-button').attr('href', 'data:text/plain,' + encodeURIComponent(lsResult));
+		}
+
+	});
+
 	var ControlsView = Backbone.View.extend({
 
 		el: $('#controls'),
@@ -1055,6 +1117,7 @@ _4bit = function() {
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var schemePuttyView = new SchemePuttyView();
 	var schemeTerminatorView = new SchemeTerminatorView();
+	var schemeWindowsTerminalView = new SchemeWindowsTerminalView();
 	var controlsView = new ControlsView();
 
 	// basic layout behaviour /////////////////////////////
