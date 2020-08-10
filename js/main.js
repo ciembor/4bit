@@ -922,7 +922,7 @@ _4bit = function() {
 			lsResult += '// ------------------------------------------------------------------------------\n\n';
 			lsResult += '      {\n';
 
-			lsResult += '          "name" : "your_name",\n\n';
+			lsResult += '          "name"         : "your_name",\n\n';
 			lsResult += '          // --- special colors ---\n\n';
 			lsResult += '          "background"   : "' + that.model.get('colors')['background'] + '",\n';
 			lsResult += '          "foreground"   : "' + that.model.get('colors')['foreground'] + '",\n\n';
