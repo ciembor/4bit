@@ -922,11 +922,11 @@ _4bit = function() {
 			lsResult += '// ------------------------------------------------------------------------------\n\n';
 			lsResult += '      {\n';
 
-			lsResult += '          "name"         : "your_name",\n\n';
-			lsResult += '          // --- special colors ---\n\n';
+			lsResult += '          "name"         : "your_name",\n';
+			lsResult += '          // --- special colors ---\n';
 			lsResult += '          "background"   : "' + that.model.get('colors')['background'] + '",\n';
-			lsResult += '          "foreground"   : "' + that.model.get('colors')['foreground'] + '",\n\n';
-			lsResult += '          // --- standard colors ---\n\n';
+			lsResult += '          "foreground"   : "' + that.model.get('colors')['foreground'] + '",\n';
+			lsResult += '          // --- standard colors ---\n';
 			lsResult += '          "black"        : "' + that.model.get('colors')['black'] + '",\n';
 			lsResult += '          "blue"         : "' + that.model.get('colors')['blue'] + '",\n';
 			lsResult += '          "cyan"         : "' + that.model.get('colors')['cyan'] + '",\n';
