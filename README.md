@@ -31,6 +31,10 @@ Save the generated file with `.reg` extension and double click it.
 * __Terminator:__
 Copy lines within the [profiles] section of the generated configuration file to ~/.config/terminator/config file.
 
+* __Windows Terminal:__
+
+  Copy output lines within the 'schemes' array (between the square braces) of the Windows Terminal settings.json file, and give it your own name.
+
 * __Other terminals:__
 Generate one of the supported formats and copy hex values into the configuration file (or tool) of your terminal.
 
@@ -66,6 +70,10 @@ __Victor Hugo Borja__
 
 * http://github.com/vic
 * http://twitter.com/vborja
+
+__Victor Wheeler__
+
+- http://github.com/vwheeler63
 
 Resources
 ---------
