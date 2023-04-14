@@ -1,10 +1,10 @@
-[4bit](http://ciembor.github.com/4bit) Terminal Color Scheme Designer
+[4bit](http://ciembor.github.io/4bit) Terminal Color Scheme Designer
 =========
 
 For users
 ---------
 
-1. Go to http://ciembor.github.com/4bit.
+1. Go to http://ciembor.github.io/4bit.
 2. Design your terminal look.
 3. Click `Get Scheme` button and select the format of configuration file.
 
@@ -51,8 +51,8 @@ Author
 
 __Maciej Ciemborowicz__
 
-* http://ciemborowicz.pl
 * http://twitter.com/ciembor
+* https://pl.linkedin.com/in/maciej-ciemborowicz-57202470
 
 Contributors
 ---------
