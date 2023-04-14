@@ -402,11 +402,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#guake-button').hover(function() {
-				that.render();
-			});
-			$('#guake-button').focus(function() {
-				that.render();
+			$('#guake-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', 'set_colors.sh');
 			});
 		},
 
@@ -414,6 +416,8 @@ _4bit = function() {
 			var that = this;
 			var palette = [];
 			var colors = that.model.get("colors");
+      var blob = null;
+      var file = null;
 
 			// Duplicate: #ab1224 -> #abab12122424, which is the expected format
 			function gnomeColor(color) {
@@ -436,7 +440,7 @@ _4bit = function() {
 			out += "gconftool-2 -s -t string /apps/guake/style/font/color '" + gnomeColor(colors["foreground"]) + "'" + '\n';
 			out += "gconftool-2 -s -t string /apps/guake/style/font/palette '" + palette.join(":") + "'" + '\n';
 
-			$('#guake-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+      return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -448,11 +452,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#gnome-terminal-button').hover(function() {
-				that.render();
-			});
-			$('#gnome-terminal-button').focus(function() {
-				that.render();
+			$('#gnome-terminal-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', 'set_colors.sh');
 			});
 		},
 
@@ -469,13 +475,13 @@ _4bit = function() {
 			_.each(COLOR_NAMES, function(name) {
 				if (0 !== name.indexOf('bright_')) {
 					palette.push( gnomeColor(colors[name]) );
-				}	
+				}
 			});
-			
+
 			_.each(COLOR_NAMES, function(name) {
 				if (0 === name.indexOf('bright_')) {
 					palette.push( gnomeColor(colors[name]) );
-				}	
+				}
 			});
 
 			out = '#!/bin/bash \n\n';
@@ -492,7 +498,7 @@ _4bit = function() {
 			out += "gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/foreground_color '" + gnomeColor(colors["foreground"]) + "'" + '\n';
 			out += "gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/palette '" + palette.join(":") + "'" + '\n';
 
-			$('#gnome-terminal-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -504,11 +510,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#konsole-button').hover(function() {
-				that.render();
-			});
-			$('#konsole-button').focus(function() {
-				that.render();
+			$('#konsole-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', '4bit.colorscheme');
 			});
 		},
 
@@ -568,7 +576,7 @@ _4bit = function() {
 			out += '# --- general options ---\n\n';
 			out += '[General]\nDescription=' + name + '\nOpacity=1\n';
 
-			$('#konsole-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -580,11 +588,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#iterm2-button').hover(function() {
-				that.render();
-			});
-			$('#iterm2-button').focus(function() {
-				that.render();
+			$('#iterm2-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', '4bit.itermcolors');
 			});
 		},
 
@@ -655,7 +665,7 @@ _4bit = function() {
 			out += '</plist>\n';
 			out += '\n';
 
-			$('#iterm2-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -667,11 +677,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#xresources-button').hover(function() {
-				that.render();
-			});
-			$('#xresources-button').focus(function() {
-				that.render();
+			$('#xresources-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', '.Xresources');
 			});
 		},
 
@@ -708,7 +720,7 @@ _4bit = function() {
 			xresources += '! --- end of terminal colors section -------------------------------------------\n';
 			xresources += '! ------------------------------------------------------------------------------\n\n';
 
-			$('#xresources-button').attr('href', 'data:text/plain,' + encodeURIComponent(xresources));
+			return new Blob([xresources], { type: 'text/text' });
 		}
 
 	});
@@ -720,11 +732,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#xfce-terminal-button').hover(function() {
-				that.render();
-			});
-			$('#xfce-terminal-button').focus(function() {
-				that.render();
+			$('#xfce-terminal-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', 'terminalrc');
 			});
 		},
 
@@ -750,7 +764,7 @@ _4bit = function() {
 				counter += 1;
 			});
 
-			$('#xfce-terminal-button').attr('href', 'data:text/plain,' + encodeURIComponent(terminalrc));
+			return new Blob([terminalrc], { type: 'text/text' });
 		}
 
 	});
@@ -762,11 +776,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#mintty-button').hover(function() {
-				that.render();
-			});
-			$('#mintty-button').focus(function() {
-				that.render();
+			$('#mintty-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', '4bit-mintty-color-scheme');
 			});
 		},
 
@@ -796,7 +812,7 @@ _4bit = function() {
 				out += MinttyName(name) + '=' + that.colorRgb(that, name) + '\n';
 			});
 
-			$('#mintty-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -808,11 +824,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#putty-button').hover(function() {
-				that.render();
-			});
-			$('#putty-button').focus(function() {
-				that.render();
+			$('#putty-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', '4bit-putty-color-scheme.reg');
 			});
 		},
 
@@ -840,7 +858,7 @@ _4bit = function() {
 				counter += 1;
 			});
 
-			$('#putty-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -852,11 +870,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#terminator-button').hover(function() {
-				that.render();
-			});
-			$('#terminator-button').focus(function() {
-				that.render();
+			$('#terminator-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', 'config');
 			});
 		},
 
@@ -887,7 +907,7 @@ _4bit = function() {
 			out += '  foreground_color = "' + colors['foreground'] + '"\n';
 			out += '  palette = "' + palette.join(':') + '"' + '\n';
 
-			$('#terminator-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 	});
 
@@ -1087,4 +1107,3 @@ _4bit = function() {
 	});
 
 }
-
