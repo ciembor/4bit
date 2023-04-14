@@ -13,9 +13,9 @@
 ### Paths
 
 APP_PATH=`pwd`
-CLOSURE_LIB="../closure/closure"
-COMPILER="/usr/share/java/closure-compiler/closure-compiler.jar"
-
+CLOSURE_LIB="./lib/google-closure-library/closure"
+# COMPILER="/usr/share/java/closure-compiler/closure-compiler.jar"
+COMPILER="/home/maciej/.nvm/versions/node/v19.9.0/lib/node_modules/google-closure-compiler-linux/compiler"
 ################################################################################
 ### Options
 
@@ -51,7 +51,7 @@ python2 ${CLOSURE_LIB}/bin/calcdeps.py -i ${APP_PATH}/lib/js/jquery-ui-1.8.23.cu
 status
 
 echo "==== Compiling LESS ============================================================"
-/usr/bin/lessc ${APP_PATH}/less/main.less ${APP_PATH}/css/_compiled_main.css ${less_options}
+lessc ${APP_PATH}/less/main.less ${APP_PATH}/css/_compiled_main.css ${less_options}
 status
 
 echo "==== Merging CSS ==============================================================="
