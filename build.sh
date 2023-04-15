@@ -14,8 +14,7 @@
 
 APP_PATH=`pwd`
 CLOSURE_LIB="./lib/google-closure-library/closure"
-# COMPILER="/usr/share/java/closure-compiler/closure-compiler.jar"
-COMPILER="/home/maciej/.nvm/versions/node/v19.9.0/lib/node_modules/google-closure-compiler-linux/compiler"
+COMPILER="./node_modules/google-closure-compiler/compiler.jar"
 ################################################################################
 ### Options
 
@@ -26,8 +25,8 @@ if [ $# -ne 2 ]
 then
 	if [[ "$1" = "production" ]]
 	then
-		closure_options="-o compiled -c ${COMPILER}"
-		less_options="-yui-compress"
+		closure_options="-o compiled -c ${COMPILER} -f --strict_mode_input=false -f --process_closure_primitives=false"
+		less_options="--compress"
 	fi
 fi
 
