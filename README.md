@@ -37,14 +37,14 @@ Generate one of the supported formats and copy hex values into the configuration
 For developers
 ---------
 
-I pushed to this repository all fonts, images and most of third-party libraries. The only missed JavaScript dependency is [Google Closure Library](https://developers.google.com/closure/library/).
-You will also need some system tools to run the build script:
+You will need some system tools to run the build script:
 * [GNU Bash](http://www.gnu.org/software/bash/)
+* [Java Runtime Environment 8](https://www.java.com/en/download/manual.jsp)
 * [Python 2](http://www.python.org/download/releases/2.7.2/)
 * [LESS compiler (lessc)](http://lesscss.org/)
-* [Google Closure Compiler](https://developers.google.com/closure/compiler/)
+* [NPM](https://www.npmjs.com/)
 
-After `git clone` please edit `build.sh` and make sure that paths are correct. After that run `./build.sh`. It generates compiled JavaScript, compiled LESS, and merged CSS.
+After `git clone` run `npm install`. After that run `./build.sh`. It generates compiled JavaScript, compiled LESS, and merged CSS. For compiling code for production run `./build.sh production`.
 
 Author
 ---------
