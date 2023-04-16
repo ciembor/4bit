@@ -521,7 +521,7 @@ _4bit = function() {
 			out += '# ------------------------------------------------------------------------------\n';
 			out += '# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
 			out += '# ------------------------------------------------------------------------------\n';
-			out += '# --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			out += '# --- http://ciembor.github.io/4bit --------------------------------------------\n';
 			out += '# ------------------------------------------------------------------------------\n\n';
 
 			out += '# --- special colors ---\n\n';
@@ -617,7 +617,7 @@ _4bit = function() {
 			out += '                                                                                \n';
 			out += '      generated with 4bit Terminal Color Scheme Designer                        \n';
 			out += '                                                                                \n';
-			out += '      http://ciembor.github.com/4bit                                            \n';
+			out += '      http://ciembor.github.io/4bit                                             \n';
 			out += '                                                                                \n';
 			out += '-->\n\n';
 
@@ -680,7 +680,7 @@ _4bit = function() {
 			xresources += '! ------------------------------------------------------------------------------\n';
 			xresources += '! --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
 			xresources += '! ------------------------------------------------------------------------------\n';
-			xresources += '! --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			xresources += '! --- http://ciembor.github.io/4bit --------------------------------------------\n';
 			xresources += '! ------------------------------------------------------------------------------\n\n';
 
 			xresources += '! --- special colors ---\n\n';
