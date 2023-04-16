@@ -1090,18 +1090,21 @@ _4bit = function() {
 		}
 	);
 
-	$(window).bind("load", function() {
+	$(window).bind('load', function() {
 		$('#display').css('visibility', 'visible');
 		$('#controls').css('visibility', 'visible');
 		$('#skews').fadeIn(700);
 		$('#app').animate({opacity: 1}, 700);
-		$("#get-scheme-button").click(function(button) {
-			$("#dialog-modal").dialog({
+		$('#get-scheme-button').click(function(button) {
+			$('#dialog-modal').dialog({
 				height: 90 + 50 * $('.get-scheme-link').length,
 				width: 450,
 				modal: true,
 				draggable: false,
-				resizable: false
+				resizable: false,
+        open: function( event, ui ) {
+          $('.ui-dialog').css('display', 'flex');
+        }
 			});
 		});
 	});

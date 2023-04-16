@@ -477,6 +477,9 @@ body {
 .ui-dialog {
 	font-family: 'Rationale', sans-serif;
 	background: #c9c9c9 !important;
+	display: flex;
+	flex-direction: column;
+	max-height: 90vh;
 
 	&>.ui-widget-header {
 		padding-left: 15px;
@@ -487,7 +490,10 @@ body {
 	}
 
 	&>.ui-widget-content {
+		overflow: scroll;
 		background: #c9c9c9 !important;
+		height: auto !important;
+		padding: 1em 0.8em 0.8em 0.8em;
 	}
 
 	.ui-icon-closethick {
@@ -499,7 +505,6 @@ body {
 	}
 
 	ul {
-		margin-top: 12px;
 		background-color: #eee;
 		border-radius: 6px;
 
