@@ -1,10 +1,10 @@
-[4bit](http://ciembor.github.com/4bit) Terminal Color Scheme Designer
+[4bit](http://ciembor.github.io/4bit) Terminal Color Scheme Designer
 =========
 
 For users
 ---------
 
-1. Go to http://ciembor.github.com/4bit.
+1. Go to http://ciembor.github.io/4bit.
 2. Design your terminal look.
 3. Click `Get Scheme` button and select the format of configuration file.
 
@@ -28,28 +28,31 @@ content and load it with the `Load Presets ...` button under
 * __Putty:__
 Save the generated file with `.reg` extension and double click it.
 
+* __Terminator:__
+Copy lines within the [profiles] section of the generated configuration file to ~/.config/terminator/config file.
+
 * __Other terminals:__
 Generate one of the supported formats and copy hex values into the configuration file (or tool) of your terminal.
 
 For developers
 ---------
 
-I pushed to this repository all fonts, images and most of third-party libraries. The only missed JavaScript dependency is [Google Closure Library](https://developers.google.com/closure/library/).
-You will also need some system tools to run the build script:
+You will need some system tools to run the build script:
 * [GNU Bash](http://www.gnu.org/software/bash/)
+* [Java Runtime Environment 8](https://www.java.com/en/download/manual.jsp)
 * [Python 2](http://www.python.org/download/releases/2.7.2/)
 * [LESS compiler (lessc)](http://lesscss.org/)
-* [Google Closure Compiler](https://developers.google.com/closure/compiler/)
+* [NPM](https://www.npmjs.com/)
 
-After `git clone` please edit `build.sh` and make sure that paths are correct. After that run `./build.sh`. It generates compiled JavaScript, compiled LESS, and merged CSS.
+After `git clone` run `npm install`. After that run `./build.sh`. It generates compiled JavaScript, compiled LESS, and merged CSS. For compiling code for production run `./build.sh production`.
 
 Author
 ---------
 
 __Maciej Ciemborowicz__
 
-* http://ciemborowicz.pl
 * http://twitter.com/ciembor
+* https://pl.linkedin.com/in/maciej-ciemborowicz-57202470
 
 Contributors
 ---------
