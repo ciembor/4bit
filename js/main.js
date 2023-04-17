@@ -131,12 +131,12 @@ _4bit = function() {
 	var Scheme = Backbone.Model.extend({
 
 		defaults: {
-			hue: 0,
-			saturation: 0.3,
-			normal_lightness: 0.6,
-			bright_lightness: 0.8,
-			black: [HSL(0, 0, 0), HSL(0, 0, 0.15)],
-			white: [HSL(0, 0, 0.85), HSL(0, 0, 1)],
+			hue: -15,
+			saturation: 0.5,
+			normal_lightness: 0.5,
+			bright_lightness: 0.75,
+			black: [HSL(0, 0, 0), HSL(0, 0, 0.125)],
+			white: [HSL(0, 0, 0.875), HSL(0, 0, 1)],
 			background: HSL(0, 0, 0),
 			foreground: HSL(0, 0, 1)
 		},
@@ -201,7 +201,6 @@ _4bit = function() {
 		},
 
 		setLightness: function(type, lightness) {
-
 			switch(type) {
 				case 'normal':
 					this.set('normal_lightness', lightness)
@@ -996,7 +995,7 @@ _4bit = function() {
 				}
 			});
 
-			$('#dye-colorpicker').colorPicker('setColor', 210, 50, 50, 0.2);
+			$('#dye-colorpicker').colorPicker('setColor', 180, 50, 50, 0.25);
 
 			$("input[name=dye]").change(function() {
 				$('#dye-colorpicker').change();
@@ -1014,7 +1013,7 @@ _4bit = function() {
 				}
 			});
 
-			$('#background-colorpicker').colorPicker('setColor', 210, 50, 10);
+			$('#background-colorpicker').colorPicker('setColor', 180, 50, 10);
 
 			$("input[name=background]").change(function() {
 				$('#background-colorpicker').change();
@@ -1034,7 +1033,7 @@ _4bit = function() {
 				}
 			});
 
-			$('#foreground-colorpicker').colorPicker('setColor', 210, 50, 90);
+			$('#foreground-colorpicker').colorPicker('setColor', 180, 50, 90);
 
 			$("input[name=foreground]").change(function() {
 				$('#foreground-colorpicker').change();
