@@ -11,7 +11,7 @@
 		*.colorscheme (konsole, yakuake) and *.itermcolors
 		(iTerm2 for Mac)"/>
 		<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-		<link href="css/merged.css?modified=20120923" rel="stylesheet" />
+		<link href="css/merged.css?modified=20230417" rel="stylesheet" />
 		<style id="outline-fix"></style>
 	</head>
 	<body onmousedown="document.getElementById('outline-fix').innerHTML='a{outline:none}';" onkeydown="document.getElementById('outline-fix').innerHTML=''">
@@ -74,8 +74,8 @@
 						<div id="background">
 							<input type="text" id="background-colorpicker" />
 							<form class="radio-group" id="background-radio">
-								<input id="bg-1" type="radio" name="background" value="custom" checked="checked" /><label for="bg-1">custom</label>
-								<input id="bg-2" type="radio" name="background" value="black" /><label for="bg-2">black</label>
+								<input id="bg-1" type="radio" name="background" value="custom" /><label for="bg-1">custom</label>
+								<input id="bg-2" type="radio" name="background" value="black" checked="checked" /><label for="bg-2">black</label>
 								<input id="bg-3" type="radio" name="background" value="bright_black" /><label for="bg-3">bright_black</label>
 								<input id="bg-4" type="radio" name="background" value="white" /><label for="bg-4">white</label>
 								<input id="bg-5" type="radio" name="background" value="bright_white" /><label for="bg-5">bright_white</label>
@@ -84,10 +84,10 @@
 						<div id="foreground">
 							<input type="text" id="foreground-colorpicker" />
 							<form class="radio-group">
-								<input id="fg-1" type="radio" name="foreground" value="custom" checked="checked" /><label for="fg-1">custom</label>
+								<input id="fg-1" type="radio" name="foreground" value="custom" /><label for="fg-1">custom</label>
 								<input id="fg-2" type="radio" name="foreground" value="black" /><label for="fg-2">black</label>
 								<input id="fg-3" type="radio" name="foreground" value="bright_black" /><label for="fg-3">bright_black</label>
-								<input id="fg-4" type="radio" name="foreground" value="white" /><label for="fg-4">white</label>
+								<input id="fg-4" type="radio" name="foreground" value="white" checked="checked" /><label for="fg-4">white</label>
 								<input id="fg-5" type="radio" name="foreground" value="bright_white" /><label for="fg-5">bright_white</label>
 							</form>
 						</div>
@@ -145,7 +145,7 @@
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
 		<script>window.Backbone || document.write("<script src='lib/js/backbone-min.js'>\x3C/script>")</script>
 
-		<script src="js/compiled.js?modified=20120923"></script>
+		<script src="js/compiled.js?modified=20230417"></script>
 
 		<script>_4bit();</script>
 
