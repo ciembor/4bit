@@ -7,24 +7,8 @@
 
 (function() {
 
-	// facebook button
-	(function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) return;
-		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-
 	// twitter button
 	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-
-	// google plus button
-	(function() {
-		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-		po.src = 'https://apis.google.com/js/plusone.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-	})();
 
 })();
 
@@ -537,7 +521,7 @@ _4bit = function() {
 			out += '# ------------------------------------------------------------------------------\n';
 			out += '# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
 			out += '# ------------------------------------------------------------------------------\n';
-			out += '# --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			out += '# --- http://ciembor.github.io/4bit --------------------------------------------\n';
 			out += '# ------------------------------------------------------------------------------\n\n';
 
 			out += '# --- special colors ---\n\n';
@@ -633,7 +617,7 @@ _4bit = function() {
 			out += '                                                                                \n';
 			out += '      generated with 4bit Terminal Color Scheme Designer                        \n';
 			out += '                                                                                \n';
-			out += '      http://ciembor.github.com/4bit                                            \n';
+			out += '      http://ciembor.github.io/4bit                                             \n';
 			out += '                                                                                \n';
 			out += '-->\n\n';
 
@@ -696,7 +680,7 @@ _4bit = function() {
 			xresources += '! ------------------------------------------------------------------------------\n';
 			xresources += '! --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
 			xresources += '! ------------------------------------------------------------------------------\n';
-			xresources += '! --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			xresources += '! --- http://ciembor.github.io/4bit --------------------------------------------\n';
 			xresources += '! ------------------------------------------------------------------------------\n\n';
 
 			xresources += '! --- special colors ---\n\n';
@@ -1090,18 +1074,21 @@ _4bit = function() {
 		}
 	);
 
-	$(window).bind("load", function() {
+	$(window).bind('load', function() {
 		$('#display').css('visibility', 'visible');
 		$('#controls').css('visibility', 'visible');
 		$('#skews').fadeIn(700);
 		$('#app').animate({opacity: 1}, 700);
-		$("#get-scheme-button").click(function(button) {
-			$("#dialog-modal").dialog({
+		$('#get-scheme-button').click(function(button) {
+			$('#dialog-modal').dialog({
 				height: 90 + 50 * $('.get-scheme-link').length,
 				width: 450,
 				modal: true,
 				draggable: false,
-				resizable: false
+				resizable: false,
+        open: function( event, ui ) {
+          $('.ui-dialog').css('display', 'flex');
+        }
 			});
 		});
 	});
