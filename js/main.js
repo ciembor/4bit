@@ -894,6 +894,48 @@ _4bit = function() {
 		}
 	});
 
+	var SchemeTermiteView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#termite-button').hover(function() {
+				that.render();
+			});
+			$('#termite-button').focus(function() {
+				that.render();
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var config = '[colors]\n';
+			var counter = 0;
+
+			// special colors
+			config += 'background=' + that.model.get('colors')['background'] + '\n';
+			config += 'foreground=' + that.model.get('colors')['foreground'] + '\n';
+			config += 'cursor=' + that.model.get('colors')['foreground'] + '\n';
+
+			// standard colors
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2;
+
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+
+				config += 'color' + number + '=' + that.model.get('colors')[name] + '\n';
+				counter += 1;
+			});
+
+			$('#termite-button').attr('href', 'data:text/plain,' + encodeURIComponent(config));
+		}
+
+	});
+
 	var ControlsView = Backbone.View.extend({
 
 		el: $('#controls'),
@@ -1058,6 +1100,7 @@ _4bit = function() {
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var schemePuttyView = new SchemePuttyView();
 	var schemeTerminatorView = new SchemeTerminatorView();
+	var schemeTermiteView = new SchemeTermiteView();
 	var controlsView = new ControlsView();
 
 	// basic layout behaviour /////////////////////////////
