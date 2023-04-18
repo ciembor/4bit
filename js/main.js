@@ -246,6 +246,7 @@ _4bit = function() {
 
 			_.each(colors_array, function(colors) {
 				_.each(colors, function(color) {
+          console.log(color)
 					color.setDye([h, s, l, a]);
 				});
 			});

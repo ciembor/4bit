@@ -143,7 +143,7 @@ body {
 .wrapper {
 	min-height: @header_height + @app_height + @footer_height;
 	height: 100%;
-	margin: 0 auto (-@footer_height - 1px); /* the bottom margin is the negative value of the footer's height */
+	margin: 0 auto (-@footer_height - 2px); /* the bottom margin is the negative value of the footer's height */
 }
 
 .distance {
@@ -170,8 +170,8 @@ body {
 
 .twitter-follow-button {
 	display: inline-block;
-	margin-bottom: -3px;
-	width: 60px;
+	margin-bottom: -4px;
+	width: 74px;
 }
 
 .twitter-follow-button, .twitter-share-button {
@@ -210,9 +210,7 @@ body {
 	border: 1px solid #AAA;
 	background-color: #C9C9C9;
 	position: relative;
-	padding: 7px 15px 0 15px;
-	width: 74px;
-	height: 26px;
+	width: 104px;
 	display: inline-block;
 	white-space: nowrap;
 	.buttons {
@@ -220,8 +218,10 @@ body {
 	}
 	.inner {
 		position: absolute;
+		top: 7px;
+		left: 15px;
 		display: block;
-		width: 74px;
+		width: 73px;
 		height: 20px;
 	}
 }
@@ -484,7 +484,7 @@ body {
 	}
 
 	&>.ui-widget-content {
-		overflow: scroll;
+		overflow: auto;
 		background: #c9c9c9 !important;
 		height: auto !important;
 		padding: 1em 0.8em 0.8em 0.8em;
