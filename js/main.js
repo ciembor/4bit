@@ -766,7 +766,7 @@ _4bit = function() {
         var link = $(event.target);
 
         link.attr('href', blobURL);
-        link.attr('download', '4bit-mintty-color-scheme');
+        link.attr('download', '4bit-color-scheme.minttyrc');
 			});
 		},
 
