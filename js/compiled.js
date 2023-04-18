@@ -1,435 +1,12936 @@
-var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.findInternal=function(a,c,b){a instanceof String&&(a=String(a));for(var e=a.length,d=0;d<e;d++){var f=a[d];if(c.call(b,f,d,a))return{i:d,v:f}}return{i:-1,v:void 0}};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(a,c,b){a!=Array.prototype&&a!=Object.prototype&&(a[c]=b.value)};
-$jscomp.getGlobal=function(a){return"undefined"!=typeof window&&window===a?a:"undefined"!=typeof global&&null!=global?global:a};$jscomp.global=$jscomp.getGlobal(this);$jscomp.polyfill=function(a,c,b,e){if(c){b=$jscomp.global;a=a.split(".");for(e=0;e<a.length-1;e++){var d=a[e];d in b||(b[d]={});b=b[d]}a=a[a.length-1];e=b[a];c=c(e);c!=e&&null!=c&&$jscomp.defineProperty(b,a,{configurable:!0,writable:!0,value:c})}};
-$jscomp.polyfill("Array.prototype.find",function(a){return a?a:function(a,b){return $jscomp.findInternal(this,a,b).v}},"es6","es3");$jscomp.SYMBOL_PREFIX="jscomp_symbol_";$jscomp.initSymbol=function(){$jscomp.initSymbol=function(){};$jscomp.global.Symbol||($jscomp.global.Symbol=$jscomp.Symbol)};$jscomp.Symbol=function(){var a=0;return function(c){return $jscomp.SYMBOL_PREFIX+(c||"")+a++}}();
-$jscomp.initSymbolIterator=function(){$jscomp.initSymbol();var a=$jscomp.global.Symbol.iterator;a||(a=$jscomp.global.Symbol.iterator=$jscomp.global.Symbol("iterator"));"function"!=typeof Array.prototype[a]&&$jscomp.defineProperty(Array.prototype,a,{configurable:!0,writable:!0,value:function(){return $jscomp.arrayIterator(this)}});$jscomp.initSymbolIterator=function(){}};$jscomp.arrayIterator=function(a){var c=0;return $jscomp.iteratorPrototype(function(){return c<a.length?{done:!1,value:a[c++]}:{done:!0}})};
-$jscomp.iteratorPrototype=function(a){$jscomp.initSymbolIterator();a={next:a};a[$jscomp.global.Symbol.iterator]=function(){return this};return a};$jscomp.iteratorFromArray=function(a,c){$jscomp.initSymbolIterator();a instanceof String&&(a+="");var b=0,e={next:function(){if(b<a.length){var d=b++;return{value:c(d,a[d]),done:!1}}e.next=function(){return{done:!0,value:void 0}};return e.next()}};e[Symbol.iterator]=function(){return e};return e};
-$jscomp.polyfill("Array.prototype.values",function(a){return a?a:function(){return $jscomp.iteratorFromArray(this,function(a,b){return b})}},"es6","es3");$jscomp.checkStringArgs=function(a,c,b){if(null==a)throw new TypeError("The 'this' value for String.prototype."+b+" must not be null or undefined");if(c instanceof RegExp)throw new TypeError("First argument to String.prototype."+b+" must not be a regular expression");return a+""};
-$jscomp.polyfill("String.prototype.repeat",function(a){return a?a:function(a){var b=$jscomp.checkStringArgs(this,null,"repeat");if(0>a||1342177279<a)throw new RangeError("Invalid count value");a|=0;for(var c="";a;)if(a&1&&(c+=b),a>>>=1)b+=b;return c}},"es6","es3");$jscomp.polyfill("Array.prototype.findIndex",function(a){return a?a:function(a,b){return $jscomp.findInternal(this,a,b).i}},"es6","es3");var COMPILED=!1,goog=goog||{};goog.global=this;goog.DEBUG=!0;goog.LOCALE="en";goog.TRUSTED_SITE=!0;
-goog.provide=function(a){if(!COMPILED){if(goog.isProvided_(a))throw Error('Namespace "'+a+'" already declared.');delete goog.implicitNamespaces_[a];for(var c=a;(c=c.substring(0,c.lastIndexOf(".")))&&!goog.getObjectByName(c);)goog.implicitNamespaces_[c]=!0}goog.exportPath_(a)};goog.setTestOnly=function(a){if(COMPILED&&!goog.DEBUG)throw a=a||"",Error("Importing test-only code into non-debug environment"+a?": "+a:".");};
-COMPILED||(goog.isProvided_=function(a){return!goog.implicitNamespaces_[a]&&!!goog.getObjectByName(a)},goog.implicitNamespaces_={});goog.exportPath_=function(a,c,b){a=a.split(".");b=b||goog.global;a[0]in b||!b.execScript||b.execScript("var "+a[0]);for(var e;a.length&&(e=a.shift());)!a.length&&goog.isDef(c)?b[e]=c:b=b[e]?b[e]:b[e]={}};goog.getObjectByName=function(a,c){a=a.split(".");c=c||goog.global;for(var b;b=a.shift();)if(goog.isDefAndNotNull(c[b]))c=c[b];else return null;return c};
-goog.globalize=function(a,c){c=c||goog.global;for(var b in a)c[b]=a[b]};goog.addDependency=function(a,c,b){if(!COMPILED){var e;a=a.replace(/\\/g,"/");for(var d=goog.dependencies_,f=0;e=c[f];f++)d.nameToPath[e]=a,a in d.pathToNames||(d.pathToNames[a]={}),d.pathToNames[a][e]=!0;for(e=0;c=b[e];e++)a in d.requires||(d.requires[a]={}),d.requires[a][c]=!0}};goog.ENABLE_DEBUG_LOADER=!0;
-goog.require=function(a){if(!COMPILED&&!goog.isProvided_(a)){if(goog.ENABLE_DEBUG_LOADER){var c=goog.getPathFromDeps_(a);if(c){goog.included_[c]=!0;goog.writeScripts_();return}}a="goog.require could not find: "+a;goog.global.console&&goog.global.console.error(a);throw Error(a);}};goog.basePath="";goog.nullFunction=function(){};goog.identityFunction=function(a,c){return a};goog.abstractMethod=function(){throw Error("unimplemented abstract method");};
-goog.addSingletonGetter=function(a){a.getInstance=function(){if(a.instance_)return a.instance_;goog.DEBUG&&(goog.instantiatedSingletons_[goog.instantiatedSingletons_.length]=a);return a.instance_=new a}};goog.instantiatedSingletons_=[];
-!COMPILED&&goog.ENABLE_DEBUG_LOADER&&(goog.included_={},goog.dependencies_={pathToNames:{},nameToPath:{},requires:{},visited:{},written:{}},goog.inHtmlDocument_=function(){var a=goog.global.document;return"undefined"!=typeof a&&"write"in a},goog.findBasePath_=function(){if(goog.global.CLOSURE_BASE_PATH)goog.basePath=goog.global.CLOSURE_BASE_PATH;else if(goog.inHtmlDocument_())for(var a=goog.global.document.getElementsByTagName("script"),c=a.length-1;0<=c;--c){var b=a[c].src,e=b.lastIndexOf("?");e=
--1==e?b.length:e;if("base.js"==b.substr(e-7,7)){goog.basePath=b.substr(0,e-7);break}}},goog.importScript_=function(a){var c=goog.global.CLOSURE_IMPORT_SCRIPT||goog.writeScriptTag_;!goog.dependencies_.written[a]&&c(a)&&(goog.dependencies_.written[a]=!0)},goog.writeScriptTag_=function(a){if(goog.inHtmlDocument_()){var c=goog.global.document;if("complete"==c.readyState){if(/\bdeps.js$/.test(a))return!1;throw Error('Cannot write "'+a+'" after document load');}c.write('<script type="text/javascript" src="'+
-a+'">\x3c/script>');return!0}return!1},goog.writeScripts_=function(){function a(d){if(!(d in e.written)){if(!(d in e.visited)&&(e.visited[d]=!0,d in e.requires))for(var f in e.requires[d])if(!goog.isProvided_(f))if(f in e.nameToPath)a(e.nameToPath[f]);else throw Error("Undefined nameToPath for "+f);d in b||(b[d]=!0,c.push(d))}}var c=[],b={},e=goog.dependencies_,d;for(d in goog.included_)e.written[d]||a(d);for(d=0;d<c.length;d++)if(c[d])goog.importScript_(goog.basePath+c[d]);else throw Error("Undefined script input");
-},goog.getPathFromDeps_=function(a){return a in goog.dependencies_.nameToPath?goog.dependencies_.nameToPath[a]:null},goog.findBasePath_(),goog.global.CLOSURE_NO_DEPS||goog.importScript_(goog.basePath+"deps.js"));
-goog.typeOf=function(a){var c=typeof a;if("object"==c)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return c;var b=Object.prototype.toString.call(a);if("[object Window]"==b)return"object";if("[object Array]"==b||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==b||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";
-else if("function"==c&&"undefined"==typeof a.call)return"object";return c};goog.isDef=function(a){return void 0!==a};goog.isNull=function(a){return null===a};goog.isDefAndNotNull=function(a){return null!=a};goog.isArray=function(a){return"array"==goog.typeOf(a)};goog.isArrayLike=function(a){var c=goog.typeOf(a);return"array"==c||"object"==c&&"number"==typeof a.length};goog.isDateLike=function(a){return goog.isObject(a)&&"function"==typeof a.getFullYear};goog.isString=function(a){return"string"==typeof a};
-goog.isBoolean=function(a){return"boolean"==typeof a};goog.isNumber=function(a){return"number"==typeof a};goog.isFunction=function(a){return"function"==goog.typeOf(a)};goog.isObject=function(a){var c=typeof a;return"object"==c&&null!=a||"function"==c};goog.getUid=function(a){return a[goog.UID_PROPERTY_]||(a[goog.UID_PROPERTY_]=++goog.uidCounter_)};goog.removeUid=function(a){"removeAttribute"in a&&a.removeAttribute(goog.UID_PROPERTY_);try{delete a[goog.UID_PROPERTY_]}catch(c){}};
-goog.UID_PROPERTY_="closure_uid_"+(1E9*Math.random()>>>0);goog.uidCounter_=0;goog.getHashCode=goog.getUid;goog.removeHashCode=goog.removeUid;goog.cloneObject=function(a){var c=goog.typeOf(a);if("object"==c||"array"==c){if(a.clone)return a.clone();c="array"==c?[]:{};for(var b in a)c[b]=goog.cloneObject(a[b]);return c}return a};goog.bindNative_=function(a,c,b){return a.call.apply(a.bind,arguments)};
-goog.bindJs_=function(a,c,b){if(!a)throw Error();if(2<arguments.length){var e=Array.prototype.slice.call(arguments,2);return function(){var d=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(d,e);return a.apply(c,d)}}return function(){return a.apply(c,arguments)}};goog.bind=function(a,c,b){Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?goog.bind=goog.bindNative_:goog.bind=goog.bindJs_;return goog.bind.apply(null,arguments)};
-goog.partial=function(a,c){var b=Array.prototype.slice.call(arguments,1);return function(){var c=Array.prototype.slice.call(arguments);c.unshift.apply(c,b);return a.apply(this,c)}};goog.mixin=function(a,c){for(var b in c)a[b]=c[b]};goog.now=goog.TRUSTED_SITE&&Date.now||function(){return+new Date};
-goog.globalEval=function(a){if(goog.global.execScript)goog.global.execScript(a,"JavaScript");else if(goog.global.eval)if(null==goog.evalWorksForGlobals_&&(goog.global.eval("var _et_ = 1;"),"undefined"!=typeof goog.global._et_?(delete goog.global._et_,goog.evalWorksForGlobals_=!0):goog.evalWorksForGlobals_=!1),goog.evalWorksForGlobals_)goog.global.eval(a);else{var c=goog.global.document,b=c.createElement("script");b.type="text/javascript";b.defer=!1;b.appendChild(c.createTextNode(a));c.body.appendChild(b);
-c.body.removeChild(b)}else throw Error("goog.globalEval not available");};goog.evalWorksForGlobals_=null;goog.getCssName=function(a,c){var b=function(a){return goog.cssNameMapping_[a]||a},e=function(a){a=a.split("-");for(var d=[],c=0;c<a.length;c++)d.push(b(a[c]));return d.join("-")};e=goog.cssNameMapping_?"BY_WHOLE"==goog.cssNameMappingStyle_?b:e:function(a){return a};return c?a+"-"+e(c):e(a)};goog.setCssNameMapping=function(a,c){goog.cssNameMapping_=a;goog.cssNameMappingStyle_=c};
-!COMPILED&&goog.global.CLOSURE_CSS_NAME_MAPPING&&(goog.cssNameMapping_=goog.global.CLOSURE_CSS_NAME_MAPPING);goog.getMsg=function(a,c){c=c||{};for(var b in c){var e=(""+c[b]).replace(/\$/g,"$$$$");a=a.replace(new RegExp("\\{\\$"+b+"\\}","gi"),e)}return a};goog.getMsgWithFallback=function(a,c){return a};goog.exportSymbol=function(a,c,b){goog.exportPath_(a,c,b)};goog.exportProperty=function(a,c,b){a[c]=b};
-goog.inherits=function(a,c){function b(){}b.prototype=c.prototype;a.superClass_=c.prototype;a.prototype=new b;a.prototype.constructor=a};
-goog.base=function(a,c,b){var e=arguments.callee.caller;if(e.superClass_)return e.superClass_.constructor.apply(a,Array.prototype.slice.call(arguments,1));for(var d=Array.prototype.slice.call(arguments,2),f=!1,h=a.constructor;h;h=h.superClass_&&h.superClass_.constructor)if(h.prototype[c]===e)f=!0;else if(f)return h.prototype[c].apply(a,d);if(a[c]===e)return a.constructor.prototype[c].apply(a,d);throw Error("goog.base called from a method of one name to a method of a different name");};
-goog.scope=function(a){a.call(goog.global)};/*
- jQuery UI 1.8.23
+// Input 0
+// Copyright 2006 The Closure Library Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
- Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- Dual licensed under the MIT or GPL Version 2 licenses.
- http://jquery.org/license
+/**
+ * @fileoverview Bootstrap for the Google JS Library (Closure).
+ *
+ * In uncompiled mode base.js will write out Closure's deps file, unless the
+ * global <code>CLOSURE_NO_DEPS</code> is set to true.  This allows projects to
+ * include their own deps file(s) from different locations.
+ *
+ *
+ * @provideGoog
+ */
 
- http://docs.jquery.com/UI
- jQuery UI Widget 1.8.23
 
- Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- Dual licensed under the MIT or GPL Version 2 licenses.
- http://jquery.org/license
+/**
+ * @define {boolean} Overridden to true by the compiler when --closure_pass
+ *     or --mark_as_compiled is specified.
+ */
+var COMPILED = false;
 
- http://docs.jquery.com/UI/Widget
- jQuery UI Mouse 1.8.23
 
- Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- Dual licensed under the MIT or GPL Version 2 licenses.
- http://jquery.org/license
+/**
+ * Base namespace for the Closure library.  Checks to see goog is
+ * already defined in the current scope before assigning to prevent
+ * clobbering if base.js is loaded more than once.
+ *
+ * @const
+ */
+var goog = goog || {}; // Identifies this file as the Closure base.
 
- http://docs.jquery.com/UI/Mouse
 
- Depends:
- jquery.ui.widget.js
- jQuery UI Position 1.8.23
+/**
+ * Reference to the global context.  In most cases this will be 'window'.
+ */
+goog.global = this;
 
- Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- Dual licensed under the MIT or GPL Version 2 licenses.
- http://jquery.org/license
 
- http://docs.jquery.com/UI/Position
- jQuery UI Draggable 1.8.23
+/**
+ * @define {boolean} DEBUG is provided as a convenience so that debugging code
+ * that should not be included in a production js_binary can be easily stripped
+ * by specifying --define goog.DEBUG=false to the JSCompiler. For example, most
+ * toString() methods should be declared inside an "if (goog.DEBUG)" conditional
+ * because they are generally used for debugging purposes and it is difficult
+ * for the JSCompiler to statically determine whether they are used.
+ */
+goog.DEBUG = true;
 
- Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- Dual licensed under the MIT or GPL Version 2 licenses.
- http://jquery.org/license
 
- http://docs.jquery.com/UI/Draggables
+/**
+ * @define {string} LOCALE defines the locale being used for compilation. It is
+ * used to select locale specific data to be compiled in js binary. BUILD rule
+ * can specify this value by "--define goog.LOCALE=<locale_name>" as JSCompiler
+ * option.
+ *
+ * Take into account that the locale code format is important. You should use
+ * the canonical Unicode format with hyphen as a delimiter. Language must be
+ * lowercase, Language Script - Capitalized, Region - UPPERCASE.
+ * There are few examples: pt-BR, en, en-US, sr-Latin-BO, zh-Hans-CN.
+ *
+ * See more info about locale codes here:
+ * http://www.unicode.org/reports/tr35/#Unicode_Language_and_Locale_Identifiers
+ *
+ * For language codes you should use values defined by ISO 693-1. See it here
+ * http://www.w3.org/WAI/ER/IG/ert/iso639.htm. There is only one exception from
+ * this rule: the Hebrew language. For legacy reasons the old code (iw) should
+ * be used instead of the new code (he), see http://wiki/Main/IIISynonyms.
+ */
+goog.LOCALE = 'en';  // default to en
 
- Depends:
- jquery.ui.core.js
- jquery.ui.mouse.js
- jquery.ui.widget.js
- jQuery UI Resizable 1.8.23
 
- Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- Dual licensed under the MIT or GPL Version 2 licenses.
- http://jquery.org/license
+/**
+ * @define {boolean} Whether this code is running on trusted sites.
+ *
+ * On untrusted sites, several native functions can be defined or overridden by
+ * external libraries like Prototype, Datejs, and JQuery and setting this flag
+ * to false forces closure to use its own implementations when possible.
+ *
+ * If your javascript can be loaded by a third party site and you are wary about
+ * relying on non-standard implementations, specify
+ * "--define goog.TRUSTED_SITE=false" to the JSCompiler.
+ */
+goog.TRUSTED_SITE = true;
 
- http://docs.jquery.com/UI/Resizables
 
- Depends:
- jquery.ui.core.js
- jquery.ui.mouse.js
- jquery.ui.widget.js
- jQuery UI Button 1.8.23
+/**
+ * Creates object stubs for a namespace.  The presence of one or more
+ * goog.provide() calls indicate that the file defines the given
+ * objects/namespaces.  Build tools also scan for provide/require statements
+ * to discern dependencies, build dependency files (see deps.js), etc.
+ * @see goog.require
+ * @param {string} name Namespace provided by this file in the form
+ *     "goog.package.part".
+ */
+goog.provide = function(name) {
+  if (!COMPILED) {
+    // Ensure that the same namespace isn't provided twice. This is intended
+    // to teach new developers that 'goog.provide' is effectively a variable
+    // declaration. And when JSCompiler transforms goog.provide into a real
+    // variable declaration, the compiled JS should work the same as the raw
+    // JS--even when the raw JS uses goog.provide incorrectly.
+    if (goog.isProvided_(name)) {
+      throw Error('Namespace "' + name + '" already declared.');
+    }
+    delete goog.implicitNamespaces_[name];
 
- Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- Dual licensed under the MIT or GPL Version 2 licenses.
- http://jquery.org/license
+    var namespace = name;
+    while ((namespace = namespace.substring(0, namespace.lastIndexOf('.')))) {
+      if (goog.getObjectByName(namespace)) {
+        break;
+      }
+      goog.implicitNamespaces_[namespace] = true;
+    }
+  }
 
- http://docs.jquery.com/UI/Button
+  goog.exportPath_(name);
+};
 
- Depends:
- jquery.ui.core.js
- jquery.ui.widget.js
- jQuery UI Dialog 1.8.23
 
- Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- Dual licensed under the MIT or GPL Version 2 licenses.
- http://jquery.org/license
+/**
+ * Marks that the current file should only be used for testing, and never for
+ * live code in production.
+ * @param {string=} opt_message Optional message to add to the error that's
+ *     raised when used in production code.
+ */
+goog.setTestOnly = function(opt_message) {
+  if (COMPILED && !goog.DEBUG) {
+    opt_message = opt_message || '';
+    throw Error('Importing test-only code into non-debug environment' +
+                opt_message ? ': ' + opt_message : '.');
+  }
+};
 
- http://docs.jquery.com/UI/Dialog
 
- Depends:
- jquery.ui.core.js
- jquery.ui.widget.js
-  jquery.ui.button.js
- jquery.ui.draggable.js
- jquery.ui.mouse.js
- jquery.ui.position.js
- jquery.ui.resizable.js
- jQuery UI Slider 1.8.23
+if (!COMPILED) {
 
- Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- Dual licensed under the MIT or GPL Version 2 licenses.
- http://jquery.org/license
+  /**
+   * Check if the given name has been goog.provided. This will return false for
+   * names that are available only as implicit namespaces.
+   * @param {string} name name of the object to look for.
+   * @return {boolean} Whether the name has been provided.
+   * @private
+   */
+  goog.isProvided_ = function(name) {
+    return !goog.implicitNamespaces_[name] && !!goog.getObjectByName(name);
+  };
 
- http://docs.jquery.com/UI/Slider
+  /**
+   * Namespaces implicitly defined by goog.provide. For example,
+   * goog.provide('goog.events.Event') implicitly declares
+   * that 'goog' and 'goog.events' must be namespaces.
+   *
+   * @type {Object}
+   * @private
+   */
+  goog.implicitNamespaces_ = {};
+}
 
- Depends:
- jquery.ui.core.js
- jquery.ui.mouse.js
- jquery.ui.widget.js
- jQuery UI Tabs 1.8.23
 
- Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- Dual licensed under the MIT or GPL Version 2 licenses.
- http://jquery.org/license
+/**
+ * Builds an object structure for the provided namespace path,
+ * ensuring that names that already exist are not overwritten. For
+ * example:
+ * "a.b.c" -> a = {};a.b={};a.b.c={};
+ * Used by goog.provide and goog.exportSymbol.
+ * @param {string} name name of the object that this file defines.
+ * @param {*=} opt_object the object to expose at the end of the path.
+ * @param {Object=} opt_objectToExportTo The object to add the path to; default
+ *     is |goog.global|.
+ * @private
+ */
+goog.exportPath_ = function(name, opt_object, opt_objectToExportTo) {
+  var parts = name.split('.');
+  var cur = opt_objectToExportTo || goog.global;
 
- http://docs.jquery.com/UI/Tabs
+  // Internet Explorer exhibits strange behavior when throwing errors from
+  // methods externed in this manner.  See the testExportSymbolExceptions in
+  // base_test.html for an example.
+  if (!(parts[0] in cur) && cur.execScript) {
+    cur.execScript('var ' + parts[0]);
+  }
 
- Depends:
- jquery.ui.core.js
- jquery.ui.widget.js
-*/
-(function(a,c){function b(d,b){var f=d.nodeName.toLowerCase();if("area"===f){b=d.parentNode;f=b.name;if(!d.href||!f||"map"!==b.nodeName.toLowerCase())return!1;d=a("img[usemap=#"+f+"]")[0];return!!d&&e(d)}return(/input|select|textarea|button|object/.test(f)?!d.disabled:"a"==f?d.href||b:b)&&e(d)}function e(d){return!a(d).parents().andSelf().filter(function(){return"hidden"===a.curCSS(this,"visibility")||a.expr.filters.hidden(this)}).length}a.ui=a.ui||{};a.ui.version||(a.extend(a.ui,{version:"1.8.23",
-keyCode:{ALT:18,BACKSPACE:8,CAPS_LOCK:20,COMMA:188,COMMAND:91,COMMAND_LEFT:91,COMMAND_RIGHT:93,CONTROL:17,DELETE:46,DOWN:40,END:35,ENTER:13,ESCAPE:27,HOME:36,INSERT:45,LEFT:37,MENU:93,NUMPAD_ADD:107,NUMPAD_DECIMAL:110,NUMPAD_DIVIDE:111,NUMPAD_ENTER:108,NUMPAD_MULTIPLY:106,NUMPAD_SUBTRACT:109,PAGE_DOWN:34,PAGE_UP:33,PERIOD:190,RIGHT:39,SHIFT:16,SPACE:32,TAB:9,UP:38,WINDOWS:91}}),a.fn.extend({propAttr:a.fn.prop||a.fn.attr,_focus:a.fn.focus,focus:function(d,b){return"number"===typeof d?this.each(function(){var f=
-this;setTimeout(function(){a(f).focus();b&&b.call(f)},d)}):this._focus.apply(this,arguments)},scrollParent:function(){var d=a.browser.msie&&/(static|relative)/.test(this.css("position"))||/absolute/.test(this.css("position"))?this.parents().filter(function(){return/(relative|absolute|fixed)/.test(a.curCSS(this,"position",1))&&/(auto|scroll)/.test(a.curCSS(this,"overflow",1)+a.curCSS(this,"overflow-y",1)+a.curCSS(this,"overflow-x",1))}).eq(0):this.parents().filter(function(){return/(auto|scroll)/.test(a.curCSS(this,
-"overflow",1)+a.curCSS(this,"overflow-y",1)+a.curCSS(this,"overflow-x",1))}).eq(0);return/fixed/.test(this.css("position"))||!d.length?a(document):d},zIndex:function(d){if(d!==c)return this.css("zIndex",d);if(this.length){d=a(this[0]);for(var b;d.length&&d[0]!==document;){b=d.css("position");if("absolute"===b||"relative"===b||"fixed"===b)if(b=parseInt(d.css("zIndex"),10),!isNaN(b)&&0!==b)return b;d=d.parent()}}return 0},disableSelection:function(){return this.bind((a.support.selectstart?"selectstart":
-"mousedown")+".ui-disableSelection",function(a){a.preventDefault()})},enableSelection:function(){return this.unbind(".ui-disableSelection")}}),a("<a>").outerWidth(1).jquery||a.each(["Width","Height"],function(d,b){function f(d,b,f,c){a.each(e,function(){b-=parseFloat(a.curCSS(d,"padding"+this,!0))||0;f&&(b-=parseFloat(a.curCSS(d,"border"+this+"Width",!0))||0);c&&(b-=parseFloat(a.curCSS(d,"margin"+this,!0))||0)});return b}var e="Width"===b?["Left","Right"]:["Top","Bottom"],k=b.toLowerCase(),l={innerWidth:a.fn.innerWidth,
-innerHeight:a.fn.innerHeight,outerWidth:a.fn.outerWidth,outerHeight:a.fn.outerHeight};a.fn["inner"+b]=function(d){return d===c?l["inner"+b].call(this):this.each(function(){a(this).css(k,f(this,d)+"px")})};a.fn["outer"+b]=function(d,c){return"number"!==typeof d?l["outer"+b].call(this,d):this.each(function(){a(this).css(k,f(this,d,!0,c)+"px")})}}),a.extend(a.expr[":"],{data:a.expr.createPseudo?a.expr.createPseudo(function(d){return function(b){return!!a.data(b,d)}}):function(d,b,c){return!!a.data(d,
-c[3])},focusable:function(d){return b(d,!isNaN(a.attr(d,"tabindex")))},tabbable:function(d){var c=a.attr(d,"tabindex"),e=isNaN(c);return(e||0<=c)&&b(d,!e)}}),a(function(){var d=document.body,b=d.appendChild(b=document.createElement("div"));b.offsetHeight;a.extend(b.style,{minHeight:"100px",height:"auto",padding:0,borderWidth:0});a.support.minHeight=100===b.offsetHeight;a.support.selectstart="onselectstart"in b;d.removeChild(b).style.display="none"}),a.curCSS||(a.curCSS=a.css),a.extend(a.ui,{plugin:{add:function(d,
-b,c){d=a.ui[d].prototype;for(var f in c)d.plugins[f]=d.plugins[f]||[],d.plugins[f].push([b,c[f]])},call:function(a,b,c){if((b=a.plugins[b])&&a.element[0].parentNode)for(var d=0;d<b.length;d++)a.options[b[d][0]]&&b[d][1].apply(a.element,c)}},contains:function(a,b){return document.compareDocumentPosition?a.compareDocumentPosition(b)&16:a!==b&&a.contains(b)},hasScroll:function(d,b){if("hidden"===a(d).css("overflow"))return!1;b=b&&"left"===b?"scrollLeft":"scrollTop";if(0<d[b])return!0;d[b]=1;var c=0<
-d[b];d[b]=0;return c},isOverAxis:function(a,b,c){return a>b&&a<b+c},isOver:function(d,b,c,e,k,l){return a.ui.isOverAxis(d,c,k)&&a.ui.isOverAxis(b,e,l)}}))})(jQuery);
-(function(a,c){if(a.cleanData){var b=a.cleanData;a.cleanData=function(d){for(var c=0,e;null!=(e=d[c]);c++)try{a(e).triggerHandler("remove")}catch(g){}b(d)}}else{var e=a.fn.remove;a.fn.remove=function(d,b){return this.each(function(){b||(!d||a.filter(d,[this]).length)&&a("*",this).add([this]).each(function(){try{a(this).triggerHandler("remove")}catch(h){}});return e.call(a(this),d,b)})}}a.widget=function(d,b,c){var f=d.split(".")[0];d=d.split(".")[1];var e=f+"-"+d;c||(c=b,b=a.Widget);a.expr[":"][e]=
-function(b){return!!a.data(b,d)};a[f]=a[f]||{};a[f][d]=function(a,d){arguments.length&&this._createWidget(a,d)};b=new b;b.options=a.extend(!0,{},b.options);a[f][d].prototype=a.extend(!0,b,{namespace:f,widgetName:d,widgetEventPrefix:a[f][d].prototype.widgetEventPrefix||d,widgetBaseClass:e},c);a.widget.bridge(d,a[f][d])};a.widget.bridge=function(d,b){a.fn[d]=function(f){var e="string"===typeof f,h=Array.prototype.slice.call(arguments,1),l=this;f=!e&&h.length?a.extend.apply(null,[!0,f].concat(h)):f;
-if(e&&"_"===f.charAt(0))return l;e?this.each(function(){var b=a.data(this,d),e=b&&a.isFunction(b[f])?b[f].apply(b,h):b;if(e!==b&&e!==c)return l=e,!1}):this.each(function(){var c=a.data(this,d);c?c.option(f||{})._init():a.data(this,d,new b(f,this))});return l}};a.Widget=function(a,b){arguments.length&&this._createWidget(a,b)};a.Widget.prototype={widgetName:"widget",widgetEventPrefix:"",options:{disabled:!1},_createWidget:function(d,b){a.data(b,this.widgetName,this);this.element=a(b);this.options=a.extend(!0,
-{},this.options,this._getCreateOptions(),d);var c=this;this.element.bind("remove."+this.widgetName,function(){c.destroy()});this._create();this._trigger("create");this._init()},_getCreateOptions:function(){return a.metadata&&a.metadata.get(this.element[0])[this.widgetName]},_create:function(){},_init:function(){},destroy:function(){this.element.unbind("."+this.widgetName).removeData(this.widgetName);this.widget().unbind("."+this.widgetName).removeAttr("aria-disabled").removeClass(this.widgetBaseClass+
-"-disabled ui-state-disabled")},widget:function(){return this.element},option:function(d,b){var f=d;if(0===arguments.length)return a.extend({},this.options);if("string"===typeof d){if(b===c)return this.options[d];f={};f[d]=b}this._setOptions(f);return this},_setOptions:function(d){var b=this;a.each(d,function(a,d){b._setOption(a,d)});return this},_setOption:function(a,b){this.options[a]=b;"disabled"===a&&this.widget()[b?"addClass":"removeClass"](this.widgetBaseClass+"-disabled ui-state-disabled").attr("aria-disabled",
-b);return this},enable:function(){return this._setOption("disabled",!1)},disable:function(){return this._setOption("disabled",!0)},_trigger:function(d,b,c){var f,e=this.options[d];c=c||{};b=a.Event(b);b.type=(d===this.widgetEventPrefix?d:this.widgetEventPrefix+d).toLowerCase();b.target=this.element[0];if(d=b.originalEvent)for(f in d)f in b||(b[f]=d[f]);this.element.trigger(b,c);return!(a.isFunction(e)&&!1===e.call(this.element[0],b,c)||b.isDefaultPrevented())}}})(jQuery);
-(function(a,c){var b=!1;a(document).mouseup(function(a){b=!1});a.widget("ui.mouse",{options:{cancel:":input,option",distance:1,delay:0},_mouseInit:function(){var b=this;this.element.bind("mousedown."+this.widgetName,function(a){return b._mouseDown(a)}).bind("click."+this.widgetName,function(d){if(!0===a.data(d.target,b.widgetName+".preventClickEvent"))return a.removeData(d.target,b.widgetName+".preventClickEvent"),d.stopImmediatePropagation(),!1});this.started=!1},_mouseDestroy:function(){this.element.unbind("."+
-this.widgetName);this._mouseMoveDelegate&&a(document).unbind("mousemove."+this.widgetName,this._mouseMoveDelegate).unbind("mouseup."+this.widgetName,this._mouseUpDelegate)},_mouseDown:function(c){if(!b){this._mouseStarted&&this._mouseUp(c);this._mouseDownEvent=c;var d=this,f=1==c.which,e="string"==typeof this.options.cancel&&c.target.nodeName?a(c.target).closest(this.options.cancel).length:!1;if(!f||e||!this._mouseCapture(c))return!0;this.mouseDelayMet=!this.options.delay;this.mouseDelayMet||(this._mouseDelayTimer=
-setTimeout(function(){d.mouseDelayMet=!0},this.options.delay));if(this._mouseDistanceMet(c)&&this._mouseDelayMet(c)&&(this._mouseStarted=!1!==this._mouseStart(c),!this._mouseStarted))return c.preventDefault(),!0;!0===a.data(c.target,this.widgetName+".preventClickEvent")&&a.removeData(c.target,this.widgetName+".preventClickEvent");this._mouseMoveDelegate=function(a){return d._mouseMove(a)};this._mouseUpDelegate=function(a){return d._mouseUp(a)};a(document).bind("mousemove."+this.widgetName,this._mouseMoveDelegate).bind("mouseup."+
-this.widgetName,this._mouseUpDelegate);c.preventDefault();return b=!0}},_mouseMove:function(b){if(a.browser.msie&&!(9<=document.documentMode)&&!b.button)return this._mouseUp(b);if(this._mouseStarted)return this._mouseDrag(b),b.preventDefault();this._mouseDistanceMet(b)&&this._mouseDelayMet(b)&&((this._mouseStarted=!1!==this._mouseStart(this._mouseDownEvent,b))?this._mouseDrag(b):this._mouseUp(b));return!this._mouseStarted},_mouseUp:function(b){a(document).unbind("mousemove."+this.widgetName,this._mouseMoveDelegate).unbind("mouseup."+
-this.widgetName,this._mouseUpDelegate);this._mouseStarted&&(this._mouseStarted=!1,b.target==this._mouseDownEvent.target&&a.data(b.target,this.widgetName+".preventClickEvent",!0),this._mouseStop(b));return!1},_mouseDistanceMet:function(a){return Math.max(Math.abs(this._mouseDownEvent.pageX-a.pageX),Math.abs(this._mouseDownEvent.pageY-a.pageY))>=this.options.distance},_mouseDelayMet:function(a){return this.mouseDelayMet},_mouseStart:function(a){},_mouseDrag:function(a){},_mouseStop:function(a){},_mouseCapture:function(a){return!0}})})(jQuery);
-(function(a,c){a.ui=a.ui||{};var b=/left|center|right/,e=/top|center|bottom/,d={},f=a.fn.position,h=a.fn.offset;a.fn.position=function(c){if(!c||!c.of)return f.apply(this,arguments);c=a.extend({},c);var h=a(c.of),g=h[0],m=(c.collision||"flip").split(" "),n=c.offset?c.offset.split(" "):[0,0];if(9===g.nodeType){var q=h.width();var r=h.height();var p={top:0,left:0}}else g.setTimeout?(q=h.width(),r=h.height(),p={top:h.scrollTop(),left:h.scrollLeft()}):g.preventDefault?(c.at="left top",q=r=0,p={top:c.of.pageY,
-left:c.of.pageX}):(q=h.outerWidth(),r=h.outerHeight(),p=h.offset());a.each(["my","at"],function(){var a=(c[this]||"").split(" ");1===a.length&&(a=b.test(a[0])?a.concat(["center"]):e.test(a[0])?["center"].concat(a):["center","center"]);a[0]=b.test(a[0])?a[0]:"center";a[1]=e.test(a[1])?a[1]:"center";c[this]=a});1===m.length&&(m[1]=m[0]);n[0]=parseInt(n[0],10)||0;1===n.length&&(n[1]=n[0]);n[1]=parseInt(n[1],10)||0;"right"===c.at[0]?p.left+=q:"center"===c.at[0]&&(p.left+=q/2);"bottom"===c.at[1]?p.top+=
-r:"center"===c.at[1]&&(p.top+=r/2);p.left+=n[0];p.top+=n[1];return this.each(function(){var b=a(this),f=b.outerWidth(),e=b.outerHeight(),h=parseInt(a.curCSS(this,"marginLeft",!0))||0,g=parseInt(a.curCSS(this,"marginTop",!0))||0,k=f+h+(parseInt(a.curCSS(this,"marginRight",!0))||0),l=e+g+(parseInt(a.curCSS(this,"marginBottom",!0))||0),t=a.extend({},p);"right"===c.my[0]?t.left-=f:"center"===c.my[0]&&(t.left-=f/2);"bottom"===c.my[1]?t.top-=e:"center"===c.my[1]&&(t.top-=e/2);d.fractions||(t.left=Math.round(t.left),
-t.top=Math.round(t.top));var B={left:t.left-h,top:t.top-g};a.each(["left","top"],function(d,b){if(a.ui.position[m[d]])a.ui.position[m[d]][b](t,{targetWidth:q,targetHeight:r,elemWidth:f,elemHeight:e,collisionPosition:B,collisionWidth:k,collisionHeight:l,offset:n,my:c.my,at:c.at})});a.fn.bgiframe&&b.bgiframe();b.offset(a.extend(t,{using:c.using}))})};a.ui.position={fit:{left:function(d,b){var c=a(window);c=b.collisionPosition.left+b.collisionWidth-c.width()-c.scrollLeft();d.left=0<c?d.left-c:Math.max(d.left-
-b.collisionPosition.left,d.left)},top:function(d,b){var c=a(window);c=b.collisionPosition.top+b.collisionHeight-c.height()-c.scrollTop();d.top=0<c?d.top-c:Math.max(d.top-b.collisionPosition.top,d.top)}},flip:{left:function(d,b){if("center"!==b.at[0]){var c=a(window);c=b.collisionPosition.left+b.collisionWidth-c.width()-c.scrollLeft();var f="left"===b.my[0]?-b.elemWidth:"right"===b.my[0]?b.elemWidth:0,e="left"===b.at[0]?b.targetWidth:-b.targetWidth,h=-2*b.offset[0];d.left+=0>b.collisionPosition.left?
-f+e+h:0<c?f+e+h:0}},top:function(b,d){if("center"!==d.at[1]){var c=a(window);c=d.collisionPosition.top+d.collisionHeight-c.height()-c.scrollTop();var f="top"===d.my[1]?-d.elemHeight:"bottom"===d.my[1]?d.elemHeight:0,e="top"===d.at[1]?d.targetHeight:-d.targetHeight,h=-2*d.offset[1];b.top+=0>d.collisionPosition.top?f+e+h:0<c?f+e+h:0}}}};a.offset.setOffset||(a.offset.setOffset=function(d,b){/static/.test(a.curCSS(d,"position"))&&(d.style.position="relative");var c=a(d),f=c.offset(),e=parseInt(a.curCSS(d,
-"top",!0),10)||0,h=parseInt(a.curCSS(d,"left",!0),10)||0;f={top:b.top-f.top+e,left:b.left-f.left+h};"using"in b?b.using.call(d,f):c.css(f)},a.fn.offset=function(d){var b=this[0];return b&&b.ownerDocument?d?a.isFunction(d)?this.each(function(b){a(this).offset(d.call(this,b,a(this).offset()))}):this.each(function(){a.offset.setOffset(this,d)}):h.call(this):null});a.curCSS||(a.curCSS=a.css);(function(){var b=document.getElementsByTagName("body")[0],c=document.createElement("div");var f=document.createElement(b?
-"div":"body");var e={visibility:"hidden",width:0,height:0,border:0,margin:0,background:"none"};b&&a.extend(e,{position:"absolute",left:"-1000px",top:"-1000px"});for(var h in e)f.style[h]=e[h];f.appendChild(c);e=b||document.documentElement;e.insertBefore(f,e.firstChild);c.style.cssText="position: absolute; left: 10.7432222px; top: 10.432325px; height: 30px; width: 201px;";c=a(c).offset(function(a,b){return b}).offset();f.innerHTML="";e.removeChild(f);b=c.top+c.left+(b?2E3:0);d.fractions=21<b&&22>b})()})(jQuery);
-(function(a,c){a.widget("ui.draggable",a.ui.mouse,{widgetEventPrefix:"drag",options:{addClasses:!0,appendTo:"parent",axis:!1,connectToSortable:!1,containment:!1,cursor:"auto",cursorAt:!1,grid:!1,handle:!1,helper:"original",iframeFix:!1,opacity:!1,refreshPositions:!1,revert:!1,revertDuration:500,scope:"default",scroll:!0,scrollSensitivity:20,scrollSpeed:20,snap:!1,snapMode:"both",snapTolerance:20,stack:!1,zIndex:!1},_create:function(){"original"!=this.options.helper||/^(?:r|a|f)/.test(this.element.css("position"))||
-(this.element[0].style.position="relative");this.options.addClasses&&this.element.addClass("ui-draggable");this.options.disabled&&this.element.addClass("ui-draggable-disabled");this._mouseInit()},destroy:function(){if(this.element.data("draggable"))return this.element.removeData("draggable").unbind(".draggable").removeClass("ui-draggable ui-draggable-dragging ui-draggable-disabled"),this._mouseDestroy(),this},_mouseCapture:function(b){var c=this.options;if(this.helper||c.disabled||a(b.target).is(".ui-resizable-handle"))return!1;
-this.handle=this._getHandle(b);if(!this.handle)return!1;c.iframeFix&&a(!0===c.iframeFix?"iframe":c.iframeFix).each(function(){a('<div class="ui-draggable-iframeFix" style="background: #fff;"></div>').css({width:this.offsetWidth+"px",height:this.offsetHeight+"px",position:"absolute",opacity:"0.001",zIndex:1E3}).css(a(this).offset()).appendTo("body")});return!0},_mouseStart:function(b){var c=this.options;this.helper=this._createHelper(b);this.helper.addClass("ui-draggable-dragging");this._cacheHelperProportions();
-a.ui.ddmanager&&(a.ui.ddmanager.current=this);this._cacheMargins();this.cssPosition=this.helper.css("position");this.scrollParent=this.helper.scrollParent();this.offset=this.positionAbs=this.element.offset();this.offset={top:this.offset.top-this.margins.top,left:this.offset.left-this.margins.left};a.extend(this.offset,{click:{left:b.pageX-this.offset.left,top:b.pageY-this.offset.top},parent:this._getParentOffset(),relative:this._getRelativeOffset()});this.originalPosition=this.position=this._generatePosition(b);
-this.originalPageX=b.pageX;this.originalPageY=b.pageY;c.cursorAt&&this._adjustOffsetFromHelper(c.cursorAt);c.containment&&this._setContainment();if(!1===this._trigger("start",b))return this._clear(),!1;this._cacheHelperProportions();a.ui.ddmanager&&!c.dropBehaviour&&a.ui.ddmanager.prepareOffsets(this,b);this._mouseDrag(b,!0);a.ui.ddmanager&&a.ui.ddmanager.dragStart(this,b);return!0},_mouseDrag:function(b,c){this.position=this._generatePosition(b);this.positionAbs=this._convertPositionTo("absolute");
-if(!c){c=this._uiHash();if(!1===this._trigger("drag",b,c))return this._mouseUp({}),!1;this.position=c.position}this.options.axis&&"y"==this.options.axis||(this.helper[0].style.left=this.position.left+"px");this.options.axis&&"x"==this.options.axis||(this.helper[0].style.top=this.position.top+"px");a.ui.ddmanager&&a.ui.ddmanager.drag(this,b);return!1},_mouseStop:function(b){var c=!1;a.ui.ddmanager&&!this.options.dropBehaviour&&(c=a.ui.ddmanager.drop(this,b));this.dropped&&(c=this.dropped,this.dropped=
-!1);for(var d=this.element[0],f=!1;d&&(d=d.parentNode);)d==document&&(f=!0);if(!f&&"original"===this.options.helper)return!1;if("invalid"==this.options.revert&&!c||"valid"==this.options.revert&&c||!0===this.options.revert||a.isFunction(this.options.revert)&&this.options.revert.call(this.element,c)){var h=this;a(this.helper).animate(this.originalPosition,parseInt(this.options.revertDuration,10),function(){!1!==h._trigger("stop",b)&&h._clear()})}else!1!==this._trigger("stop",b)&&this._clear();return!1},
-_mouseUp:function(b){!0===this.options.iframeFix&&a("div.ui-draggable-iframeFix").each(function(){this.parentNode.removeChild(this)});a.ui.ddmanager&&a.ui.ddmanager.dragStop(this,b);return a.ui.mouse.prototype._mouseUp.call(this,b)},cancel:function(){this.helper.is(".ui-draggable-dragging")?this._mouseUp({}):this._clear();return this},_getHandle:function(b){var c=this.options.handle&&a(this.options.handle,this.element).length?!1:!0;a(this.options.handle,this.element).find("*").andSelf().each(function(){this==
-b.target&&(c=!0)});return c},_createHelper:function(b){var c=this.options;b=a.isFunction(c.helper)?a(c.helper.apply(this.element[0],[b])):"clone"==c.helper?this.element.clone().removeAttr("id"):this.element;b.parents("body").length||b.appendTo("parent"==c.appendTo?this.element[0].parentNode:c.appendTo);b[0]==this.element[0]||/(fixed|absolute)/.test(b.css("position"))||b.css("position","absolute");return b},_adjustOffsetFromHelper:function(b){"string"==typeof b&&(b=b.split(" "));a.isArray(b)&&(b={left:+b[0],
-top:+b[1]||0});"left"in b&&(this.offset.click.left=b.left+this.margins.left);"right"in b&&(this.offset.click.left=this.helperProportions.width-b.right+this.margins.left);"top"in b&&(this.offset.click.top=b.top+this.margins.top);"bottom"in b&&(this.offset.click.top=this.helperProportions.height-b.bottom+this.margins.top)},_getParentOffset:function(){this.offsetParent=this.helper.offsetParent();var b=this.offsetParent.offset();"absolute"==this.cssPosition&&this.scrollParent[0]!=document&&a.ui.contains(this.scrollParent[0],
-this.offsetParent[0])&&(b.left+=this.scrollParent.scrollLeft(),b.top+=this.scrollParent.scrollTop());if(this.offsetParent[0]==document.body||this.offsetParent[0].tagName&&"html"==this.offsetParent[0].tagName.toLowerCase()&&a.browser.msie)b={top:0,left:0};return{top:b.top+(parseInt(this.offsetParent.css("borderTopWidth"),10)||0),left:b.left+(parseInt(this.offsetParent.css("borderLeftWidth"),10)||0)}},_getRelativeOffset:function(){if("relative"==this.cssPosition){var a=this.element.position();return{top:a.top-
-(parseInt(this.helper.css("top"),10)||0)+this.scrollParent.scrollTop(),left:a.left-(parseInt(this.helper.css("left"),10)||0)+this.scrollParent.scrollLeft()}}return{top:0,left:0}},_cacheMargins:function(){this.margins={left:parseInt(this.element.css("marginLeft"),10)||0,top:parseInt(this.element.css("marginTop"),10)||0,right:parseInt(this.element.css("marginRight"),10)||0,bottom:parseInt(this.element.css("marginBottom"),10)||0}},_cacheHelperProportions:function(){this.helperProportions={width:this.helper.outerWidth(),
-height:this.helper.outerHeight()}},_setContainment:function(){var b=this.options;"parent"==b.containment&&(b.containment=this.helper[0].parentNode);if("document"==b.containment||"window"==b.containment)this.containment=["document"==b.containment?0:a(window).scrollLeft()-this.offset.relative.left-this.offset.parent.left,"document"==b.containment?0:a(window).scrollTop()-this.offset.relative.top-this.offset.parent.top,("document"==b.containment?0:a(window).scrollLeft())+a("document"==b.containment?document:
-window).width()-this.helperProportions.width-this.margins.left,("document"==b.containment?0:a(window).scrollTop())+(a("document"==b.containment?document:window).height()||document.body.parentNode.scrollHeight)-this.helperProportions.height-this.margins.top];if(/^(document|window|parent)$/.test(b.containment)||b.containment.constructor==Array)b.containment.constructor==Array&&(this.containment=b.containment);else{b=a(b.containment);var c=b[0];if(c){b.offset();var d="hidden"!=a(c).css("overflow");this.containment=
-[(parseInt(a(c).css("borderLeftWidth"),10)||0)+(parseInt(a(c).css("paddingLeft"),10)||0),(parseInt(a(c).css("borderTopWidth"),10)||0)+(parseInt(a(c).css("paddingTop"),10)||0),(d?Math.max(c.scrollWidth,c.offsetWidth):c.offsetWidth)-(parseInt(a(c).css("borderLeftWidth"),10)||0)-(parseInt(a(c).css("paddingRight"),10)||0)-this.helperProportions.width-this.margins.left-this.margins.right,(d?Math.max(c.scrollHeight,c.offsetHeight):c.offsetHeight)-(parseInt(a(c).css("borderTopWidth"),10)||0)-(parseInt(a(c).css("paddingBottom"),
-10)||0)-this.helperProportions.height-this.margins.top-this.margins.bottom];this.relative_container=b}}},_convertPositionTo:function(b,c){c||(c=this.position);b="absolute"==b?1:-1;var d="absolute"!=this.cssPosition||this.scrollParent[0]!=document&&a.ui.contains(this.scrollParent[0],this.offsetParent[0])?this.scrollParent:this.offsetParent,f=/(html|body)/i.test(d[0].tagName);return{top:c.top+this.offset.relative.top*b+this.offset.parent.top*b-(a.browser.safari&&526>a.browser.version&&"fixed"==this.cssPosition?
-0:("fixed"==this.cssPosition?-this.scrollParent.scrollTop():f?0:d.scrollTop())*b),left:c.left+this.offset.relative.left*b+this.offset.parent.left*b-(a.browser.safari&&526>a.browser.version&&"fixed"==this.cssPosition?0:("fixed"==this.cssPosition?-this.scrollParent.scrollLeft():f?0:d.scrollLeft())*b)}},_generatePosition:function(b){var c=this.options,d="absolute"!=this.cssPosition||this.scrollParent[0]!=document&&a.ui.contains(this.scrollParent[0],this.offsetParent[0])?this.scrollParent:this.offsetParent,
-f=/(html|body)/i.test(d[0].tagName),h=b.pageX,g=b.pageY;if(this.originalPosition){if(this.containment){if(this.relative_container){var k=this.relative_container.offset();k=[this.containment[0]+k.left,this.containment[1]+k.top,this.containment[2]+k.left,this.containment[3]+k.top]}else k=this.containment;b.pageX-this.offset.click.left<k[0]&&(h=k[0]+this.offset.click.left);b.pageY-this.offset.click.top<k[1]&&(g=k[1]+this.offset.click.top);b.pageX-this.offset.click.left>k[2]&&(h=k[2]+this.offset.click.left);
-b.pageY-this.offset.click.top>k[3]&&(g=k[3]+this.offset.click.top)}c.grid&&(g=c.grid[1]?this.originalPageY+Math.round((g-this.originalPageY)/c.grid[1])*c.grid[1]:this.originalPageY,g=k?g-this.offset.click.top<k[1]||g-this.offset.click.top>k[3]?g-this.offset.click.top<k[1]?g+c.grid[1]:g-c.grid[1]:g:g,h=c.grid[0]?this.originalPageX+Math.round((h-this.originalPageX)/c.grid[0])*c.grid[0]:this.originalPageX,h=k?h-this.offset.click.left<k[0]||h-this.offset.click.left>k[2]?h-this.offset.click.left<k[0]?
-h+c.grid[0]:h-c.grid[0]:h:h)}return{top:g-this.offset.click.top-this.offset.relative.top-this.offset.parent.top+(a.browser.safari&&526>a.browser.version&&"fixed"==this.cssPosition?0:"fixed"==this.cssPosition?-this.scrollParent.scrollTop():f?0:d.scrollTop()),left:h-this.offset.click.left-this.offset.relative.left-this.offset.parent.left+(a.browser.safari&&526>a.browser.version&&"fixed"==this.cssPosition?0:"fixed"==this.cssPosition?-this.scrollParent.scrollLeft():f?0:d.scrollLeft())}},_clear:function(){this.helper.removeClass("ui-draggable-dragging");
-this.helper[0]==this.element[0]||this.cancelHelperRemoval||this.helper.remove();this.helper=null;this.cancelHelperRemoval=!1},_trigger:function(b,c,d){d=d||this._uiHash();a.ui.plugin.call(this,b,[c,d]);"drag"==b&&(this.positionAbs=this._convertPositionTo("absolute"));return a.Widget.prototype._trigger.call(this,b,c,d)},plugins:{},_uiHash:function(a){return{helper:this.helper,position:this.position,originalPosition:this.originalPosition,offset:this.positionAbs}}});a.extend(a.ui.draggable,{version:"1.8.23"});
-a.ui.plugin.add("draggable","connectToSortable",{start:function(b,c){var d=a(this).data("draggable"),f=d.options,e=a.extend({},c,{item:d.element});d.sortables=[];a(f.connectToSortable).each(function(){var c=a.data(this,"sortable");c&&!c.options.disabled&&(d.sortables.push({instance:c,shouldRevert:c.options.revert}),c.refreshPositions(),c._trigger("activate",b,e))})},stop:function(b,c){var d=a(this).data("draggable"),f=a.extend({},c,{item:d.element});a.each(d.sortables,function(){this.instance.isOver?
-(this.instance.isOver=0,d.cancelHelperRemoval=!0,this.instance.cancelHelperRemoval=!1,this.shouldRevert&&(this.instance.options.revert=!0),this.instance._mouseStop(b),this.instance.options.helper=this.instance.options._helper,"original"==d.options.helper&&this.instance.currentItem.css({top:"auto",left:"auto"})):(this.instance.cancelHelperRemoval=!1,this.instance._trigger("deactivate",b,f))})},drag:function(b,c){var d=a(this).data("draggable"),f=this;a.each(d.sortables,function(e){this.instance.positionAbs=
-d.positionAbs;this.instance.helperProportions=d.helperProportions;this.instance.offset.click=d.offset.click;this.instance._intersectsWith(this.instance.containerCache)?(this.instance.isOver||(this.instance.isOver=1,this.instance.currentItem=a(f).clone().removeAttr("id").appendTo(this.instance.element).data("sortable-item",!0),this.instance.options._helper=this.instance.options.helper,this.instance.options.helper=function(){return c.helper[0]},b.target=this.instance.currentItem[0],this.instance._mouseCapture(b,
-!0),this.instance._mouseStart(b,!0,!0),this.instance.offset.click.top=d.offset.click.top,this.instance.offset.click.left=d.offset.click.left,this.instance.offset.parent.left-=d.offset.parent.left-this.instance.offset.parent.left,this.instance.offset.parent.top-=d.offset.parent.top-this.instance.offset.parent.top,d._trigger("toSortable",b),d.dropped=this.instance.element,d.currentItem=d.element,this.instance.fromOutside=d),this.instance.currentItem&&this.instance._mouseDrag(b)):this.instance.isOver&&
-(this.instance.isOver=0,this.instance.cancelHelperRemoval=!0,this.instance.options.revert=!1,this.instance._trigger("out",b,this.instance._uiHash(this.instance)),this.instance._mouseStop(b,!0),this.instance.options.helper=this.instance.options._helper,this.instance.currentItem.remove(),this.instance.placeholder&&this.instance.placeholder.remove(),d._trigger("fromSortable",b),d.dropped=!1)})}});a.ui.plugin.add("draggable","cursor",{start:function(b,c){b=a("body");c=a(this).data("draggable").options;
-b.css("cursor")&&(c._cursor=b.css("cursor"));b.css("cursor",c.cursor)},stop:function(b,c){b=a(this).data("draggable").options;b._cursor&&a("body").css("cursor",b._cursor)}});a.ui.plugin.add("draggable","opacity",{start:function(b,c){b=a(c.helper);c=a(this).data("draggable").options;b.css("opacity")&&(c._opacity=b.css("opacity"));b.css("opacity",c.opacity)},stop:function(b,c){b=a(this).data("draggable").options;b._opacity&&a(c.helper).css("opacity",b._opacity)}});a.ui.plugin.add("draggable","scroll",
-{start:function(b,c){b=a(this).data("draggable");b.scrollParent[0]!=document&&"HTML"!=b.scrollParent[0].tagName&&(b.overflowOffset=b.scrollParent.offset())},drag:function(b,c){c=a(this).data("draggable");var d=c.options,f=!1;c.scrollParent[0]!=document&&"HTML"!=c.scrollParent[0].tagName?(d.axis&&"x"==d.axis||(c.overflowOffset.top+c.scrollParent[0].offsetHeight-b.pageY<d.scrollSensitivity?c.scrollParent[0].scrollTop=f=c.scrollParent[0].scrollTop+d.scrollSpeed:b.pageY-c.overflowOffset.top<d.scrollSensitivity&&
-(c.scrollParent[0].scrollTop=f=c.scrollParent[0].scrollTop-d.scrollSpeed)),d.axis&&"y"==d.axis||(c.overflowOffset.left+c.scrollParent[0].offsetWidth-b.pageX<d.scrollSensitivity?c.scrollParent[0].scrollLeft=f=c.scrollParent[0].scrollLeft+d.scrollSpeed:b.pageX-c.overflowOffset.left<d.scrollSensitivity&&(c.scrollParent[0].scrollLeft=f=c.scrollParent[0].scrollLeft-d.scrollSpeed))):(d.axis&&"x"==d.axis||(b.pageY-a(document).scrollTop()<d.scrollSensitivity?f=a(document).scrollTop(a(document).scrollTop()-
-d.scrollSpeed):a(window).height()-(b.pageY-a(document).scrollTop())<d.scrollSensitivity&&(f=a(document).scrollTop(a(document).scrollTop()+d.scrollSpeed))),d.axis&&"y"==d.axis||(b.pageX-a(document).scrollLeft()<d.scrollSensitivity?f=a(document).scrollLeft(a(document).scrollLeft()-d.scrollSpeed):a(window).width()-(b.pageX-a(document).scrollLeft())<d.scrollSensitivity&&(f=a(document).scrollLeft(a(document).scrollLeft()+d.scrollSpeed))));!1!==f&&a.ui.ddmanager&&!d.dropBehaviour&&a.ui.ddmanager.prepareOffsets(c,
-b)}});a.ui.plugin.add("draggable","snap",{start:function(b,c){var d=a(this).data("draggable");b=d.options;d.snapElements=[];a(b.snap.constructor!=String?b.snap.items||":data(draggable)":b.snap).each(function(){var b=a(this),c=b.offset();this!=d.element[0]&&d.snapElements.push({item:this,width:b.outerWidth(),height:b.outerHeight(),top:c.top,left:c.left})})},drag:function(b,c){for(var d,f,e,g,k=a(this).data("draggable"),l=k.options,m=l.snapTolerance,n=c.offset.left,q=n+k.helperProportions.width,r=c.offset.top,
-p=r+k.helperProportions.height,u=k.snapElements.length-1;0<=u;u--){var v=k.snapElements[u].left,y=v+k.snapElements[u].width,x=k.snapElements[u].top,z=x+k.snapElements[u].height;if(v-m<n&&n<y+m&&x-m<r&&r<z+m||v-m<n&&n<y+m&&x-m<p&&p<z+m||v-m<q&&q<y+m&&x-m<r&&r<z+m||v-m<q&&q<y+m&&x-m<p&&p<z+m){"inner"!=l.snapMode&&(g=Math.abs(x-p)<=m,e=Math.abs(z-r)<=m,f=Math.abs(v-q)<=m,d=Math.abs(y-n)<=m,g&&(c.position.top=k._convertPositionTo("relative",{top:x-k.helperProportions.height,left:0}).top-k.margins.top),
-e&&(c.position.top=k._convertPositionTo("relative",{top:z,left:0}).top-k.margins.top),f&&(c.position.left=k._convertPositionTo("relative",{top:0,left:v-k.helperProportions.width}).left-k.margins.left),d&&(c.position.left=k._convertPositionTo("relative",{top:0,left:y}).left-k.margins.left));var A=g||e||f||d;"outer"!=l.snapMode&&(g=Math.abs(x-r)<=m,e=Math.abs(z-p)<=m,f=Math.abs(v-n)<=m,d=Math.abs(y-q)<=m,g&&(c.position.top=k._convertPositionTo("relative",{top:x,left:0}).top-k.margins.top),e&&(c.position.top=
-k._convertPositionTo("relative",{top:z-k.helperProportions.height,left:0}).top-k.margins.top),f&&(c.position.left=k._convertPositionTo("relative",{top:0,left:v}).left-k.margins.left),d&&(c.position.left=k._convertPositionTo("relative",{top:0,left:y-k.helperProportions.width}).left-k.margins.left));!k.snapElements[u].snapping&&(g||e||f||d||A)&&k.options.snap.snap&&k.options.snap.snap.call(k.element,b,a.extend(k._uiHash(),{snapItem:k.snapElements[u].item}));k.snapElements[u].snapping=g||e||f||d||A}else k.snapElements[u].snapping&&
-k.options.snap.release&&k.options.snap.release.call(k.element,b,a.extend(k._uiHash(),{snapItem:k.snapElements[u].item})),k.snapElements[u].snapping=!1}}});a.ui.plugin.add("draggable","stack",{start:function(b,c){b=a(this).data("draggable").options;b=a.makeArray(a(b.stack)).sort(function(b,d){return(parseInt(a(b).css("zIndex"),10)||0)-(parseInt(a(d).css("zIndex"),10)||0)});if(b.length){var d=parseInt(b[0].style.zIndex)||0;a(b).each(function(a){this.style.zIndex=d+a});this[0].style.zIndex=d+b.length}}});
-a.ui.plugin.add("draggable","zIndex",{start:function(b,c){b=a(c.helper);c=a(this).data("draggable").options;b.css("zIndex")&&(c._zIndex=b.css("zIndex"));b.css("zIndex",c.zIndex)},stop:function(b,c){b=a(this).data("draggable").options;b._zIndex&&a(c.helper).css("zIndex",b._zIndex)}})})(jQuery);
-(function(a,c){a.widget("ui.resizable",a.ui.mouse,{widgetEventPrefix:"resize",options:{alsoResize:!1,animate:!1,animateDuration:"slow",animateEasing:"swing",aspectRatio:!1,autoHide:!1,containment:!1,ghost:!1,grid:!1,handles:"e,s,se",helper:!1,maxHeight:null,maxWidth:null,minHeight:10,minWidth:10,zIndex:1E3},_create:function(){var b=this,c=this.options;this.element.addClass("ui-resizable");a.extend(this,{_aspectRatio:!!c.aspectRatio,aspectRatio:c.aspectRatio,originalElement:this.element,_proportionallyResizeElements:[],
-_helper:c.helper||c.ghost||c.animate?c.helper||"ui-resizable-helper":null});this.element[0].nodeName.match(/canvas|textarea|input|select|button|img/i)&&(this.element.wrap(a('<div class="ui-wrapper" style="overflow: hidden;"></div>').css({position:this.element.css("position"),width:this.element.outerWidth(),height:this.element.outerHeight(),top:this.element.css("top"),left:this.element.css("left")})),this.element=this.element.parent().data("resizable",this.element.data("resizable")),this.elementIsWrapper=
-!0,this.element.css({marginLeft:this.originalElement.css("marginLeft"),marginTop:this.originalElement.css("marginTop"),marginRight:this.originalElement.css("marginRight"),marginBottom:this.originalElement.css("marginBottom")}),this.originalElement.css({marginLeft:0,marginTop:0,marginRight:0,marginBottom:0}),this.originalResizeStyle=this.originalElement.css("resize"),this.originalElement.css("resize","none"),this._proportionallyResizeElements.push(this.originalElement.css({position:"static",zoom:1,
-display:"block"})),this.originalElement.css({margin:this.originalElement.css("margin")}),this._proportionallyResize());this.handles=c.handles||(a(".ui-resizable-handle",this.element).length?{n:".ui-resizable-n",e:".ui-resizable-e",s:".ui-resizable-s",w:".ui-resizable-w",se:".ui-resizable-se",sw:".ui-resizable-sw",ne:".ui-resizable-ne",nw:".ui-resizable-nw"}:"e,s,se");if(this.handles.constructor==String){"all"==this.handles&&(this.handles="n,e,s,w,se,sw,ne,nw");var e=this.handles.split(",");this.handles=
-{};for(var g=0;g<e.length;g++){var k=a.trim(e[g]),l=a('<div class="ui-resizable-handle ui-resizable-'+k+'"></div>');l.css({zIndex:c.zIndex});"se"==k&&l.addClass("ui-icon ui-icon-gripsmall-diagonal-se");this.handles[k]=".ui-resizable-"+k;this.element.append(l)}}this._renderAxis=function(b){b=b||this.element;for(var d in this.handles){this.handles[d].constructor==String&&(this.handles[d]=a(this.handles[d],this.element).show());if(this.elementIsWrapper&&this.originalElement[0].nodeName.match(/textarea|input|select|button/i)){var c=
-a(this.handles[d],this.element);c=/sw|ne|nw|se|n|s/.test(d)?c.outerHeight():c.outerWidth();var f=["padding",/ne|nw|n/.test(d)?"Top":/se|sw|s/.test(d)?"Bottom":/^e$/.test(d)?"Right":"Left"].join("");b.css(f,c);this._proportionallyResize()}a(this.handles[d])}};this._renderAxis(this.element);this._handles=a(".ui-resizable-handle",this.element).disableSelection();this._handles.mouseover(function(){var a;b.resizing||(this.className&&(a=this.className.match(/ui-resizable-(se|sw|ne|nw|n|e|s|w)/i)),b.axis=
-a&&a[1]?a[1]:"se")});c.autoHide&&(this._handles.hide(),a(this.element).addClass("ui-resizable-autohide").hover(function(){c.disabled||(a(this).removeClass("ui-resizable-autohide"),b._handles.show())},function(){c.disabled||b.resizing||(a(this).addClass("ui-resizable-autohide"),b._handles.hide())}));this._mouseInit()},destroy:function(){this._mouseDestroy();var b=function(b){a(b).removeClass("ui-resizable ui-resizable-disabled ui-resizable-resizing").removeData("resizable").unbind(".resizable").find(".ui-resizable-handle").remove()};
-if(this.elementIsWrapper){b(this.element);var c=this.element;c.after(this.originalElement.css({position:c.css("position"),width:c.outerWidth(),height:c.outerHeight(),top:c.css("top"),left:c.css("left")})).remove()}this.originalElement.css("resize",this.originalResizeStyle);b(this.originalElement);return this},_mouseCapture:function(b){var c=!1,d;for(d in this.handles)a(this.handles[d])[0]==b.target&&(c=!0);return!this.options.disabled&&c},_mouseStart:function(c){var d=this.options,e=this.element.position(),
-g=this.element;this.resizing=!0;this.documentScroll={top:a(document).scrollTop(),left:a(document).scrollLeft()};(g.is(".ui-draggable")||/absolute/.test(g.css("position")))&&g.css({position:"absolute",top:e.top,left:e.left});this._renderProxy();e=b(this.helper.css("left"));var k=b(this.helper.css("top"));d.containment&&(e+=a(d.containment).scrollLeft()||0,k+=a(d.containment).scrollTop()||0);this.offset=this.helper.offset();this.position={left:e,top:k};this.size=this._helper?{width:g.outerWidth(),height:g.outerHeight()}:
-{width:g.width(),height:g.height()};this.originalSize=this._helper?{width:g.outerWidth(),height:g.outerHeight()}:{width:g.width(),height:g.height()};this.originalPosition={left:e,top:k};this.sizeDiff={width:g.outerWidth()-g.width(),height:g.outerHeight()-g.height()};this.originalMousePosition={left:c.pageX,top:c.pageY};this.aspectRatio="number"==typeof d.aspectRatio?d.aspectRatio:this.originalSize.width/this.originalSize.height||1;d=a(".ui-resizable-"+this.axis).css("cursor");a("body").css("cursor",
-"auto"==d?this.axis+"-resize":d);g.addClass("ui-resizable-resizing");this._propagate("start",c);return!0},_mouseDrag:function(a){var b=this.helper,c=this.originalMousePosition,d=this._change[this.axis];if(!d)return!1;c=d.apply(this,[a,a.pageX-c.left||0,a.pageY-c.top||0]);this._updateVirtualBoundaries(a.shiftKey);if(this._aspectRatio||a.shiftKey)c=this._updateRatio(c,a);c=this._respectSize(c,a);this._propagate("resize",a);b.css({top:this.position.top+"px",left:this.position.left+"px",width:this.size.width+
-"px",height:this.size.height+"px"});!this._helper&&this._proportionallyResizeElements.length&&this._proportionallyResize();this._updateCache(c);this._trigger("resize",a,this.ui());return!1},_mouseStop:function(b){this.resizing=!1;var c=this.options;if(this._helper){var d=this._proportionallyResizeElements,e=d.length&&/textarea/i.test(d[0].nodeName);d=e&&a.ui.hasScroll(d[0],"left")?0:this.sizeDiff.height;e=e?0:this.sizeDiff.width;e={width:this.helper.width()-e,height:this.helper.height()-d};d=parseInt(this.element.css("left"),
-10)+(this.position.left-this.originalPosition.left)||null;var k=parseInt(this.element.css("top"),10)+(this.position.top-this.originalPosition.top)||null;c.animate||this.element.css(a.extend(e,{top:k,left:d}));this.helper.height(this.size.height);this.helper.width(this.size.width);this._helper&&!c.animate&&this._proportionallyResize()}a("body").css("cursor","auto");this.element.removeClass("ui-resizable-resizing");this._propagate("stop",b);this._helper&&this.helper.remove();return!1},_updateVirtualBoundaries:function(a){var b=
-this.options;b={minWidth:e(b.minWidth)?b.minWidth:0,maxWidth:e(b.maxWidth)?b.maxWidth:Infinity,minHeight:e(b.minHeight)?b.minHeight:0,maxHeight:e(b.maxHeight)?b.maxHeight:Infinity};if(this._aspectRatio||a){a=b.minHeight*this.aspectRatio;var c=b.minWidth/this.aspectRatio;var d=b.maxHeight*this.aspectRatio;var k=b.maxWidth/this.aspectRatio;a>b.minWidth&&(b.minWidth=a);c>b.minHeight&&(b.minHeight=c);d<b.maxWidth&&(b.maxWidth=d);k<b.maxHeight&&(b.maxHeight=k)}this._vBoundaries=b},_updateCache:function(a){this.offset=
-this.helper.offset();e(a.left)&&(this.position.left=a.left);e(a.top)&&(this.position.top=a.top);e(a.height)&&(this.size.height=a.height);e(a.width)&&(this.size.width=a.width)},_updateRatio:function(a,b){b=this.position;var c=this.size,d=this.axis;e(a.height)?a.width=a.height*this.aspectRatio:e(a.width)&&(a.height=a.width/this.aspectRatio);"sw"==d&&(a.left=b.left+(c.width-a.width),a.top=null);"nw"==d&&(a.top=b.top+(c.height-a.height),a.left=b.left+(c.width-a.width));return a},_respectSize:function(a,
-b){b=this._vBoundaries;var c=this.axis,d=e(a.width)&&b.maxWidth&&b.maxWidth<a.width,f=e(a.height)&&b.maxHeight&&b.maxHeight<a.height,l=e(a.width)&&b.minWidth&&b.minWidth>a.width,m=e(a.height)&&b.minHeight&&b.minHeight>a.height;l&&(a.width=b.minWidth);m&&(a.height=b.minHeight);d&&(a.width=b.maxWidth);f&&(a.height=b.maxHeight);var n=this.originalPosition.left+this.originalSize.width,q=this.position.top+this.size.height,r=/sw|nw|w/.test(c);c=/nw|ne|n/.test(c);l&&r&&(a.left=n-b.minWidth);d&&r&&(a.left=
-n-b.maxWidth);m&&c&&(a.top=q-b.minHeight);f&&c&&(a.top=q-b.maxHeight);(b=!a.width&&!a.height)&&!a.left&&a.top?a.top=null:b&&!a.top&&a.left&&(a.left=null);return a},_proportionallyResize:function(){if(this._proportionallyResizeElements.length)for(var b=this.helper||this.element,c=0;c<this._proportionallyResizeElements.length;c++){var e=this._proportionallyResizeElements[c];if(!this.borderDif){var g=[e.css("borderTopWidth"),e.css("borderRightWidth"),e.css("borderBottomWidth"),e.css("borderLeftWidth")],
-k=[e.css("paddingTop"),e.css("paddingRight"),e.css("paddingBottom"),e.css("paddingLeft")];this.borderDif=a.map(g,function(a,b){a=parseInt(a,10)||0;b=parseInt(k[b],10)||0;return a+b})}a.browser.msie&&(a(b).is(":hidden")||a(b).parents(":hidden").length)||e.css({height:b.height()-this.borderDif[0]-this.borderDif[2]||0,width:b.width()-this.borderDif[1]-this.borderDif[3]||0})}},_renderProxy:function(){var b=this.options;this.elementOffset=this.element.offset();if(this._helper){this.helper=this.helper||
-a('<div style="overflow:hidden;"></div>');var c=a.browser.msie&&7>a.browser.version,e=c?1:0;c=c?2:-1;this.helper.addClass(this._helper).css({width:this.element.outerWidth()+c,height:this.element.outerHeight()+c,position:"absolute",left:this.elementOffset.left-e+"px",top:this.elementOffset.top-e+"px",zIndex:++b.zIndex});this.helper.appendTo("body").disableSelection()}else this.helper=this.element},_change:{e:function(a,b,c){return{width:this.originalSize.width+b}},w:function(a,b,c){return{left:this.originalPosition.left+
-b,width:this.originalSize.width-b}},n:function(a,b,c){return{top:this.originalPosition.top+c,height:this.originalSize.height-c}},s:function(a,b,c){return{height:this.originalSize.height+c}},se:function(b,c,e){return a.extend(this._change.s.apply(this,arguments),this._change.e.apply(this,[b,c,e]))},sw:function(b,c,e){return a.extend(this._change.s.apply(this,arguments),this._change.w.apply(this,[b,c,e]))},ne:function(b,c,e){return a.extend(this._change.n.apply(this,arguments),this._change.e.apply(this,
-[b,c,e]))},nw:function(b,c,e){return a.extend(this._change.n.apply(this,arguments),this._change.w.apply(this,[b,c,e]))}},_propagate:function(b,c){a.ui.plugin.call(this,b,[c,this.ui()]);"resize"!=b&&this._trigger(b,c,this.ui())},plugins:{},ui:function(){return{originalElement:this.originalElement,element:this.element,helper:this.helper,position:this.position,size:this.size,originalSize:this.originalSize,originalPosition:this.originalPosition}}});a.extend(a.ui.resizable,{version:"1.8.23"});a.ui.plugin.add("resizable",
-"alsoResize",{start:function(b,c){b=a(this).data("resizable").options;var d=function(b){a(b).each(function(){var b=a(this);b.data("resizable-alsoresize",{width:parseInt(b.width(),10),height:parseInt(b.height(),10),left:parseInt(b.css("left"),10),top:parseInt(b.css("top"),10)})})};"object"!=typeof b.alsoResize||b.alsoResize.parentNode?d(b.alsoResize):b.alsoResize.length?(b.alsoResize=b.alsoResize[0],d(b.alsoResize)):a.each(b.alsoResize,function(a){d(a)})},resize:function(b,c){b=a(this).data("resizable");
-var d=b.options,f=b.originalSize,e=b.originalPosition,l={height:b.size.height-f.height||0,width:b.size.width-f.width||0,top:b.position.top-e.top||0,left:b.position.left-e.left||0},m=function(b,d){a(b).each(function(){var b=a(this),f=a(this).data("resizable-alsoresize"),e={},h=d&&d.length?d:b.parents(c.originalElement[0]).length?["width","height"]:["width","height","top","left"];a.each(h,function(a,b){(a=(f[b]||0)+(l[b]||0))&&0<=a&&(e[b]=a||null)});b.css(e)})};"object"!=typeof d.alsoResize||d.alsoResize.nodeType?
-m(d.alsoResize):a.each(d.alsoResize,function(a,b){m(a,b)})},stop:function(b,c){a(this).removeData("resizable-alsoresize")}});a.ui.plugin.add("resizable","animate",{stop:function(b,c){var d=a(this).data("resizable");c=d.options;var f=d._proportionallyResizeElements,e=f.length&&/textarea/i.test(f[0].nodeName),l=e&&a.ui.hasScroll(f[0],"left")?0:d.sizeDiff.height;e={width:d.size.width-(e?0:d.sizeDiff.width),height:d.size.height-l};l=parseInt(d.element.css("left"),10)+(d.position.left-d.originalPosition.left)||
-null;var m=parseInt(d.element.css("top"),10)+(d.position.top-d.originalPosition.top)||null;d.element.animate(a.extend(e,m&&l?{top:m,left:l}:{}),{duration:c.animateDuration,easing:c.animateEasing,step:function(){var c={width:parseInt(d.element.css("width"),10),height:parseInt(d.element.css("height"),10),top:parseInt(d.element.css("top"),10),left:parseInt(d.element.css("left"),10)};f&&f.length&&a(f[0]).css({width:c.width,height:c.height});d._updateCache(c);d._propagate("resize",b)}})}});a.ui.plugin.add("resizable",
-"containment",{start:function(c,f){c=a(this).data("resizable");f=c.element;var d=c.options.containment;if(f=d instanceof a?d.get(0):/parent/.test(d)?f.parent().get(0):d)if(c.containerElement=a(f),/document/.test(d)||d==document)c.containerOffset={left:0,top:0},c.containerPosition={left:0,top:0},c.parentData={element:a(document),left:0,top:0,width:a(document).width(),height:a(document).height()||document.body.parentNode.scrollHeight};else{var e=a(f),k=[];a(["Top","Right","Left","Bottom"]).each(function(a,
-c){k[a]=b(e.css("padding"+c))});c.containerOffset=e.offset();c.containerPosition=e.position();c.containerSize={height:e.innerHeight()-k[3],width:e.innerWidth()-k[1]};d=c.containerOffset;var l=c.containerSize.height,m=c.containerSize.width;m=a.ui.hasScroll(f,"left")?f.scrollWidth:m;l=a.ui.hasScroll(f)?f.scrollHeight:l;c.parentData={element:f,left:d.left,top:d.top,width:m,height:l}}},resize:function(b,c){c=a(this).data("resizable");var d=c.options,e=c.containerOffset,f=c.position;b=c._aspectRatio||
-b.shiftKey;var l={top:0,left:0},m=c.containerElement;m[0]!=document&&/static/.test(m.css("position"))&&(l=e);f.left<(c._helper?e.left:0)&&(c.size.width+=c._helper?c.position.left-e.left:c.position.left-l.left,b&&(c.size.height=c.size.width/c.aspectRatio),c.position.left=d.helper?e.left:0);f.top<(c._helper?e.top:0)&&(c.size.height+=c._helper?c.position.top-e.top:c.position.top,b&&(c.size.width=c.size.height*c.aspectRatio),c.position.top=c._helper?e.top:0);c.offset.left=c.parentData.left+c.position.left;
-c.offset.top=c.parentData.top+c.position.top;d=Math.abs(c.offset.left-l.left+c.sizeDiff.width);e=Math.abs((c._helper?c.offset.top-l.top:c.offset.top-e.top)+c.sizeDiff.height);f=c.containerElement.get(0)==c.element.parent().get(0);l=/relative|absolute/.test(c.containerElement.css("position"));f&&l&&(d-=c.parentData.left);d+c.size.width>=c.parentData.width&&(c.size.width=c.parentData.width-d,b&&(c.size.height=c.size.width/c.aspectRatio));e+c.size.height>=c.parentData.height&&(c.size.height=c.parentData.height-
-e,b&&(c.size.width=c.size.height*c.aspectRatio))},stop:function(b,c){b=a(this).data("resizable");c=b.options;var d=b.containerOffset,e=b.containerPosition,f=b.containerElement,l=a(b.helper),m=l.offset(),n=l.outerWidth()-b.sizeDiff.width;l=l.outerHeight()-b.sizeDiff.height;b._helper&&!c.animate&&/relative/.test(f.css("position"))&&a(this).css({left:m.left-e.left-d.left,width:n,height:l});b._helper&&!c.animate&&/static/.test(f.css("position"))&&a(this).css({left:m.left-e.left-d.left,width:n,height:l})}});
-a.ui.plugin.add("resizable","ghost",{start:function(b,c){b=a(this).data("resizable");c=b.options;var d=b.size;b.ghost=b.originalElement.clone();b.ghost.css({opacity:.25,display:"block",position:"relative",height:d.height,width:d.width,margin:0,left:0,top:0}).addClass("ui-resizable-ghost").addClass("string"==typeof c.ghost?c.ghost:"");b.ghost.appendTo(b.helper)},resize:function(b,c){b=a(this).data("resizable");b.ghost&&b.ghost.css({position:"relative",height:b.size.height,width:b.size.width})},stop:function(b,
-c){b=a(this).data("resizable");b.ghost&&b.helper&&b.helper.get(0).removeChild(b.ghost.get(0))}});a.ui.plugin.add("resizable","grid",{resize:function(b,c){b=a(this).data("resizable");var d=b.options,e=b.size;c=b.originalSize;var f=b.originalPosition,l=b.axis;d.grid="number"==typeof d.grid?[d.grid,d.grid]:d.grid;var m=Math.round((e.width-c.width)/(d.grid[0]||1))*(d.grid[0]||1);d=Math.round((e.height-c.height)/(d.grid[1]||1))*(d.grid[1]||1);/^(se|s|e)$/.test(l)?(b.size.width=c.width+m,b.size.height=
-c.height+d):/^(ne)$/.test(l)?(b.size.width=c.width+m,b.size.height=c.height+d,b.position.top=f.top-d):(/^(sw)$/.test(l)?(b.size.width=c.width+m,b.size.height=c.height+d):(b.size.width=c.width+m,b.size.height=c.height+d,b.position.top=f.top-d),b.position.left=f.left-m)}});var b=function(a){return parseInt(a,10)||0},e=function(a){return!isNaN(parseInt(a,10))}})(jQuery);
-(function(a,c){var b,e,d,f,h=function(){var b=a(this).find(":ui-button");setTimeout(function(){b.button("refresh")},1)},g=function(b){var c=b.name,d=b.form,e=a([]);c&&(e=d?a(d).find("[name='"+c+"']"):a("[name='"+c+"']",b.ownerDocument).filter(function(){return!this.form}));return e};a.widget("ui.button",{options:{disabled:null,text:!0,label:null,icons:{primary:null,secondary:null}},_create:function(){this.element.closest("form").unbind("reset.button").bind("reset.button",h);"boolean"!==typeof this.options.disabled?
-this.options.disabled=!!this.element.propAttr("disabled"):this.element.propAttr("disabled",this.options.disabled);this._determineButtonType();this.hasTitle=!!this.buttonElement.attr("title");var c=this,l=this.options,m="checkbox"===this.type||"radio"===this.type,n="ui-state-hover"+(m?"":" ui-state-active");null===l.label&&(l.label=this.buttonElement.html());this.buttonElement.addClass("ui-button ui-widget ui-state-default ui-corner-all").attr("role","button").bind("mouseenter.button",function(){l.disabled||
-(a(this).addClass("ui-state-hover"),this===b&&a(this).addClass("ui-state-active"))}).bind("mouseleave.button",function(){l.disabled||a(this).removeClass(n)}).bind("click.button",function(a){l.disabled&&(a.preventDefault(),a.stopImmediatePropagation())});this.element.bind("focus.button",function(){c.buttonElement.addClass("ui-state-focus")}).bind("blur.button",function(){c.buttonElement.removeClass("ui-state-focus")});m&&(this.element.bind("change.button",function(){f||c.refresh()}),this.buttonElement.bind("mousedown.button",
-function(a){l.disabled||(f=!1,e=a.pageX,d=a.pageY)}).bind("mouseup.button",function(a){l.disabled||e===a.pageX&&d===a.pageY||(f=!0)}));"checkbox"===this.type?this.buttonElement.bind("click.button",function(){if(l.disabled||f)return!1;a(this).toggleClass("ui-state-active");c.buttonElement.attr("aria-pressed",c.element[0].checked)}):"radio"===this.type?this.buttonElement.bind("click.button",function(){if(l.disabled||f)return!1;a(this).addClass("ui-state-active");c.buttonElement.attr("aria-pressed",
-"true");var b=c.element[0];g(b).not(b).map(function(){return a(this).button("widget")[0]}).removeClass("ui-state-active").attr("aria-pressed","false")}):(this.buttonElement.bind("mousedown.button",function(){if(l.disabled)return!1;a(this).addClass("ui-state-active");b=this;a(document).one("mouseup",function(){b=null})}).bind("mouseup.button",function(){if(l.disabled)return!1;a(this).removeClass("ui-state-active")}).bind("keydown.button",function(b){if(l.disabled)return!1;b.keyCode!=a.ui.keyCode.SPACE&&
-b.keyCode!=a.ui.keyCode.ENTER||a(this).addClass("ui-state-active")}).bind("keyup.button",function(){a(this).removeClass("ui-state-active")}),this.buttonElement.is("a")&&this.buttonElement.keyup(function(b){b.keyCode===a.ui.keyCode.SPACE&&a(this).click()}));this._setOption("disabled",l.disabled);this._resetButton()},_determineButtonType:function(){this.element.is(":checkbox")?this.type="checkbox":this.element.is(":radio")?this.type="radio":this.element.is("input")?this.type="input":this.type="button";
-if("checkbox"===this.type||"radio"===this.type){var a=this.element.parents().filter(":last"),b="label[for='"+this.element.attr("id")+"']";this.buttonElement=a.find(b);this.buttonElement.length||(a=a.length?a.siblings():this.element.siblings(),this.buttonElement=a.filter(b),this.buttonElement.length||(this.buttonElement=a.find(b)));this.element.addClass("ui-helper-hidden-accessible");(a=this.element.is(":checked"))&&this.buttonElement.addClass("ui-state-active");this.buttonElement.attr("aria-pressed",
-a)}else this.buttonElement=this.element},widget:function(){return this.buttonElement},destroy:function(){this.element.removeClass("ui-helper-hidden-accessible");this.buttonElement.removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-state-hover ui-state-active  ui-button-icons-only ui-button-icon-only ui-button-text-icons ui-button-text-icon-primary ui-button-text-icon-secondary ui-button-text-only").removeAttr("role").removeAttr("aria-pressed").html(this.buttonElement.find(".ui-button-text").html());
-this.hasTitle||this.buttonElement.removeAttr("title");a.Widget.prototype.destroy.call(this)},_setOption:function(b,c){a.Widget.prototype._setOption.apply(this,arguments);"disabled"===b?c?this.element.propAttr("disabled",!0):this.element.propAttr("disabled",!1):this._resetButton()},refresh:function(){var b=this.element.is(":disabled");b!==this.options.disabled&&this._setOption("disabled",b);"radio"===this.type?g(this.element[0]).each(function(){a(this).is(":checked")?a(this).button("widget").addClass("ui-state-active").attr("aria-pressed",
-"true"):a(this).button("widget").removeClass("ui-state-active").attr("aria-pressed","false")}):"checkbox"===this.type&&(this.element.is(":checked")?this.buttonElement.addClass("ui-state-active").attr("aria-pressed","true"):this.buttonElement.removeClass("ui-state-active").attr("aria-pressed","false"))},_resetButton:function(){if("input"===this.type)this.options.label&&this.element.val(this.options.label);else{var b=this.buttonElement.removeClass("ui-button-icons-only ui-button-icon-only ui-button-text-icons ui-button-text-icon-primary ui-button-text-icon-secondary ui-button-text-only"),
-c=a("<span></span>",this.element[0].ownerDocument).addClass("ui-button-text").html(this.options.label).appendTo(b.empty()).text(),d=this.options.icons,e=d.primary&&d.secondary,f=[];d.primary||d.secondary?(this.options.text&&f.push("ui-button-text-icon"+(e?"s":d.primary?"-primary":"-secondary")),d.primary&&b.prepend("<span class='ui-button-icon-primary ui-icon "+d.primary+"'></span>"),d.secondary&&b.append("<span class='ui-button-icon-secondary ui-icon "+d.secondary+"'></span>"),this.options.text||
-(f.push(e?"ui-button-icons-only":"ui-button-icon-only"),this.hasTitle||b.attr("title",c))):f.push("ui-button-text-only");b.addClass(f.join(" "))}}});a.widget("ui.buttonset",{options:{items:":button, :submit, :reset, :checkbox, :radio, a, :data(button)"},_create:function(){this.element.addClass("ui-buttonset")},_init:function(){this.refresh()},_setOption:function(b,c){"disabled"===b&&this.buttons.button("option",b,c);a.Widget.prototype._setOption.apply(this,arguments)},refresh:function(){var b="rtl"===
-this.element.css("direction");this.buttons=this.element.find(this.options.items).filter(":ui-button").button("refresh").end().not(":ui-button").button().end().map(function(){return a(this).button("widget")[0]}).removeClass("ui-corner-all ui-corner-left ui-corner-right").filter(":first").addClass(b?"ui-corner-right":"ui-corner-left").end().filter(":last").addClass(b?"ui-corner-left":"ui-corner-right").end().end()},destroy:function(){this.element.removeClass("ui-buttonset");this.buttons.map(function(){return a(this).button("widget")[0]}).removeClass("ui-corner-left ui-corner-right").end().button("destroy");
-a.Widget.prototype.destroy.call(this)}})})(jQuery);
-(function(a,c){var b={buttons:!0,height:!0,maxHeight:!0,maxWidth:!0,minHeight:!0,minWidth:!0,width:!0},e={maxHeight:!0,maxWidth:!0,minHeight:!0,minWidth:!0};a.widget("ui.dialog",{options:{autoOpen:!0,buttons:{},closeOnEscape:!0,closeText:"close",dialogClass:"",draggable:!0,hide:null,height:"auto",maxHeight:!1,maxWidth:!1,minHeight:150,minWidth:150,modal:!1,position:{my:"center",at:"center",collision:"fit",using:function(b){var c=a(this).css(b).offset().top;0>c&&a(this).css("top",b.top-c)}},resizable:!0,
-show:null,stack:!0,title:"",width:300,zIndex:1E3},_create:function(){this.originalTitle=this.element.attr("title");"string"!==typeof this.originalTitle&&(this.originalTitle="");this.options.title=this.options.title||this.originalTitle;var b=this,c=b.options,e=c.title||"&#160;",g=a.ui.dialog.getTitleId(b.element),k=(b.uiDialog=a("<div></div>")).appendTo(document.body).hide().addClass("ui-dialog ui-widget ui-widget-content ui-corner-all "+c.dialogClass).css({zIndex:c.zIndex}).attr("tabIndex",-1).css("outline",
-0).keydown(function(d){c.closeOnEscape&&!d.isDefaultPrevented()&&d.keyCode&&d.keyCode===a.ui.keyCode.ESCAPE&&(b.close(d),d.preventDefault())}).attr({role:"dialog","aria-labelledby":g}).mousedown(function(a){b.moveToTop(!1,a)});b.element.show().removeAttr("title").addClass("ui-dialog-content ui-widget-content").appendTo(k);var l=(b.uiDialogTitlebar=a("<div></div>")).addClass("ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix").prependTo(k),m=a('<a href="#"></a>').addClass("ui-dialog-titlebar-close ui-corner-all").attr("role",
-"button").hover(function(){m.addClass("ui-state-hover")},function(){m.removeClass("ui-state-hover")}).focus(function(){m.addClass("ui-state-focus")}).blur(function(){m.removeClass("ui-state-focus")}).click(function(a){b.close(a);return!1}).appendTo(l);(b.uiDialogTitlebarCloseText=a("<span></span>")).addClass("ui-icon ui-icon-closethick").text(c.closeText).appendTo(m);a("<span></span>").addClass("ui-dialog-title").attr("id",g).html(e).prependTo(l);a.isFunction(c.beforeclose)&&!a.isFunction(c.beforeClose)&&
-(c.beforeClose=c.beforeclose);l.find("*").add(l).disableSelection();c.draggable&&a.fn.draggable&&b._makeDraggable();c.resizable&&a.fn.resizable&&b._makeResizable();b._createButtons(c.buttons);b._isOpen=!1;a.fn.bgiframe&&k.bgiframe()},_init:function(){this.options.autoOpen&&this.open()},destroy:function(){this.overlay&&this.overlay.destroy();this.uiDialog.hide();this.element.unbind(".dialog").removeData("dialog").removeClass("ui-dialog-content ui-widget-content").hide().appendTo("body");this.uiDialog.remove();
-this.originalTitle&&this.element.attr("title",this.originalTitle);return this},widget:function(){return this.uiDialog},close:function(b){var c=this,d;if(!1!==c._trigger("beforeClose",b)){c.overlay&&c.overlay.destroy();c.uiDialog.unbind("keypress.ui-dialog");c._isOpen=!1;c.options.hide?c.uiDialog.hide(c.options.hide,function(){c._trigger("close",b)}):(c.uiDialog.hide(),c._trigger("close",b));a.ui.dialog.overlay.resize();if(c.options.modal){var e=0;a(".ui-dialog").each(function(){this!==c.uiDialog[0]&&
-(d=a(this).css("z-index"),isNaN(d)||(e=Math.max(e,d)))});a.ui.dialog.maxZ=e}return c}},isOpen:function(){return this._isOpen},moveToTop:function(b,c){var d=this.options;if(d.modal&&!b||!d.stack&&!d.modal)return this._trigger("focus",c);d.zIndex>a.ui.dialog.maxZ&&(a.ui.dialog.maxZ=d.zIndex);this.overlay&&(a.ui.dialog.maxZ+=1,this.overlay.$el.css("z-index",a.ui.dialog.overlay.maxZ=a.ui.dialog.maxZ));b={scrollTop:this.element.scrollTop(),scrollLeft:this.element.scrollLeft()};a.ui.dialog.maxZ+=1;this.uiDialog.css("z-index",
-a.ui.dialog.maxZ);this.element.attr(b);this._trigger("focus",c);return this},open:function(){if(!this._isOpen){var b=this.options,c=this.uiDialog;this.overlay=b.modal?new a.ui.dialog.overlay(this):null;this._size();this._position(b.position);c.show(b.show);this.moveToTop(!0);b.modal&&c.bind("keydown.ui-dialog",function(b){if(b.keyCode===a.ui.keyCode.TAB){var c=a(":tabbable",this),d=c.filter(":first");c=c.filter(":last");if(b.target===c[0]&&!b.shiftKey)return d.focus(1),!1;if(b.target===d[0]&&b.shiftKey)return c.focus(1),
-!1}});a(this.element.find(":tabbable").get().concat(c.find(".ui-dialog-buttonpane :tabbable").get().concat(c.get()))).eq(0).focus();this._isOpen=!0;this._trigger("open");return this}},_createButtons:function(b){var c=this,d=!1,e=a("<div></div>").addClass("ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"),k=a("<div></div>").addClass("ui-dialog-buttonset").appendTo(e);c.uiDialog.find(".ui-dialog-buttonpane").remove();"object"===typeof b&&null!==b&&a.each(b,function(){return!(d=!0)});d&&(a.each(b,
-function(b,d){d=a.isFunction(d)?{click:d,text:b}:d;var e=a('<button type="button"></button>').click(function(){d.click.apply(c.element[0],arguments)}).appendTo(k);a.each(d,function(a,b){if("click"!==a)if(a in e)e[a](b);else e.attr(a,b)});a.fn.button&&e.button()}),e.appendTo(c.uiDialog))},_makeDraggable:function(){function b(a){return{position:a.position,offset:a.offset}}var c=this,e=c.options,g=a(document),k;c.uiDialog.draggable({cancel:".ui-dialog-content, .ui-dialog-titlebar-close",handle:".ui-dialog-titlebar",
-containment:"document",start:function(d,f){k="auto"===e.height?"auto":a(this).height();a(this).height(a(this).height()).addClass("ui-dialog-dragging");c._trigger("dragStart",d,b(f))},drag:function(a,d){c._trigger("drag",a,b(d))},stop:function(d,f){e.position=[f.position.left-g.scrollLeft(),f.position.top-g.scrollTop()];a(this).removeClass("ui-dialog-dragging").height(k);c._trigger("dragStop",d,b(f));a.ui.dialog.overlay.resize()}})},_makeResizable:function(b){function d(a){return{originalPosition:a.originalPosition,
-originalSize:a.originalSize,position:a.position,size:a.size}}b=b===c?this.options.resizable:b;var e=this,g=e.options,k=e.uiDialog.css("position");b="string"===typeof b?b:"n,e,s,w,se,sw,ne,nw";e.uiDialog.resizable({cancel:".ui-dialog-content",containment:"document",alsoResize:e.element,maxWidth:g.maxWidth,maxHeight:g.maxHeight,minWidth:g.minWidth,minHeight:e._minHeight(),handles:b,start:function(b,c){a(this).addClass("ui-dialog-resizing");e._trigger("resizeStart",b,d(c))},resize:function(a,b){e._trigger("resize",
-a,d(b))},stop:function(b,c){a(this).removeClass("ui-dialog-resizing");g.height=a(this).height();g.width=a(this).width();e._trigger("resizeStop",b,d(c));a.ui.dialog.overlay.resize()}}).css("position",k).find(".ui-resizable-se").addClass("ui-icon ui-icon-grip-diagonal-se")},_minHeight:function(){var a=this.options;return"auto"===a.height?a.minHeight:Math.min(a.minHeight,a.height)},_position:function(b){var c=[],d=[0,0],e;if(b){if("string"===typeof b||"object"===typeof b&&"0"in b)c=b.split?b.split(" "):
-[b[0],b[1]],1===c.length&&(c[1]=c[0]),a.each(["left","top"],function(a,b){+c[a]===c[a]&&(d[a]=c[a],c[a]=b)}),b={my:c.join(" "),at:c.join(" "),offset:d.join(" ")};b=a.extend({},a.ui.dialog.prototype.options.position,b)}else b=a.ui.dialog.prototype.options.position;(e=this.uiDialog.is(":visible"))||this.uiDialog.show();this.uiDialog.css({top:0,left:0}).position(a.extend({of:window},b));e||this.uiDialog.hide()},_setOptions:function(c){var d=this,h={},g=!1;a.each(c,function(a,c){d._setOption(a,c);a in
-b&&(g=!0);a in e&&(h[a]=c)});g&&this._size();this.uiDialog.is(":data(resizable)")&&this.uiDialog.resizable("option",h)},_setOption:function(b,c){var d=this.uiDialog;switch(b){case "beforeclose":b="beforeClose";break;case "buttons":this._createButtons(c);break;case "closeText":this.uiDialogTitlebarCloseText.text(""+c);break;case "dialogClass":d.removeClass(this.options.dialogClass).addClass("ui-dialog ui-widget ui-widget-content ui-corner-all "+c);break;case "disabled":c?d.addClass("ui-dialog-disabled"):
-d.removeClass("ui-dialog-disabled");break;case "draggable":var e=d.is(":data(draggable)");e&&!c&&d.draggable("destroy");!e&&c&&this._makeDraggable();break;case "position":this._position(c);break;case "resizable":(e=d.is(":data(resizable)"))&&!c&&d.resizable("destroy");e&&"string"===typeof c&&d.resizable("option","handles",c);e||!1===c||this._makeResizable(c);break;case "title":a(".ui-dialog-title",this.uiDialogTitlebar).html(""+(c||"&#160;"))}a.Widget.prototype._setOption.apply(this,arguments)},_size:function(){var b=
-this.options,c=this.uiDialog.is(":visible");this.element.show().css({width:"auto",minHeight:0,height:0});b.minWidth>b.width&&(b.width=b.minWidth);var e=this.uiDialog.css({height:"auto",width:b.width}).height();var g=Math.max(0,b.minHeight-e);"auto"===b.height?a.support.minHeight?this.element.css({minHeight:g,height:"auto"}):(this.uiDialog.show(),b=this.element.css("height","auto").height(),c||this.uiDialog.hide(),this.element.height(Math.max(b,g))):this.element.height(Math.max(b.height-e,0));this.uiDialog.is(":data(resizable)")&&
-this.uiDialog.resizable("option","minHeight",this._minHeight())}});a.extend(a.ui.dialog,{version:"1.8.23",uuid:0,maxZ:0,getTitleId:function(a){a=a.attr("id");a||(a=this.uuid+=1);return"ui-dialog-title-"+a},overlay:function(b){this.$el=a.ui.dialog.overlay.create(b)}});a.extend(a.ui.dialog.overlay,{instances:[],oldInstances:[],maxZ:0,events:a.map("focus mousedown mouseup keydown keypress click".split(" "),function(a){return a+".dialog-overlay"}).join(" "),create:function(b){0===this.instances.length&&
-(setTimeout(function(){a.ui.dialog.overlay.instances.length&&a(document).bind(a.ui.dialog.overlay.events,function(b){if(a(b.target).zIndex()<a.ui.dialog.overlay.maxZ)return!1})},1),a(document).bind("keydown.dialog-overlay",function(c){b.options.closeOnEscape&&!c.isDefaultPrevented()&&c.keyCode&&c.keyCode===a.ui.keyCode.ESCAPE&&(b.close(c),c.preventDefault())}),a(window).bind("resize.dialog-overlay",a.ui.dialog.overlay.resize));var c=(this.oldInstances.pop()||a("<div></div>").addClass("ui-widget-overlay")).appendTo(document.body).css({width:this.width(),
-height:this.height()});a.fn.bgiframe&&c.bgiframe();this.instances.push(c);return c},destroy:function(b){var c=a.inArray(b,this.instances);-1!=c&&this.oldInstances.push(this.instances.splice(c,1)[0]);0===this.instances.length&&a([document,window]).unbind(".dialog-overlay");b.remove();var d=0;a.each(this.instances,function(){d=Math.max(d,this.css("z-index"))});this.maxZ=d},height:function(){if(a.browser.msie&&7>a.browser.version){var b=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
-var c=Math.max(document.documentElement.offsetHeight,document.body.offsetHeight);return b<c?a(window).height()+"px":b+"px"}return a(document).height()+"px"},width:function(){if(a.browser.msie){var b=Math.max(document.documentElement.scrollWidth,document.body.scrollWidth);var c=Math.max(document.documentElement.offsetWidth,document.body.offsetWidth);return b<c?a(window).width()+"px":b+"px"}return a(document).width()+"px"},resize:function(){var b=a([]);a.each(a.ui.dialog.overlay.instances,function(){b=
-b.add(this)});b.css({width:0,height:0}).css({width:a.ui.dialog.overlay.width(),height:a.ui.dialog.overlay.height()})}});a.extend(a.ui.dialog.overlay.prototype,{destroy:function(){a.ui.dialog.overlay.destroy(this.$el)}})})(jQuery);
-(function(a,c){a.widget("ui.slider",a.ui.mouse,{widgetEventPrefix:"slide",options:{animate:!1,distance:0,max:100,min:0,orientation:"horizontal",range:!1,step:1,value:0,values:null},_create:function(){var b=this,c=this.options,d=this.element.find(".ui-slider-handle").addClass("ui-state-default ui-corner-all"),f=c.values&&c.values.length||1,h=[];this._mouseSliding=this._keySliding=!1;this._animateOff=!0;this._handleIndex=null;this._detectOrientation();this._mouseInit();this.element.addClass("ui-slider ui-slider-"+
-this.orientation+" ui-widget ui-widget-content ui-corner-all"+(c.disabled?" ui-slider-disabled ui-disabled":""));this.range=a([]);c.range&&(!0===c.range&&(c.values||(c.values=[this._valueMin(),this._valueMin()]),c.values.length&&2!==c.values.length&&(c.values=[c.values[0],c.values[0]])),this.range=a("<div></div>").appendTo(this.element).addClass("ui-slider-range ui-widget-header"+("min"===c.range||"max"===c.range?" ui-slider-range-"+c.range:"")));for(var g=d.length;g<f;g+=1)h.push("<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>");
-this.handles=d.add(a(h.join("")).appendTo(b.element));this.handle=this.handles.eq(0);this.handles.add(this.range).filter("a").click(function(a){a.preventDefault()}).hover(function(){c.disabled||a(this).addClass("ui-state-hover")},function(){a(this).removeClass("ui-state-hover")}).focus(function(){c.disabled?a(this).blur():(a(".ui-slider .ui-state-focus").removeClass("ui-state-focus"),a(this).addClass("ui-state-focus"))}).blur(function(){a(this).removeClass("ui-state-focus")});this.handles.each(function(b){a(this).data("index.ui-slider-handle",
-b)});this.handles.keydown(function(c){var d=a(this).data("index.ui-slider-handle"),e;if(!b.options.disabled){switch(c.keyCode){case a.ui.keyCode.HOME:case a.ui.keyCode.END:case a.ui.keyCode.PAGE_UP:case a.ui.keyCode.PAGE_DOWN:case a.ui.keyCode.UP:case a.ui.keyCode.RIGHT:case a.ui.keyCode.DOWN:case a.ui.keyCode.LEFT:if(c.preventDefault(),!b._keySliding){b._keySliding=!0;a(this).addClass("ui-state-active");var f=b._start(c,d);if(!1===f)return}}var h=b.options.step;f=b.options.values&&b.options.values.length?
-e=b.values(d):e=b.value();switch(c.keyCode){case a.ui.keyCode.HOME:e=b._valueMin();break;case a.ui.keyCode.END:e=b._valueMax();break;case a.ui.keyCode.PAGE_UP:e=b._trimAlignValue(f+(b._valueMax()-b._valueMin())/5);break;case a.ui.keyCode.PAGE_DOWN:e=b._trimAlignValue(f-(b._valueMax()-b._valueMin())/5);break;case a.ui.keyCode.UP:case a.ui.keyCode.RIGHT:if(f===b._valueMax())return;e=b._trimAlignValue(f+h);break;case a.ui.keyCode.DOWN:case a.ui.keyCode.LEFT:if(f===b._valueMin())return;e=b._trimAlignValue(f-
-h)}b._slide(c,d,e)}}).keyup(function(c){var d=a(this).data("index.ui-slider-handle");b._keySliding&&(b._keySliding=!1,b._stop(c,d),b._change(c,d),a(this).removeClass("ui-state-active"))});this._refreshValue();this._animateOff=!1},destroy:function(){this.handles.remove();this.range.remove();this.element.removeClass("ui-slider ui-slider-horizontal ui-slider-vertical ui-slider-disabled ui-widget ui-widget-content ui-corner-all").removeData("slider").unbind(".slider");this._mouseDestroy();return this},
-_mouseCapture:function(b){var c=this.options,d;if(c.disabled)return!1;this.elementSize={width:this.element.outerWidth(),height:this.element.outerHeight()};this.elementOffset=this.element.offset();var f=this._normValueFromMouse({x:b.pageX,y:b.pageY});var h=this._valueMax()-this._valueMin()+1;var g=this;this.handles.each(function(b){var c=Math.abs(f-g.values(b));h>c&&(h=c,k=a(this),d=b)});if(!0===c.range&&this.values(1)===c.min){d+=1;var k=a(this.handles[d])}if(!1===this._start(b,d))return!1;this._mouseSliding=
-!0;g._handleIndex=d;k.addClass("ui-state-active").focus();c=k.offset();this._clickOffset=a(b.target).parents().andSelf().is(".ui-slider-handle")?{left:b.pageX-c.left-k.width()/2,top:b.pageY-c.top-k.height()/2-(parseInt(k.css("borderTopWidth"),10)||0)-(parseInt(k.css("borderBottomWidth"),10)||0)+(parseInt(k.css("marginTop"),10)||0)}:{left:0,top:0};this.handles.hasClass("ui-state-hover")||this._slide(b,d,f);return this._animateOff=!0},_mouseStart:function(a){return!0},_mouseDrag:function(a){var b=this._normValueFromMouse({x:a.pageX,
-y:a.pageY});this._slide(a,this._handleIndex,b);return!1},_mouseStop:function(a){this.handles.removeClass("ui-state-active");this._mouseSliding=!1;this._stop(a,this._handleIndex);this._change(a,this._handleIndex);this._clickOffset=this._handleIndex=null;return this._animateOff=!1},_detectOrientation:function(){this.orientation="vertical"===this.options.orientation?"vertical":"horizontal"},_normValueFromMouse:function(a){if("horizontal"===this.orientation){var b=this.elementSize.width;a=a.x-this.elementOffset.left-
-(this._clickOffset?this._clickOffset.left:0)}else b=this.elementSize.height,a=a.y-this.elementOffset.top-(this._clickOffset?this._clickOffset.top:0);b=a/b;1<b&&(b=1);0>b&&(b=0);"vertical"===this.orientation&&(b=1-b);a=this._valueMax()-this._valueMin();b=this._valueMin()+b*a;return this._trimAlignValue(b)},_start:function(a,c){var b={handle:this.handles[c],value:this.value()};this.options.values&&this.options.values.length&&(b.value=this.values(c),b.values=this.values());return this._trigger("start",
-a,b)},_slide:function(a,c,d){if(this.options.values&&this.options.values.length){var b=this.values(c?0:1);2===this.options.values.length&&!0===this.options.range&&(0===c&&d>b||1===c&&d<b)&&(d=b);d!==this.values(c)&&(b=this.values(),b[c]=d,a=this._trigger("slide",a,{handle:this.handles[c],value:d,values:b}),this.values(c?0:1),!1!==a&&this.values(c,d,!0))}else d!==this.value()&&(a=this._trigger("slide",a,{handle:this.handles[c],value:d}),!1!==a&&this.value(d))},_stop:function(a,c){var b={handle:this.handles[c],
-value:this.value()};this.options.values&&this.options.values.length&&(b.value=this.values(c),b.values=this.values());this._trigger("stop",a,b)},_change:function(a,c){if(!this._keySliding&&!this._mouseSliding){var b={handle:this.handles[c],value:this.value()};this.options.values&&this.options.values.length&&(b.value=this.values(c),b.values=this.values());this._trigger("change",a,b)}},value:function(a){if(arguments.length)this.options.value=this._trimAlignValue(a),this._refreshValue(),this._change(null,
-0);else return this._value()},values:function(b,c){var d;if(1<arguments.length)this.options.values[b]=this._trimAlignValue(c),this._refreshValue(),this._change(null,b);else if(arguments.length)if(a.isArray(arguments[0])){var e=this.options.values;var h=arguments[0];for(d=0;d<e.length;d+=1)e[d]=this._trimAlignValue(h[d]),this._change(null,d);this._refreshValue()}else return this.options.values&&this.options.values.length?this._values(b):this.value();else return this._values()},_setOption:function(b,
-c){var d,e=0;a.isArray(this.options.values)&&(e=this.options.values.length);a.Widget.prototype._setOption.apply(this,arguments);switch(b){case "disabled":c?(this.handles.filter(".ui-state-focus").blur(),this.handles.removeClass("ui-state-hover"),this.handles.propAttr("disabled",!0),this.element.addClass("ui-disabled")):(this.handles.propAttr("disabled",!1),this.element.removeClass("ui-disabled"));break;case "orientation":this._detectOrientation();this.element.removeClass("ui-slider-horizontal ui-slider-vertical").addClass("ui-slider-"+
-this.orientation);this._refreshValue();break;case "value":this._animateOff=!0;this._refreshValue();this._change(null,0);this._animateOff=!1;break;case "values":this._animateOff=!0;this._refreshValue();for(d=0;d<e;d+=1)this._change(null,d);this._animateOff=!1}},_value:function(){var a=this.options.value;return a=this._trimAlignValue(a)},_values:function(a){var c;if(arguments.length){var b=this.options.values[a];return b=this._trimAlignValue(b)}b=this.options.values.slice();for(c=0;c<b.length;c+=1)b[c]=
-this._trimAlignValue(b[c]);return b},_trimAlignValue:function(a){if(a<=this._valueMin())return this._valueMin();if(a>=this._valueMax())return this._valueMax();var c=0<this.options.step?this.options.step:1,b=(a-this._valueMin())%c;a-=b;2*Math.abs(b)>=c&&(a+=0<b?c:-c);return parseFloat(a.toFixed(5))},_valueMin:function(){return this.options.min},_valueMax:function(){return this.options.max},_refreshValue:function(){var c=this.options.range,e=this.options,d=this,f=this._animateOff?!1:e.animate,h={},
-g;if(this.options.values&&this.options.values.length)this.handles.each(function(c,b){n=(d.values(c)-d._valueMin())/(d._valueMax()-d._valueMin())*100;h["horizontal"===d.orientation?"left":"bottom"]=n+"%";a(this).stop(1,1)[f?"animate":"css"](h,e.animate);if(!0===d.options.range)if("horizontal"===d.orientation){if(0===c)d.range.stop(1,1)[f?"animate":"css"]({left:n+"%"},e.animate);if(1===c)d.range[f?"animate":"css"]({width:n-g+"%"},{queue:!1,duration:e.animate})}else{if(0===c)d.range.stop(1,1)[f?"animate":
-"css"]({bottom:n+"%"},e.animate);if(1===c)d.range[f?"animate":"css"]({height:n-g+"%"},{queue:!1,duration:e.animate})}g=n});else{var k=this.value();var l=this._valueMin();var m=this._valueMax();var n=m!==l?(k-l)/(m-l)*100:0;h["horizontal"===d.orientation?"left":"bottom"]=n+"%";this.handle.stop(1,1)[f?"animate":"css"](h,e.animate);if("min"===c&&"horizontal"===this.orientation)this.range.stop(1,1)[f?"animate":"css"]({width:n+"%"},e.animate);if("max"===c&&"horizontal"===this.orientation)this.range[f?
-"animate":"css"]({width:100-n+"%"},{queue:!1,duration:e.animate});if("min"===c&&"vertical"===this.orientation)this.range.stop(1,1)[f?"animate":"css"]({height:n+"%"},e.animate);if("max"===c&&"vertical"===this.orientation)this.range[f?"animate":"css"]({height:100-n+"%"},{queue:!1,duration:e.animate})}}});a.extend(a.ui.slider,{version:"1.8.23"})})(jQuery);
-(function(a,c){var b=0,e=0;a.widget("ui.tabs",{options:{add:null,ajaxOptions:null,cache:!1,cookie:null,collapsible:!1,disable:null,disabled:[],enable:null,event:"click",fx:null,idPrefix:"ui-tabs-",load:null,panelTemplate:"<div></div>",remove:null,select:null,show:null,spinner:"<em>Loading&#8230;</em>",tabTemplate:"<li><a href='#{href}'><span>#{label}</span></a></li>"},_create:function(){this._tabify(!0)},_setOption:function(a,c){"selected"==a?this.options.collapsible&&c==this.options.selected||this.select(c):
-(this.options[a]=c,this._tabify())},_tabId:function(a){return a.title&&a.title.replace(/\s/g,"_").replace(/[^\w\u00c0-\uFFFF-]/g,"")||this.options.idPrefix+ ++b},_sanitizeSelector:function(a){return a.replace(/:/g,"\\:")},_cookie:function(){var c=this.cookie||(this.cookie=this.options.cookie.name||"ui-tabs-"+ ++e);return a.cookie.apply(null,[c].concat(a.makeArray(arguments)))},_ui:function(a,c){return{tab:a,panel:c,index:this.anchors.index(a)}},_cleanup:function(){this.lis.filter(".ui-state-processing").removeClass("ui-state-processing").find("span:data(label.tabs)").each(function(){var c=
-a(this);c.html(c.data("label.tabs")).removeData("label.tabs")})},_tabify:function(b){function d(c,b){c.css("display","");!a.support.opacity&&b.opacity&&c[0].style.removeAttribute("filter")}var e=this,g=this.options,k=/^#.+/;this.list=this.element.find("ol,ul").eq(0);this.lis=a(" > li:has(a[href])",this.list);this.anchors=this.lis.map(function(){return a("a",this)[0]});this.panels=a([]);this.anchors.each(function(c,b){var d=a(b).attr("href"),f=d.split("#")[0],v;f&&(f===location.toString().split("#")[0]||
-(v=a("base")[0])&&f===v.href)&&(d=b.hash,b.href=d);k.test(d)?e.panels=e.panels.add(e.element.find(e._sanitizeSelector(d))):d&&"#"!==d?(a.data(b,"href.tabs",d),a.data(b,"load.tabs",d.replace(/#.*$/,"")),d=e._tabId(b),b.href="#"+d,b=e.element.find("#"+d),b.length||(b=a(g.panelTemplate).attr("id",d).addClass("ui-tabs-panel ui-widget-content ui-corner-bottom").insertAfter(e.panels[c-1]||e.list),b.data("destroy.tabs",!0)),e.panels=e.panels.add(b)):g.disabled.push(c)});b?(this.element.addClass("ui-tabs ui-widget ui-widget-content ui-corner-all"),
-this.list.addClass("ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"),this.lis.addClass("ui-state-default ui-corner-top"),this.panels.addClass("ui-tabs-panel ui-widget-content ui-corner-bottom"),g.selected===c?(location.hash&&this.anchors.each(function(a,c){if(c.hash==location.hash)return g.selected=a,!1}),"number"!==typeof g.selected&&g.cookie&&(g.selected=parseInt(e._cookie(),10)),"number"!==typeof g.selected&&this.lis.filter(".ui-tabs-selected").length&&(g.selected=
-this.lis.index(this.lis.filter(".ui-tabs-selected"))),g.selected=g.selected||(this.lis.length?0:-1)):null===g.selected&&(g.selected=-1),g.selected=0<=g.selected&&this.anchors[g.selected]||0>g.selected?g.selected:0,g.disabled=a.unique(g.disabled.concat(a.map(this.lis.filter(".ui-state-disabled"),function(a,c){return e.lis.index(a)}))).sort(),-1!=a.inArray(g.selected,g.disabled)&&g.disabled.splice(a.inArray(g.selected,g.disabled),1),this.panels.addClass("ui-tabs-hide"),this.lis.removeClass("ui-tabs-selected ui-state-active"),
-0<=g.selected&&this.anchors.length&&(e.element.find(e._sanitizeSelector(e.anchors[g.selected].hash)).removeClass("ui-tabs-hide"),this.lis.eq(g.selected).addClass("ui-tabs-selected ui-state-active"),e.element.queue("tabs",function(){e._trigger("show",null,e._ui(e.anchors[g.selected],e.element.find(e._sanitizeSelector(e.anchors[g.selected].hash))[0]))}),this.load(g.selected)),a(window).bind("unload",function(){e.lis.add(e.anchors).unbind(".tabs");e.lis=e.anchors=e.panels=null})):g.selected=this.lis.index(this.lis.filter(".ui-tabs-selected"));
-this.element[g.collapsible?"addClass":"removeClass"]("ui-tabs-collapsible");g.cookie&&this._cookie(g.selected,g.cookie);b=0;for(var l;l=this.lis[b];b++)a(l)[-1==a.inArray(b,g.disabled)||a(l).hasClass("ui-tabs-selected")?"removeClass":"addClass"]("ui-state-disabled");!1===g.cache&&this.anchors.removeData("cache.tabs");this.lis.add(this.anchors).unbind(".tabs");if("mouseover"!==g.event){var m=function(a,c){c.is(":not(.ui-state-disabled)")&&c.addClass("ui-state-"+a)};this.lis.bind("mouseover.tabs",function(){m("hover",
-a(this))});this.lis.bind("mouseout.tabs",function(){a(this).removeClass("ui-state-hover")});this.anchors.bind("focus.tabs",function(){m("focus",a(this).closest("li"))});this.anchors.bind("blur.tabs",function(){a(this).closest("li").removeClass("ui-state-focus")})}if(g.fx)if(a.isArray(g.fx)){var n=g.fx[0];var q=g.fx[1]}else n=q=g.fx;var r=q?function(c,b){a(c).closest("li").addClass("ui-tabs-selected ui-state-active");b.hide().removeClass("ui-tabs-hide").animate(q,q.duration||"normal",function(){d(b,
-q);e._trigger("show",null,e._ui(c,b[0]))})}:function(c,b){a(c).closest("li").addClass("ui-tabs-selected ui-state-active");b.removeClass("ui-tabs-hide");e._trigger("show",null,e._ui(c,b[0]))},p=n?function(a,c){c.animate(n,n.duration||"normal",function(){e.lis.removeClass("ui-tabs-selected ui-state-active");c.addClass("ui-tabs-hide");d(c,n);e.element.dequeue("tabs")})}:function(a,c,b){e.lis.removeClass("ui-tabs-selected ui-state-active");c.addClass("ui-tabs-hide");e.element.dequeue("tabs")};this.anchors.bind(g.event+
-".tabs",function(){var c=this,b=a(c).closest("li"),d=e.panels.filter(":not(.ui-tabs-hide)"),f=e.element.find(e._sanitizeSelector(c.hash));if(b.hasClass("ui-tabs-selected")&&!g.collapsible||b.hasClass("ui-state-disabled")||b.hasClass("ui-state-processing")||e.panels.filter(":animated").length||!1===e._trigger("select",null,e._ui(this,f[0])))return this.blur(),!1;g.selected=e.anchors.index(this);e.abort();if(g.collapsible){if(b.hasClass("ui-tabs-selected"))return g.selected=-1,g.cookie&&e._cookie(g.selected,
-g.cookie),e.element.queue("tabs",function(){p(c,d)}).dequeue("tabs"),this.blur(),!1;if(!d.length)return g.cookie&&e._cookie(g.selected,g.cookie),e.element.queue("tabs",function(){r(c,f)}),e.load(e.anchors.index(this)),this.blur(),!1}g.cookie&&e._cookie(g.selected,g.cookie);if(f.length)d.length&&e.element.queue("tabs",function(){p(c,d)}),e.element.queue("tabs",function(){r(c,f)}),e.load(e.anchors.index(this));else throw"jQuery UI Tabs: Mismatching fragment identifier.";a.browser.msie&&this.blur()});
-this.anchors.bind("click.tabs",function(){return!1})},_getIndex:function(a){"string"==typeof a&&(a=this.anchors.index(this.anchors.filter("[href$='"+a+"']")));return a},destroy:function(){var c=this.options;this.abort();this.element.unbind(".tabs").removeClass("ui-tabs ui-widget ui-widget-content ui-corner-all ui-tabs-collapsible").removeData("tabs");this.list.removeClass("ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all");this.anchors.each(function(){var c=a.data(this,
-"href.tabs");c&&(this.href=c);var b=a(this).unbind(".tabs");a.each(["href","load","cache"],function(a,c){b.removeData(c+".tabs")})});this.lis.unbind(".tabs").add(this.panels).each(function(){a.data(this,"destroy.tabs")?a(this).remove():a(this).removeClass("ui-state-default ui-corner-top ui-tabs-selected ui-state-active ui-state-hover ui-state-focus ui-state-disabled ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide")});c.cookie&&this._cookie(null,c.cookie);return this},add:function(b,
-e,h){h===c&&(h=this.anchors.length);var d=this,f=this.options;e=a(f.tabTemplate.replace(/#\{href\}/g,b).replace(/#\{label\}/g,e));b=b.indexOf("#")?this._tabId(a("a",e)[0]):b.replace("#","");e.addClass("ui-state-default ui-corner-top").data("destroy.tabs",!0);var l=d.element.find("#"+b);l.length||(l=a(f.panelTemplate).attr("id",b).data("destroy.tabs",!0));l.addClass("ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide");h>=this.lis.length?(e.appendTo(this.list),l.appendTo(this.list[0].parentNode)):
-(e.insertBefore(this.lis[h]),l.insertBefore(this.panels[h]));f.disabled=a.map(f.disabled,function(a,c){return a>=h?++a:a});this._tabify();1==this.anchors.length&&(f.selected=0,e.addClass("ui-tabs-selected ui-state-active"),l.removeClass("ui-tabs-hide"),this.element.queue("tabs",function(){d._trigger("show",null,d._ui(d.anchors[0],d.panels[0]))}),this.load(0));this._trigger("add",null,this._ui(this.anchors[h],this.panels[h]));return this},remove:function(c){c=this._getIndex(c);var b=this.options,d=
-this.lis.eq(c).remove(),e=this.panels.eq(c).remove();d.hasClass("ui-tabs-selected")&&1<this.anchors.length&&this.select(c+(c+1<this.anchors.length?1:-1));b.disabled=a.map(a.grep(b.disabled,function(a,b){return a!=c}),function(a,b){return a>=c?--a:a});this._tabify();this._trigger("remove",null,this._ui(d.find("a")[0],e[0]));return this},enable:function(c){c=this._getIndex(c);var b=this.options;if(-1!=a.inArray(c,b.disabled))return this.lis.eq(c).removeClass("ui-state-disabled"),b.disabled=a.grep(b.disabled,
-function(a,b){return a!=c}),this._trigger("enable",null,this._ui(this.anchors[c],this.panels[c])),this},disable:function(a){a=this._getIndex(a);var c=this.options;a!=c.selected&&(this.lis.eq(a).addClass("ui-state-disabled"),c.disabled.push(a),c.disabled.sort(),this._trigger("disable",null,this._ui(this.anchors[a],this.panels[a])));return this},select:function(a){a=this._getIndex(a);if(-1==a)if(this.options.collapsible&&-1!=this.options.selected)a=this.options.selected;else return this;this.anchors.eq(a).trigger(this.options.event+
-".tabs");return this},load:function(c){c=this._getIndex(c);var b=this,d=this.options,e=this.anchors.eq(c)[0],k=a.data(e,"load.tabs");this.abort();if(!k||0!==this.element.queue("tabs").length&&a.data(e,"cache.tabs"))this.element.dequeue("tabs");else{this.lis.eq(c).addClass("ui-state-processing");if(d.spinner){var l=a("span",e);l.data("label.tabs",l.html()).html(d.spinner)}this.xhr=a.ajax(a.extend({},d.ajaxOptions,{url:k,success:function(f,g){b.element.find(b._sanitizeSelector(e.hash)).html(f);b._cleanup();
-d.cache&&a.data(e,"cache.tabs",!0);b._trigger("load",null,b._ui(b.anchors[c],b.panels[c]));try{d.ajaxOptions.success(f,g)}catch(q){}},error:function(a,f,g){b._cleanup();b._trigger("load",null,b._ui(b.anchors[c],b.panels[c]));try{d.ajaxOptions.error(a,f,c,e)}catch(r){}}}));b.element.dequeue("tabs");return this}},abort:function(){this.element.queue([]);this.panels.stop(!1,!0);this.element.queue("tabs",this.element.queue("tabs").splice(-2,2));this.xhr&&(this.xhr.abort(),delete this.xhr);this._cleanup();
-return this},url:function(a,c){this.anchors.eq(a).removeData("cache.tabs").data("load.tabs",c);return this},length:function(){return this.anchors.length}});a.extend(a.ui.tabs,{version:"1.8.23"});a.extend(a.ui.tabs.prototype,{rotation:null,rotate:function(a,c){var b=this,d=this.options,e=b._rotate||(b._rotate=function(c){clearTimeout(b.rotation);b.rotation=setTimeout(function(){var a=d.selected;b.select(++a<b.anchors.length?a:0)},a);c&&c.stopPropagation()});c=b._unrotate||(b._unrotate=c?function(a){e()}:
-function(a){a.clientX&&b.rotate(null)});a?(this.element.bind("tabsshow",e),this.anchors.bind(d.event+".tabs",c),e()):(clearTimeout(b.rotation),this.element.unbind("tabsshow",e),this.anchors.unbind(d.event+".tabs",c),delete this._rotate,delete this._unrotate);return this}})})(jQuery);var __indexOf=Array.prototype.indexOf||function(a){for(var c=0,b=this.length;c<b;c++)if(c in this&&this[c]===a)return c;return-1};
-$.widget("oal.colorPicker",{options:{size:250,format:"hsla"},_create:function(){var a=this;this.lightness=0;this.alpha=1;this.fromCenter=0;this.pickerPos=[0,0];this.parent=$('<div class="colorpicker"></div>');this.parent.css({width:this.options.size+36});this.element.addClass("colorInput");this.element.css({width:this.options.size+36});this.element.wrap(this.parent);this.canvasId="colorpicker"+parseInt(9999*Math.random());this.wheel=$("<canvas id='"+this.canvasId+"' width='"+this.options.size+"' height='"+
-this.options.size+"'></canvas>");this.element.before(this.wheel);this._draw();var c=$('<div class="circle lightness"></div>').css({width:this.options.size,height:this.options.size});this.element.before(c);var b=$('<div class="circle alpha"></div>').css({width:this.options.size,height:this.options.size});this.element.before(b);this.lightnessSlider=$('<div class="lightness slider"><span class="handle"></span></div>').css({height:this.options.size});this.element.before(this.lightnessSlider);this.lightnessSlider.find("span.handle").draggable({containment:"parent",
-drag:function(c,b){return a._setLightness(b.position.top,!0)}});this.alphaSlider=$('<div class="alpha slider"><span class="handle"></span></div>').css({height:this.options.size});this.element.before(this.alphaSlider);this.alphaSlider.find("span.handle").draggable({containment:"parent",drag:function(c,b){return a._setAlpha(b.position.top,!0)}});this.picker=$('<span class="picker"></span>').css({top:this.options.size/2,left:this.options.size/2});this.element.before(this.picker);this.picker.draggable({drag:function(c,
-b){return a._setHue(b.position.left-a.options.size/2,b.position.top-a.options.size/2,!0)}});this.element.on("change",function(){var c=a.element.val();if(0===c.indexOf("hsla(")){var b=/^hsla\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)\)$/;var f=b.exec(c);b=f[1];var h=f[2];c=f[3];f=f[4];return a.setColor(b,h,c,f)}if(0===c.indexOf("hsl("))return b=/^hsl\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%\)$/,c=b.exec(c),b=c[1],h=c[2],c=c[3],a.setColor(b,h,c);if(0===c.indexOf("rgba("))return b=
-/^rgba\((\d{1,3}),[ ]?(\d{1,3}),[ ]?(\d{1,3}),[ ]?(\d?.\d{1,2})\)$/,f=b.exec(c),h=f[1],b=f[2],c=f[3],f=f[4],f=a._toHsla(h,b,c,f),b=f[0],h=f[1],c=f[2],f=f[3],a.setColor(b,h,c,f);if(0===c.indexOf("rgb("))return b=/^rgb\((\d{1,3}),[ ]?(\d{1,3}),[ ]?(\d{1,3})\)$/,c=b.exec(c),h=c[1],b=c[2],c=c[3],f=a._toHsla(h,b,c),b=f[0],h=f[1],c=f[2],f=f[3],a.setColor(b,h,c,f);if(0===c.indexOf("#")&&4===c.length)return h=parseInt(c[1]+c[1],16),b=parseInt(c[2]+c[2],16),c=parseInt(c[3]+c[3],16),f=a._toHsla(h,b,c),b=f[0],
-h=f[1],c=f[2],f=f[3],a.setColor(b,h,c,f);if(0===c.indexOf("#")&&7===c.length)return h=parseInt(c[1]+c[2],16),b=parseInt(c[3]+c[4],16),c=parseInt(c[5]+c[6],16),f=a._toHsla(h,b,c),b=f[0],h=f[1],c=f[2],f=f[3],a.setColor(b,h,c,f)});b.on("click",function(c){var b=$(c.target).offset();a._setHue(c.clientX-b.left-a.options.size/2,c.clientY-b.top-a.options.size/2);return a._update()});this.lightnessSlider.on("click",function(b){var d=$(b.target).offset();c=100*Math.abs(1-(b.clientY-d.top)/a.options.size);
-a._setLightness(c,!1);return a._update()});return this.alphaSlider.on("click",function(c){var d=$(c.target).offset();b=Math.abs(1-(c.clientY-d.top)/a.options.size);a._setAlpha(b,!1);return a._update()})},_draw:function(){var a;var c=document.getElementById(this.canvasId).getContext("2d");var b=this.options.size;var e=b/2;var d=1.25*b;for(a=0;0<=d?a<=d:a>=d;0<=d?a++:a--)c.save(),b=a/d,c.strokeStyle="hsl("+360*b+",100%,50%)",c.translate(e,e),c.rotate(2*Math.PI*a/d),c.beginPath(),c.lineWidth=3,c.moveTo(0,
-0),c.lineTo(0,e),c.stroke(),c.restore();e=c.createRadialGradient(e,e,0,e,e,e);e.addColorStop(0,"hsl(0, 0%, 50%)");e.addColorStop(1,"hsla(0, 0%, 50%, 0)");c.fillStyle=e;return c.fillRect(0,0,this.options.size,this.options.size)},_setHue:function(a,c,b){null==b&&(b=!1);this.fromCenter=Math.sqrt(a*a+c*c);this.pickerPos=[a,c];if(b){if(this._update(),this.fromCenter>=this.options.size/2)return!1}else return this.picker.css({top:c+this.options.size/2,left:a+this.options.size/2})},_setLightness:function(a,
-c){null==c&&(c=!1);c?(this.lightness=a/this.options.size-.5,this._update()):(this.lightness=.5-a/100,this.lightnessSlider.find("span.handle").css({top:(this.lightness+.5)*this.options.size}));a=0>this.lightness?"rgba(255,255,255,"+Math.abs(2*this.lightness)+")":"rgba(0,0,0,"+2*this.lightness+")";return this.wheel.next().css({backgroundColor:a})},_setAlpha:function(a,c){null==c&&(c=!1);c?(this.alpha=Math.abs(1-a/this.options.size),this._update()):(this.alpha=a,this.alphaSlider.find("span.handle").css({top:Math.abs(1-
-this.alpha)*this.options.size}));return this.wheel.next().next().css({opacity:Math.abs(1-this.alpha)})},_generateColor:function(){var a=parseInt(180-(Math.atan2(this.pickerPos[0],this.pickerPos[1])+Math.PI)/(2*Math.PI)*360);0>a&&(a+=360);var c=this.fromCenter/this.options.size*200;var b=100*Math.abs(this.lightness-.5);var e=this.alpha;360<a&&(a=360);100<c&&(c=100);100<b&&(b=100);1<e&&(e=1);c=Math.round(100*c)/100;b=Math.round(100*b)/100;e=Math.round(100*e)/100;return[a,c,b,e]},_update:function(){var a;
-var c=this._generateColor();var b=c[0];var e=c[1];var d=c[2];c=c[3];switch(this.options.format){case "hsla":var f="hsla("+b+", "+e+"%, "+d+"%, "+c+")";break;case "hsl":f="hsl("+b+", "+e+"%, "+d+"%)";break;case "rgba":c=this._toRgba(b,e,d,c);var h=c[0];var g=c[1];var k=c[2];c=c[3];f="rgba("+h+", "+g+", "+k+", "+c+")";break;case "rgb":c=this._toRgba(b,e,d);h=c[0];g=c[1];k=c[2];c=c[3];f="rgb("+h+", "+g+", "+k+")";break;case "hex":c=this._toRgba(b,e,d);h=c[0];g=c[1];k=c[2];c=c[3];var l=h.toString(16);
-var m=g.toString(16);f=k.toString(16);1===l.length&&(l="0"+l);1===m.length&&(m="0"+m);1===f.length&&(f="0"+f);f="#"+l+m+f;break;default:console.error("Color format not supported!")}this.element.val(f);this.picker.css({background:f});k="hsl"===(a=this.options.format)||"hsla"===a?{hue:b,saturation:e,lightness:d}:{red:h,green:g,blue:k};0<=__indexOf.call(this.options.format,"a")&&(k.alpha=c);k.color=f;return this._trigger("colorChange",null,k)},_toRgba:function(a,c,b,e){var d;null==e&&(e=1);a/=360;c/=
-100;b/=100;if(0===c)a=c=d=b;else{var f=function(a,c,b){0>b&&(b+=1);1<b&&--b;return b<1/6?a+6*(c-a)*b:.5>b?c:b<2/3?a+(c-a)*(2/3-b)*6:a};var h=.5>b?b*(1+c):b+c-b*c;b=2*b-h;d=f(b,h,a+1/3);c=f(b,h,a);a=f(b,h,a-1/3)}return[parseInt(255*d),parseInt(255*c),parseInt(255*a),e]},_toHsla:function(a,c,b,e){var d;null==e&&(e=1);a/=255;c/=255;b/=255;var f=Math.max(a,c,b);var h=Math.min(a,c,b);var g=d=(f+h)/2;if(f===h)h=d=0;else{var k=f-h;h=.5<g?k/(2-f-h):k/(f+h);switch(f){case a:d=(c-b)/k+(c<b?6:0);break;case c:d=
-(b-a)/k+2;break;case b:d=(a-c)/k+4}d/=6}return[parseInt(360*d),Math.round(1E3*h)/10,Math.round(1E3*g)/10,e]},setColor:function(a,c,b,e){null==e&&(e=1);if("string"===typeof a&&(0===a.indexOf("hsl")||0===a.indexOf("rgb")||0===a.indexOf("#")))return this.element.val(a),this.element.trigger("change"),!0;a=parseInt(a);a+=90;360<a&&(a%=360);if(0<a){var d=c/100*(this.options.size/2);var f=Math.cos(a/360*2*Math.PI)*d;a=Math.sin(a/360*2*Math.PI)*d;this._setHue(f,a)}this.saturation=0<=c&&100>=c?c:100<c?100:
-0;100<b?b=100:0>b&&(b=0);this._setLightness(b);1<e?e=1:0>e&&(e=0);this._setAlpha(e);return this._update()},_setOption:function(a,c){"format"!==a||"hsla"!==c&&"hsl"!==c&&"rgba"!==c&&"rgb"!==c&&"hex"!==c||(this.options.format=c,this._update());return $.Widget.prototype._setOption.apply(this,arguments)}});goog.provide("goog.color.names");
-goog.color.names={aliceblue:"#f0f8ff",antiquewhite:"#faebd7",aqua:"#00ffff",aquamarine:"#7fffd4",azure:"#f0ffff",beige:"#f5f5dc",bisque:"#ffe4c4",black:"#000000",blanchedalmond:"#ffebcd",blue:"#0000ff",blueviolet:"#8a2be2",brown:"#a52a2a",burlywood:"#deb887",cadetblue:"#5f9ea0",chartreuse:"#7fff00",chocolate:"#d2691e",coral:"#ff7f50",cornflowerblue:"#6495ed",cornsilk:"#fff8dc",crimson:"#dc143c",cyan:"#00ffff",darkblue:"#00008b",darkcyan:"#008b8b",darkgoldenrod:"#b8860b",darkgray:"#a9a9a9",darkgreen:"#006400",
-darkgrey:"#a9a9a9",darkkhaki:"#bdb76b",darkmagenta:"#8b008b",darkolivegreen:"#556b2f",darkorange:"#ff8c00",darkorchid:"#9932cc",darkred:"#8b0000",darksalmon:"#e9967a",darkseagreen:"#8fbc8f",darkslateblue:"#483d8b",darkslategray:"#2f4f4f",darkslategrey:"#2f4f4f",darkturquoise:"#00ced1",darkviolet:"#9400d3",deeppink:"#ff1493",deepskyblue:"#00bfff",dimgray:"#696969",dimgrey:"#696969",dodgerblue:"#1e90ff",firebrick:"#b22222",floralwhite:"#fffaf0",forestgreen:"#228b22",fuchsia:"#ff00ff",gainsboro:"#dcdcdc",
-ghostwhite:"#f8f8ff",gold:"#ffd700",goldenrod:"#daa520",gray:"#808080",green:"#008000",greenyellow:"#adff2f",grey:"#808080",honeydew:"#f0fff0",hotpink:"#ff69b4",indianred:"#cd5c5c",indigo:"#4b0082",ivory:"#fffff0",khaki:"#f0e68c",lavender:"#e6e6fa",lavenderblush:"#fff0f5",lawngreen:"#7cfc00",lemonchiffon:"#fffacd",lightblue:"#add8e6",lightcoral:"#f08080",lightcyan:"#e0ffff",lightgoldenrodyellow:"#fafad2",lightgray:"#d3d3d3",lightgreen:"#90ee90",lightgrey:"#d3d3d3",lightpink:"#ffb6c1",lightsalmon:"#ffa07a",
-lightseagreen:"#20b2aa",lightskyblue:"#87cefa",lightslategray:"#778899",lightslategrey:"#778899",lightsteelblue:"#b0c4de",lightyellow:"#ffffe0",lime:"#00ff00",limegreen:"#32cd32",linen:"#faf0e6",magenta:"#ff00ff",maroon:"#800000",mediumaquamarine:"#66cdaa",mediumblue:"#0000cd",mediumorchid:"#ba55d3",mediumpurple:"#9370db",mediumseagreen:"#3cb371",mediumslateblue:"#7b68ee",mediumspringgreen:"#00fa9a",mediumturquoise:"#48d1cc",mediumvioletred:"#c71585",midnightblue:"#191970",mintcream:"#f5fffa",mistyrose:"#ffe4e1",
-moccasin:"#ffe4b5",navajowhite:"#ffdead",navy:"#000080",oldlace:"#fdf5e6",olive:"#808000",olivedrab:"#6b8e23",orange:"#ffa500",orangered:"#ff4500",orchid:"#da70d6",palegoldenrod:"#eee8aa",palegreen:"#98fb98",paleturquoise:"#afeeee",palevioletred:"#db7093",papayawhip:"#ffefd5",peachpuff:"#ffdab9",peru:"#cd853f",pink:"#ffc0cb",plum:"#dda0dd",powderblue:"#b0e0e6",purple:"#800080",red:"#ff0000",rosybrown:"#bc8f8f",royalblue:"#4169e1",saddlebrown:"#8b4513",salmon:"#fa8072",sandybrown:"#f4a460",seagreen:"#2e8b57",
-seashell:"#fff5ee",sienna:"#a0522d",silver:"#c0c0c0",skyblue:"#87ceeb",slateblue:"#6a5acd",slategray:"#708090",slategrey:"#708090",snow:"#fffafa",springgreen:"#00ff7f",steelblue:"#4682b4",tan:"#d2b48c",teal:"#008080",thistle:"#d8bfd8",tomato:"#ff6347",turquoise:"#40e0d0",violet:"#ee82ee",wheat:"#f5deb3",white:"#ffffff",whitesmoke:"#f5f5f5",yellow:"#ffff00",yellowgreen:"#9acd32"};goog.provide("goog.debug.Error");goog.debug.Error=function(a){Error.captureStackTrace?Error.captureStackTrace(this,goog.debug.Error):this.stack=Error().stack||"";a&&(this.message=String(a))};goog.inherits(goog.debug.Error,Error);goog.debug.Error.prototype.name="CustomError";goog.provide("goog.string");goog.provide("goog.string.Unicode");goog.string.Unicode={NBSP:"\u00a0"};goog.string.startsWith=function(a,c){return 0==a.lastIndexOf(c,0)};goog.string.endsWith=function(a,c){var b=a.length-c.length;return 0<=b&&a.indexOf(c,b)==b};goog.string.caseInsensitiveStartsWith=function(a,c){return 0==goog.string.caseInsensitiveCompare(c,a.substr(0,c.length))};
-goog.string.caseInsensitiveEndsWith=function(a,c){return 0==goog.string.caseInsensitiveCompare(c,a.substr(a.length-c.length,c.length))};goog.string.subs=function(a,c){for(var b=1;b<arguments.length;b++){var e=String(arguments[b]).replace(/\$/g,"$$$$");a=a.replace(/\%s/,e)}return a};goog.string.collapseWhitespace=function(a){return a.replace(/[\s\xa0]+/g," ").replace(/^\s+|\s+$/g,"")};goog.string.isEmpty=function(a){return/^[\s\xa0]*$/.test(a)};goog.string.isEmptySafe=function(a){return goog.string.isEmpty(goog.string.makeSafe(a))};
-goog.string.isBreakingWhitespace=function(a){return!/[^\t\n\r ]/.test(a)};goog.string.isAlpha=function(a){return!/[^a-zA-Z]/.test(a)};goog.string.isNumeric=function(a){return!/[^0-9]/.test(a)};goog.string.isAlphaNumeric=function(a){return!/[^a-zA-Z0-9]/.test(a)};goog.string.isSpace=function(a){return" "==a};goog.string.isUnicodeChar=function(a){return 1==a.length&&" "<=a&&"~">=a||"\u0080"<=a&&"\ufffd">=a};goog.string.stripNewlines=function(a){return a.replace(/(\r\n|\r|\n)+/g," ")};
-goog.string.canonicalizeNewlines=function(a){return a.replace(/(\r\n|\r|\n)/g,"\n")};goog.string.normalizeWhitespace=function(a){return a.replace(/\xa0|\s/g," ")};goog.string.normalizeSpaces=function(a){return a.replace(/\xa0|[ \t]+/g," ")};goog.string.collapseBreakingSpaces=function(a){return a.replace(/[\t\r\n ]+/g," ").replace(/^[\t\r\n ]+|[\t\r\n ]+$/g,"")};goog.string.trim=function(a){return a.replace(/^[\s\xa0]+|[\s\xa0]+$/g,"")};
-goog.string.trimLeft=function(a){return a.replace(/^[\s\xa0]+/,"")};goog.string.trimRight=function(a){return a.replace(/[\s\xa0]+$/,"")};goog.string.caseInsensitiveCompare=function(a,c){a=String(a).toLowerCase();c=String(c).toLowerCase();return a<c?-1:a==c?0:1};goog.string.numerateCompareRegExp_=/(\.\d+)|(\d+)|(\D+)/g;
-goog.string.numerateCompare=function(a,c){if(a==c)return 0;if(!a)return-1;if(!c)return 1;for(var b=a.toLowerCase().match(goog.string.numerateCompareRegExp_),e=c.toLowerCase().match(goog.string.numerateCompareRegExp_),d=Math.min(b.length,e.length),f=0;f<d;f++){var h=b[f],g=e[f];if(h!=g)return a=parseInt(h,10),!isNaN(a)&&(c=parseInt(g,10),!isNaN(c)&&a-c)?a-c:h<g?-1:1}return b.length!=e.length?b.length-e.length:a<c?-1:1};goog.string.urlEncode=function(a){return encodeURIComponent(String(a))};
-goog.string.urlDecode=function(a){return decodeURIComponent(a.replace(/\+/g," "))};goog.string.newLineToBr=function(a,c){return a.replace(/(\r\n|\r|\n)/g,c?"<br />":"<br>")};
-goog.string.htmlEscape=function(a,c){if(c)return a.replace(goog.string.amperRe_,"&amp;").replace(goog.string.ltRe_,"&lt;").replace(goog.string.gtRe_,"&gt;").replace(goog.string.quotRe_,"&quot;");if(!goog.string.allRe_.test(a))return a;-1!=a.indexOf("&")&&(a=a.replace(goog.string.amperRe_,"&amp;"));-1!=a.indexOf("<")&&(a=a.replace(goog.string.ltRe_,"&lt;"));-1!=a.indexOf(">")&&(a=a.replace(goog.string.gtRe_,"&gt;"));-1!=a.indexOf('"')&&(a=a.replace(goog.string.quotRe_,"&quot;"));return a};
-goog.string.amperRe_=/&/g;goog.string.ltRe_=/</g;goog.string.gtRe_=/>/g;goog.string.quotRe_=/\"/g;goog.string.allRe_=/[&<>\"]/;goog.string.unescapeEntities=function(a){return goog.string.contains(a,"&")?"document"in goog.global?goog.string.unescapeEntitiesUsingDom_(a):goog.string.unescapePureXmlEntities_(a):a};
-goog.string.unescapeEntitiesUsingDom_=function(a){var c={"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"'},b=document.createElement("div");return a.replace(goog.string.HTML_ENTITY_PATTERN_,function(a,d){var e=c[a];if(e)return e;"#"==d.charAt(0)&&(d=Number("0"+d.substr(1)),isNaN(d)||(e=String.fromCharCode(d)));e||(b.innerHTML=a+" ",e=b.firstChild.nodeValue.slice(0,-1));return c[a]=e})};
-goog.string.unescapePureXmlEntities_=function(a){return a.replace(/&([^;]+);/g,function(a,b){switch(b){case "amp":return"&";case "lt":return"<";case "gt":return">";case "quot":return'"';default:return"#"!=b.charAt(0)||(b=Number("0"+b.substr(1)),isNaN(b))?a:String.fromCharCode(b)}})};goog.string.HTML_ENTITY_PATTERN_=/&([^;\s<&]+);?/g;goog.string.whitespaceEscape=function(a,c){return goog.string.newLineToBr(a.replace(/  /g," &#160;"),c)};
-goog.string.stripQuotes=function(a,c){for(var b=c.length,e=0;e<b;e++){var d=1==b?c:c.charAt(e);if(a.charAt(0)==d&&a.charAt(a.length-1)==d)return a.substring(1,a.length-1)}return a};goog.string.truncate=function(a,c,b){b&&(a=goog.string.unescapeEntities(a));a.length>c&&(a=a.substring(0,c-3)+"...");b&&(a=goog.string.htmlEscape(a));return a};
-goog.string.truncateMiddle=function(a,c,b,e){b&&(a=goog.string.unescapeEntities(a));if(e&&a.length>c){e>c&&(e=c);var d=a.length-e;a=a.substring(0,c-e)+"..."+a.substring(d)}else a.length>c&&(e=Math.floor(c/2),d=a.length-e,a=a.substring(0,e+c%2)+"..."+a.substring(d));b&&(a=goog.string.htmlEscape(a));return a};goog.string.specialEscapeChars_={"\x00":"\\0","\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t","\x0B":"\\x0B",'"':'\\"',"\\":"\\\\"};goog.string.jsEscapeCache_={"'":"\\'"};
-goog.string.quote=function(a){a=String(a);if(a.quote)return a.quote();for(var c=['"'],b=0;b<a.length;b++){var e=a.charAt(b),d=e.charCodeAt(0);c[b+1]=goog.string.specialEscapeChars_[e]||(31<d&&127>d?e:goog.string.escapeChar(e))}c.push('"');return c.join("")};goog.string.escapeString=function(a){for(var c=[],b=0;b<a.length;b++)c[b]=goog.string.escapeChar(a.charAt(b));return c.join("")};
-goog.string.escapeChar=function(a){if(a in goog.string.jsEscapeCache_)return goog.string.jsEscapeCache_[a];if(a in goog.string.specialEscapeChars_)return goog.string.jsEscapeCache_[a]=goog.string.specialEscapeChars_[a];var c=a.charCodeAt(0);if(31<c&&127>c)var b=a;else{if(256>c){if(b="\\x",16>c||256<c)b+="0"}else b="\\u",4096>c&&(b+="0");b+=c.toString(16).toUpperCase()}return goog.string.jsEscapeCache_[a]=b};goog.string.toMap=function(a){for(var c={},b=0;b<a.length;b++)c[a.charAt(b)]=!0;return c};
-goog.string.contains=function(a,c){return-1!=a.indexOf(c)};goog.string.countOf=function(a,c){return a&&c?a.split(c).length-1:0};goog.string.removeAt=function(a,c,b){var e=a;0<=c&&c<a.length&&0<b&&(e=a.substr(0,c)+a.substr(c+b,a.length-c-b));return e};goog.string.remove=function(a,c){c=new RegExp(goog.string.regExpEscape(c),"");return a.replace(c,"")};goog.string.removeAll=function(a,c){c=new RegExp(goog.string.regExpEscape(c),"g");return a.replace(c,"")};
-goog.string.regExpEscape=function(a){return String(a).replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g,"\\$1").replace(/\x08/g,"\\x08")};goog.string.repeat=function(a,c){return Array(c+1).join(a)};goog.string.padNumber=function(a,c,b){a=goog.isDef(b)?a.toFixed(b):String(a);b=a.indexOf(".");-1==b&&(b=a.length);return goog.string.repeat("0",Math.max(0,c-b))+a};goog.string.makeSafe=function(a){return null==a?"":String(a)};goog.string.buildString=function(a){return Array.prototype.join.call(arguments,"")};
-goog.string.getRandomString=function(){return Math.floor(2147483648*Math.random()).toString(36)+Math.abs(Math.floor(2147483648*Math.random())^goog.now()).toString(36)};
-goog.string.compareVersions=function(a,c){var b=0;a=goog.string.trim(String(a)).split(".");c=goog.string.trim(String(c)).split(".");for(var e=Math.max(a.length,c.length),d=0;0==b&&d<e;d++){var f=a[d]||"",h=c[d]||"",g=/(\d*)(\D*)/g,k=/(\d*)(\D*)/g;do{var l=g.exec(f)||["","",""],m=k.exec(h)||["","",""];if(0==l[0].length&&0==m[0].length)break;b=0==l[1].length?0:parseInt(l[1],10);var n=0==m[1].length?0:parseInt(m[1],10);b=goog.string.compareElements_(b,n)||goog.string.compareElements_(0==l[2].length,
-0==m[2].length)||goog.string.compareElements_(l[2],m[2])}while(0==b)}return b};goog.string.compareElements_=function(a,c){return a<c?-1:a>c?1:0};goog.string.HASHCODE_MAX_=4294967296;goog.string.hashCode=function(a){for(var c=0,b=0;b<a.length;++b)c=31*c+a.charCodeAt(b),c%=goog.string.HASHCODE_MAX_;return c};goog.string.uniqueStringCounter_=2147483648*Math.random()|0;goog.string.createUniqueString=function(){return"goog_"+goog.string.uniqueStringCounter_++};
-goog.string.toNumber=function(a){var c=Number(a);return 0==c&&goog.string.isEmpty(a)?NaN:c};goog.string.toCamelCase=function(a){return String(a).replace(/\-([a-z])/g,function(a,b){return b.toUpperCase()})};goog.string.toSelectorCase=function(a){return String(a).replace(/([A-Z])/g,"-$1").toLowerCase()};goog.string.toTitleCase=function(a,c){c=goog.isString(c)?goog.string.regExpEscape(c):"\\s";return a.replace(new RegExp("(^"+(c?"|["+c+"]+":"")+")([a-z])","g"),function(a,c,d){return c+d.toUpperCase()})};
-goog.string.parseInt=function(a){isFinite(a)&&(a=String(a));return goog.isString(a)?/^\s*-?0x/i.test(a)?parseInt(a,16):parseInt(a,10):NaN};goog.provide("goog.asserts");goog.provide("goog.asserts.AssertionError");goog.require("goog.debug.Error");goog.require("goog.string");goog.asserts.ENABLE_ASSERTS=goog.DEBUG;goog.asserts.AssertionError=function(a,c){c.unshift(a);goog.debug.Error.call(this,goog.string.subs.apply(null,c));c.shift();this.messagePattern=a};goog.inherits(goog.asserts.AssertionError,goog.debug.Error);goog.asserts.AssertionError.prototype.name="AssertionError";
-goog.asserts.doAssertFailure_=function(a,c,b,e){var d="Assertion failed";if(b){d+=": "+b;var f=e}else a&&(d+=": "+a,f=c);throw new goog.asserts.AssertionError(""+d,f||[]);};goog.asserts.assert=function(a,c,b){goog.asserts.ENABLE_ASSERTS&&!a&&goog.asserts.doAssertFailure_("",null,c,Array.prototype.slice.call(arguments,2));return a};goog.asserts.fail=function(a,c){if(goog.asserts.ENABLE_ASSERTS)throw new goog.asserts.AssertionError("Failure"+(a?": "+a:""),Array.prototype.slice.call(arguments,1));};
-goog.asserts.assertNumber=function(a,c,b){goog.asserts.ENABLE_ASSERTS&&!goog.isNumber(a)&&goog.asserts.doAssertFailure_("Expected number but got %s: %s.",[goog.typeOf(a),a],c,Array.prototype.slice.call(arguments,2));return a};goog.asserts.assertString=function(a,c,b){goog.asserts.ENABLE_ASSERTS&&!goog.isString(a)&&goog.asserts.doAssertFailure_("Expected string but got %s: %s.",[goog.typeOf(a),a],c,Array.prototype.slice.call(arguments,2));return a};
-goog.asserts.assertFunction=function(a,c,b){goog.asserts.ENABLE_ASSERTS&&!goog.isFunction(a)&&goog.asserts.doAssertFailure_("Expected function but got %s: %s.",[goog.typeOf(a),a],c,Array.prototype.slice.call(arguments,2));return a};goog.asserts.assertObject=function(a,c,b){goog.asserts.ENABLE_ASSERTS&&!goog.isObject(a)&&goog.asserts.doAssertFailure_("Expected object but got %s: %s.",[goog.typeOf(a),a],c,Array.prototype.slice.call(arguments,2));return a};
-goog.asserts.assertArray=function(a,c,b){goog.asserts.ENABLE_ASSERTS&&!goog.isArray(a)&&goog.asserts.doAssertFailure_("Expected array but got %s: %s.",[goog.typeOf(a),a],c,Array.prototype.slice.call(arguments,2));return a};goog.asserts.assertBoolean=function(a,c,b){goog.asserts.ENABLE_ASSERTS&&!goog.isBoolean(a)&&goog.asserts.doAssertFailure_("Expected boolean but got %s: %s.",[goog.typeOf(a),a],c,Array.prototype.slice.call(arguments,2));return a};
-goog.asserts.assertInstanceof=function(a,c,b,e){!goog.asserts.ENABLE_ASSERTS||a instanceof c||goog.asserts.doAssertFailure_("instanceof check failed.",null,b,Array.prototype.slice.call(arguments,3));return a};goog.provide("goog.array");goog.provide("goog.array.ArrayLike");goog.require("goog.asserts");goog.NATIVE_ARRAY_PROTOTYPES=goog.TRUSTED_SITE;goog.array.peek=function(a){return a[a.length-1]};goog.array.ARRAY_PROTOTYPE_=Array.prototype;
-goog.array.indexOf=goog.NATIVE_ARRAY_PROTOTYPES&&goog.array.ARRAY_PROTOTYPE_.indexOf?function(a,c,b){goog.asserts.assert(null!=a.length);return goog.array.ARRAY_PROTOTYPE_.indexOf.call(a,c,b)}:function(a,c,b){b=null==b?0:0>b?Math.max(0,a.length+b):b;if(goog.isString(a))return goog.isString(c)&&1==c.length?a.indexOf(c,b):-1;for(;b<a.length;b++)if(b in a&&a[b]===c)return b;return-1};
-goog.array.lastIndexOf=goog.NATIVE_ARRAY_PROTOTYPES&&goog.array.ARRAY_PROTOTYPE_.lastIndexOf?function(a,c,b){goog.asserts.assert(null!=a.length);return goog.array.ARRAY_PROTOTYPE_.lastIndexOf.call(a,c,null==b?a.length-1:b)}:function(a,c,b){b=null==b?a.length-1:b;0>b&&(b=Math.max(0,a.length+b));if(goog.isString(a))return goog.isString(c)&&1==c.length?a.lastIndexOf(c,b):-1;for(;0<=b;b--)if(b in a&&a[b]===c)return b;return-1};
-goog.array.forEach=goog.NATIVE_ARRAY_PROTOTYPES&&goog.array.ARRAY_PROTOTYPE_.forEach?function(a,c,b){goog.asserts.assert(null!=a.length);goog.array.ARRAY_PROTOTYPE_.forEach.call(a,c,b)}:function(a,c,b){for(var e=a.length,d=goog.isString(a)?a.split(""):a,f=0;f<e;f++)f in d&&c.call(b,d[f],f,a)};goog.array.forEachRight=function(a,c,b){var e=a.length,d=goog.isString(a)?a.split(""):a;for(--e;0<=e;--e)e in d&&c.call(b,d[e],e,a)};
-goog.array.filter=goog.NATIVE_ARRAY_PROTOTYPES&&goog.array.ARRAY_PROTOTYPE_.filter?function(a,c,b){goog.asserts.assert(null!=a.length);return goog.array.ARRAY_PROTOTYPE_.filter.call(a,c,b)}:function(a,c,b){for(var e=a.length,d=[],f=0,h=goog.isString(a)?a.split(""):a,g=0;g<e;g++)if(g in h){var k=h[g];c.call(b,k,g,a)&&(d[f++]=k)}return d};
-goog.array.map=goog.NATIVE_ARRAY_PROTOTYPES&&goog.array.ARRAY_PROTOTYPE_.map?function(a,c,b){goog.asserts.assert(null!=a.length);return goog.array.ARRAY_PROTOTYPE_.map.call(a,c,b)}:function(a,c,b){for(var e=a.length,d=Array(e),f=goog.isString(a)?a.split(""):a,h=0;h<e;h++)h in f&&(d[h]=c.call(b,f[h],h,a));return d};goog.array.reduce=function(a,c,b,e){if(a.reduce)return e?a.reduce(goog.bind(c,e),b):a.reduce(c,b);var d=b;goog.array.forEach(a,function(b,h){d=c.call(e,d,b,h,a)});return d};
-goog.array.reduceRight=function(a,c,b,e){if(a.reduceRight)return e?a.reduceRight(goog.bind(c,e),b):a.reduceRight(c,b);var d=b;goog.array.forEachRight(a,function(b,h){d=c.call(e,d,b,h,a)});return d};
-goog.array.some=goog.NATIVE_ARRAY_PROTOTYPES&&goog.array.ARRAY_PROTOTYPE_.some?function(a,c,b){goog.asserts.assert(null!=a.length);return goog.array.ARRAY_PROTOTYPE_.some.call(a,c,b)}:function(a,c,b){for(var e=a.length,d=goog.isString(a)?a.split(""):a,f=0;f<e;f++)if(f in d&&c.call(b,d[f],f,a))return!0;return!1};
-goog.array.every=goog.NATIVE_ARRAY_PROTOTYPES&&goog.array.ARRAY_PROTOTYPE_.every?function(a,c,b){goog.asserts.assert(null!=a.length);return goog.array.ARRAY_PROTOTYPE_.every.call(a,c,b)}:function(a,c,b){for(var e=a.length,d=goog.isString(a)?a.split(""):a,f=0;f<e;f++)if(f in d&&!c.call(b,d[f],f,a))return!1;return!0};goog.array.count=function(a,c,b){var e=0;goog.array.forEach(a,function(a,f,h){c.call(b,a,f,h)&&++e},b);return e};
-goog.array.find=function(a,c,b){c=goog.array.findIndex(a,c,b);return 0>c?null:goog.isString(a)?a.charAt(c):a[c]};goog.array.findIndex=function(a,c,b){for(var e=a.length,d=goog.isString(a)?a.split(""):a,f=0;f<e;f++)if(f in d&&c.call(b,d[f],f,a))return f;return-1};goog.array.findRight=function(a,c,b){c=goog.array.findIndexRight(a,c,b);return 0>c?null:goog.isString(a)?a.charAt(c):a[c]};
-goog.array.findIndexRight=function(a,c,b){var e=a.length,d=goog.isString(a)?a.split(""):a;for(--e;0<=e;e--)if(e in d&&c.call(b,d[e],e,a))return e;return-1};goog.array.contains=function(a,c){return 0<=goog.array.indexOf(a,c)};goog.array.isEmpty=function(a){return 0==a.length};goog.array.clear=function(a){if(!goog.isArray(a))for(var c=a.length-1;0<=c;c--)delete a[c];a.length=0};goog.array.insert=function(a,c){goog.array.contains(a,c)||a.push(c)};
-goog.array.insertAt=function(a,c,b){goog.array.splice(a,b,0,c)};goog.array.insertArrayAt=function(a,c,b){goog.partial(goog.array.splice,a,b,0).apply(null,c)};goog.array.insertBefore=function(a,c,b){var e;2==arguments.length||0>(e=goog.array.indexOf(a,b))?a.push(c):goog.array.insertAt(a,c,e)};goog.array.remove=function(a,c){c=goog.array.indexOf(a,c);var b;(b=0<=c)&&goog.array.removeAt(a,c);return b};
-goog.array.removeAt=function(a,c){goog.asserts.assert(null!=a.length);return 1==goog.array.ARRAY_PROTOTYPE_.splice.call(a,c,1).length};goog.array.removeIf=function(a,c,b){c=goog.array.findIndex(a,c,b);return 0<=c?(goog.array.removeAt(a,c),!0):!1};goog.array.concat=function(a){return goog.array.ARRAY_PROTOTYPE_.concat.apply(goog.array.ARRAY_PROTOTYPE_,arguments)};goog.array.toArray=function(a){var c=a.length;if(0<c){for(var b=Array(c),e=0;e<c;e++)b[e]=a[e];return b}return[]};goog.array.clone=goog.array.toArray;
-goog.array.extend=function(a,c){for(var b=1;b<arguments.length;b++){var e=arguments[b],d;if(goog.isArray(e)||(d=goog.isArrayLike(e))&&Object.prototype.hasOwnProperty.call(e,"callee"))a.push.apply(a,e);else if(d)for(var f=a.length,h=e.length,g=0;g<h;g++)a[f+g]=e[g];else a.push(e)}};goog.array.splice=function(a,c,b,e){goog.asserts.assert(null!=a.length);return goog.array.ARRAY_PROTOTYPE_.splice.apply(a,goog.array.slice(arguments,1))};
-goog.array.slice=function(a,c,b){goog.asserts.assert(null!=a.length);return 2>=arguments.length?goog.array.ARRAY_PROTOTYPE_.slice.call(a,c):goog.array.ARRAY_PROTOTYPE_.slice.call(a,c,b)};goog.array.removeDuplicates=function(a,c){c=c||a;for(var b={},e=0,d=0;d<a.length;){var f=a[d++],h=goog.isObject(f)?"o"+goog.getUid(f):(typeof f).charAt(0)+f;Object.prototype.hasOwnProperty.call(b,h)||(b[h]=!0,c[e++]=f)}c.length=e};
-goog.array.binarySearch=function(a,c,b){return goog.array.binarySearch_(a,b||goog.array.defaultCompare,!1,c)};goog.array.binarySelect=function(a,c,b){return goog.array.binarySearch_(a,c,!0,void 0,b)};goog.array.binarySearch_=function(a,c,b,e,d){for(var f=0,h=a.length,g;f<h;){var k=f+h>>1;var l=b?c.call(d,a[k],k,a):c(e,a[k]);0<l?f=k+1:(h=k,g=!l)}return g?f:~f};goog.array.sort=function(a,c){goog.asserts.assert(null!=a.length);goog.array.ARRAY_PROTOTYPE_.sort.call(a,c||goog.array.defaultCompare)};
-goog.array.stableSort=function(a,c){for(var b=0;b<a.length;b++)a[b]={index:b,value:a[b]};var e=c||goog.array.defaultCompare;goog.array.sort(a,function(a,c){return e(a.value,c.value)||a.index-c.index});for(b=0;b<a.length;b++)a[b]=a[b].value};goog.array.sortObjectsByKey=function(a,c,b){var e=b||goog.array.defaultCompare;goog.array.sort(a,function(a,b){return e(a[c],b[c])})};
-goog.array.isSorted=function(a,c,b){c=c||goog.array.defaultCompare;for(var e=1;e<a.length;e++){var d=c(a[e-1],a[e]);if(0<d||0==d&&b)return!1}return!0};goog.array.equals=function(a,c,b){if(!goog.isArrayLike(a)||!goog.isArrayLike(c)||a.length!=c.length)return!1;var e=a.length;b=b||goog.array.defaultCompareEquality;for(var d=0;d<e;d++)if(!b(a[d],c[d]))return!1;return!0};goog.array.compare=function(a,c,b){return goog.array.equals(a,c,b)};
-goog.array.compare3=function(a,c,b){b=b||goog.array.defaultCompare;for(var e=Math.min(a.length,c.length),d=0;d<e;d++){var f=b(a[d],c[d]);if(0!=f)return f}return goog.array.defaultCompare(a.length,c.length)};goog.array.defaultCompare=function(a,c){return a>c?1:a<c?-1:0};goog.array.defaultCompareEquality=function(a,c){return a===c};goog.array.binaryInsert=function(a,c,b){b=goog.array.binarySearch(a,c,b);return 0>b?(goog.array.insertAt(a,c,-(b+1)),!0):!1};
-goog.array.binaryRemove=function(a,c,b){c=goog.array.binarySearch(a,c,b);return 0<=c?goog.array.removeAt(a,c):!1};goog.array.bucket=function(a,c){for(var b={},e=0;e<a.length;e++){var d=a[e],f=c(d,e,a);goog.isDef(f)&&(b[f]||(b[f]=[])).push(d)}return b};goog.array.toObject=function(a,c,b){var e={};goog.array.forEach(a,function(d,f){e[c.call(b,d,f,a)]=d});return e};
-goog.array.range=function(a,c,b){var e=[],d=0,f=a;b=b||1;void 0!==c&&(d=a,f=c);if(0>b*(f-d))return[];if(0<b)for(a=d;a<f;a+=b)e.push(a);else for(a=d;a>f;a+=b)e.push(a);return e};goog.array.repeat=function(a,c){for(var b=[],e=0;e<c;e++)b[e]=a;return b};goog.array.flatten=function(a){for(var c=[],b=0;b<arguments.length;b++){var e=arguments[b];goog.isArray(e)?c.push.apply(c,goog.array.flatten.apply(null,e)):c.push(e)}return c};
-goog.array.rotate=function(a,c){goog.asserts.assert(null!=a.length);a.length&&(c%=a.length,0<c?goog.array.ARRAY_PROTOTYPE_.unshift.apply(a,a.splice(-c,c)):0>c&&goog.array.ARRAY_PROTOTYPE_.push.apply(a,a.splice(0,-c)));return a};goog.array.zip=function(a){if(!arguments.length)return[];for(var c=[],b=0;;b++){for(var e=[],d=0;d<arguments.length;d++){var f=arguments[d];if(b>=f.length)return c;e.push(f[b])}c.push(e)}};
-goog.array.shuffle=function(a,c){c=c||Math.random;for(var b=a.length-1;0<b;b--){var e=Math.floor(c()*(b+1)),d=a[b];a[b]=a[e];a[e]=d}};goog.provide("goog.math");goog.require("goog.array");goog.require("goog.asserts");goog.math.randomInt=function(a){return Math.floor(Math.random()*a)};goog.math.uniformRandom=function(a,c){return a+Math.random()*(c-a)};goog.math.clamp=function(a,c,b){return Math.min(Math.max(a,c),b)};goog.math.modulo=function(a,c){a%=c;return 0>a*c?a+c:a};goog.math.lerp=function(a,c,b){return a+b*(c-a)};goog.math.nearlyEquals=function(a,c,b){return Math.abs(a-c)<=(b||1E-6)};
-goog.math.standardAngle=function(a){return goog.math.modulo(a,360)};goog.math.toRadians=function(a){return a*Math.PI/180};goog.math.toDegrees=function(a){return 180*a/Math.PI};goog.math.angleDx=function(a,c){return c*Math.cos(goog.math.toRadians(a))};goog.math.angleDy=function(a,c){return c*Math.sin(goog.math.toRadians(a))};goog.math.angle=function(a,c,b,e){return goog.math.standardAngle(goog.math.toDegrees(Math.atan2(e-c,b-a)))};
-goog.math.angleDifference=function(a,c){a=goog.math.standardAngle(c)-goog.math.standardAngle(a);180<a?a-=360:-180>=a&&(a=360+a);return a};goog.math.sign=function(a){return 0==a?0:0>a?-1:1};
-goog.math.longestCommonSubsequence=function(a,c,b,e){b=b||function(a,c){return a==c};e=e||function(c,b){return a[c]};for(var d=a.length,f=c.length,h=[],g=0;g<d+1;g++)h[g]=[],h[g][0]=0;for(var k=0;k<f+1;k++)h[0][k]=0;for(g=1;g<=d;g++)for(k=1;k<=d;k++)b(a[g-1],c[k-1])?h[g][k]=h[g-1][k-1]+1:h[g][k]=Math.max(h[g-1][k],h[g][k-1]);var l=[];g=d;for(k=f;0<g&&0<k;)b(a[g-1],c[k-1])?(l.unshift(e(g-1,k-1)),g--,k--):h[g-1][k]>h[g][k-1]?g--:k--;return l};
-goog.math.sum=function(a){return goog.array.reduce(arguments,function(a,b){return a+b},0)};goog.math.average=function(a){return goog.math.sum.apply(null,arguments)/arguments.length};goog.math.standardDeviation=function(a){var c=arguments.length;if(2>c)return 0;var b=goog.math.average.apply(null,arguments);c=goog.math.sum.apply(null,goog.array.map(arguments,function(a){return Math.pow(a-b,2)}))/(c-1);return Math.sqrt(c)};goog.math.isInt=function(a){return isFinite(a)&&0==a%1};
-goog.math.isFiniteNumber=function(a){return isFinite(a)&&!isNaN(a)};goog.math.safeFloor=function(a,c){goog.asserts.assert(!goog.isDef(c)||0<c);return Math.floor(a+(c||2E-15))};goog.math.safeCeil=function(a,c){goog.asserts.assert(!goog.isDef(c)||0<c);return Math.ceil(a-(c||2E-15))};goog.provide("goog.color");goog.require("goog.color.names");goog.require("goog.math");
-goog.color.parse=function(a){var c={};a=String(a);var b=goog.color.prependHashIfNecessaryHelper(a);if(goog.color.isValidHexColor_(b))return c.hex=goog.color.normalizeHex(b),c.type="hex",c;b=goog.color.isValidRgbColor_(a);if(b.length)return c.hex=goog.color.rgbArrayToHex(b),c.type="rgb",c;if(goog.color.names&&(b=goog.color.names[a.toLowerCase()]))return c.hex=b,c.type="named",c;throw Error(a+" is not a valid color string");};
-goog.color.isValidColor=function(a){var c=goog.color.prependHashIfNecessaryHelper(a);return!!(goog.color.isValidHexColor_(c)||goog.color.isValidRgbColor_(a).length||goog.color.names&&goog.color.names[a.toLowerCase()])};goog.color.parseRgb=function(a){var c=goog.color.isValidRgbColor_(a);if(!c.length)throw Error(a+" is not a valid RGB color");return c};goog.color.hexToRgbStyle=function(a){return goog.color.rgbStyle_(goog.color.hexToRgb(a))};goog.color.hexTripletRe_=/#(.)(.)(.)/;
-goog.color.normalizeHex=function(a){if(!goog.color.isValidHexColor_(a))throw Error("'"+a+"' is not a valid hex color");4==a.length&&(a=a.replace(goog.color.hexTripletRe_,"#$1$1$2$2$3$3"));return a.toLowerCase()};goog.color.hexToRgb=function(a){a=goog.color.normalizeHex(a);var c=parseInt(a.substr(1,2),16),b=parseInt(a.substr(3,2),16);a=parseInt(a.substr(5,2),16);return[c,b,a]};
-goog.color.rgbToHex=function(a,c,b){a=Number(a);c=Number(c);b=Number(b);if(isNaN(a)||0>a||255<a||isNaN(c)||0>c||255<c||isNaN(b)||0>b||255<b)throw Error('"('+a+","+c+","+b+'") is not a valid RGB color');a=goog.color.prependZeroIfNecessaryHelper(a.toString(16));c=goog.color.prependZeroIfNecessaryHelper(c.toString(16));b=goog.color.prependZeroIfNecessaryHelper(b.toString(16));return"#"+a+c+b};goog.color.rgbArrayToHex=function(a){return goog.color.rgbToHex(a[0],a[1],a[2])};
-goog.color.rgbToHsl=function(a,c,b){a/=255;c/=255;b/=255;var e=Math.max(a,c,b),d=Math.min(a,c,b),f=0,h=0,g=.5*(e+d);e!=d&&(e==a?f=60*(c-b)/(e-d):e==c?f=60*(b-a)/(e-d)+120:e==b&&(f=60*(a-c)/(e-d)+240),h=0<g&&.5>=g?(e-d)/(2*g):(e-d)/(2-2*g));return[Math.round(f+360)%360,h,g]};goog.color.rgbArrayToHsl=function(a){return goog.color.rgbToHsl(a[0],a[1],a[2])};goog.color.hueToRgb_=function(a,c,b){0>b?b+=1:1<b&&--b;return 1>6*b?a+6*(c-a)*b:1>2*b?c:2>3*b?a+(c-a)*(2/3-b)*6:a};
-goog.color.hslToRgb=function(a,c,b){a/=360;if(0==c)b=c=a=255*b;else{var e=.5>b?b*(1+c):b+c-c*b;var d=2*b-e;b=255*goog.color.hueToRgb_(d,e,a+1/3);c=255*goog.color.hueToRgb_(d,e,a);a=255*goog.color.hueToRgb_(d,e,a-1/3)}return[Math.round(b),Math.round(c),Math.round(a)]};goog.color.hslArrayToRgb=function(a){return goog.color.hslToRgb(a[0],a[1],a[2])};goog.color.validHexColorRe_=/^#(?:[0-9a-f]{3}){1,2}$/i;goog.color.isValidHexColor_=function(a){return goog.color.validHexColorRe_.test(a)};
-goog.color.normalizedHexColorRe_=/^#[0-9a-f]{6}$/;goog.color.isNormalizedHexColor_=function(a){return goog.color.normalizedHexColorRe_.test(a)};goog.color.rgbColorRe_=/^(?:rgb)?\((0|[1-9]\d{0,2}),\s?(0|[1-9]\d{0,2}),\s?(0|[1-9]\d{0,2})\)$/i;goog.color.isValidRgbColor_=function(a){var c=a.match(goog.color.rgbColorRe_);if(c){a=Number(c[1]);var b=Number(c[2]);c=Number(c[3]);if(0<=a&&255>=a&&0<=b&&255>=b&&0<=c&&255>=c)return[a,b,c]}return[]};
-goog.color.prependZeroIfNecessaryHelper=function(a){return 1==a.length?"0"+a:a};goog.color.prependHashIfNecessaryHelper=function(a){return"#"==a.charAt(0)?a:"#"+a};goog.color.rgbStyle_=function(a){return"rgb("+a.join(",")+")"};
-goog.color.hsvToRgb=function(a,c,b){var e=0,d=0,f=0;if(0==c)f=d=e=b;else{var h=Math.floor(a/60),g=a/60-h;a=b*(1-c);var k=b*(1-c*g);c=b*(1-c*(1-g));switch(h){case 1:e=k;d=b;f=a;break;case 2:e=a;d=b;f=c;break;case 3:e=a;d=k;f=b;break;case 4:e=c;d=a;f=b;break;case 5:e=b;d=a;f=k;break;case 6:case 0:e=b,d=c,f=a}}return[Math.floor(e),Math.floor(d),Math.floor(f)]};
-goog.color.rgbToHsv=function(a,c,b){var e=Math.max(Math.max(a,c),b),d=Math.min(Math.min(a,c),b);if(d==e)d=a=0;else{var f=e-d;d=f/e;a=60*(a==e?(c-b)/f:c==e?2+(b-a)/f:4+(a-c)/f);0>a&&(a+=360);360<a&&(a-=360)}return[a,d,e]};goog.color.rgbArrayToHsv=function(a){return goog.color.rgbToHsv(a[0],a[1],a[2])};goog.color.hsvArrayToRgb=function(a){return goog.color.hsvToRgb(a[0],a[1],a[2])};goog.color.hexToHsl=function(a){a=goog.color.hexToRgb(a);return goog.color.rgbToHsl(a[0],a[1],a[2])};
-goog.color.hslToHex=function(a,c,b){return goog.color.rgbArrayToHex(goog.color.hslToRgb(a,c,b))};goog.color.hslArrayToHex=function(a){return goog.color.rgbArrayToHex(goog.color.hslToRgb(a[0],a[1],a[2]))};goog.color.hexToHsv=function(a){return goog.color.rgbArrayToHsv(goog.color.hexToRgb(a))};goog.color.hsvToHex=function(a,c,b){return goog.color.rgbArrayToHex(goog.color.hsvToRgb(a,c,b))};goog.color.hsvArrayToHex=function(a){return goog.color.hsvToHex(a[0],a[1],a[2])};
-goog.color.hslDistance=function(a,c){var b=.5>=a[2]?a[1]*a[2]:a[1]*(1-a[2]);var e=.5>=c[2]?c[1]*c[2]:c[1]*(1-c[2]);return(a[2]-c[2])*(a[2]-c[2])+b*b+e*e-2*b*e*Math.cos(2*(a[0]/360-c[0]/360)*Math.PI)};goog.color.blend=function(a,c,b){b=goog.math.clamp(b,0,1);return[Math.round(b*a[0]+(1-b)*c[0]),Math.round(b*a[1]+(1-b)*c[1]),Math.round(b*a[2]+(1-b)*c[2])]};goog.color.darken=function(a,c){return goog.color.blend([0,0,0],a,c)};goog.color.lighten=function(a,c){return goog.color.blend([255,255,255],a,c)};
-goog.color.highContrast=function(a,c){for(var b=[],e=0;e<c.length;e++)b.push({color:c[e],diff:goog.color.yiqBrightnessDiff_(c[e],a)+goog.color.colorDiff_(c[e],a)});b.sort(function(a,c){return c.diff-a.diff});return b[0].color};goog.color.yiqBrightness_=function(a){return Math.round((299*a[0]+587*a[1]+114*a[2])/1E3)};goog.color.yiqBrightnessDiff_=function(a,c){return Math.abs(goog.color.yiqBrightness_(a)-goog.color.yiqBrightness_(c))};
-goog.color.colorDiff_=function(a,c){return Math.abs(a[0]-c[0])+Math.abs(a[1]-c[1])+Math.abs(a[2]-c[2])};(function(){var a=document.getElementsByTagName("script")[0];if(!document.getElementById("twitter-wjs")){var c=document.createElement("script");c.id="twitter-wjs";c.src="//platform.twitter.com/widgets.js";a.parentNode.insertBefore(c,a)}!0})();
-(function(a){a.fn.buttonsetv=function(){a(":radio, :checkbox",this).wrap('<div style="margin: 1px"/>');a(this).buttonset();a("label:first",this).removeClass("ui-corner-left").addClass("ui-corner-top");a("label:last",this).removeClass("ui-corner-right").addClass("ui-corner-bottom");mw=0;a("label",this).each(function(c){w=a(this).width();w>mw&&(mw=w)});a("label",this).each(function(c){a(this).width(mw)})}})(jQuery);
-_4bit=function(){function a(a,c,b){var d=[a,c,b],e=[0,0,0,0];getHue=function(){return d[0]};getSaturation=function(){return d[1]};getLightness=function(){return d[2]};setHue=function(a){d[0]=a};setSaturation=function(a){d[1]=a};setLightness=function(a){d[2]=a};setDye=function(a){e=a};setHsl=function(a,c,b){d=[a,c,b]};stringify=function(){var a=goog.color.hslArrayToRgb(d),c=goog.color.hslToRgb(e[0],e[1],e[2]);a=goog.color.blend(c,a,e[3]);return goog.color.rgbArrayToHex(a)};toRgb=function(){return goog.color.hslArrayToRgb(d)};
-return{getHue:getHue,getSaturation:getSaturation,getLightness:getLightness,setHue:setHue,setSaturation:setSaturation,setLightness:setLightness,setDye:setDye,setHsl:setHsl,toString:stringify,toRgb:toRgb}}goog.require("goog.color");var c="black bright_black red bright_red green bright_green yellow bright_yellow blue bright_blue magenta bright_magenta cyan bright_cyan white bright_white".split(" "),b=new (Backbone.Model.extend({defaults:{hue:-15,saturation:.5,normal_lightness:.5,bright_lightness:.75,
-black:[a(0,0,0),a(0,0,.125)],white:[a(0,0,.875),a(0,0,1)],background:a(0,0,0),foreground:a(0,0,1)},initialize:function(){var c=this,b=[0,60,120,180,240,300],d=_.map(b,function(b){return a(c.get("hue")+b,c.get("saturation"),c.get("normal_lightness"))});b=_.map(b,function(b){return a(c.get("hue")+b,c.get("saturation"),c.get("bright_lightness"))});this.set({bright:b,normal:d});this.set({colors:{background:this.get("background"),foreground:this.get("foreground"),black:this.get("black")[0],bright_black:this.get("black")[1],
-red:this.get("normal")[0],bright_red:this.get("bright")[0],green:this.get("normal")[2],bright_green:this.get("bright")[2],yellow:this.get("normal")[1],bright_yellow:this.get("bright")[1],blue:this.get("normal")[4],bright_blue:this.get("bright")[4],magenta:this.get("normal")[5],bright_magenta:this.get("bright")[5],cyan:this.get("normal")[3],bright_cyan:this.get("bright")[3],white:this.get("white")[0],bright_white:this.get("white")[1]}})},setHue:function(a){this.set("hue",this.get("hue")+a);_.each([this.get("bright"),
-this.get("normal")],function(c){_.each(c,function(c){c.setHue(a+c.getHue())})});this.trigger("change")},setSaturation:function(a){this.set("saturation",a);_.each([this.get("bright"),this.get("normal")],function(c){_.each(c,function(c){c.setSaturation(a)})});this.trigger("change")},setLightness:function(a,c){switch(a){case "normal":this.set("normal_lightness",c);_.each(this.get("normal"),function(a){a.setLightness(c)});break;case "bright":this.set("bright_lightness",c);_.each(this.get("bright"),function(a){a.setLightness(c)});
-break;default:this.get("colors")[a].setLightness(c)}this.trigger("change")},dye:function(a,c,b,d,e){var f=this.get("colors");f=[f.black,f.bright_black,f.white,f.bright_white];var g=[];"achromatic"===e?g.push(f):("color"!==e&&g.push(f),g.push(this.get("bright")),g.push(this.get("normal")));this.set("dye",[a,c,b,d]);_.each(g,function(e){_.each(e,function(e){e.setDye([a,c,b,d])})});this.trigger("change")},setBackground:function(a,c,b,d){var e=this.get("background");"custom"===d?(e.setHsl(a,c,b),this.get("colors").background=
-e):this.get("colors").background=this.get("colors")[d];this.trigger("change")},setForeground:function(a,c,b,d){var e=this.get("foreground");"custom"===d?(e.setHsl(a,c,b),this.get("colors").foreground=e):this.get("colors").foreground=this.get("colors")[d];this.trigger("change")}})),e=Backbone.View.extend({el:$("#display"),model:b,initialize:function(){_.bindAll(this,"render");this.render();$("#advanced").tabs()},render:function(){var a="",b=["foreground","bright_foreground"],d=["background"],e="m 1m 30m 1;30m 31m 1;31m 32m 1;32m 33m 1;33m 34m 1;34m 35m 1;35m 36m 1;36m 37m 1;37m".split(" "),
-f=0;a+="<p>Welcome to fish, the friendly interactive shell</p>";a+='<p>Type <span class="green">help</span> for instructions on how to use fish</p>';a+='<p><span class="cyan">ciembor</span>@browser <span class="cyan">~</span>> <span class="blue">./colors.sh</span></p>';a+="<br />";a+='<table id="colors">';a+="<tr>";_.each(" ; ;40m;41m;42m;43m;44m;45m;46m;47m".split(";"),function(c){a+="<th>"+c+"</th>"});a+="</tr>";_.each(c,function(a){0!==a.indexOf("bright_")&&d.push(a);b.push(a)});_.each(b,function(c){a+=
-"<tr>";a+='<th class="row-th">'+e[f]+"</th>";f+=1;_.each(d,function(b){a+='<td class="';0===c.indexOf("bright_")&&(a+="bold ");a="bright_foreground"===c?a+"foreground":a+c;a+=" bg-"+b;a+='">gYw</td>'});a+="</tr>"});a+="</table>";a+="<br />";a+='<p><span class="cyan">ciembor</span>@browser <span class="cyan">~</span>></p>';$(this.el).html(a)}}),d=Backbone.View.extend({model:b,initialize:function(){_.bindAll(this,"render");this.model.bind("change",_.bind(this.render,this));this.render()},render:function(){var a=
-this;$("#display").css("color",a.model.get("colors").foreground);$("#display").css("background-color",a.model.get("colors").background);_.each(c,function(c){$("."+c).css("color",a.model.get("colors")[c]);$(".bg-"+c).css("background-color",a.model.get("colors")[c])})}}),f=Backbone.View.extend({model:b,initialize:function(){_.bindAll(this,"render");var a=this;$("#guake-button").on("click",function(c){var b=a.render();b=URL.createObjectURL(b);c=$(c.target);c.attr("href",b);c.attr("download","set_colors.sh")})},
-render:function(){function a(a){return a.toString().replace(/#(.{2})(.{2})(.{2})/,"#$1$1$2$2$3$3")}var b=[],d=this.model.get("colors");_.each(c,function(c){b.push(a(d[c]))});out="#!/bin/bash \n\n";out+="# Save this script into set_colors.sh, make this file executable and run it: \n";out+="# \n";out+="# $ chmod +x set_colors.sh \n";out+="# $ ./set_colors.sh \n";out+="# \n";out+="# Alternatively copy lines below directly into your shell. \n\n";out+="gconftool-2 -s -t string /apps/guake/style/background/color '"+
-a(d.background)+"'\n";out+="gconftool-2 -s -t string /apps/guake/style/font/color '"+a(d.foreground)+"'\n";out+="gconftool-2 -s -t string /apps/guake/style/font/palette '"+b.join(":")+"'\n";return new Blob([out],{type:"text/text"})}}),h=Backbone.View.extend({model:b,initialize:function(){_.bindAll(this,"render");var a=this;$("#gnome-terminal-button").on("click",function(c){var b=a.render();b=URL.createObjectURL(b);c=$(c.target);c.attr("href",b);c.attr("download","set_colors.sh")})},render:function(){function a(a){return a.toString().replace(/#(.{2})(.{2})(.{2})/,
-"#$1$1$2$2$3$3")}var b=[],d=this.model.get("colors");_.each(c,function(c){0!==c.indexOf("bright_")&&b.push(a(d[c]))});_.each(c,function(c){0===c.indexOf("bright_")&&b.push(a(d[c]))});out="#!/bin/bash \n\n";out+="# Save this script into set_colors.sh, make this file executable and run it: \n";out+="# \n";out+="# $ chmod +x set_colors.sh \n";out+="# $ ./set_colors.sh \n";out+="# \n";out+="# Alternatively copy lines below directly into your shell. \n\n";out+="gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_theme_background --type bool false \n";
-out+="gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_theme_colors --type bool false \n";out+="gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/background_color '"+a(d.background)+"'\n";out+="gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/foreground_color '"+a(d.foreground)+"'\n";out+="gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/palette '"+b.join(":")+"'\n";return new Blob([out],{type:"text/text"})}}),g=Backbone.View.extend({model:b,initialize:function(){_.bindAll(this,
-"render");var a=this;$("#konsole-button").on("click",function(c){var b=a.render();b=URL.createObjectURL(b);c=$(c.target);c.attr("href",b);c.attr("download","4bit.colorscheme")})},colorRgb:function(a,c){a=a.model.get("colors")[c].toRgb();return a[0]+","+a[1]+","+a[2]},render:function(){var a=this,b="",d=0,e="4bit-"+a.model.get("colors").foreground+"-on-"+a.model.get("colors").background;e=e.replace(/#/g,"");b+="# --- ~/.kde/share/apps/konsole/NAME.colorscheme -------------------------------\n";b+=
-"# ------------------------------------------------------------------------------\n";b+="# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n";b+="# ------------------------------------------------------------------------------\n";b+="# --- http://ciembor.github.io/4bit --------------------------------------------\n";b+="# ------------------------------------------------------------------------------\n\n";b+="# --- special colors ---\n\n";b+="[Background]\n";b+="Color="+
-a.colorRgb(a,"background")+"\n";b+="Transparency=false\n\n";b+="[BackgroundIntense]\n";b+="color="+a.colorRgb(a,"background")+"\n";b+="Transparency=false\n\n";b+="[Foreground]\n";b+="Color="+a.colorRgb(a,"foreground")+"\n";b+="Transparency=false\n\n";b+="[ForegroundIntense]\n";b+="Color="+a.colorRgb(a,"foreground")+"\n";b+="Bold=true\n";b+="Transparency=false\n\n";b+="# --- standard colors ---\n\n";_.each(c,function(c){var e=d/2;0===c.indexOf("bright_")&&(e+=7.5);colorsuffix=7<e?e%8+"Intense":e%8;
-b+="[Color"+colorsuffix+"]\n";b+="Color="+a.colorRgb(a,c)+"\n";b+="Transparency=false\n\n";d++});b+="# --- general options ---\n\n";b+="[General]\nDescription="+e+"\nOpacity=1\n";return new Blob([b],{type:"text/text"})}}),k=Backbone.View.extend({model:b,initialize:function(){_.bindAll(this,"render");var a=this;$("#iterm2-button").on("click",function(c){var b=a.render();b=URL.createObjectURL(b);c=$(c.target);c.attr("href",b);c.attr("download","4bit.itermcolors")})},colorRgb:function(a,c){a=a.model.get("colors")[c].toRgb();
-return a[0]+","+a[1]+","+a[2]},colorKeyDict:function(a,c,b){a=a.model.get("colors")[c].toRgb();b=""+("\t<key>"+b+" Color</key>\n")+"\t<dict>\n\t\t<key>Blue Component</key>\n";b+="\t\t<real>"+a[2]/255+"</real>\n";b+="\t\t<key>Green Component</key>\n";b+="\t\t<real>"+a[1]/255+"</real>\n";b+="\t\t<key>Red Component</key>\n";b+="\t\t<real>"+a[0]/255+"</real>\n";return b+="\t</dict>\n"},render:function(){var a=this,b="",d=0,e="4bit-"+a.model.get("colors").foreground+"-on-"+a.model.get("colors").background;
-e=e.replace(/#/g,"");b+='<?xml version="1.0" encoding="UTF-8"?>\n';b+='<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n';b+="\n\x3c!--\n\n";b+="      Save this file to "+e+".itermcolors                                    \n";b+="      and load it with iTerm2 Preferences panel                                 \n";b+="                                                                                \n";b+="      generated with 4bit Terminal Color Scheme Designer                        \n";
-b+="                                                                                \n";b+="      http://ciembor.github.io/4bit                                             \n";b+="                                                                                \n";b+="--\x3e\n\n";b+='<plist version="1.0">\n';b+="<dict>\n";b+="\x3c!-- special colors --\x3e\n";b+=a.colorKeyDict(a,"background","Background");b+=a.colorKeyDict(a,"foreground","Foreground");b+=a.colorKeyDict(a,"foreground","Cursor");b+=a.colorKeyDict(a,
-"background","Cursor Text");b+="\x3c!-- standard colors --\x3e\n";_.each(c,function(c){var e=d/2;0===c.indexOf("bright_")&&(e+=7.5);b+="\t\x3c!-- "+c+" --\x3e\n";b+=a.colorKeyDict(a,c,"Ansi "+e);d+=1});b+="</dict>\n";b+="</plist>\n";b+="\n";return new Blob([b],{type:"text/text"})}}),l=Backbone.View.extend({model:b,initialize:function(){_.bindAll(this,"render");var a=this;$("#xresources-button").on("click",function(c){var b=a.render();b=URL.createObjectURL(b);c=$(c.target);c.attr("href",b);c.attr("download",
-".Xresources")})},render:function(){var a=this,b="",d=0;b+="! --- ~/.Xresources ------------------------------------------------------------\n";b+="! ------------------------------------------------------------------------------\n";b+="! --- generated with 4bit Terminal Color Scheme Designer -----------------------\n";b+="! ------------------------------------------------------------------------------\n";b+="! --- http://ciembor.github.io/4bit --------------------------------------------\n";b+="! ------------------------------------------------------------------------------\n\n";
-b+="! --- special colors ---\n\n";b+="*background: "+a.model.get("colors").background+"\n";b+="*foreground: "+a.model.get("colors").foreground+"\n\n";b+="! --- standard colors ---\n\n";_.each(c,function(c){var e=d/2;0===c.indexOf("bright_")&&(e+=7.5);b+="! "+c+"\n";b+="*color"+e+": "+a.model.get("colors")[c]+"\n\n";d+=1});b+="\n! ------------------------------------------------------------------------------\n";b+="! --- end of terminal colors section -------------------------------------------\n";
-b+="! ------------------------------------------------------------------------------\n\n";return new Blob([b],{type:"text/text"})}}),m=Backbone.View.extend({model:b,initialize:function(){_.bindAll(this,"render");var a=this;$("#xfce-terminal-button").on("click",function(c){var b=a.render();b=URL.createObjectURL(b);c=$(c.target);c.attr("href",b);c.attr("download","terminalrc")})},render:function(){var a=this,b="[Configuration]\n",d=1;b+="ColorBackground="+a.model.get("colors").background+"\n";b+="ColorForeground="+
-a.model.get("colors").foreground+"\n";b+="ColorCursor="+a.model.get("colors").foreground+"\n";_.each(c,function(c){var e=d/2+.5;0===c.indexOf("bright_")&&(e+=7.5);b+="ColorPalette"+e+"="+a.model.get("colors")[c]+"\n";d+=1});return new Blob([b],{type:"text/text"})}}),n=Backbone.View.extend({model:b,initialize:function(){_.bindAll(this,"render");var a=this;$("#mintty-button").on("click",function(c){var b=a.render();b=URL.createObjectURL(b);c=$(c.target);c.attr("href",b);c.attr("download","4bit-mintty-color-scheme")})},
-colorRgb:function(a,c){a=a.model.get("colors")[c].toRgb();return a[0]+","+a[1]+","+a[2]},render:function(){var a=this,b="";b+="BackgroundColour="+a.colorRgb(a,"background")+"\n";b+="ForegroundColour="+a.colorRgb(a,"foreground")+"\n";b+="CursorColour="+a.colorRgb(a,"foreground")+"\n";_.each(c,function(c){var d=b;var e=c;0===e.indexOf("bright_")?(e=e.substring(7),e="Bold"+e.charAt(0).toUpperCase()+e.slice(1)):e=e.charAt(0).toUpperCase()+e.slice(1);b=d+(e+"="+a.colorRgb(a,c)+"\n")});return new Blob([b],
-{type:"text/text"})}}),q=Backbone.View.extend({model:b,initialize:function(){_.bindAll(this,"render");var a=this;$("#putty-button").on("click",function(c){var b=a.render();b=URL.createObjectURL(b);c=$(c.target);c.attr("href",b);c.attr("download","4bit-putty-color-scheme.reg")})},colorRgb:function(a,c){a=a.model.get("colors")[c].toRgb();return a[0]+","+a[1]+","+a[2]},render:function(){var a=this,b="",d=6;b+="Windows Registry Editor Version 5.00 \n\n";b+="[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\Default%20Settings]\n";
-b+='"Colour0"="'+a.colorRgb(a,"foreground")+'"\n';b+='"Colour1"="'+a.colorRgb(a,"foreground")+'"\n';b+='"Colour2"="'+a.colorRgb(a,"background")+'"\n';b+='"Colour3"="'+a.colorRgb(a,"background")+'"\n';b+='"Colour4"="'+a.colorRgb(a,"background")+'"\n';b+='"Colour5"="'+a.colorRgb(a,"foreground")+'"\n';_.each(c,function(c){b+='"Colour'+d+'"="'+a.colorRgb(a,c)+'"\n';d+=1});return new Blob([b],{type:"text/text"})}}),r=Backbone.View.extend({model:b,initialize:function(){_.bindAll(this,"render");var a=this;
-$("#terminator-button").on("click",function(c){var b=a.render();b=URL.createObjectURL(b);c=$(c.target);c.attr("href",b);c.attr("download","config")})},render:function(){var a="",b=[],d=[],e=this.model.get("colors"),f="4bit-"+(new Date).getTime();_.each(c,function(a){0===a.indexOf("bright_")&&(d.push(e[a]),b.push(e[a.substr(7)]))});var g=b.concat(d);a=a+"# Color scheme configuration for Terminator terminal emulator (http://gnometerminator.blogspot.com/p/introduction.html and https://launchpad.net/terminator)\n# \n# Copy the following lines within the [profiles] section of terminator configuration file at ~/.config/terminator/config\n\n"+
-("[["+f+"]]\n")+"  use_theme_colors = False\n"+('  background_color = "'+e.background+'"\n');a+='  foreground_color = "'+e.foreground+'"\n';a+='  palette = "'+g.join(":")+'"\n';return new Blob([a],{type:"text/text"})}});b=Backbone.View.extend({el:$("#controls"),model:b,initialize:function(){_.bindAll(this,"render");var a=this;$("#hue-slider").slider({value:a.model.get("hue")+30,min:0,max:60,step:1,slide:function(c,b){a.model.setHue(b.value-30-a.model.get("hue"))}});$("#saturation-slider").slider({value:256*
-a.model.get("saturation"),min:0,max:256,step:1,slide:function(c,b){a.model.setSaturation(b.value/256)}});$("#lightness-slider").slider({range:!0,values:[256*a.model.get("normal_lightness"),256*a.model.get("bright_lightness")],min:0,max:256,step:1,slide:function(c,b){a.model.setLightness("normal",b.values[0]/256);a.model.setLightness("bright",b.values[1]/256)}});$("#black-slider").slider({range:!0,values:[256*a.model.get("colors").black.getLightness(),256*a.model.get("colors").bright_black.getLightness()],
-min:0,max:128,step:1,slide:function(c,b){a.model.setLightness("black",b.values[0]/256);a.model.setLightness("bright_black",b.values[1]/256)}});$("#white-slider").slider({range:!0,values:[256*a.model.get("colors").white.getLightness(),256*a.model.get("colors").bright_white.getLightness()],min:128,max:256,step:1,slide:function(b,c){a.model.setLightness("white",c.values[0]/256);a.model.setLightness("bright_white",c.values[1]/256)}});$("#dye-colorpicker").colorPicker({format:"hsla",size:90,colorChange:function(c,
-b){c=$("input[name=dye]:checked").val();var d=/^hsla\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)\)$/.exec(b.color);b=d[1];var e=d[2]/100;var f=d[3]/100;d=d[4];switch(c){case "none":a.model.dye(0,0,0,0,"all");break;case "color":a.model.dye(0,0,0,0,"achromatic");a.model.dye(b,e,f,d,"color");break;case "achromatic":a.model.dye(0,0,0,0,"color");a.model.dye(b,e,f,d,"achromatic");break;case "all":a.model.dye(b,e,f,d,"all")}}});$("#dye-colorpicker").colorPicker("setColor",180,50,50,.25);
-$("input[name=dye]").change(function(){$("#dye-colorpicker").change()});$("#background-colorpicker").colorPicker({format:"hsl",size:90,colorChange:function(b,c){b=$("input[name=background]:checked").val();c=/^hsl\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%\)$/.exec(c.color);a.model.setBackground(c[1],c[2]/100,c[3]/100,b)}});$("#background-colorpicker").colorPicker("setColor",180,50,10);$("input[name=background]").change(function(){$("#background-colorpicker").change()});$("#background .alpha .ui-draggable").removeClass("ui-draggable handle");
-$("#foreground-colorpicker").colorPicker({format:"hsl",size:90,colorChange:function(c,b){c=$("input[name=foreground]:checked").val();b=/^hsl\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%\)$/.exec(b.color);a.model.setForeground(b[1],b[2]/100,b[3]/100,c)}});$("#foreground-colorpicker").colorPicker("setColor",180,50,90);$("input[name=foreground]").change(function(){$("#foreground-colorpicker").change()});$("#foreground .alpha .ui-draggable").removeClass("ui-draggable handle");$(".radio-group").buttonsetv()}});
-new e;var p=new d;new l;new g;new n;new k;new f;new h;new m;new q;new r;new b;$("footer p").hover(function(){$(this).find("a").addClass("blue");p.render()},function(){$(this).find("a").removeClass("blue");$(this).find("a").removeAttr("style")});$(window).bind("load",function(){$("#display").css("visibility","visible");$("#controls").css("visibility","visible");$("#skews").fadeIn(700);$("#app").animate({opacity:1},700);$("#get-scheme-button").click(function(a){$("#dialog-modal").dialog({height:90+
-50*$(".get-scheme-link").length,width:450,modal:!0,draggable:!1,resizable:!1,open:function(a,b){$(".ui-dialog").css("display","flex")}})})})};
+  // Certain browsers cannot parse code in the form for((a in b); c;);
+  // This pattern is produced by the JSCompiler when it collapses the
+  // statement above into the conditional loop below. To prevent this from
+  // happening, use a for-loop and reserve the init logic as below.
+
+  // Parentheses added to eliminate strict JS warning in Firefox.
+  for (var part; parts.length && (part = parts.shift());) {
+    if (!parts.length && goog.isDef(opt_object)) {
+      // last part and we have an object; use it
+      cur[part] = opt_object;
+    } else if (cur[part]) {
+      cur = cur[part];
+    } else {
+      cur = cur[part] = {};
+    }
+  }
+};
+
+
+/**
+ * Returns an object based on its fully qualified external name.  If you are
+ * using a compilation pass that renames property names beware that using this
+ * function will not find renamed properties.
+ *
+ * @param {string} name The fully qualified name.
+ * @param {Object=} opt_obj The object within which to look; default is
+ *     |goog.global|.
+ * @return {?} The value (object or primitive) or, if not found, null.
+ */
+goog.getObjectByName = function(name, opt_obj) {
+  var parts = name.split('.');
+  var cur = opt_obj || goog.global;
+  for (var part; part = parts.shift(); ) {
+    if (goog.isDefAndNotNull(cur[part])) {
+      cur = cur[part];
+    } else {
+      return null;
+    }
+  }
+  return cur;
+};
+
+
+/**
+ * Globalizes a whole namespace, such as goog or goog.lang.
+ *
+ * @param {Object} obj The namespace to globalize.
+ * @param {Object=} opt_global The object to add the properties to.
+ * @deprecated Properties may be explicitly exported to the global scope, but
+ *     this should no longer be done in bulk.
+ */
+goog.globalize = function(obj, opt_global) {
+  var global = opt_global || goog.global;
+  for (var x in obj) {
+    global[x] = obj[x];
+  }
+};
+
+
+/**
+ * Adds a dependency from a file to the files it requires.
+ * @param {string} relPath The path to the js file.
+ * @param {Array} provides An array of strings with the names of the objects
+ *                         this file provides.
+ * @param {Array} requires An array of strings with the names of the objects
+ *                         this file requires.
+ */
+goog.addDependency = function(relPath, provides, requires) {
+  if (!COMPILED) {
+    var provide, require;
+    var path = relPath.replace(/\\/g, '/');
+    var deps = goog.dependencies_;
+    for (var i = 0; provide = provides[i]; i++) {
+      deps.nameToPath[provide] = path;
+      if (!(path in deps.pathToNames)) {
+        deps.pathToNames[path] = {};
+      }
+      deps.pathToNames[path][provide] = true;
+    }
+    for (var j = 0; require = requires[j]; j++) {
+      if (!(path in deps.requires)) {
+        deps.requires[path] = {};
+      }
+      deps.requires[path][require] = true;
+    }
+  }
+};
+
+
+
+
+// NOTE(nnaze): The debug DOM loader was included in base.js as an orignal
+// way to do "debug-mode" development.  The dependency system can sometimes
+// be confusing, as can the debug DOM loader's asyncronous nature.
+//
+// With the DOM loader, a call to goog.require() is not blocking -- the
+// script will not load until some point after the current script.  If a
+// namespace is needed at runtime, it needs to be defined in a previous
+// script, or loaded via require() with its registered dependencies.
+// User-defined namespaces may need their own deps file.  See http://go/js_deps,
+// http://go/genjsdeps, or, externally, DepsWriter.
+// http://code.google.com/closure/library/docs/depswriter.html
+//
+// Because of legacy clients, the DOM loader can't be easily removed from
+// base.js.  Work is being done to make it disableable or replaceable for
+// different environments (DOM-less JavaScript interpreters like Rhino or V8,
+// for example). See bootstrap/ for more information.
+
+
+/**
+ * @define {boolean} Whether to enable the debug loader.
+ *
+ * If enabled, a call to goog.require() will attempt to load the namespace by
+ * appending a script tag to the DOM (if the namespace has been registered).
+ *
+ * If disabled, goog.require() will simply assert that the namespace has been
+ * provided (and depend on the fact that some outside tool correctly ordered
+ * the script).
+ */
+goog.ENABLE_DEBUG_LOADER = true;
+
+
+/**
+ * Implements a system for the dynamic resolution of dependencies
+ * that works in parallel with the BUILD system. Note that all calls
+ * to goog.require will be stripped by the JSCompiler when the
+ * --closure_pass option is used.
+ * @see goog.provide
+ * @param {string} name Namespace to include (as was given in goog.provide())
+ *     in the form "goog.package.part".
+ */
+goog.require = function(name) {
+
+  // if the object already exists we do not need do do anything
+  // TODO(arv): If we start to support require based on file name this has
+  //            to change
+  // TODO(arv): If we allow goog.foo.* this has to change
+  // TODO(arv): If we implement dynamic load after page load we should probably
+  //            not remove this code for the compiled output
+  if (!COMPILED) {
+    if (goog.isProvided_(name)) {
+      return;
+    }
+
+    if (goog.ENABLE_DEBUG_LOADER) {
+      var path = goog.getPathFromDeps_(name);
+      if (path) {
+        goog.included_[path] = true;
+        goog.writeScripts_();
+        return;
+      }
+    }
+
+    var errorMessage = 'goog.require could not find: ' + name;
+    if (goog.global.console) {
+      goog.global.console['error'](errorMessage);
+    }
+
+
+      throw Error(errorMessage);
+
+  }
+};
+
+
+/**
+ * Path for included scripts
+ * @type {string}
+ */
+goog.basePath = '';
+
+
+/**
+ * A hook for overriding the base path.
+ * @type {string|undefined}
+ */
+goog.global.CLOSURE_BASE_PATH;
+
+
+/**
+ * Whether to write out Closure's deps file. By default,
+ * the deps are written.
+ * @type {boolean|undefined}
+ */
+goog.global.CLOSURE_NO_DEPS;
+
+
+/**
+ * A function to import a single script. This is meant to be overridden when
+ * Closure is being run in non-HTML contexts, such as web workers. It's defined
+ * in the global scope so that it can be set before base.js is loaded, which
+ * allows deps.js to be imported properly.
+ *
+ * The function is passed the script source, which is a relative URI. It should
+ * return true if the script was imported, false otherwise.
+ */
+goog.global.CLOSURE_IMPORT_SCRIPT;
+
+
+/**
+ * Null function used for default values of callbacks, etc.
+ * @return {void} Nothing.
+ */
+goog.nullFunction = function() {};
+
+
+/**
+ * The identity function. Returns its first argument.
+ *
+ * @param {*=} opt_returnValue The single value that will be returned.
+ * @param {...*} var_args Optional trailing arguments. These are ignored.
+ * @return {?} The first argument. We can't know the type -- just pass it along
+ *      without type.
+ * @deprecated Use goog.functions.identity instead.
+ */
+goog.identityFunction = function(opt_returnValue, var_args) {
+  return opt_returnValue;
+};
+
+
+/**
+ * When defining a class Foo with an abstract method bar(), you can do:
+ *
+ * Foo.prototype.bar = goog.abstractMethod
+ *
+ * Now if a subclass of Foo fails to override bar(), an error
+ * will be thrown when bar() is invoked.
+ *
+ * Note: This does not take the name of the function to override as
+ * an argument because that would make it more difficult to obfuscate
+ * our JavaScript code.
+ *
+ * @type {!Function}
+ * @throws {Error} when invoked to indicate the method should be
+ *   overridden.
+ */
+goog.abstractMethod = function() {
+  throw Error('unimplemented abstract method');
+};
+
+
+/**
+ * Adds a {@code getInstance} static method that always return the same instance
+ * object.
+ * @param {!Function} ctor The constructor for the class to add the static
+ *     method to.
+ */
+goog.addSingletonGetter = function(ctor) {
+  ctor.getInstance = function() {
+    if (ctor.instance_) {
+      return ctor.instance_;
+    }
+    if (goog.DEBUG) {
+      // NOTE: JSCompiler can't optimize away Array#push.
+      goog.instantiatedSingletons_[goog.instantiatedSingletons_.length] = ctor;
+    }
+    return ctor.instance_ = new ctor;
+  };
+};
+
+
+/**
+ * All singleton classes that have been instantiated, for testing. Don't read
+ * it directly, use the {@code goog.testing.singleton} module. The compiler
+ * removes this variable if unused.
+ * @type {!Array.<!Function>}
+ * @private
+ */
+goog.instantiatedSingletons_ = [];
+
+
+if (!COMPILED && goog.ENABLE_DEBUG_LOADER) {
+  /**
+   * Object used to keep track of urls that have already been added. This
+   * record allows the prevention of circular dependencies.
+   * @type {Object}
+   * @private
+   */
+  goog.included_ = {};
+
+
+  /**
+   * This object is used to keep track of dependencies and other data that is
+   * used for loading scripts
+   * @private
+   * @type {Object}
+   */
+  goog.dependencies_ = {
+    pathToNames: {}, // 1 to many
+    nameToPath: {}, // 1 to 1
+    requires: {}, // 1 to many
+    // used when resolving dependencies to prevent us from
+    // visiting the file twice
+    visited: {},
+    written: {} // used to keep track of script files we have written
+  };
+
+
+  /**
+   * Tries to detect whether is in the context of an HTML document.
+   * @return {boolean} True if it looks like HTML document.
+   * @private
+   */
+  goog.inHtmlDocument_ = function() {
+    var doc = goog.global.document;
+    return typeof doc != 'undefined' &&
+           'write' in doc;  // XULDocument misses write.
+  };
+
+
+  /**
+   * Tries to detect the base path of the base.js script that bootstraps Closure
+   * @private
+   */
+  goog.findBasePath_ = function() {
+    if (goog.global.CLOSURE_BASE_PATH) {
+      goog.basePath = goog.global.CLOSURE_BASE_PATH;
+      return;
+    } else if (!goog.inHtmlDocument_()) {
+      return;
+    }
+    var doc = goog.global.document;
+    var scripts = doc.getElementsByTagName('script');
+    // Search backwards since the current script is in almost all cases the one
+    // that has base.js.
+    for (var i = scripts.length - 1; i >= 0; --i) {
+      var src = scripts[i].src;
+      var qmark = src.lastIndexOf('?');
+      var l = qmark == -1 ? src.length : qmark;
+      if (src.substr(l - 7, 7) == 'base.js') {
+        goog.basePath = src.substr(0, l - 7);
+        return;
+      }
+    }
+  };
+
+
+  /**
+   * Imports a script if, and only if, that script hasn't already been imported.
+   * (Must be called at execution time)
+   * @param {string} src Script source.
+   * @private
+   */
+  goog.importScript_ = function(src) {
+    var importScript = goog.global.CLOSURE_IMPORT_SCRIPT ||
+        goog.writeScriptTag_;
+    if (!goog.dependencies_.written[src] && importScript(src)) {
+      goog.dependencies_.written[src] = true;
+    }
+  };
+
+
+  /**
+   * The default implementation of the import function. Writes a script tag to
+   * import the script.
+   *
+   * @param {string} src The script source.
+   * @return {boolean} True if the script was imported, false otherwise.
+   * @private
+   */
+  goog.writeScriptTag_ = function(src) {
+    if (goog.inHtmlDocument_()) {
+      var doc = goog.global.document;
+
+      // If the user tries to require a new symbol after document load,
+      // something has gone terribly wrong. Doing a document.write would
+      // wipe out the page.
+      if (doc.readyState == 'complete') {
+        // Certain test frameworks load base.js multiple times, which tries
+        // to write deps.js each time. If that happens, just fail silently.
+        // These frameworks wipe the page between each load of base.js, so this
+        // is OK.
+        var isDeps = /\bdeps.js$/.test(src);
+        if (isDeps) {
+          return false;
+        } else {
+          throw Error('Cannot write "' + src + '" after document load');
+        }
+      }
+
+      doc.write(
+          '<script type="text/javascript" src="' + src + '"></' + 'script>');
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+
+  /**
+   * Resolves dependencies based on the dependencies added using addDependency
+   * and calls importScript_ in the correct order.
+   * @private
+   */
+  goog.writeScripts_ = function() {
+    // the scripts we need to write this time
+    var scripts = [];
+    var seenScript = {};
+    var deps = goog.dependencies_;
+
+    function visitNode(path) {
+      if (path in deps.written) {
+        return;
+      }
+
+      // we have already visited this one. We can get here if we have cyclic
+      // dependencies
+      if (path in deps.visited) {
+        if (!(path in seenScript)) {
+          seenScript[path] = true;
+          scripts.push(path);
+        }
+        return;
+      }
+
+      deps.visited[path] = true;
+
+      if (path in deps.requires) {
+        for (var requireName in deps.requires[path]) {
+          // If the required name is defined, we assume that it was already
+          // bootstrapped by other means.
+          if (!goog.isProvided_(requireName)) {
+            if (requireName in deps.nameToPath) {
+              visitNode(deps.nameToPath[requireName]);
+            } else {
+              throw Error('Undefined nameToPath for ' + requireName);
+            }
+          }
+        }
+      }
+
+      if (!(path in seenScript)) {
+        seenScript[path] = true;
+        scripts.push(path);
+      }
+    }
+
+    for (var path in goog.included_) {
+      if (!deps.written[path]) {
+        visitNode(path);
+      }
+    }
+
+    for (var i = 0; i < scripts.length; i++) {
+      if (scripts[i]) {
+        goog.importScript_(goog.basePath + scripts[i]);
+      } else {
+        throw Error('Undefined script input');
+      }
+    }
+  };
+
+
+  /**
+   * Looks at the dependency rules and tries to determine the script file that
+   * fulfills a particular rule.
+   * @param {string} rule In the form goog.namespace.Class or project.script.
+   * @return {?string} Url corresponding to the rule, or null.
+   * @private
+   */
+  goog.getPathFromDeps_ = function(rule) {
+    if (rule in goog.dependencies_.nameToPath) {
+      return goog.dependencies_.nameToPath[rule];
+    } else {
+      return null;
+    }
+  };
+
+  goog.findBasePath_();
+
+  // Allow projects to manage the deps files themselves.
+  if (!goog.global.CLOSURE_NO_DEPS) {
+    goog.importScript_(goog.basePath + 'deps.js');
+  }
+}
+
+
+
+//==============================================================================
+// Language Enhancements
+//==============================================================================
+
+
+/**
+ * This is a "fixed" version of the typeof operator.  It differs from the typeof
+ * operator in such a way that null returns 'null' and arrays return 'array'.
+ * @param {*} value The value to get the type of.
+ * @return {string} The name of the type.
+ */
+goog.typeOf = function(value) {
+  var s = typeof value;
+  if (s == 'object') {
+    if (value) {
+      // Check these first, so we can avoid calling Object.prototype.toString if
+      // possible.
+      //
+      // IE improperly marshals tyepof across execution contexts, but a
+      // cross-context object will still return false for "instanceof Object".
+      if (value instanceof Array) {
+        return 'array';
+      } else if (value instanceof Object) {
+        return s;
+      }
+
+      // HACK: In order to use an Object prototype method on the arbitrary
+      //   value, the compiler requires the value be cast to type Object,
+      //   even though the ECMA spec explicitly allows it.
+      var className = Object.prototype.toString.call(
+          /** @type {Object} */ (value));
+      // In Firefox 3.6, attempting to access iframe window objects' length
+      // property throws an NS_ERROR_FAILURE, so we need to special-case it
+      // here.
+      if (className == '[object Window]') {
+        return 'object';
+      }
+
+      // We cannot always use constructor == Array or instanceof Array because
+      // different frames have different Array objects. In IE6, if the iframe
+      // where the array was created is destroyed, the array loses its
+      // prototype. Then dereferencing val.splice here throws an exception, so
+      // we can't use goog.isFunction. Calling typeof directly returns 'unknown'
+      // so that will work. In this case, this function will return false and
+      // most array functions will still work because the array is still
+      // array-like (supports length and []) even though it has lost its
+      // prototype.
+      // Mark Miller noticed that Object.prototype.toString
+      // allows access to the unforgeable [[Class]] property.
+      //  15.2.4.2 Object.prototype.toString ( )
+      //  When the toString method is called, the following steps are taken:
+      //      1. Get the [[Class]] property of this object.
+      //      2. Compute a string value by concatenating the three strings
+      //         "[object ", Result(1), and "]".
+      //      3. Return Result(2).
+      // and this behavior survives the destruction of the execution context.
+      if ((className == '[object Array]' ||
+           // In IE all non value types are wrapped as objects across window
+           // boundaries (not iframe though) so we have to do object detection
+           // for this edge case
+           typeof value.length == 'number' &&
+           typeof value.splice != 'undefined' &&
+           typeof value.propertyIsEnumerable != 'undefined' &&
+           !value.propertyIsEnumerable('splice')
+
+          )) {
+        return 'array';
+      }
+      // HACK: There is still an array case that fails.
+      //     function ArrayImpostor() {}
+      //     ArrayImpostor.prototype = [];
+      //     var impostor = new ArrayImpostor;
+      // this can be fixed by getting rid of the fast path
+      // (value instanceof Array) and solely relying on
+      // (value && Object.prototype.toString.vall(value) === '[object Array]')
+      // but that would require many more function calls and is not warranted
+      // unless closure code is receiving objects from untrusted sources.
+
+      // IE in cross-window calls does not correctly marshal the function type
+      // (it appears just as an object) so we cannot use just typeof val ==
+      // 'function'. However, if the object has a call property, it is a
+      // function.
+      if ((className == '[object Function]' ||
+          typeof value.call != 'undefined' &&
+          typeof value.propertyIsEnumerable != 'undefined' &&
+          !value.propertyIsEnumerable('call'))) {
+        return 'function';
+      }
+
+
+    } else {
+      return 'null';
+    }
+
+  } else if (s == 'function' && typeof value.call == 'undefined') {
+    // In Safari typeof nodeList returns 'function', and on Firefox
+    // typeof behaves similarly for HTML{Applet,Embed,Object}Elements
+    // and RegExps.  We would like to return object for those and we can
+    // detect an invalid function by making sure that the function
+    // object has a call method.
+    return 'object';
+  }
+  return s;
+};
+
+
+/**
+ * Returns true if the specified value is not |undefined|.
+ * WARNING: Do not use this to test if an object has a property. Use the in
+ * operator instead.  Additionally, this function assumes that the global
+ * undefined variable has not been redefined.
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is defined.
+ */
+goog.isDef = function(val) {
+  return val !== undefined;
+};
+
+
+/**
+ * Returns true if the specified value is |null|
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is null.
+ */
+goog.isNull = function(val) {
+  return val === null;
+};
+
+
+/**
+ * Returns true if the specified value is defined and not null
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is defined and not null.
+ */
+goog.isDefAndNotNull = function(val) {
+  // Note that undefined == null.
+  return val != null;
+};
+
+
+/**
+ * Returns true if the specified value is an array
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is an array.
+ */
+goog.isArray = function(val) {
+  return goog.typeOf(val) == 'array';
+};
+
+
+/**
+ * Returns true if the object looks like an array. To qualify as array like
+ * the value needs to be either a NodeList or an object with a Number length
+ * property.
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is an array.
+ */
+goog.isArrayLike = function(val) {
+  var type = goog.typeOf(val);
+  return type == 'array' || type == 'object' && typeof val.length == 'number';
+};
+
+
+/**
+ * Returns true if the object looks like a Date. To qualify as Date-like
+ * the value needs to be an object and have a getFullYear() function.
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is a like a Date.
+ */
+goog.isDateLike = function(val) {
+  return goog.isObject(val) && typeof val.getFullYear == 'function';
+};
+
+
+/**
+ * Returns true if the specified value is a string
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is a string.
+ */
+goog.isString = function(val) {
+  return typeof val == 'string';
+};
+
+
+/**
+ * Returns true if the specified value is a boolean
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is boolean.
+ */
+goog.isBoolean = function(val) {
+  return typeof val == 'boolean';
+};
+
+
+/**
+ * Returns true if the specified value is a number
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is a number.
+ */
+goog.isNumber = function(val) {
+  return typeof val == 'number';
+};
+
+
+/**
+ * Returns true if the specified value is a function
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is a function.
+ */
+goog.isFunction = function(val) {
+  return goog.typeOf(val) == 'function';
+};
+
+
+/**
+ * Returns true if the specified value is an object.  This includes arrays
+ * and functions.
+ * @param {*} val Variable to test.
+ * @return {boolean} Whether variable is an object.
+ */
+goog.isObject = function(val) {
+  var type = typeof val;
+  return type == 'object' && val != null || type == 'function';
+  // return Object(val) === val also works, but is slower, especially if val is
+  // not an object.
+};
+
+
+/**
+ * Gets a unique ID for an object. This mutates the object so that further
+ * calls with the same object as a parameter returns the same value. The unique
+ * ID is guaranteed to be unique across the current session amongst objects that
+ * are passed into {@code getUid}. There is no guarantee that the ID is unique
+ * or consistent across sessions. It is unsafe to generate unique ID for
+ * function prototypes.
+ *
+ * @param {Object} obj The object to get the unique ID for.
+ * @return {number} The unique ID for the object.
+ */
+goog.getUid = function(obj) {
+  // TODO(arv): Make the type stricter, do not accept null.
+
+  // In Opera window.hasOwnProperty exists but always returns false so we avoid
+  // using it. As a consequence the unique ID generated for BaseClass.prototype
+  // and SubClass.prototype will be the same.
+  return obj[goog.UID_PROPERTY_] ||
+      (obj[goog.UID_PROPERTY_] = ++goog.uidCounter_);
+};
+
+
+/**
+ * Removes the unique ID from an object. This is useful if the object was
+ * previously mutated using {@code goog.getUid} in which case the mutation is
+ * undone.
+ * @param {Object} obj The object to remove the unique ID field from.
+ */
+goog.removeUid = function(obj) {
+  // TODO(arv): Make the type stricter, do not accept null.
+
+  // DOM nodes in IE are not instance of Object and throws exception
+  // for delete. Instead we try to use removeAttribute
+  if ('removeAttribute' in obj) {
+    obj.removeAttribute(goog.UID_PROPERTY_);
+  }
+  /** @preserveTry */
+  try {
+    delete obj[goog.UID_PROPERTY_];
+  } catch (ex) {
+  }
+};
+
+
+/**
+ * Name for unique ID property. Initialized in a way to help avoid collisions
+ * with other closure javascript on the same page.
+ * @type {string}
+ * @private
+ */
+goog.UID_PROPERTY_ = 'closure_uid_' + ((Math.random() * 1e9) >>> 0);
+
+
+/**
+ * Counter for UID.
+ * @type {number}
+ * @private
+ */
+goog.uidCounter_ = 0;
+
+
+/**
+ * Adds a hash code field to an object. The hash code is unique for the
+ * given object.
+ * @param {Object} obj The object to get the hash code for.
+ * @return {number} The hash code for the object.
+ * @deprecated Use goog.getUid instead.
+ */
+goog.getHashCode = goog.getUid;
+
+
+/**
+ * Removes the hash code field from an object.
+ * @param {Object} obj The object to remove the field from.
+ * @deprecated Use goog.removeUid instead.
+ */
+goog.removeHashCode = goog.removeUid;
+
+
+/**
+ * Clones a value. The input may be an Object, Array, or basic type. Objects and
+ * arrays will be cloned recursively.
+ *
+ * WARNINGS:
+ * <code>goog.cloneObject</code> does not detect reference loops. Objects that
+ * refer to themselves will cause infinite recursion.
+ *
+ * <code>goog.cloneObject</code> is unaware of unique identifiers, and copies
+ * UIDs created by <code>getUid</code> into cloned results.
+ *
+ * @param {*} obj The value to clone.
+ * @return {*} A clone of the input value.
+ * @deprecated goog.cloneObject is unsafe. Prefer the goog.object methods.
+ */
+goog.cloneObject = function(obj) {
+  var type = goog.typeOf(obj);
+  if (type == 'object' || type == 'array') {
+    if (obj.clone) {
+      return obj.clone();
+    }
+    var clone = type == 'array' ? [] : {};
+    for (var key in obj) {
+      clone[key] = goog.cloneObject(obj[key]);
+    }
+    return clone;
+  }
+
+  return obj;
+};
+
+
+/**
+ * A native implementation of goog.bind.
+ * @param {Function} fn A function to partially apply.
+ * @param {Object|undefined} selfObj Specifies the object which |this| should
+ *     point to when the function is run.
+ * @param {...*} var_args Additional arguments that are partially
+ *     applied to the function.
+ * @return {!Function} A partially-applied form of the function bind() was
+ *     invoked as a method of.
+ * @private
+ * @suppress {deprecated} The compiler thinks that Function.prototype.bind
+ *     is deprecated because some people have declared a pure-JS version.
+ *     Only the pure-JS version is truly deprecated.
+ */
+goog.bindNative_ = function(fn, selfObj, var_args) {
+  return /** @type {!Function} */ (fn.call.apply(fn.bind, arguments));
+};
+
+
+/**
+ * A pure-JS implementation of goog.bind.
+ * @param {Function} fn A function to partially apply.
+ * @param {Object|undefined} selfObj Specifies the object which |this| should
+ *     point to when the function is run.
+ * @param {...*} var_args Additional arguments that are partially
+ *     applied to the function.
+ * @return {!Function} A partially-applied form of the function bind() was
+ *     invoked as a method of.
+ * @private
+ */
+goog.bindJs_ = function(fn, selfObj, var_args) {
+  if (!fn) {
+    throw new Error();
+  }
+
+  if (arguments.length > 2) {
+    var boundArgs = Array.prototype.slice.call(arguments, 2);
+    return function() {
+      // Prepend the bound arguments to the current arguments.
+      var newArgs = Array.prototype.slice.call(arguments);
+      Array.prototype.unshift.apply(newArgs, boundArgs);
+      return fn.apply(selfObj, newArgs);
+    };
+
+  } else {
+    return function() {
+      return fn.apply(selfObj, arguments);
+    };
+  }
+};
+
+
+/**
+ * Partially applies this function to a particular 'this object' and zero or
+ * more arguments. The result is a new function with some arguments of the first
+ * function pre-filled and the value of |this| 'pre-specified'.<br><br>
+ *
+ * Remaining arguments specified at call-time are appended to the pre-
+ * specified ones.<br><br>
+ *
+ * Also see: {@link #partial}.<br><br>
+ *
+ * Usage:
+ * <pre>var barMethBound = bind(myFunction, myObj, 'arg1', 'arg2');
+ * barMethBound('arg3', 'arg4');</pre>
+ *
+ * @param {Function} fn A function to partially apply.
+ * @param {Object|undefined} selfObj Specifies the object which |this| should
+ *     point to when the function is run.
+ * @param {...*} var_args Additional arguments that are partially
+ *     applied to the function.
+ * @return {!Function} A partially-applied form of the function bind() was
+ *     invoked as a method of.
+ * @suppress {deprecated} See above.
+ */
+goog.bind = function(fn, selfObj, var_args) {
+  // TODO(nicksantos): narrow the type signature.
+  if (Function.prototype.bind &&
+      // NOTE(nicksantos): Somebody pulled base.js into the default
+      // Chrome extension environment. This means that for Chrome extensions,
+      // they get the implementation of Function.prototype.bind that
+      // calls goog.bind instead of the native one. Even worse, we don't want
+      // to introduce a circular dependency between goog.bind and
+      // Function.prototype.bind, so we have to hack this to make sure it
+      // works correctly.
+      Function.prototype.bind.toString().indexOf('native code') != -1) {
+    goog.bind = goog.bindNative_;
+  } else {
+    goog.bind = goog.bindJs_;
+  }
+  return goog.bind.apply(null, arguments);
+};
+
+
+/**
+ * Like bind(), except that a 'this object' is not required. Useful when the
+ * target function is already bound.
+ *
+ * Usage:
+ * var g = partial(f, arg1, arg2);
+ * g(arg3, arg4);
+ *
+ * @param {Function} fn A function to partially apply.
+ * @param {...*} var_args Additional arguments that are partially
+ *     applied to fn.
+ * @return {!Function} A partially-applied form of the function bind() was
+ *     invoked as a method of.
+ */
+goog.partial = function(fn, var_args) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  return function() {
+    // Prepend the bound arguments to the current arguments.
+    var newArgs = Array.prototype.slice.call(arguments);
+    newArgs.unshift.apply(newArgs, args);
+    return fn.apply(this, newArgs);
+  };
+};
+
+
+/**
+ * Copies all the members of a source object to a target object. This method
+ * does not work on all browsers for all objects that contain keys such as
+ * toString or hasOwnProperty. Use goog.object.extend for this purpose.
+ * @param {Object} target Target.
+ * @param {Object} source Source.
+ */
+goog.mixin = function(target, source) {
+  for (var x in source) {
+    target[x] = source[x];
+  }
+
+  // For IE7 or lower, the for-in-loop does not contain any properties that are
+  // not enumerable on the prototype object (for example, isPrototypeOf from
+  // Object.prototype) but also it will not include 'replace' on objects that
+  // extend String and change 'replace' (not that it is common for anyone to
+  // extend anything except Object).
+};
+
+
+/**
+ * @return {number} An integer value representing the number of milliseconds
+ *     between midnight, January 1, 1970 and the current time.
+ */
+goog.now = (goog.TRUSTED_SITE && Date.now) || (function() {
+  // Unary plus operator converts its operand to a number which in the case of
+  // a date is done by calling getTime().
+  return +new Date();
+});
+
+
+/**
+ * Evals javascript in the global scope.  In IE this uses execScript, other
+ * browsers use goog.global.eval. If goog.global.eval does not evaluate in the
+ * global scope (for example, in Safari), appends a script tag instead.
+ * Throws an exception if neither execScript or eval is defined.
+ * @param {string} script JavaScript string.
+ */
+goog.globalEval = function(script) {
+  if (goog.global.execScript) {
+    goog.global.execScript(script, 'JavaScript');
+  } else if (goog.global.eval) {
+    // Test to see if eval works
+    if (goog.evalWorksForGlobals_ == null) {
+      goog.global.eval('var _et_ = 1;');
+      if (typeof goog.global['_et_'] != 'undefined') {
+        delete goog.global['_et_'];
+        goog.evalWorksForGlobals_ = true;
+      } else {
+        goog.evalWorksForGlobals_ = false;
+      }
+    }
+
+    if (goog.evalWorksForGlobals_) {
+      goog.global.eval(script);
+    } else {
+      var doc = goog.global.document;
+      var scriptElt = doc.createElement('script');
+      scriptElt.type = 'text/javascript';
+      scriptElt.defer = false;
+      // Note(user): can't use .innerHTML since "t('<test>')" will fail and
+      // .text doesn't work in Safari 2.  Therefore we append a text node.
+      scriptElt.appendChild(doc.createTextNode(script));
+      doc.body.appendChild(scriptElt);
+      doc.body.removeChild(scriptElt);
+    }
+  } else {
+    throw Error('goog.globalEval not available');
+  }
+};
+
+
+/**
+ * Indicates whether or not we can call 'eval' directly to eval code in the
+ * global scope. Set to a Boolean by the first call to goog.globalEval (which
+ * empirically tests whether eval works for globals). @see goog.globalEval
+ * @type {?boolean}
+ * @private
+ */
+goog.evalWorksForGlobals_ = null;
+
+
+/**
+ * Optional map of CSS class names to obfuscated names used with
+ * goog.getCssName().
+ * @type {Object|undefined}
+ * @private
+ * @see goog.setCssNameMapping
+ */
+goog.cssNameMapping_;
+
+
+/**
+ * Optional obfuscation style for CSS class names. Should be set to either
+ * 'BY_WHOLE' or 'BY_PART' if defined.
+ * @type {string|undefined}
+ * @private
+ * @see goog.setCssNameMapping
+ */
+goog.cssNameMappingStyle_;
+
+
+/**
+ * Handles strings that are intended to be used as CSS class names.
+ *
+ * This function works in tandem with @see goog.setCssNameMapping.
+ *
+ * Without any mapping set, the arguments are simple joined with a
+ * hyphen and passed through unaltered.
+ *
+ * When there is a mapping, there are two possible styles in which
+ * these mappings are used. In the BY_PART style, each part (i.e. in
+ * between hyphens) of the passed in css name is rewritten according
+ * to the map. In the BY_WHOLE style, the full css name is looked up in
+ * the map directly. If a rewrite is not specified by the map, the
+ * compiler will output a warning.
+ *
+ * When the mapping is passed to the compiler, it will replace calls
+ * to goog.getCssName with the strings from the mapping, e.g.
+ *     var x = goog.getCssName('foo');
+ *     var y = goog.getCssName(this.baseClass, 'active');
+ *  becomes:
+ *     var x= 'foo';
+ *     var y = this.baseClass + '-active';
+ *
+ * If one argument is passed it will be processed, if two are passed
+ * only the modifier will be processed, as it is assumed the first
+ * argument was generated as a result of calling goog.getCssName.
+ *
+ * @param {string} className The class name.
+ * @param {string=} opt_modifier A modifier to be appended to the class name.
+ * @return {string} The class name or the concatenation of the class name and
+ *     the modifier.
+ */
+goog.getCssName = function(className, opt_modifier) {
+  var getMapping = function(cssName) {
+    return goog.cssNameMapping_[cssName] || cssName;
+  };
+
+  var renameByParts = function(cssName) {
+    // Remap all the parts individually.
+    var parts = cssName.split('-');
+    var mapped = [];
+    for (var i = 0; i < parts.length; i++) {
+      mapped.push(getMapping(parts[i]));
+    }
+    return mapped.join('-');
+  };
+
+  var rename;
+  if (goog.cssNameMapping_) {
+    rename = goog.cssNameMappingStyle_ == 'BY_WHOLE' ?
+        getMapping : renameByParts;
+  } else {
+    rename = function(a) {
+      return a;
+    };
+  }
+
+  if (opt_modifier) {
+    return className + '-' + rename(opt_modifier);
+  } else {
+    return rename(className);
+  }
+};
+
+
+/**
+ * Sets the map to check when returning a value from goog.getCssName(). Example:
+ * <pre>
+ * goog.setCssNameMapping({
+ *   "goog": "a",
+ *   "disabled": "b",
+ * });
+ *
+ * var x = goog.getCssName('goog');
+ * // The following evaluates to: "a a-b".
+ * goog.getCssName('goog') + ' ' + goog.getCssName(x, 'disabled')
+ * </pre>
+ * When declared as a map of string literals to string literals, the JSCompiler
+ * will replace all calls to goog.getCssName() using the supplied map if the
+ * --closure_pass flag is set.
+ *
+ * @param {!Object} mapping A map of strings to strings where keys are possible
+ *     arguments to goog.getCssName() and values are the corresponding values
+ *     that should be returned.
+ * @param {string=} opt_style The style of css name mapping. There are two valid
+ *     options: 'BY_PART', and 'BY_WHOLE'.
+ * @see goog.getCssName for a description.
+ */
+goog.setCssNameMapping = function(mapping, opt_style) {
+  goog.cssNameMapping_ = mapping;
+  goog.cssNameMappingStyle_ = opt_style;
+};
+
+
+/**
+ * To use CSS renaming in compiled mode, one of the input files should have a
+ * call to goog.setCssNameMapping() with an object literal that the JSCompiler
+ * can extract and use to replace all calls to goog.getCssName(). In uncompiled
+ * mode, JavaScript code should be loaded before this base.js file that declares
+ * a global variable, CLOSURE_CSS_NAME_MAPPING, which is used below. This is
+ * to ensure that the mapping is loaded before any calls to goog.getCssName()
+ * are made in uncompiled mode.
+ *
+ * A hook for overriding the CSS name mapping.
+ * @type {Object|undefined}
+ */
+goog.global.CLOSURE_CSS_NAME_MAPPING;
+
+
+if (!COMPILED && goog.global.CLOSURE_CSS_NAME_MAPPING) {
+  // This does not call goog.setCssNameMapping() because the JSCompiler
+  // requires that goog.setCssNameMapping() be called with an object literal.
+  goog.cssNameMapping_ = goog.global.CLOSURE_CSS_NAME_MAPPING;
+}
+
+
+/**
+ * Gets a localized message.
+ *
+ * This function is a compiler primitive. If you give the compiler a localized
+ * message bundle, it will replace the string at compile-time with a localized
+ * version, and expand goog.getMsg call to a concatenated string.
+ *
+ * Messages must be initialized in the form:
+ * <code>
+ * var MSG_NAME = goog.getMsg('Hello {$placeholder}', {'placeholder': 'world'});
+ * </code>
+ *
+ * @param {string} str Translatable string, places holders in the form {$foo}.
+ * @param {Object=} opt_values Map of place holder name to value.
+ * @return {string} message with placeholders filled.
+ */
+goog.getMsg = function(str, opt_values) {
+  var values = opt_values || {};
+  for (var key in values) {
+    var value = ('' + values[key]).replace(/\$/g, '$$$$');
+    str = str.replace(new RegExp('\\{\\$' + key + '\\}', 'gi'), value);
+  }
+  return str;
+};
+
+
+/**
+ * Gets a localized message. If the message does not have a translation, gives a
+ * fallback message.
+ *
+ * This is useful when introducing a new message that has not yet been
+ * translated into all languages.
+ *
+ * This function is a compiler primtive. Must be used in the form:
+ * <code>var x = goog.getMsgWithFallback(MSG_A, MSG_B);</code>
+ * where MSG_A and MSG_B were initialized with goog.getMsg.
+ *
+ * @param {string} a The preferred message.
+ * @param {string} b The fallback message.
+ * @return {string} The best translated message.
+ */
+goog.getMsgWithFallback = function(a, b) {
+  return a;
+};
+
+
+/**
+ * Exposes an unobfuscated global namespace path for the given object.
+ * Note that fields of the exported object *will* be obfuscated,
+ * unless they are exported in turn via this function or
+ * goog.exportProperty
+ *
+ * <p>Also handy for making public items that are defined in anonymous
+ * closures.
+ *
+ * ex. goog.exportSymbol('public.path.Foo', Foo);
+ *
+ * ex. goog.exportSymbol('public.path.Foo.staticFunction',
+ *                       Foo.staticFunction);
+ *     public.path.Foo.staticFunction();
+ *
+ * ex. goog.exportSymbol('public.path.Foo.prototype.myMethod',
+ *                       Foo.prototype.myMethod);
+ *     new public.path.Foo().myMethod();
+ *
+ * @param {string} publicPath Unobfuscated name to export.
+ * @param {*} object Object the name should point to.
+ * @param {Object=} opt_objectToExportTo The object to add the path to; default
+ *     is |goog.global|.
+ */
+goog.exportSymbol = function(publicPath, object, opt_objectToExportTo) {
+  goog.exportPath_(publicPath, object, opt_objectToExportTo);
+};
+
+
+/**
+ * Exports a property unobfuscated into the object's namespace.
+ * ex. goog.exportProperty(Foo, 'staticFunction', Foo.staticFunction);
+ * ex. goog.exportProperty(Foo.prototype, 'myMethod', Foo.prototype.myMethod);
+ * @param {Object} object Object whose static property is being exported.
+ * @param {string} publicName Unobfuscated name to export.
+ * @param {*} symbol Object the name should point to.
+ */
+goog.exportProperty = function(object, publicName, symbol) {
+  object[publicName] = symbol;
+};
+
+
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * Usage:
+ * <pre>
+ * function ParentClass(a, b) { }
+ * ParentClass.prototype.foo = function(a) { }
+ *
+ * function ChildClass(a, b, c) {
+ *   goog.base(this, a, b);
+ * }
+ * goog.inherits(ChildClass, ParentClass);
+ *
+ * var child = new ChildClass('a', 'b', 'see');
+ * child.foo(); // works
+ * </pre>
+ *
+ * In addition, a superclass' implementation of a method can be invoked
+ * as follows:
+ *
+ * <pre>
+ * ChildClass.prototype.foo = function(a) {
+ *   ChildClass.superClass_.foo.call(this, a);
+ *   // other code
+ * };
+ * </pre>
+ *
+ * @param {Function} childCtor Child class.
+ * @param {Function} parentCtor Parent class.
+ */
+goog.inherits = function(childCtor, parentCtor) {
+  /** @constructor */
+  function tempCtor() {};
+  tempCtor.prototype = parentCtor.prototype;
+  childCtor.superClass_ = parentCtor.prototype;
+  childCtor.prototype = new tempCtor();
+  /** @override */
+  childCtor.prototype.constructor = childCtor;
+};
+
+
+/**
+ * Call up to the superclass.
+ *
+ * If this is called from a constructor, then this calls the superclass
+ * contructor with arguments 1-N.
+ *
+ * If this is called from a prototype method, then you must pass
+ * the name of the method as the second argument to this function. If
+ * you do not, you will get a runtime error. This calls the superclass'
+ * method with arguments 2-N.
+ *
+ * This function only works if you use goog.inherits to express
+ * inheritance relationships between your classes.
+ *
+ * This function is a compiler primitive. At compile-time, the
+ * compiler will do macro expansion to remove a lot of
+ * the extra overhead that this function introduces. The compiler
+ * will also enforce a lot of the assumptions that this function
+ * makes, and treat it as a compiler error if you break them.
+ *
+ * @param {!Object} me Should always be "this".
+ * @param {*=} opt_methodName The method name if calling a super method.
+ * @param {...*} var_args The rest of the arguments.
+ * @return {*} The return value of the superclass method.
+ */
+goog.base = function(me, opt_methodName, var_args) {
+  var caller = arguments.callee.caller;
+  if (caller.superClass_) {
+    // This is a constructor. Call the superclass constructor.
+    return caller.superClass_.constructor.apply(
+        me, Array.prototype.slice.call(arguments, 1));
+  }
+
+  var args = Array.prototype.slice.call(arguments, 2);
+  var foundCaller = false;
+  for (var ctor = me.constructor;
+       ctor; ctor = ctor.superClass_ && ctor.superClass_.constructor) {
+    if (ctor.prototype[opt_methodName] === caller) {
+      foundCaller = true;
+    } else if (foundCaller) {
+      return ctor.prototype[opt_methodName].apply(me, args);
+    }
+  }
+
+  // If we did not find the caller in the prototype chain,
+  // then one of two things happened:
+  // 1) The caller is an instance method.
+  // 2) This method was not called by the right caller.
+  if (me[opt_methodName] === caller) {
+    return me.constructor.prototype[opt_methodName].apply(me, args);
+  } else {
+    throw Error(
+        'goog.base called from a method of one name ' +
+        'to a method of a different name');
+  }
+};
+
+
+/**
+ * Allow for aliasing within scope functions.  This function exists for
+ * uncompiled code - in compiled code the calls will be inlined and the
+ * aliases applied.  In uncompiled code the function is simply run since the
+ * aliases as written are valid JavaScript.
+ * @param {function()} fn Function to call.  This function can contain aliases
+ *     to namespaces (e.g. "var dom = goog.dom") or classes
+ *    (e.g. "var Timer = goog.Timer").
+ */
+goog.scope = function(fn) {
+  fn.call(goog.global);
+};
+
+
+
+// Input 1
+/*!
+ * jQuery UI 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI
+ */
+(function( $, undefined ) {
+
+// prevent duplicate loading
+// this is only a problem because we proxy existing functions
+// and we don't want to double proxy them
+$.ui = $.ui || {};
+if ( $.ui.version ) {
+	return;
+}
+
+$.extend( $.ui, {
+	version: "1.8.23",
+
+	keyCode: {
+		ALT: 18,
+		BACKSPACE: 8,
+		CAPS_LOCK: 20,
+		COMMA: 188,
+		COMMAND: 91,
+		COMMAND_LEFT: 91, // COMMAND
+		COMMAND_RIGHT: 93,
+		CONTROL: 17,
+		DELETE: 46,
+		DOWN: 40,
+		END: 35,
+		ENTER: 13,
+		ESCAPE: 27,
+		HOME: 36,
+		INSERT: 45,
+		LEFT: 37,
+		MENU: 93, // COMMAND_RIGHT
+		NUMPAD_ADD: 107,
+		NUMPAD_DECIMAL: 110,
+		NUMPAD_DIVIDE: 111,
+		NUMPAD_ENTER: 108,
+		NUMPAD_MULTIPLY: 106,
+		NUMPAD_SUBTRACT: 109,
+		PAGE_DOWN: 34,
+		PAGE_UP: 33,
+		PERIOD: 190,
+		RIGHT: 39,
+		SHIFT: 16,
+		SPACE: 32,
+		TAB: 9,
+		UP: 38,
+		WINDOWS: 91 // COMMAND
+	}
+});
+
+// plugins
+$.fn.extend({
+	propAttr: $.fn.prop || $.fn.attr,
+
+	_focus: $.fn.focus,
+	focus: function( delay, fn ) {
+		return typeof delay === "number" ?
+			this.each(function() {
+				var elem = this;
+				setTimeout(function() {
+					$( elem ).focus();
+					if ( fn ) {
+						fn.call( elem );
+					}
+				}, delay );
+			}) :
+			this._focus.apply( this, arguments );
+	},
+
+	scrollParent: function() {
+		var scrollParent;
+		if (($.browser.msie && (/(static|relative)/).test(this.css('position'))) || (/absolute/).test(this.css('position'))) {
+			scrollParent = this.parents().filter(function() {
+				return (/(relative|absolute|fixed)/).test($.curCSS(this,'position',1)) && (/(auto|scroll)/).test($.curCSS(this,'overflow',1)+$.curCSS(this,'overflow-y',1)+$.curCSS(this,'overflow-x',1));
+			}).eq(0);
+		} else {
+			scrollParent = this.parents().filter(function() {
+				return (/(auto|scroll)/).test($.curCSS(this,'overflow',1)+$.curCSS(this,'overflow-y',1)+$.curCSS(this,'overflow-x',1));
+			}).eq(0);
+		}
+
+		return (/fixed/).test(this.css('position')) || !scrollParent.length ? $(document) : scrollParent;
+	},
+
+	zIndex: function( zIndex ) {
+		if ( zIndex !== undefined ) {
+			return this.css( "zIndex", zIndex );
+		}
+
+		if ( this.length ) {
+			var elem = $( this[ 0 ] ), position, value;
+			while ( elem.length && elem[ 0 ] !== document ) {
+				// Ignore z-index if position is set to a value where z-index is ignored by the browser
+				// This makes behavior of this function consistent across browsers
+				// WebKit always returns auto if the element is positioned
+				position = elem.css( "position" );
+				if ( position === "absolute" || position === "relative" || position === "fixed" ) {
+					// IE returns 0 when zIndex is not specified
+					// other browsers return a string
+					// we ignore the case of nested elements with an explicit value of 0
+					// <div style="z-index: -10;"><div style="z-index: 0;"></div></div>
+					value = parseInt( elem.css( "zIndex" ), 10 );
+					if ( !isNaN( value ) && value !== 0 ) {
+						return value;
+					}
+				}
+				elem = elem.parent();
+			}
+		}
+
+		return 0;
+	},
+
+	disableSelection: function() {
+		return this.bind( ( $.support.selectstart ? "selectstart" : "mousedown" ) +
+			".ui-disableSelection", function( event ) {
+				event.preventDefault();
+			});
+	},
+
+	enableSelection: function() {
+		return this.unbind( ".ui-disableSelection" );
+	}
+});
+
+// support: jQuery <1.8
+if ( !$( "<a>" ).outerWidth( 1 ).jquery ) {
+	$.each( [ "Width", "Height" ], function( i, name ) {
+		var side = name === "Width" ? [ "Left", "Right" ] : [ "Top", "Bottom" ],
+			type = name.toLowerCase(),
+			orig = {
+				innerWidth: $.fn.innerWidth,
+				innerHeight: $.fn.innerHeight,
+				outerWidth: $.fn.outerWidth,
+				outerHeight: $.fn.outerHeight
+			};
+
+		function reduce( elem, size, border, margin ) {
+			$.each( side, function() {
+				size -= parseFloat( $.curCSS( elem, "padding" + this, true) ) || 0;
+				if ( border ) {
+					size -= parseFloat( $.curCSS( elem, "border" + this + "Width", true) ) || 0;
+				}
+				if ( margin ) {
+					size -= parseFloat( $.curCSS( elem, "margin" + this, true) ) || 0;
+				}
+			});
+			return size;
+		}
+
+		$.fn[ "inner" + name ] = function( size ) {
+			if ( size === undefined ) {
+				return orig[ "inner" + name ].call( this );
+			}
+
+			return this.each(function() {
+				$( this ).css( type, reduce( this, size ) + "px" );
+			});
+		};
+
+		$.fn[ "outer" + name] = function( size, margin ) {
+			if ( typeof size !== "number" ) {
+				return orig[ "outer" + name ].call( this, size );
+			}
+
+			return this.each(function() {
+				$( this).css( type, reduce( this, size, true, margin ) + "px" );
+			});
+		};
+	});
+}
+
+// selectors
+function focusable( element, isTabIndexNotNaN ) {
+	var nodeName = element.nodeName.toLowerCase();
+	if ( "area" === nodeName ) {
+		var map = element.parentNode,
+			mapName = map.name,
+			img;
+		if ( !element.href || !mapName || map.nodeName.toLowerCase() !== "map" ) {
+			return false;
+		}
+		img = $( "img[usemap=#" + mapName + "]" )[0];
+		return !!img && visible( img );
+	}
+	return ( /input|select|textarea|button|object/.test( nodeName )
+		? !element.disabled
+		: "a" == nodeName
+			? element.href || isTabIndexNotNaN
+			: isTabIndexNotNaN)
+		// the element and all of its ancestors must be visible
+		&& visible( element );
+}
+
+function visible( element ) {
+	return !$( element ).parents().andSelf().filter(function() {
+		return $.curCSS( this, "visibility" ) === "hidden" ||
+			$.expr.filters.hidden( this );
+	}).length;
+}
+
+$.extend( $.expr[ ":" ], {
+	data: $.expr.createPseudo ?
+		$.expr.createPseudo(function( dataName ) {
+			return function( elem ) {
+				return !!$.data( elem, dataName );
+			};
+		}) :
+		// support: jQuery <1.8
+		function( elem, i, match ) {
+			return !!$.data( elem, match[ 3 ] );
+		},
+
+	focusable: function( element ) {
+		return focusable( element, !isNaN( $.attr( element, "tabindex" ) ) );
+	},
+
+	tabbable: function( element ) {
+		var tabIndex = $.attr( element, "tabindex" ),
+			isTabIndexNaN = isNaN( tabIndex );
+		return ( isTabIndexNaN || tabIndex >= 0 ) && focusable( element, !isTabIndexNaN );
+	}
+});
+
+// support
+$(function() {
+	var body = document.body,
+		div = body.appendChild( div = document.createElement( "div" ) );
+
+	// access offsetHeight before setting the style to prevent a layout bug
+	// in IE 9 which causes the elemnt to continue to take up space even
+	// after it is removed from the DOM (#8026)
+	div.offsetHeight;
+
+	$.extend( div.style, {
+		minHeight: "100px",
+		height: "auto",
+		padding: 0,
+		borderWidth: 0
+	});
+
+	$.support.minHeight = div.offsetHeight === 100;
+	$.support.selectstart = "onselectstart" in div;
+
+	// set display to none to avoid a layout bug in IE
+	// http://dev.jquery.com/ticket/4014
+	body.removeChild( div ).style.display = "none";
+});
+
+// jQuery <1.4.3 uses curCSS, in 1.4.3 - 1.7.2 curCSS = css, 1.8+ only has css
+if ( !$.curCSS ) {
+	$.curCSS = $.css;
+}
+
+
+
+
+
+// deprecated
+$.extend( $.ui, {
+	// $.ui.plugin is deprecated.  Use the proxy pattern instead.
+	plugin: {
+		add: function( module, option, set ) {
+			var proto = $.ui[ module ].prototype;
+			for ( var i in set ) {
+				proto.plugins[ i ] = proto.plugins[ i ] || [];
+				proto.plugins[ i ].push( [ option, set[ i ] ] );
+			}
+		},
+		call: function( instance, name, args ) {
+			var set = instance.plugins[ name ];
+			if ( !set || !instance.element[ 0 ].parentNode ) {
+				return;
+			}
+	
+			for ( var i = 0; i < set.length; i++ ) {
+				if ( instance.options[ set[ i ][ 0 ] ] ) {
+					set[ i ][ 1 ].apply( instance.element, args );
+				}
+			}
+		}
+	},
+	
+	// will be deprecated when we switch to jQuery 1.4 - use jQuery.contains()
+	contains: function( a, b ) {
+		return document.compareDocumentPosition ?
+			a.compareDocumentPosition( b ) & 16 :
+			a !== b && a.contains( b );
+	},
+	
+	// only used by resizable
+	hasScroll: function( el, a ) {
+	
+		//If overflow is hidden, the element might have extra content, but the user wants to hide it
+		if ( $( el ).css( "overflow" ) === "hidden") {
+			return false;
+		}
+	
+		var scroll = ( a && a === "left" ) ? "scrollLeft" : "scrollTop",
+			has = false;
+	
+		if ( el[ scroll ] > 0 ) {
+			return true;
+		}
+	
+		// TODO: determine which cases actually cause this to happen
+		// if the element doesn't have the scroll set, see if it's possible to
+		// set the scroll
+		el[ scroll ] = 1;
+		has = ( el[ scroll ] > 0 );
+		el[ scroll ] = 0;
+		return has;
+	},
+	
+	// these are odd functions, fix the API or move into individual plugins
+	isOverAxis: function( x, reference, size ) {
+		//Determines when x coordinate is over "b" element axis
+		return ( x > reference ) && ( x < ( reference + size ) );
+	},
+	isOver: function( y, x, top, left, height, width ) {
+		//Determines when x, y coordinates is over "b" element
+		return $.ui.isOverAxis( y, top, height ) && $.ui.isOverAxis( x, left, width );
+	}
+});
+
+})( jQuery );
+/*!
+ * jQuery UI Widget 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Widget
+ */
+(function( $, undefined ) {
+
+// jQuery 1.4+
+if ( $.cleanData ) {
+	var _cleanData = $.cleanData;
+	$.cleanData = function( elems ) {
+		for ( var i = 0, elem; (elem = elems[i]) != null; i++ ) {
+			try {
+				$( elem ).triggerHandler( "remove" );
+			// http://bugs.jquery.com/ticket/8235
+			} catch( e ) {}
+		}
+		_cleanData( elems );
+	};
+} else {
+	var _remove = $.fn.remove;
+	$.fn.remove = function( selector, keepData ) {
+		return this.each(function() {
+			if ( !keepData ) {
+				if ( !selector || $.filter( selector, [ this ] ).length ) {
+					$( "*", this ).add( [ this ] ).each(function() {
+						try {
+							$( this ).triggerHandler( "remove" );
+						// http://bugs.jquery.com/ticket/8235
+						} catch( e ) {}
+					});
+				}
+			}
+			return _remove.call( $(this), selector, keepData );
+		});
+	};
+}
+
+$.widget = function( name, base, prototype ) {
+	var namespace = name.split( "." )[ 0 ],
+		fullName;
+	name = name.split( "." )[ 1 ];
+	fullName = namespace + "-" + name;
+
+	if ( !prototype ) {
+		prototype = base;
+		base = $.Widget;
+	}
+
+	// create selector for plugin
+	$.expr[ ":" ][ fullName ] = function( elem ) {
+		return !!$.data( elem, name );
+	};
+
+	$[ namespace ] = $[ namespace ] || {};
+	$[ namespace ][ name ] = function( options, element ) {
+		// allow instantiation without initializing for simple inheritance
+		if ( arguments.length ) {
+			this._createWidget( options, element );
+		}
+	};
+
+	var basePrototype = new base();
+	// we need to make the options hash a property directly on the new instance
+	// otherwise we'll modify the options hash on the prototype that we're
+	// inheriting from
+//	$.each( basePrototype, function( key, val ) {
+//		if ( $.isPlainObject(val) ) {
+//			basePrototype[ key ] = $.extend( {}, val );
+//		}
+//	});
+	basePrototype.options = $.extend( true, {}, basePrototype.options );
+	$[ namespace ][ name ].prototype = $.extend( true, basePrototype, {
+		namespace: namespace,
+		widgetName: name,
+		widgetEventPrefix: $[ namespace ][ name ].prototype.widgetEventPrefix || name,
+		widgetBaseClass: fullName
+	}, prototype );
+
+	$.widget.bridge( name, $[ namespace ][ name ] );
+};
+
+$.widget.bridge = function( name, object ) {
+	$.fn[ name ] = function( options ) {
+		var isMethodCall = typeof options === "string",
+			args = Array.prototype.slice.call( arguments, 1 ),
+			returnValue = this;
+
+		// allow multiple hashes to be passed on init
+		options = !isMethodCall && args.length ?
+			$.extend.apply( null, [ true, options ].concat(args) ) :
+			options;
+
+		// prevent calls to internal methods
+		if ( isMethodCall && options.charAt( 0 ) === "_" ) {
+			return returnValue;
+		}
+
+		if ( isMethodCall ) {
+			this.each(function() {
+				var instance = $.data( this, name ),
+					methodValue = instance && $.isFunction( instance[options] ) ?
+						instance[ options ].apply( instance, args ) :
+						instance;
+				// TODO: add this back in 1.9 and use $.error() (see #5972)
+//				if ( !instance ) {
+//					throw "cannot call methods on " + name + " prior to initialization; " +
+//						"attempted to call method '" + options + "'";
+//				}
+//				if ( !$.isFunction( instance[options] ) ) {
+//					throw "no such method '" + options + "' for " + name + " widget instance";
+//				}
+//				var methodValue = instance[ options ].apply( instance, args );
+				if ( methodValue !== instance && methodValue !== undefined ) {
+					returnValue = methodValue;
+					return false;
+				}
+			});
+		} else {
+			this.each(function() {
+				var instance = $.data( this, name );
+				if ( instance ) {
+					instance.option( options || {} )._init();
+				} else {
+					$.data( this, name, new object( options, this ) );
+				}
+			});
+		}
+
+		return returnValue;
+	};
+};
+
+$.Widget = function( options, element ) {
+	// allow instantiation without initializing for simple inheritance
+	if ( arguments.length ) {
+		this._createWidget( options, element );
+	}
+};
+
+$.Widget.prototype = {
+	widgetName: "widget",
+	widgetEventPrefix: "",
+	options: {
+		disabled: false
+	},
+	_createWidget: function( options, element ) {
+		// $.widget.bridge stores the plugin instance, but we do it anyway
+		// so that it's stored even before the _create function runs
+		$.data( element, this.widgetName, this );
+		this.element = $( element );
+		this.options = $.extend( true, {},
+			this.options,
+			this._getCreateOptions(),
+			options );
+
+		var self = this;
+		this.element.bind( "remove." + this.widgetName, function() {
+			self.destroy();
+		});
+
+		this._create();
+		this._trigger( "create" );
+		this._init();
+	},
+	_getCreateOptions: function() {
+		return $.metadata && $.metadata.get( this.element[0] )[ this.widgetName ];
+	},
+	_create: function() {},
+	_init: function() {},
+
+	destroy: function() {
+		this.element
+			.unbind( "." + this.widgetName )
+			.removeData( this.widgetName );
+		this.widget()
+			.unbind( "." + this.widgetName )
+			.removeAttr( "aria-disabled" )
+			.removeClass(
+				this.widgetBaseClass + "-disabled " +
+				"ui-state-disabled" );
+	},
+
+	widget: function() {
+		return this.element;
+	},
+
+	option: function( key, value ) {
+		var options = key;
+
+		if ( arguments.length === 0 ) {
+			// don't return a reference to the internal hash
+			return $.extend( {}, this.options );
+		}
+
+		if  (typeof key === "string" ) {
+			if ( value === undefined ) {
+				return this.options[ key ];
+			}
+			options = {};
+			options[ key ] = value;
+		}
+
+		this._setOptions( options );
+
+		return this;
+	},
+	_setOptions: function( options ) {
+		var self = this;
+		$.each( options, function( key, value ) {
+			self._setOption( key, value );
+		});
+
+		return this;
+	},
+	_setOption: function( key, value ) {
+		this.options[ key ] = value;
+
+		if ( key === "disabled" ) {
+			this.widget()
+				[ value ? "addClass" : "removeClass"](
+					this.widgetBaseClass + "-disabled" + " " +
+					"ui-state-disabled" )
+				.attr( "aria-disabled", value );
+		}
+
+		return this;
+	},
+
+	enable: function() {
+		return this._setOption( "disabled", false );
+	},
+	disable: function() {
+		return this._setOption( "disabled", true );
+	},
+
+	_trigger: function( type, event, data ) {
+		var prop, orig,
+			callback = this.options[ type ];
+
+		data = data || {};
+		event = $.Event( event );
+		event.type = ( type === this.widgetEventPrefix ?
+			type :
+			this.widgetEventPrefix + type ).toLowerCase();
+		// the original event may come from any element
+		// so we need to reset the target on the new event
+		event.target = this.element[ 0 ];
+
+		// copy original event properties over to the new event
+		orig = event.originalEvent;
+		if ( orig ) {
+			for ( prop in orig ) {
+				if ( !( prop in event ) ) {
+					event[ prop ] = orig[ prop ];
+				}
+			}
+		}
+
+		this.element.trigger( event, data );
+
+		return !( $.isFunction(callback) &&
+			callback.call( this.element[0], event, data ) === false ||
+			event.isDefaultPrevented() );
+	}
+};
+
+})( jQuery );
+/*!
+ * jQuery UI Mouse 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Mouse
+ *
+ * Depends:
+ *	jquery.ui.widget.js
+ */
+(function( $, undefined ) {
+
+var mouseHandled = false;
+$( document ).mouseup( function( e ) {
+	mouseHandled = false;
+});
+
+$.widget("ui.mouse", {
+	options: {
+		cancel: ':input,option',
+		distance: 1,
+		delay: 0
+	},
+	_mouseInit: function() {
+		var self = this;
+
+		this.element
+			.bind('mousedown.'+this.widgetName, function(event) {
+				return self._mouseDown(event);
+			})
+			.bind('click.'+this.widgetName, function(event) {
+				if (true === $.data(event.target, self.widgetName + '.preventClickEvent')) {
+				    $.removeData(event.target, self.widgetName + '.preventClickEvent');
+					event.stopImmediatePropagation();
+					return false;
+				}
+			});
+
+		this.started = false;
+	},
+
+	// TODO: make sure destroying one instance of mouse doesn't mess with
+	// other instances of mouse
+	_mouseDestroy: function() {
+		this.element.unbind('.'+this.widgetName);
+		if ( this._mouseMoveDelegate ) {
+			$(document)
+				.unbind('mousemove.'+this.widgetName, this._mouseMoveDelegate)
+				.unbind('mouseup.'+this.widgetName, this._mouseUpDelegate);
+		}
+	},
+
+	_mouseDown: function(event) {
+		// don't let more than one widget handle mouseStart
+		if( mouseHandled ) { return };
+
+		// we may have missed mouseup (out of window)
+		(this._mouseStarted && this._mouseUp(event));
+
+		this._mouseDownEvent = event;
+
+		var self = this,
+			btnIsLeft = (event.which == 1),
+			// event.target.nodeName works around a bug in IE 8 with
+			// disabled inputs (#7620)
+			elIsCancel = (typeof this.options.cancel == "string" && event.target.nodeName ? $(event.target).closest(this.options.cancel).length : false);
+		if (!btnIsLeft || elIsCancel || !this._mouseCapture(event)) {
+			return true;
+		}
+
+		this.mouseDelayMet = !this.options.delay;
+		if (!this.mouseDelayMet) {
+			this._mouseDelayTimer = setTimeout(function() {
+				self.mouseDelayMet = true;
+			}, this.options.delay);
+		}
+
+		if (this._mouseDistanceMet(event) && this._mouseDelayMet(event)) {
+			this._mouseStarted = (this._mouseStart(event) !== false);
+			if (!this._mouseStarted) {
+				event.preventDefault();
+				return true;
+			}
+		}
+
+		// Click event may never have fired (Gecko & Opera)
+		if (true === $.data(event.target, this.widgetName + '.preventClickEvent')) {
+			$.removeData(event.target, this.widgetName + '.preventClickEvent');
+		}
+
+		// these delegates are required to keep context
+		this._mouseMoveDelegate = function(event) {
+			return self._mouseMove(event);
+		};
+		this._mouseUpDelegate = function(event) {
+			return self._mouseUp(event);
+		};
+		$(document)
+			.bind('mousemove.'+this.widgetName, this._mouseMoveDelegate)
+			.bind('mouseup.'+this.widgetName, this._mouseUpDelegate);
+
+		event.preventDefault();
+		
+		mouseHandled = true;
+		return true;
+	},
+
+	_mouseMove: function(event) {
+		// IE mouseup check - mouseup happened when mouse was out of window
+		if ($.browser.msie && !(document.documentMode >= 9) && !event.button) {
+			return this._mouseUp(event);
+		}
+
+		if (this._mouseStarted) {
+			this._mouseDrag(event);
+			return event.preventDefault();
+		}
+
+		if (this._mouseDistanceMet(event) && this._mouseDelayMet(event)) {
+			this._mouseStarted =
+				(this._mouseStart(this._mouseDownEvent, event) !== false);
+			(this._mouseStarted ? this._mouseDrag(event) : this._mouseUp(event));
+		}
+
+		return !this._mouseStarted;
+	},
+
+	_mouseUp: function(event) {
+		$(document)
+			.unbind('mousemove.'+this.widgetName, this._mouseMoveDelegate)
+			.unbind('mouseup.'+this.widgetName, this._mouseUpDelegate);
+
+		if (this._mouseStarted) {
+			this._mouseStarted = false;
+
+			if (event.target == this._mouseDownEvent.target) {
+			    $.data(event.target, this.widgetName + '.preventClickEvent', true);
+			}
+
+			this._mouseStop(event);
+		}
+
+		return false;
+	},
+
+	_mouseDistanceMet: function(event) {
+		return (Math.max(
+				Math.abs(this._mouseDownEvent.pageX - event.pageX),
+				Math.abs(this._mouseDownEvent.pageY - event.pageY)
+			) >= this.options.distance
+		);
+	},
+
+	_mouseDelayMet: function(event) {
+		return this.mouseDelayMet;
+	},
+
+	// These are placeholder methods, to be overriden by extending plugin
+	_mouseStart: function(event) {},
+	_mouseDrag: function(event) {},
+	_mouseStop: function(event) {},
+	_mouseCapture: function(event) { return true; }
+});
+
+})(jQuery);
+/*!
+ * jQuery UI Position 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Position
+ */
+(function( $, undefined ) {
+
+$.ui = $.ui || {};
+
+var horizontalPositions = /left|center|right/,
+	verticalPositions = /top|center|bottom/,
+	center = "center",
+	support = {},
+	_position = $.fn.position,
+	_offset = $.fn.offset;
+
+$.fn.position = function( options ) {
+	if ( !options || !options.of ) {
+		return _position.apply( this, arguments );
+	}
+
+	// make a copy, we don't want to modify arguments
+	options = $.extend( {}, options );
+
+	var target = $( options.of ),
+		targetElem = target[0],
+		collision = ( options.collision || "flip" ).split( " " ),
+		offset = options.offset ? options.offset.split( " " ) : [ 0, 0 ],
+		targetWidth,
+		targetHeight,
+		basePosition;
+
+	if ( targetElem.nodeType === 9 ) {
+		targetWidth = target.width();
+		targetHeight = target.height();
+		basePosition = { top: 0, left: 0 };
+	// TODO: use $.isWindow() in 1.9
+	} else if ( targetElem.setTimeout ) {
+		targetWidth = target.width();
+		targetHeight = target.height();
+		basePosition = { top: target.scrollTop(), left: target.scrollLeft() };
+	} else if ( targetElem.preventDefault ) {
+		// force left top to allow flipping
+		options.at = "left top";
+		targetWidth = targetHeight = 0;
+		basePosition = { top: options.of.pageY, left: options.of.pageX };
+	} else {
+		targetWidth = target.outerWidth();
+		targetHeight = target.outerHeight();
+		basePosition = target.offset();
+	}
+
+	// force my and at to have valid horizontal and veritcal positions
+	// if a value is missing or invalid, it will be converted to center 
+	$.each( [ "my", "at" ], function() {
+		var pos = ( options[this] || "" ).split( " " );
+		if ( pos.length === 1) {
+			pos = horizontalPositions.test( pos[0] ) ?
+				pos.concat( [center] ) :
+				verticalPositions.test( pos[0] ) ?
+					[ center ].concat( pos ) :
+					[ center, center ];
+		}
+		pos[ 0 ] = horizontalPositions.test( pos[0] ) ? pos[ 0 ] : center;
+		pos[ 1 ] = verticalPositions.test( pos[1] ) ? pos[ 1 ] : center;
+		options[ this ] = pos;
+	});
+
+	// normalize collision option
+	if ( collision.length === 1 ) {
+		collision[ 1 ] = collision[ 0 ];
+	}
+
+	// normalize offset option
+	offset[ 0 ] = parseInt( offset[0], 10 ) || 0;
+	if ( offset.length === 1 ) {
+		offset[ 1 ] = offset[ 0 ];
+	}
+	offset[ 1 ] = parseInt( offset[1], 10 ) || 0;
+
+	if ( options.at[0] === "right" ) {
+		basePosition.left += targetWidth;
+	} else if ( options.at[0] === center ) {
+		basePosition.left += targetWidth / 2;
+	}
+
+	if ( options.at[1] === "bottom" ) {
+		basePosition.top += targetHeight;
+	} else if ( options.at[1] === center ) {
+		basePosition.top += targetHeight / 2;
+	}
+
+	basePosition.left += offset[ 0 ];
+	basePosition.top += offset[ 1 ];
+
+	return this.each(function() {
+		var elem = $( this ),
+			elemWidth = elem.outerWidth(),
+			elemHeight = elem.outerHeight(),
+			marginLeft = parseInt( $.curCSS( this, "marginLeft", true ) ) || 0,
+			marginTop = parseInt( $.curCSS( this, "marginTop", true ) ) || 0,
+			collisionWidth = elemWidth + marginLeft +
+				( parseInt( $.curCSS( this, "marginRight", true ) ) || 0 ),
+			collisionHeight = elemHeight + marginTop +
+				( parseInt( $.curCSS( this, "marginBottom", true ) ) || 0 ),
+			position = $.extend( {}, basePosition ),
+			collisionPosition;
+
+		if ( options.my[0] === "right" ) {
+			position.left -= elemWidth;
+		} else if ( options.my[0] === center ) {
+			position.left -= elemWidth / 2;
+		}
+
+		if ( options.my[1] === "bottom" ) {
+			position.top -= elemHeight;
+		} else if ( options.my[1] === center ) {
+			position.top -= elemHeight / 2;
+		}
+
+		// prevent fractions if jQuery version doesn't support them (see #5280)
+		if ( !support.fractions ) {
+			position.left = Math.round( position.left );
+			position.top = Math.round( position.top );
+		}
+
+		collisionPosition = {
+			left: position.left - marginLeft,
+			top: position.top - marginTop
+		};
+
+		$.each( [ "left", "top" ], function( i, dir ) {
+			if ( $.ui.position[ collision[i] ] ) {
+				$.ui.position[ collision[i] ][ dir ]( position, {
+					targetWidth: targetWidth,
+					targetHeight: targetHeight,
+					elemWidth: elemWidth,
+					elemHeight: elemHeight,
+					collisionPosition: collisionPosition,
+					collisionWidth: collisionWidth,
+					collisionHeight: collisionHeight,
+					offset: offset,
+					my: options.my,
+					at: options.at
+				});
+			}
+		});
+
+		if ( $.fn.bgiframe ) {
+			elem.bgiframe();
+		}
+		elem.offset( $.extend( position, { using: options.using } ) );
+	});
+};
+
+$.ui.position = {
+	fit: {
+		left: function( position, data ) {
+			var win = $( window ),
+				over = data.collisionPosition.left + data.collisionWidth - win.width() - win.scrollLeft();
+			position.left = over > 0 ? position.left - over : Math.max( position.left - data.collisionPosition.left, position.left );
+		},
+		top: function( position, data ) {
+			var win = $( window ),
+				over = data.collisionPosition.top + data.collisionHeight - win.height() - win.scrollTop();
+			position.top = over > 0 ? position.top - over : Math.max( position.top - data.collisionPosition.top, position.top );
+		}
+	},
+
+	flip: {
+		left: function( position, data ) {
+			if ( data.at[0] === center ) {
+				return;
+			}
+			var win = $( window ),
+				over = data.collisionPosition.left + data.collisionWidth - win.width() - win.scrollLeft(),
+				myOffset = data.my[ 0 ] === "left" ?
+					-data.elemWidth :
+					data.my[ 0 ] === "right" ?
+						data.elemWidth :
+						0,
+				atOffset = data.at[ 0 ] === "left" ?
+					data.targetWidth :
+					-data.targetWidth,
+				offset = -2 * data.offset[ 0 ];
+			position.left += data.collisionPosition.left < 0 ?
+				myOffset + atOffset + offset :
+				over > 0 ?
+					myOffset + atOffset + offset :
+					0;
+		},
+		top: function( position, data ) {
+			if ( data.at[1] === center ) {
+				return;
+			}
+			var win = $( window ),
+				over = data.collisionPosition.top + data.collisionHeight - win.height() - win.scrollTop(),
+				myOffset = data.my[ 1 ] === "top" ?
+					-data.elemHeight :
+					data.my[ 1 ] === "bottom" ?
+						data.elemHeight :
+						0,
+				atOffset = data.at[ 1 ] === "top" ?
+					data.targetHeight :
+					-data.targetHeight,
+				offset = -2 * data.offset[ 1 ];
+			position.top += data.collisionPosition.top < 0 ?
+				myOffset + atOffset + offset :
+				over > 0 ?
+					myOffset + atOffset + offset :
+					0;
+		}
+	}
+};
+
+// offset setter from jQuery 1.4
+if ( !$.offset.setOffset ) {
+	$.offset.setOffset = function( elem, options ) {
+		// set position first, in-case top/left are set even on static elem
+		if ( /static/.test( $.curCSS( elem, "position" ) ) ) {
+			elem.style.position = "relative";
+		}
+		var curElem   = $( elem ),
+			curOffset = curElem.offset(),
+			curTop    = parseInt( $.curCSS( elem, "top",  true ), 10 ) || 0,
+			curLeft   = parseInt( $.curCSS( elem, "left", true ), 10)  || 0,
+			props     = {
+				top:  (options.top  - curOffset.top)  + curTop,
+				left: (options.left - curOffset.left) + curLeft
+			};
+		
+		if ( 'using' in options ) {
+			options.using.call( elem, props );
+		} else {
+			curElem.css( props );
+		}
+	};
+
+	$.fn.offset = function( options ) {
+		var elem = this[ 0 ];
+		if ( !elem || !elem.ownerDocument ) { return null; }
+		if ( options ) {
+			if ( $.isFunction( options ) ) {
+				return this.each(function( i ) {
+					$( this ).offset( options.call( this, i, $( this ).offset() ) );
+				});
+			}
+			return this.each(function() {
+				$.offset.setOffset( this, options );
+			});
+		}
+		return _offset.call( this );
+	};
+}
+
+// jQuery <1.4.3 uses curCSS, in 1.4.3 - 1.7.2 curCSS = css, 1.8+ only has css
+if ( !$.curCSS ) {
+	$.curCSS = $.css;
+}
+
+// fraction support test (older versions of jQuery don't support fractions)
+(function () {
+	var body = document.getElementsByTagName( "body" )[ 0 ], 
+		div = document.createElement( "div" ),
+		testElement, testElementParent, testElementStyle, offset, offsetTotal;
+
+	//Create a "fake body" for testing based on method used in jQuery.support
+	testElement = document.createElement( body ? "div" : "body" );
+	testElementStyle = {
+		visibility: "hidden",
+		width: 0,
+		height: 0,
+		border: 0,
+		margin: 0,
+		background: "none"
+	};
+	if ( body ) {
+		$.extend( testElementStyle, {
+			position: "absolute",
+			left: "-1000px",
+			top: "-1000px"
+		});
+	}
+	for ( var i in testElementStyle ) {
+		testElement.style[ i ] = testElementStyle[ i ];
+	}
+	testElement.appendChild( div );
+	testElementParent = body || document.documentElement;
+	testElementParent.insertBefore( testElement, testElementParent.firstChild );
+
+	div.style.cssText = "position: absolute; left: 10.7432222px; top: 10.432325px; height: 30px; width: 201px;";
+
+	offset = $( div ).offset( function( _, offset ) {
+		return offset;
+	}).offset();
+
+	testElement.innerHTML = "";
+	testElementParent.removeChild( testElement );
+
+	offsetTotal = offset.top + offset.left + ( body ? 2000 : 0 );
+	support.fractions = offsetTotal > 21 && offsetTotal < 22;
+})();
+
+}( jQuery ));
+/*!
+ * jQuery UI Draggable 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Draggables
+ *
+ * Depends:
+ *	jquery.ui.core.js
+ *	jquery.ui.mouse.js
+ *	jquery.ui.widget.js
+ */
+(function( $, undefined ) {
+
+$.widget("ui.draggable", $.ui.mouse, {
+	widgetEventPrefix: "drag",
+	options: {
+		addClasses: true,
+		appendTo: "parent",
+		axis: false,
+		connectToSortable: false,
+		containment: false,
+		cursor: "auto",
+		cursorAt: false,
+		grid: false,
+		handle: false,
+		helper: "original",
+		iframeFix: false,
+		opacity: false,
+		refreshPositions: false,
+		revert: false,
+		revertDuration: 500,
+		scope: "default",
+		scroll: true,
+		scrollSensitivity: 20,
+		scrollSpeed: 20,
+		snap: false,
+		snapMode: "both",
+		snapTolerance: 20,
+		stack: false,
+		zIndex: false
+	},
+	_create: function() {
+
+		if (this.options.helper == 'original' && !(/^(?:r|a|f)/).test(this.element.css("position")))
+			this.element[0].style.position = 'relative';
+
+		(this.options.addClasses && this.element.addClass("ui-draggable"));
+		(this.options.disabled && this.element.addClass("ui-draggable-disabled"));
+
+		this._mouseInit();
+
+	},
+
+	destroy: function() {
+		if(!this.element.data('draggable')) return;
+		this.element
+			.removeData("draggable")
+			.unbind(".draggable")
+			.removeClass("ui-draggable"
+				+ " ui-draggable-dragging"
+				+ " ui-draggable-disabled");
+		this._mouseDestroy();
+
+		return this;
+	},
+
+	_mouseCapture: function(event) {
+
+		var o = this.options;
+
+		// among others, prevent a drag on a resizable-handle
+		if (this.helper || o.disabled || $(event.target).is('.ui-resizable-handle'))
+			return false;
+
+		//Quit if we're not on a valid handle
+		this.handle = this._getHandle(event);
+		if (!this.handle)
+			return false;
+		
+		if ( o.iframeFix ) {
+			$(o.iframeFix === true ? "iframe" : o.iframeFix).each(function() {
+				$('<div class="ui-draggable-iframeFix" style="background: #fff;"></div>')
+				.css({
+					width: this.offsetWidth+"px", height: this.offsetHeight+"px",
+					position: "absolute", opacity: "0.001", zIndex: 1000
+				})
+				.css($(this).offset())
+				.appendTo("body");
+			});
+		}
+
+		return true;
+
+	},
+
+	_mouseStart: function(event) {
+
+		var o = this.options;
+
+		//Create and append the visible helper
+		this.helper = this._createHelper(event);
+
+		this.helper.addClass("ui-draggable-dragging");
+
+		//Cache the helper size
+		this._cacheHelperProportions();
+
+		//If ddmanager is used for droppables, set the global draggable
+		if($.ui.ddmanager)
+			$.ui.ddmanager.current = this;
+
+		/*
+		 * - Position generation -
+		 * This block generates everything position related - it's the core of draggables.
+		 */
+
+		//Cache the margins of the original element
+		this._cacheMargins();
+
+		//Store the helper's css position
+		this.cssPosition = this.helper.css("position");
+		this.scrollParent = this.helper.scrollParent();
+
+		//The element's absolute position on the page minus margins
+		this.offset = this.positionAbs = this.element.offset();
+		this.offset = {
+			top: this.offset.top - this.margins.top,
+			left: this.offset.left - this.margins.left
+		};
+
+		$.extend(this.offset, {
+			click: { //Where the click happened, relative to the element
+				left: event.pageX - this.offset.left,
+				top: event.pageY - this.offset.top
+			},
+			parent: this._getParentOffset(),
+			relative: this._getRelativeOffset() //This is a relative to absolute position minus the actual position calculation - only used for relative positioned helper
+		});
+
+		//Generate the original position
+		this.originalPosition = this.position = this._generatePosition(event);
+		this.originalPageX = event.pageX;
+		this.originalPageY = event.pageY;
+
+		//Adjust the mouse offset relative to the helper if 'cursorAt' is supplied
+		(o.cursorAt && this._adjustOffsetFromHelper(o.cursorAt));
+
+		//Set a containment if given in the options
+		if(o.containment)
+			this._setContainment();
+
+		//Trigger event + callbacks
+		if(this._trigger("start", event) === false) {
+			this._clear();
+			return false;
+		}
+
+		//Recache the helper size
+		this._cacheHelperProportions();
+
+		//Prepare the droppable offsets
+		if ($.ui.ddmanager && !o.dropBehaviour)
+			$.ui.ddmanager.prepareOffsets(this, event);
+
+		
+		this._mouseDrag(event, true); //Execute the drag once - this causes the helper not to be visible before getting its correct position
+		
+		//If the ddmanager is used for droppables, inform the manager that dragging has started (see #5003)
+		if ( $.ui.ddmanager ) $.ui.ddmanager.dragStart(this, event);
+		
+		return true;
+	},
+
+	_mouseDrag: function(event, noPropagation) {
+
+		//Compute the helpers position
+		this.position = this._generatePosition(event);
+		this.positionAbs = this._convertPositionTo("absolute");
+
+		//Call plugins and callbacks and use the resulting position if something is returned
+		if (!noPropagation) {
+			var ui = this._uiHash();
+			if(this._trigger('drag', event, ui) === false) {
+				this._mouseUp({});
+				return false;
+			}
+			this.position = ui.position;
+		}
+
+		if(!this.options.axis || this.options.axis != "y") this.helper[0].style.left = this.position.left+'px';
+		if(!this.options.axis || this.options.axis != "x") this.helper[0].style.top = this.position.top+'px';
+		if($.ui.ddmanager) $.ui.ddmanager.drag(this, event);
+
+		return false;
+	},
+
+	_mouseStop: function(event) {
+
+		//If we are using droppables, inform the manager about the drop
+		var dropped = false;
+		if ($.ui.ddmanager && !this.options.dropBehaviour)
+			dropped = $.ui.ddmanager.drop(this, event);
+
+		//if a drop comes from outside (a sortable)
+		if(this.dropped) {
+			dropped = this.dropped;
+			this.dropped = false;
+		}
+		
+		//if the original element is no longer in the DOM don't bother to continue (see #8269)
+		var element = this.element[0], elementInDom = false;
+		while ( element && (element = element.parentNode) ) {
+			if (element == document ) {
+				elementInDom = true;
+			}
+		}
+		if ( !elementInDom && this.options.helper === "original" )
+			return false;
+
+		if((this.options.revert == "invalid" && !dropped) || (this.options.revert == "valid" && dropped) || this.options.revert === true || ($.isFunction(this.options.revert) && this.options.revert.call(this.element, dropped))) {
+			var self = this;
+			$(this.helper).animate(this.originalPosition, parseInt(this.options.revertDuration, 10), function() {
+				if(self._trigger("stop", event) !== false) {
+					self._clear();
+				}
+			});
+		} else {
+			if(this._trigger("stop", event) !== false) {
+				this._clear();
+			}
+		}
+
+		return false;
+	},
+	
+	_mouseUp: function(event) {
+		if (this.options.iframeFix === true) {
+			$("div.ui-draggable-iframeFix").each(function() { 
+				this.parentNode.removeChild(this); 
+			}); //Remove frame helpers
+		}
+		
+		//If the ddmanager is used for droppables, inform the manager that dragging has stopped (see #5003)
+		if( $.ui.ddmanager ) $.ui.ddmanager.dragStop(this, event);
+		
+		return $.ui.mouse.prototype._mouseUp.call(this, event);
+	},
+	
+	cancel: function() {
+		
+		if(this.helper.is(".ui-draggable-dragging")) {
+			this._mouseUp({});
+		} else {
+			this._clear();
+		}
+		
+		return this;
+		
+	},
+
+	_getHandle: function(event) {
+
+		var handle = !this.options.handle || !$(this.options.handle, this.element).length ? true : false;
+		$(this.options.handle, this.element)
+			.find("*")
+			.andSelf()
+			.each(function() {
+				if(this == event.target) handle = true;
+			});
+
+		return handle;
+
+	},
+
+	_createHelper: function(event) {
+
+		var o = this.options;
+		var helper = $.isFunction(o.helper) ? $(o.helper.apply(this.element[0], [event])) : (o.helper == 'clone' ? this.element.clone().removeAttr('id') : this.element);
+
+		if(!helper.parents('body').length)
+			helper.appendTo((o.appendTo == 'parent' ? this.element[0].parentNode : o.appendTo));
+
+		if(helper[0] != this.element[0] && !(/(fixed|absolute)/).test(helper.css("position")))
+			helper.css("position", "absolute");
+
+		return helper;
+
+	},
+
+	_adjustOffsetFromHelper: function(obj) {
+		if (typeof obj == 'string') {
+			obj = obj.split(' ');
+		}
+		if ($.isArray(obj)) {
+			obj = {left: +obj[0], top: +obj[1] || 0};
+		}
+		if ('left' in obj) {
+			this.offset.click.left = obj.left + this.margins.left;
+		}
+		if ('right' in obj) {
+			this.offset.click.left = this.helperProportions.width - obj.right + this.margins.left;
+		}
+		if ('top' in obj) {
+			this.offset.click.top = obj.top + this.margins.top;
+		}
+		if ('bottom' in obj) {
+			this.offset.click.top = this.helperProportions.height - obj.bottom + this.margins.top;
+		}
+	},
+
+	_getParentOffset: function() {
+
+		//Get the offsetParent and cache its position
+		this.offsetParent = this.helper.offsetParent();
+		var po = this.offsetParent.offset();
+
+		// This is a special case where we need to modify a offset calculated on start, since the following happened:
+		// 1. The position of the helper is absolute, so it's position is calculated based on the next positioned parent
+		// 2. The actual offset parent is a child of the scroll parent, and the scroll parent isn't the document, which means that
+		//    the scroll is included in the initial calculation of the offset of the parent, and never recalculated upon drag
+		if(this.cssPosition == 'absolute' && this.scrollParent[0] != document && $.ui.contains(this.scrollParent[0], this.offsetParent[0])) {
+			po.left += this.scrollParent.scrollLeft();
+			po.top += this.scrollParent.scrollTop();
+		}
+
+		if((this.offsetParent[0] == document.body) //This needs to be actually done for all browsers, since pageX/pageY includes this information
+		|| (this.offsetParent[0].tagName && this.offsetParent[0].tagName.toLowerCase() == 'html' && $.browser.msie)) //Ugly IE fix
+			po = { top: 0, left: 0 };
+
+		return {
+			top: po.top + (parseInt(this.offsetParent.css("borderTopWidth"),10) || 0),
+			left: po.left + (parseInt(this.offsetParent.css("borderLeftWidth"),10) || 0)
+		};
+
+	},
+
+	_getRelativeOffset: function() {
+
+		if(this.cssPosition == "relative") {
+			var p = this.element.position();
+			return {
+				top: p.top - (parseInt(this.helper.css("top"),10) || 0) + this.scrollParent.scrollTop(),
+				left: p.left - (parseInt(this.helper.css("left"),10) || 0) + this.scrollParent.scrollLeft()
+			};
+		} else {
+			return { top: 0, left: 0 };
+		}
+
+	},
+
+	_cacheMargins: function() {
+		this.margins = {
+			left: (parseInt(this.element.css("marginLeft"),10) || 0),
+			top: (parseInt(this.element.css("marginTop"),10) || 0),
+			right: (parseInt(this.element.css("marginRight"),10) || 0),
+			bottom: (parseInt(this.element.css("marginBottom"),10) || 0)
+		};
+	},
+
+	_cacheHelperProportions: function() {
+		this.helperProportions = {
+			width: this.helper.outerWidth(),
+			height: this.helper.outerHeight()
+		};
+	},
+
+	_setContainment: function() {
+
+		var o = this.options;
+		if(o.containment == 'parent') o.containment = this.helper[0].parentNode;
+		if(o.containment == 'document' || o.containment == 'window') this.containment = [
+			o.containment == 'document' ? 0 : $(window).scrollLeft() - this.offset.relative.left - this.offset.parent.left,
+			o.containment == 'document' ? 0 : $(window).scrollTop() - this.offset.relative.top - this.offset.parent.top,
+			(o.containment == 'document' ? 0 : $(window).scrollLeft()) + $(o.containment == 'document' ? document : window).width() - this.helperProportions.width - this.margins.left,
+			(o.containment == 'document' ? 0 : $(window).scrollTop()) + ($(o.containment == 'document' ? document : window).height() || document.body.parentNode.scrollHeight) - this.helperProportions.height - this.margins.top
+		];
+
+		if(!(/^(document|window|parent)$/).test(o.containment) && o.containment.constructor != Array) {
+		        var c = $(o.containment);
+			var ce = c[0]; if(!ce) return;
+			var co = c.offset();
+			var over = ($(ce).css("overflow") != 'hidden');
+
+			this.containment = [
+				(parseInt($(ce).css("borderLeftWidth"),10) || 0) + (parseInt($(ce).css("paddingLeft"),10) || 0),
+				(parseInt($(ce).css("borderTopWidth"),10) || 0) + (parseInt($(ce).css("paddingTop"),10) || 0),
+				(over ? Math.max(ce.scrollWidth,ce.offsetWidth) : ce.offsetWidth) - (parseInt($(ce).css("borderLeftWidth"),10) || 0) - (parseInt($(ce).css("paddingRight"),10) || 0) - this.helperProportions.width - this.margins.left - this.margins.right,
+				(over ? Math.max(ce.scrollHeight,ce.offsetHeight) : ce.offsetHeight) - (parseInt($(ce).css("borderTopWidth"),10) || 0) - (parseInt($(ce).css("paddingBottom"),10) || 0) - this.helperProportions.height - this.margins.top  - this.margins.bottom
+			];
+			this.relative_container = c;
+
+		} else if(o.containment.constructor == Array) {
+			this.containment = o.containment;
+		}
+
+	},
+
+	_convertPositionTo: function(d, pos) {
+
+		if(!pos) pos = this.position;
+		var mod = d == "absolute" ? 1 : -1;
+		var o = this.options, scroll = this.cssPosition == 'absolute' && !(this.scrollParent[0] != document && $.ui.contains(this.scrollParent[0], this.offsetParent[0])) ? this.offsetParent : this.scrollParent, scrollIsRootNode = (/(html|body)/i).test(scroll[0].tagName);
+
+		return {
+			top: (
+				pos.top																	// The absolute mouse position
+				+ this.offset.relative.top * mod										// Only for relative positioned nodes: Relative offset from element to offset parent
+				+ this.offset.parent.top * mod											// The offsetParent's offset without borders (offset + border)
+				- ($.browser.safari && $.browser.version < 526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollTop() : ( scrollIsRootNode ? 0 : scroll.scrollTop() ) ) * mod)
+			),
+			left: (
+				pos.left																// The absolute mouse position
+				+ this.offset.relative.left * mod										// Only for relative positioned nodes: Relative offset from element to offset parent
+				+ this.offset.parent.left * mod											// The offsetParent's offset without borders (offset + border)
+				- ($.browser.safari && $.browser.version < 526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollLeft() : scrollIsRootNode ? 0 : scroll.scrollLeft() ) * mod)
+			)
+		};
+
+	},
+
+	_generatePosition: function(event) {
+
+		var o = this.options, scroll = this.cssPosition == 'absolute' && !(this.scrollParent[0] != document && $.ui.contains(this.scrollParent[0], this.offsetParent[0])) ? this.offsetParent : this.scrollParent, scrollIsRootNode = (/(html|body)/i).test(scroll[0].tagName);
+		var pageX = event.pageX;
+		var pageY = event.pageY;
+
+		/*
+		 * - Position constraining -
+		 * Constrain the position to a mix of grid, containment.
+		 */
+
+		if(this.originalPosition) { //If we are not dragging yet, we won't check for options
+		         var containment;
+		         if(this.containment) {
+				 if (this.relative_container){
+				     var co = this.relative_container.offset();
+				     containment = [ this.containment[0] + co.left,
+						     this.containment[1] + co.top,
+						     this.containment[2] + co.left,
+						     this.containment[3] + co.top ];
+				 }
+				 else {
+				     containment = this.containment;
+				 }
+
+				if(event.pageX - this.offset.click.left < containment[0]) pageX = containment[0] + this.offset.click.left;
+				if(event.pageY - this.offset.click.top < containment[1]) pageY = containment[1] + this.offset.click.top;
+				if(event.pageX - this.offset.click.left > containment[2]) pageX = containment[2] + this.offset.click.left;
+				if(event.pageY - this.offset.click.top > containment[3]) pageY = containment[3] + this.offset.click.top;
+			}
+
+			if(o.grid) {
+				//Check for grid elements set to 0 to prevent divide by 0 error causing invalid argument errors in IE (see ticket #6950)
+				var top = o.grid[1] ? this.originalPageY + Math.round((pageY - this.originalPageY) / o.grid[1]) * o.grid[1] : this.originalPageY;
+				pageY = containment ? (!(top - this.offset.click.top < containment[1] || top - this.offset.click.top > containment[3]) ? top : (!(top - this.offset.click.top < containment[1]) ? top - o.grid[1] : top + o.grid[1])) : top;
+
+				var left = o.grid[0] ? this.originalPageX + Math.round((pageX - this.originalPageX) / o.grid[0]) * o.grid[0] : this.originalPageX;
+				pageX = containment ? (!(left - this.offset.click.left < containment[0] || left - this.offset.click.left > containment[2]) ? left : (!(left - this.offset.click.left < containment[0]) ? left - o.grid[0] : left + o.grid[0])) : left;
+			}
+
+		}
+
+		return {
+			top: (
+				pageY																// The absolute mouse position
+				- this.offset.click.top													// Click offset (relative to the element)
+				- this.offset.relative.top												// Only for relative positioned nodes: Relative offset from element to offset parent
+				- this.offset.parent.top												// The offsetParent's offset without borders (offset + border)
+				+ ($.browser.safari && $.browser.version < 526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollTop() : ( scrollIsRootNode ? 0 : scroll.scrollTop() ) ))
+			),
+			left: (
+				pageX																// The absolute mouse position
+				- this.offset.click.left												// Click offset (relative to the element)
+				- this.offset.relative.left												// Only for relative positioned nodes: Relative offset from element to offset parent
+				- this.offset.parent.left												// The offsetParent's offset without borders (offset + border)
+				+ ($.browser.safari && $.browser.version < 526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollLeft() : scrollIsRootNode ? 0 : scroll.scrollLeft() ))
+			)
+		};
+
+	},
+
+	_clear: function() {
+		this.helper.removeClass("ui-draggable-dragging");
+		if(this.helper[0] != this.element[0] && !this.cancelHelperRemoval) this.helper.remove();
+		//if($.ui.ddmanager) $.ui.ddmanager.current = null;
+		this.helper = null;
+		this.cancelHelperRemoval = false;
+	},
+
+	// From now on bulk stuff - mainly helpers
+
+	_trigger: function(type, event, ui) {
+		ui = ui || this._uiHash();
+		$.ui.plugin.call(this, type, [event, ui]);
+		if(type == "drag") this.positionAbs = this._convertPositionTo("absolute"); //The absolute position has to be recalculated after plugins
+		return $.Widget.prototype._trigger.call(this, type, event, ui);
+	},
+
+	plugins: {},
+
+	_uiHash: function(event) {
+		return {
+			helper: this.helper,
+			position: this.position,
+			originalPosition: this.originalPosition,
+			offset: this.positionAbs
+		};
+	}
+
+});
+
+$.extend($.ui.draggable, {
+	version: "1.8.23"
+});
+
+$.ui.plugin.add("draggable", "connectToSortable", {
+	start: function(event, ui) {
+
+		var inst = $(this).data("draggable"), o = inst.options,
+			uiSortable = $.extend({}, ui, { item: inst.element });
+		inst.sortables = [];
+		$(o.connectToSortable).each(function() {
+			var sortable = $.data(this, 'sortable');
+			if (sortable && !sortable.options.disabled) {
+				inst.sortables.push({
+					instance: sortable,
+					shouldRevert: sortable.options.revert
+				});
+				sortable.refreshPositions();	// Call the sortable's refreshPositions at drag start to refresh the containerCache since the sortable container cache is used in drag and needs to be up to date (this will ensure it's initialised as well as being kept in step with any changes that might have happened on the page).
+				sortable._trigger("activate", event, uiSortable);
+			}
+		});
+
+	},
+	stop: function(event, ui) {
+
+		//If we are still over the sortable, we fake the stop event of the sortable, but also remove helper
+		var inst = $(this).data("draggable"),
+			uiSortable = $.extend({}, ui, { item: inst.element });
+
+		$.each(inst.sortables, function() {
+			if(this.instance.isOver) {
+
+				this.instance.isOver = 0;
+
+				inst.cancelHelperRemoval = true; //Don't remove the helper in the draggable instance
+				this.instance.cancelHelperRemoval = false; //Remove it in the sortable instance (so sortable plugins like revert still work)
+
+				//The sortable revert is supported, and we have to set a temporary dropped variable on the draggable to support revert: 'valid/invalid'
+				if(this.shouldRevert) this.instance.options.revert = true;
+
+				//Trigger the stop of the sortable
+				this.instance._mouseStop(event);
+
+				this.instance.options.helper = this.instance.options._helper;
+
+				//If the helper has been the original item, restore properties in the sortable
+				if(inst.options.helper == 'original')
+					this.instance.currentItem.css({ top: 'auto', left: 'auto' });
+
+			} else {
+				this.instance.cancelHelperRemoval = false; //Remove the helper in the sortable instance
+				this.instance._trigger("deactivate", event, uiSortable);
+			}
+
+		});
+
+	},
+	drag: function(event, ui) {
+
+		var inst = $(this).data("draggable"), self = this;
+
+		var checkPos = function(o) {
+			var dyClick = this.offset.click.top, dxClick = this.offset.click.left;
+			var helperTop = this.positionAbs.top, helperLeft = this.positionAbs.left;
+			var itemHeight = o.height, itemWidth = o.width;
+			var itemTop = o.top, itemLeft = o.left;
+
+			return $.ui.isOver(helperTop + dyClick, helperLeft + dxClick, itemTop, itemLeft, itemHeight, itemWidth);
+		};
+
+		$.each(inst.sortables, function(i) {
+			
+			//Copy over some variables to allow calling the sortable's native _intersectsWith
+			this.instance.positionAbs = inst.positionAbs;
+			this.instance.helperProportions = inst.helperProportions;
+			this.instance.offset.click = inst.offset.click;
+			
+			if(this.instance._intersectsWith(this.instance.containerCache)) {
+
+				//If it intersects, we use a little isOver variable and set it once, so our move-in stuff gets fired only once
+				if(!this.instance.isOver) {
+
+					this.instance.isOver = 1;
+					//Now we fake the start of dragging for the sortable instance,
+					//by cloning the list group item, appending it to the sortable and using it as inst.currentItem
+					//We can then fire the start event of the sortable with our passed browser event, and our own helper (so it doesn't create a new one)
+					this.instance.currentItem = $(self).clone().removeAttr('id').appendTo(this.instance.element).data("sortable-item", true);
+					this.instance.options._helper = this.instance.options.helper; //Store helper option to later restore it
+					this.instance.options.helper = function() { return ui.helper[0]; };
+
+					event.target = this.instance.currentItem[0];
+					this.instance._mouseCapture(event, true);
+					this.instance._mouseStart(event, true, true);
+
+					//Because the browser event is way off the new appended portlet, we modify a couple of variables to reflect the changes
+					this.instance.offset.click.top = inst.offset.click.top;
+					this.instance.offset.click.left = inst.offset.click.left;
+					this.instance.offset.parent.left -= inst.offset.parent.left - this.instance.offset.parent.left;
+					this.instance.offset.parent.top -= inst.offset.parent.top - this.instance.offset.parent.top;
+
+					inst._trigger("toSortable", event);
+					inst.dropped = this.instance.element; //draggable revert needs that
+					//hack so receive/update callbacks work (mostly)
+					inst.currentItem = inst.element;
+					this.instance.fromOutside = inst;
+
+				}
+
+				//Provided we did all the previous steps, we can fire the drag event of the sortable on every draggable drag, when it intersects with the sortable
+				if(this.instance.currentItem) this.instance._mouseDrag(event);
+
+			} else {
+
+				//If it doesn't intersect with the sortable, and it intersected before,
+				//we fake the drag stop of the sortable, but make sure it doesn't remove the helper by using cancelHelperRemoval
+				if(this.instance.isOver) {
+
+					this.instance.isOver = 0;
+					this.instance.cancelHelperRemoval = true;
+					
+					//Prevent reverting on this forced stop
+					this.instance.options.revert = false;
+					
+					// The out event needs to be triggered independently
+					this.instance._trigger('out', event, this.instance._uiHash(this.instance));
+					
+					this.instance._mouseStop(event, true);
+					this.instance.options.helper = this.instance.options._helper;
+
+					//Now we remove our currentItem, the list group clone again, and the placeholder, and animate the helper back to it's original size
+					this.instance.currentItem.remove();
+					if(this.instance.placeholder) this.instance.placeholder.remove();
+
+					inst._trigger("fromSortable", event);
+					inst.dropped = false; //draggable revert needs that
+				}
+
+			};
+
+		});
+
+	}
+});
+
+$.ui.plugin.add("draggable", "cursor", {
+	start: function(event, ui) {
+		var t = $('body'), o = $(this).data('draggable').options;
+		if (t.css("cursor")) o._cursor = t.css("cursor");
+		t.css("cursor", o.cursor);
+	},
+	stop: function(event, ui) {
+		var o = $(this).data('draggable').options;
+		if (o._cursor) $('body').css("cursor", o._cursor);
+	}
+});
+
+$.ui.plugin.add("draggable", "opacity", {
+	start: function(event, ui) {
+		var t = $(ui.helper), o = $(this).data('draggable').options;
+		if(t.css("opacity")) o._opacity = t.css("opacity");
+		t.css('opacity', o.opacity);
+	},
+	stop: function(event, ui) {
+		var o = $(this).data('draggable').options;
+		if(o._opacity) $(ui.helper).css('opacity', o._opacity);
+	}
+});
+
+$.ui.plugin.add("draggable", "scroll", {
+	start: function(event, ui) {
+		var i = $(this).data("draggable");
+		if(i.scrollParent[0] != document && i.scrollParent[0].tagName != 'HTML') i.overflowOffset = i.scrollParent.offset();
+	},
+	drag: function(event, ui) {
+
+		var i = $(this).data("draggable"), o = i.options, scrolled = false;
+
+		if(i.scrollParent[0] != document && i.scrollParent[0].tagName != 'HTML') {
+
+			if(!o.axis || o.axis != 'x') {
+				if((i.overflowOffset.top + i.scrollParent[0].offsetHeight) - event.pageY < o.scrollSensitivity)
+					i.scrollParent[0].scrollTop = scrolled = i.scrollParent[0].scrollTop + o.scrollSpeed;
+				else if(event.pageY - i.overflowOffset.top < o.scrollSensitivity)
+					i.scrollParent[0].scrollTop = scrolled = i.scrollParent[0].scrollTop - o.scrollSpeed;
+			}
+
+			if(!o.axis || o.axis != 'y') {
+				if((i.overflowOffset.left + i.scrollParent[0].offsetWidth) - event.pageX < o.scrollSensitivity)
+					i.scrollParent[0].scrollLeft = scrolled = i.scrollParent[0].scrollLeft + o.scrollSpeed;
+				else if(event.pageX - i.overflowOffset.left < o.scrollSensitivity)
+					i.scrollParent[0].scrollLeft = scrolled = i.scrollParent[0].scrollLeft - o.scrollSpeed;
+			}
+
+		} else {
+
+			if(!o.axis || o.axis != 'x') {
+				if(event.pageY - $(document).scrollTop() < o.scrollSensitivity)
+					scrolled = $(document).scrollTop($(document).scrollTop() - o.scrollSpeed);
+				else if($(window).height() - (event.pageY - $(document).scrollTop()) < o.scrollSensitivity)
+					scrolled = $(document).scrollTop($(document).scrollTop() + o.scrollSpeed);
+			}
+
+			if(!o.axis || o.axis != 'y') {
+				if(event.pageX - $(document).scrollLeft() < o.scrollSensitivity)
+					scrolled = $(document).scrollLeft($(document).scrollLeft() - o.scrollSpeed);
+				else if($(window).width() - (event.pageX - $(document).scrollLeft()) < o.scrollSensitivity)
+					scrolled = $(document).scrollLeft($(document).scrollLeft() + o.scrollSpeed);
+			}
+
+		}
+
+		if(scrolled !== false && $.ui.ddmanager && !o.dropBehaviour)
+			$.ui.ddmanager.prepareOffsets(i, event);
+
+	}
+});
+
+$.ui.plugin.add("draggable", "snap", {
+	start: function(event, ui) {
+
+		var i = $(this).data("draggable"), o = i.options;
+		i.snapElements = [];
+
+		$(o.snap.constructor != String ? ( o.snap.items || ':data(draggable)' ) : o.snap).each(function() {
+			var $t = $(this); var $o = $t.offset();
+			if(this != i.element[0]) i.snapElements.push({
+				item: this,
+				width: $t.outerWidth(), height: $t.outerHeight(),
+				top: $o.top, left: $o.left
+			});
+		});
+
+	},
+	drag: function(event, ui) {
+
+		var inst = $(this).data("draggable"), o = inst.options;
+		var d = o.snapTolerance;
+
+		var x1 = ui.offset.left, x2 = x1 + inst.helperProportions.width,
+			y1 = ui.offset.top, y2 = y1 + inst.helperProportions.height;
+
+		for (var i = inst.snapElements.length - 1; i >= 0; i--){
+
+			var l = inst.snapElements[i].left, r = l + inst.snapElements[i].width,
+				t = inst.snapElements[i].top, b = t + inst.snapElements[i].height;
+
+			//Yes, I know, this is insane ;)
+			if(!((l-d < x1 && x1 < r+d && t-d < y1 && y1 < b+d) || (l-d < x1 && x1 < r+d && t-d < y2 && y2 < b+d) || (l-d < x2 && x2 < r+d && t-d < y1 && y1 < b+d) || (l-d < x2 && x2 < r+d && t-d < y2 && y2 < b+d))) {
+				if(inst.snapElements[i].snapping) (inst.options.snap.release && inst.options.snap.release.call(inst.element, event, $.extend(inst._uiHash(), { snapItem: inst.snapElements[i].item })));
+				inst.snapElements[i].snapping = false;
+				continue;
+			}
+
+			if(o.snapMode != 'inner') {
+				var ts = Math.abs(t - y2) <= d;
+				var bs = Math.abs(b - y1) <= d;
+				var ls = Math.abs(l - x2) <= d;
+				var rs = Math.abs(r - x1) <= d;
+				if(ts) ui.position.top = inst._convertPositionTo("relative", { top: t - inst.helperProportions.height, left: 0 }).top - inst.margins.top;
+				if(bs) ui.position.top = inst._convertPositionTo("relative", { top: b, left: 0 }).top - inst.margins.top;
+				if(ls) ui.position.left = inst._convertPositionTo("relative", { top: 0, left: l - inst.helperProportions.width }).left - inst.margins.left;
+				if(rs) ui.position.left = inst._convertPositionTo("relative", { top: 0, left: r }).left - inst.margins.left;
+			}
+
+			var first = (ts || bs || ls || rs);
+
+			if(o.snapMode != 'outer') {
+				var ts = Math.abs(t - y1) <= d;
+				var bs = Math.abs(b - y2) <= d;
+				var ls = Math.abs(l - x1) <= d;
+				var rs = Math.abs(r - x2) <= d;
+				if(ts) ui.position.top = inst._convertPositionTo("relative", { top: t, left: 0 }).top - inst.margins.top;
+				if(bs) ui.position.top = inst._convertPositionTo("relative", { top: b - inst.helperProportions.height, left: 0 }).top - inst.margins.top;
+				if(ls) ui.position.left = inst._convertPositionTo("relative", { top: 0, left: l }).left - inst.margins.left;
+				if(rs) ui.position.left = inst._convertPositionTo("relative", { top: 0, left: r - inst.helperProportions.width }).left - inst.margins.left;
+			}
+
+			if(!inst.snapElements[i].snapping && (ts || bs || ls || rs || first))
+				(inst.options.snap.snap && inst.options.snap.snap.call(inst.element, event, $.extend(inst._uiHash(), { snapItem: inst.snapElements[i].item })));
+			inst.snapElements[i].snapping = (ts || bs || ls || rs || first);
+
+		};
+
+	}
+});
+
+$.ui.plugin.add("draggable", "stack", {
+	start: function(event, ui) {
+
+		var o = $(this).data("draggable").options;
+
+		var group = $.makeArray($(o.stack)).sort(function(a,b) {
+			return (parseInt($(a).css("zIndex"),10) || 0) - (parseInt($(b).css("zIndex"),10) || 0);
+		});
+		if (!group.length) { return; }
+		
+		var min = parseInt(group[0].style.zIndex) || 0;
+		$(group).each(function(i) {
+			this.style.zIndex = min + i;
+		});
+
+		this[0].style.zIndex = min + group.length;
+
+	}
+});
+
+$.ui.plugin.add("draggable", "zIndex", {
+	start: function(event, ui) {
+		var t = $(ui.helper), o = $(this).data("draggable").options;
+		if(t.css("zIndex")) o._zIndex = t.css("zIndex");
+		t.css('zIndex', o.zIndex);
+	},
+	stop: function(event, ui) {
+		var o = $(this).data("draggable").options;
+		if(o._zIndex) $(ui.helper).css('zIndex', o._zIndex);
+	}
+});
+
+})(jQuery);
+/*!
+ * jQuery UI Resizable 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Resizables
+ *
+ * Depends:
+ *	jquery.ui.core.js
+ *	jquery.ui.mouse.js
+ *	jquery.ui.widget.js
+ */
+(function( $, undefined ) {
+
+$.widget("ui.resizable", $.ui.mouse, {
+	widgetEventPrefix: "resize",
+	options: {
+		alsoResize: false,
+		animate: false,
+		animateDuration: "slow",
+		animateEasing: "swing",
+		aspectRatio: false,
+		autoHide: false,
+		containment: false,
+		ghost: false,
+		grid: false,
+		handles: "e,s,se",
+		helper: false,
+		maxHeight: null,
+		maxWidth: null,
+		minHeight: 10,
+		minWidth: 10,
+		zIndex: 1000
+	},
+	_create: function() {
+
+		var self = this, o = this.options;
+		this.element.addClass("ui-resizable");
+
+		$.extend(this, {
+			_aspectRatio: !!(o.aspectRatio),
+			aspectRatio: o.aspectRatio,
+			originalElement: this.element,
+			_proportionallyResizeElements: [],
+			_helper: o.helper || o.ghost || o.animate ? o.helper || 'ui-resizable-helper' : null
+		});
+
+		//Wrap the element if it cannot hold child nodes
+		if(this.element[0].nodeName.match(/canvas|textarea|input|select|button|img/i)) {
+
+			//Create a wrapper element and set the wrapper to the new current internal element
+			this.element.wrap(
+				$('<div class="ui-wrapper" style="overflow: hidden;"></div>').css({
+					position: this.element.css('position'),
+					width: this.element.outerWidth(),
+					height: this.element.outerHeight(),
+					top: this.element.css('top'),
+					left: this.element.css('left')
+				})
+			);
+
+			//Overwrite the original this.element
+			this.element = this.element.parent().data(
+				"resizable", this.element.data('resizable')
+			);
+
+			this.elementIsWrapper = true;
+
+			//Move margins to the wrapper
+			this.element.css({ marginLeft: this.originalElement.css("marginLeft"), marginTop: this.originalElement.css("marginTop"), marginRight: this.originalElement.css("marginRight"), marginBottom: this.originalElement.css("marginBottom") });
+			this.originalElement.css({ marginLeft: 0, marginTop: 0, marginRight: 0, marginBottom: 0});
+
+			//Prevent Safari textarea resize
+			this.originalResizeStyle = this.originalElement.css('resize');
+			this.originalElement.css('resize', 'none');
+
+			//Push the actual element to our proportionallyResize internal array
+			this._proportionallyResizeElements.push(this.originalElement.css({ position: 'static', zoom: 1, display: 'block' }));
+
+			// avoid IE jump (hard set the margin)
+			this.originalElement.css({ margin: this.originalElement.css('margin') });
+
+			// fix handlers offset
+			this._proportionallyResize();
+
+		}
+
+		this.handles = o.handles || (!$('.ui-resizable-handle', this.element).length ? "e,s,se" : { n: '.ui-resizable-n', e: '.ui-resizable-e', s: '.ui-resizable-s', w: '.ui-resizable-w', se: '.ui-resizable-se', sw: '.ui-resizable-sw', ne: '.ui-resizable-ne', nw: '.ui-resizable-nw' });
+		if(this.handles.constructor == String) {
+
+			if(this.handles == 'all') this.handles = 'n,e,s,w,se,sw,ne,nw';
+			var n = this.handles.split(","); this.handles = {};
+
+			for(var i = 0; i < n.length; i++) {
+
+				var handle = $.trim(n[i]), hname = 'ui-resizable-'+handle;
+				var axis = $('<div class="ui-resizable-handle ' + hname + '"></div>');
+
+				// Apply zIndex to all handles - see #7960
+				axis.css({ zIndex: o.zIndex });
+
+				//TODO : What's going on here?
+				if ('se' == handle) {
+					axis.addClass('ui-icon ui-icon-gripsmall-diagonal-se');
+				};
+
+				//Insert into internal handles object and append to element
+				this.handles[handle] = '.ui-resizable-'+handle;
+				this.element.append(axis);
+			}
+
+		}
+
+		this._renderAxis = function(target) {
+
+			target = target || this.element;
+
+			for(var i in this.handles) {
+
+				if(this.handles[i].constructor == String)
+					this.handles[i] = $(this.handles[i], this.element).show();
+
+				//Apply pad to wrapper element, needed to fix axis position (textarea, inputs, scrolls)
+				if (this.elementIsWrapper && this.originalElement[0].nodeName.match(/textarea|input|select|button/i)) {
+
+					var axis = $(this.handles[i], this.element), padWrapper = 0;
+
+					//Checking the correct pad and border
+					padWrapper = /sw|ne|nw|se|n|s/.test(i) ? axis.outerHeight() : axis.outerWidth();
+
+					//The padding type i have to apply...
+					var padPos = [ 'padding',
+						/ne|nw|n/.test(i) ? 'Top' :
+						/se|sw|s/.test(i) ? 'Bottom' :
+						/^e$/.test(i) ? 'Right' : 'Left' ].join("");
+
+					target.css(padPos, padWrapper);
+
+					this._proportionallyResize();
+
+				}
+
+				//TODO: What's that good for? There's not anything to be executed left
+				if(!$(this.handles[i]).length)
+					continue;
+
+			}
+		};
+
+		//TODO: make renderAxis a prototype function
+		this._renderAxis(this.element);
+
+		this._handles = $('.ui-resizable-handle', this.element)
+			.disableSelection();
+
+		//Matching axis name
+		this._handles.mouseover(function() {
+			if (!self.resizing) {
+				if (this.className)
+					var axis = this.className.match(/ui-resizable-(se|sw|ne|nw|n|e|s|w)/i);
+				//Axis, default = se
+				self.axis = axis && axis[1] ? axis[1] : 'se';
+			}
+		});
+
+		//If we want to auto hide the elements
+		if (o.autoHide) {
+			this._handles.hide();
+			$(this.element)
+				.addClass("ui-resizable-autohide")
+				.hover(function() {
+					if (o.disabled) return;
+					$(this).removeClass("ui-resizable-autohide");
+					self._handles.show();
+				},
+				function(){
+					if (o.disabled) return;
+					if (!self.resizing) {
+						$(this).addClass("ui-resizable-autohide");
+						self._handles.hide();
+					}
+				});
+		}
+
+		//Initialize the mouse interaction
+		this._mouseInit();
+
+	},
+
+	destroy: function() {
+
+		this._mouseDestroy();
+
+		var _destroy = function(exp) {
+			$(exp).removeClass("ui-resizable ui-resizable-disabled ui-resizable-resizing")
+				.removeData("resizable").unbind(".resizable").find('.ui-resizable-handle').remove();
+		};
+
+		//TODO: Unwrap at same DOM position
+		if (this.elementIsWrapper) {
+			_destroy(this.element);
+			var wrapper = this.element;
+			wrapper.after(
+				this.originalElement.css({
+					position: wrapper.css('position'),
+					width: wrapper.outerWidth(),
+					height: wrapper.outerHeight(),
+					top: wrapper.css('top'),
+					left: wrapper.css('left')
+				})
+			).remove();
+		}
+
+		this.originalElement.css('resize', this.originalResizeStyle);
+		_destroy(this.originalElement);
+
+		return this;
+	},
+
+	_mouseCapture: function(event) {
+		var handle = false;
+		for (var i in this.handles) {
+			if ($(this.handles[i])[0] == event.target) {
+				handle = true;
+			}
+		}
+
+		return !this.options.disabled && handle;
+	},
+
+	_mouseStart: function(event) {
+
+		var o = this.options, iniPos = this.element.position(), el = this.element;
+
+		this.resizing = true;
+		this.documentScroll = { top: $(document).scrollTop(), left: $(document).scrollLeft() };
+
+		// bugfix for http://dev.jquery.com/ticket/1749
+		if (el.is('.ui-draggable') || (/absolute/).test(el.css('position'))) {
+			el.css({ position: 'absolute', top: iniPos.top, left: iniPos.left });
+		}
+
+		this._renderProxy();
+
+		var curleft = num(this.helper.css('left')), curtop = num(this.helper.css('top'));
+
+		if (o.containment) {
+			curleft += $(o.containment).scrollLeft() || 0;
+			curtop += $(o.containment).scrollTop() || 0;
+		}
+
+		//Store needed variables
+		this.offset = this.helper.offset();
+		this.position = { left: curleft, top: curtop };
+		this.size = this._helper ? { width: el.outerWidth(), height: el.outerHeight() } : { width: el.width(), height: el.height() };
+		this.originalSize = this._helper ? { width: el.outerWidth(), height: el.outerHeight() } : { width: el.width(), height: el.height() };
+		this.originalPosition = { left: curleft, top: curtop };
+		this.sizeDiff = { width: el.outerWidth() - el.width(), height: el.outerHeight() - el.height() };
+		this.originalMousePosition = { left: event.pageX, top: event.pageY };
+
+		//Aspect Ratio
+		this.aspectRatio = (typeof o.aspectRatio == 'number') ? o.aspectRatio : ((this.originalSize.width / this.originalSize.height) || 1);
+
+	    var cursor = $('.ui-resizable-' + this.axis).css('cursor');
+	    $('body').css('cursor', cursor == 'auto' ? this.axis + '-resize' : cursor);
+
+		el.addClass("ui-resizable-resizing");
+		this._propagate("start", event);
+		return true;
+	},
+
+	_mouseDrag: function(event) {
+
+		//Increase performance, avoid regex
+		var el = this.helper, o = this.options, props = {},
+			self = this, smp = this.originalMousePosition, a = this.axis;
+
+		var dx = (event.pageX-smp.left)||0, dy = (event.pageY-smp.top)||0;
+		var trigger = this._change[a];
+		if (!trigger) return false;
+
+		// Calculate the attrs that will be change
+		var data = trigger.apply(this, [event, dx, dy]), ie6 = $.browser.msie && $.browser.version < 7, csdif = this.sizeDiff;
+
+		// Put this in the mouseDrag handler since the user can start pressing shift while resizing
+		this._updateVirtualBoundaries(event.shiftKey);
+		if (this._aspectRatio || event.shiftKey)
+			data = this._updateRatio(data, event);
+
+		data = this._respectSize(data, event);
+
+		// plugins callbacks need to be called first
+		this._propagate("resize", event);
+
+		el.css({
+			top: this.position.top + "px", left: this.position.left + "px",
+			width: this.size.width + "px", height: this.size.height + "px"
+		});
+
+		if (!this._helper && this._proportionallyResizeElements.length)
+			this._proportionallyResize();
+
+		this._updateCache(data);
+
+		// calling the user callback at the end
+		this._trigger('resize', event, this.ui());
+
+		return false;
+	},
+
+	_mouseStop: function(event) {
+
+		this.resizing = false;
+		var o = this.options, self = this;
+
+		if(this._helper) {
+			var pr = this._proportionallyResizeElements, ista = pr.length && (/textarea/i).test(pr[0].nodeName),
+				soffseth = ista && $.ui.hasScroll(pr[0], 'left') /* TODO - jump height */ ? 0 : self.sizeDiff.height,
+				soffsetw = ista ? 0 : self.sizeDiff.width;
+
+			var s = { width: (self.helper.width()  - soffsetw), height: (self.helper.height() - soffseth) },
+				left = (parseInt(self.element.css('left'), 10) + (self.position.left - self.originalPosition.left)) || null,
+				top = (parseInt(self.element.css('top'), 10) + (self.position.top - self.originalPosition.top)) || null;
+
+			if (!o.animate)
+				this.element.css($.extend(s, { top: top, left: left }));
+
+			self.helper.height(self.size.height);
+			self.helper.width(self.size.width);
+
+			if (this._helper && !o.animate) this._proportionallyResize();
+		}
+
+		$('body').css('cursor', 'auto');
+
+		this.element.removeClass("ui-resizable-resizing");
+
+		this._propagate("stop", event);
+
+		if (this._helper) this.helper.remove();
+		return false;
+
+	},
+
+    _updateVirtualBoundaries: function(forceAspectRatio) {
+        var o = this.options, pMinWidth, pMaxWidth, pMinHeight, pMaxHeight, b;
+
+        b = {
+            minWidth: isNumber(o.minWidth) ? o.minWidth : 0,
+            maxWidth: isNumber(o.maxWidth) ? o.maxWidth : Infinity,
+            minHeight: isNumber(o.minHeight) ? o.minHeight : 0,
+            maxHeight: isNumber(o.maxHeight) ? o.maxHeight : Infinity
+        };
+
+        if(this._aspectRatio || forceAspectRatio) {
+            // We want to create an enclosing box whose aspect ration is the requested one
+            // First, compute the "projected" size for each dimension based on the aspect ratio and other dimension
+            pMinWidth = b.minHeight * this.aspectRatio;
+            pMinHeight = b.minWidth / this.aspectRatio;
+            pMaxWidth = b.maxHeight * this.aspectRatio;
+            pMaxHeight = b.maxWidth / this.aspectRatio;
+
+            if(pMinWidth > b.minWidth) b.minWidth = pMinWidth;
+            if(pMinHeight > b.minHeight) b.minHeight = pMinHeight;
+            if(pMaxWidth < b.maxWidth) b.maxWidth = pMaxWidth;
+            if(pMaxHeight < b.maxHeight) b.maxHeight = pMaxHeight;
+        }
+        this._vBoundaries = b;
+    },
+
+	_updateCache: function(data) {
+		var o = this.options;
+		this.offset = this.helper.offset();
+		if (isNumber(data.left)) this.position.left = data.left;
+		if (isNumber(data.top)) this.position.top = data.top;
+		if (isNumber(data.height)) this.size.height = data.height;
+		if (isNumber(data.width)) this.size.width = data.width;
+	},
+
+	_updateRatio: function(data, event) {
+
+		var o = this.options, cpos = this.position, csize = this.size, a = this.axis;
+
+		if (isNumber(data.height)) data.width = (data.height * this.aspectRatio);
+		else if (isNumber(data.width)) data.height = (data.width / this.aspectRatio);
+
+		if (a == 'sw') {
+			data.left = cpos.left + (csize.width - data.width);
+			data.top = null;
+		}
+		if (a == 'nw') {
+			data.top = cpos.top + (csize.height - data.height);
+			data.left = cpos.left + (csize.width - data.width);
+		}
+
+		return data;
+	},
+
+	_respectSize: function(data, event) {
+
+		var el = this.helper, o = this._vBoundaries, pRatio = this._aspectRatio || event.shiftKey, a = this.axis,
+				ismaxw = isNumber(data.width) && o.maxWidth && (o.maxWidth < data.width), ismaxh = isNumber(data.height) && o.maxHeight && (o.maxHeight < data.height),
+					isminw = isNumber(data.width) && o.minWidth && (o.minWidth > data.width), isminh = isNumber(data.height) && o.minHeight && (o.minHeight > data.height);
+
+		if (isminw) data.width = o.minWidth;
+		if (isminh) data.height = o.minHeight;
+		if (ismaxw) data.width = o.maxWidth;
+		if (ismaxh) data.height = o.maxHeight;
+
+		var dw = this.originalPosition.left + this.originalSize.width, dh = this.position.top + this.size.height;
+		var cw = /sw|nw|w/.test(a), ch = /nw|ne|n/.test(a);
+
+		if (isminw && cw) data.left = dw - o.minWidth;
+		if (ismaxw && cw) data.left = dw - o.maxWidth;
+		if (isminh && ch)	data.top = dh - o.minHeight;
+		if (ismaxh && ch)	data.top = dh - o.maxHeight;
+
+		// fixing jump error on top/left - bug #2330
+		var isNotwh = !data.width && !data.height;
+		if (isNotwh && !data.left && data.top) data.top = null;
+		else if (isNotwh && !data.top && data.left) data.left = null;
+
+		return data;
+	},
+
+	_proportionallyResize: function() {
+
+		var o = this.options;
+		if (!this._proportionallyResizeElements.length) return;
+		var element = this.helper || this.element;
+
+		for (var i=0; i < this._proportionallyResizeElements.length; i++) {
+
+			var prel = this._proportionallyResizeElements[i];
+
+			if (!this.borderDif) {
+				var b = [prel.css('borderTopWidth'), prel.css('borderRightWidth'), prel.css('borderBottomWidth'), prel.css('borderLeftWidth')],
+					p = [prel.css('paddingTop'), prel.css('paddingRight'), prel.css('paddingBottom'), prel.css('paddingLeft')];
+
+				this.borderDif = $.map(b, function(v, i) {
+					var border = parseInt(v,10)||0, padding = parseInt(p[i],10)||0;
+					return border + padding;
+				});
+			}
+
+			if ($.browser.msie && !(!($(element).is(':hidden') || $(element).parents(':hidden').length)))
+				continue;
+
+			prel.css({
+				height: (element.height() - this.borderDif[0] - this.borderDif[2]) || 0,
+				width: (element.width() - this.borderDif[1] - this.borderDif[3]) || 0
+			});
+
+		};
+
+	},
+
+	_renderProxy: function() {
+
+		var el = this.element, o = this.options;
+		this.elementOffset = el.offset();
+
+		if(this._helper) {
+
+			this.helper = this.helper || $('<div style="overflow:hidden;"></div>');
+
+			// fix ie6 offset TODO: This seems broken
+			var ie6 = $.browser.msie && $.browser.version < 7, ie6offset = (ie6 ? 1 : 0),
+			pxyoffset = ( ie6 ? 2 : -1 );
+
+			this.helper.addClass(this._helper).css({
+				width: this.element.outerWidth() + pxyoffset,
+				height: this.element.outerHeight() + pxyoffset,
+				position: 'absolute',
+				left: this.elementOffset.left - ie6offset +'px',
+				top: this.elementOffset.top - ie6offset +'px',
+				zIndex: ++o.zIndex //TODO: Don't modify option
+			});
+
+			this.helper
+				.appendTo("body")
+				.disableSelection();
+
+		} else {
+			this.helper = this.element;
+		}
+
+	},
+
+	_change: {
+		e: function(event, dx, dy) {
+			return { width: this.originalSize.width + dx };
+		},
+		w: function(event, dx, dy) {
+			var o = this.options, cs = this.originalSize, sp = this.originalPosition;
+			return { left: sp.left + dx, width: cs.width - dx };
+		},
+		n: function(event, dx, dy) {
+			var o = this.options, cs = this.originalSize, sp = this.originalPosition;
+			return { top: sp.top + dy, height: cs.height - dy };
+		},
+		s: function(event, dx, dy) {
+			return { height: this.originalSize.height + dy };
+		},
+		se: function(event, dx, dy) {
+			return $.extend(this._change.s.apply(this, arguments), this._change.e.apply(this, [event, dx, dy]));
+		},
+		sw: function(event, dx, dy) {
+			return $.extend(this._change.s.apply(this, arguments), this._change.w.apply(this, [event, dx, dy]));
+		},
+		ne: function(event, dx, dy) {
+			return $.extend(this._change.n.apply(this, arguments), this._change.e.apply(this, [event, dx, dy]));
+		},
+		nw: function(event, dx, dy) {
+			return $.extend(this._change.n.apply(this, arguments), this._change.w.apply(this, [event, dx, dy]));
+		}
+	},
+
+	_propagate: function(n, event) {
+		$.ui.plugin.call(this, n, [event, this.ui()]);
+		(n != "resize" && this._trigger(n, event, this.ui()));
+	},
+
+	plugins: {},
+
+	ui: function() {
+		return {
+			originalElement: this.originalElement,
+			element: this.element,
+			helper: this.helper,
+			position: this.position,
+			size: this.size,
+			originalSize: this.originalSize,
+			originalPosition: this.originalPosition
+		};
+	}
+
+});
+
+$.extend($.ui.resizable, {
+	version: "1.8.23"
+});
+
+/*
+ * Resizable Extensions
+ */
+
+$.ui.plugin.add("resizable", "alsoResize", {
+
+	start: function (event, ui) {
+		var self = $(this).data("resizable"), o = self.options;
+
+		var _store = function (exp) {
+			$(exp).each(function() {
+				var el = $(this);
+				el.data("resizable-alsoresize", {
+					width: parseInt(el.width(), 10), height: parseInt(el.height(), 10),
+					left: parseInt(el.css('left'), 10), top: parseInt(el.css('top'), 10)
+				});
+			});
+		};
+
+		if (typeof(o.alsoResize) == 'object' && !o.alsoResize.parentNode) {
+			if (o.alsoResize.length) { o.alsoResize = o.alsoResize[0]; _store(o.alsoResize); }
+			else { $.each(o.alsoResize, function (exp) { _store(exp); }); }
+		}else{
+			_store(o.alsoResize);
+		}
+	},
+
+	resize: function (event, ui) {
+		var self = $(this).data("resizable"), o = self.options, os = self.originalSize, op = self.originalPosition;
+
+		var delta = {
+			height: (self.size.height - os.height) || 0, width: (self.size.width - os.width) || 0,
+			top: (self.position.top - op.top) || 0, left: (self.position.left - op.left) || 0
+		},
+
+		_alsoResize = function (exp, c) {
+			$(exp).each(function() {
+				var el = $(this), start = $(this).data("resizable-alsoresize"), style = {}, 
+					css = c && c.length ? c : el.parents(ui.originalElement[0]).length ? ['width', 'height'] : ['width', 'height', 'top', 'left'];
+
+				$.each(css, function (i, prop) {
+					var sum = (start[prop]||0) + (delta[prop]||0);
+					if (sum && sum >= 0)
+						style[prop] = sum || null;
+				});
+
+				el.css(style);
+			});
+		};
+
+		if (typeof(o.alsoResize) == 'object' && !o.alsoResize.nodeType) {
+			$.each(o.alsoResize, function (exp, c) { _alsoResize(exp, c); });
+		}else{
+			_alsoResize(o.alsoResize);
+		}
+	},
+
+	stop: function (event, ui) {
+		$(this).removeData("resizable-alsoresize");
+	}
+});
+
+$.ui.plugin.add("resizable", "animate", {
+
+	stop: function(event, ui) {
+		var self = $(this).data("resizable"), o = self.options;
+
+		var pr = self._proportionallyResizeElements, ista = pr.length && (/textarea/i).test(pr[0].nodeName),
+					soffseth = ista && $.ui.hasScroll(pr[0], 'left') /* TODO - jump height */ ? 0 : self.sizeDiff.height,
+						soffsetw = ista ? 0 : self.sizeDiff.width;
+
+		var style = { width: (self.size.width - soffsetw), height: (self.size.height - soffseth) },
+					left = (parseInt(self.element.css('left'), 10) + (self.position.left - self.originalPosition.left)) || null,
+						top = (parseInt(self.element.css('top'), 10) + (self.position.top - self.originalPosition.top)) || null;
+
+		self.element.animate(
+			$.extend(style, top && left ? { top: top, left: left } : {}), {
+				duration: o.animateDuration,
+				easing: o.animateEasing,
+				step: function() {
+
+					var data = {
+						width: parseInt(self.element.css('width'), 10),
+						height: parseInt(self.element.css('height'), 10),
+						top: parseInt(self.element.css('top'), 10),
+						left: parseInt(self.element.css('left'), 10)
+					};
+
+					if (pr && pr.length) $(pr[0]).css({ width: data.width, height: data.height });
+
+					// propagating resize, and updating values for each animation step
+					self._updateCache(data);
+					self._propagate("resize", event);
+
+				}
+			}
+		);
+	}
+
+});
+
+$.ui.plugin.add("resizable", "containment", {
+
+	start: function(event, ui) {
+		var self = $(this).data("resizable"), o = self.options, el = self.element;
+		var oc = o.containment,	ce = (oc instanceof $) ? oc.get(0) : (/parent/.test(oc)) ? el.parent().get(0) : oc;
+		if (!ce) return;
+
+		self.containerElement = $(ce);
+
+		if (/document/.test(oc) || oc == document) {
+			self.containerOffset = { left: 0, top: 0 };
+			self.containerPosition = { left: 0, top: 0 };
+
+			self.parentData = {
+				element: $(document), left: 0, top: 0,
+				width: $(document).width(), height: $(document).height() || document.body.parentNode.scrollHeight
+			};
+		}
+
+		// i'm a node, so compute top, left, right, bottom
+		else {
+			var element = $(ce), p = [];
+			$([ "Top", "Right", "Left", "Bottom" ]).each(function(i, name) { p[i] = num(element.css("padding" + name)); });
+
+			self.containerOffset = element.offset();
+			self.containerPosition = element.position();
+			self.containerSize = { height: (element.innerHeight() - p[3]), width: (element.innerWidth() - p[1]) };
+
+			var co = self.containerOffset, ch = self.containerSize.height,	cw = self.containerSize.width,
+						width = ($.ui.hasScroll(ce, "left") ? ce.scrollWidth : cw ), height = ($.ui.hasScroll(ce) ? ce.scrollHeight : ch);
+
+			self.parentData = {
+				element: ce, left: co.left, top: co.top, width: width, height: height
+			};
+		}
+	},
+
+	resize: function(event, ui) {
+		var self = $(this).data("resizable"), o = self.options,
+				ps = self.containerSize, co = self.containerOffset, cs = self.size, cp = self.position,
+				pRatio = self._aspectRatio || event.shiftKey, cop = { top:0, left:0 }, ce = self.containerElement;
+
+		if (ce[0] != document && (/static/).test(ce.css('position'))) cop = co;
+
+		if (cp.left < (self._helper ? co.left : 0)) {
+			self.size.width = self.size.width + (self._helper ? (self.position.left - co.left) : (self.position.left - cop.left));
+			if (pRatio) self.size.height = self.size.width / self.aspectRatio;
+			self.position.left = o.helper ? co.left : 0;
+		}
+
+		if (cp.top < (self._helper ? co.top : 0)) {
+			self.size.height = self.size.height + (self._helper ? (self.position.top - co.top) : self.position.top);
+			if (pRatio) self.size.width = self.size.height * self.aspectRatio;
+			self.position.top = self._helper ? co.top : 0;
+		}
+
+		self.offset.left = self.parentData.left+self.position.left;
+		self.offset.top = self.parentData.top+self.position.top;
+
+		var woset = Math.abs( (self._helper ? self.offset.left - cop.left : (self.offset.left - cop.left)) + self.sizeDiff.width ),
+					hoset = Math.abs( (self._helper ? self.offset.top - cop.top : (self.offset.top - co.top)) + self.sizeDiff.height );
+
+		var isParent = self.containerElement.get(0) == self.element.parent().get(0),
+		    isOffsetRelative = /relative|absolute/.test(self.containerElement.css('position'));
+
+		if(isParent && isOffsetRelative) woset -= self.parentData.left;
+
+		if (woset + self.size.width >= self.parentData.width) {
+			self.size.width = self.parentData.width - woset;
+			if (pRatio) self.size.height = self.size.width / self.aspectRatio;
+		}
+
+		if (hoset + self.size.height >= self.parentData.height) {
+			self.size.height = self.parentData.height - hoset;
+			if (pRatio) self.size.width = self.size.height * self.aspectRatio;
+		}
+	},
+
+	stop: function(event, ui){
+		var self = $(this).data("resizable"), o = self.options, cp = self.position,
+				co = self.containerOffset, cop = self.containerPosition, ce = self.containerElement;
+
+		var helper = $(self.helper), ho = helper.offset(), w = helper.outerWidth() - self.sizeDiff.width, h = helper.outerHeight() - self.sizeDiff.height;
+
+		if (self._helper && !o.animate && (/relative/).test(ce.css('position')))
+			$(this).css({ left: ho.left - cop.left - co.left, width: w, height: h });
+
+		if (self._helper && !o.animate && (/static/).test(ce.css('position')))
+			$(this).css({ left: ho.left - cop.left - co.left, width: w, height: h });
+
+	}
+});
+
+$.ui.plugin.add("resizable", "ghost", {
+
+	start: function(event, ui) {
+
+		var self = $(this).data("resizable"), o = self.options, cs = self.size;
+
+		self.ghost = self.originalElement.clone();
+		self.ghost
+			.css({ opacity: .25, display: 'block', position: 'relative', height: cs.height, width: cs.width, margin: 0, left: 0, top: 0 })
+			.addClass('ui-resizable-ghost')
+			.addClass(typeof o.ghost == 'string' ? o.ghost : '');
+
+		self.ghost.appendTo(self.helper);
+
+	},
+
+	resize: function(event, ui){
+		var self = $(this).data("resizable"), o = self.options;
+		if (self.ghost) self.ghost.css({ position: 'relative', height: self.size.height, width: self.size.width });
+	},
+
+	stop: function(event, ui){
+		var self = $(this).data("resizable"), o = self.options;
+		if (self.ghost && self.helper) self.helper.get(0).removeChild(self.ghost.get(0));
+	}
+
+});
+
+$.ui.plugin.add("resizable", "grid", {
+
+	resize: function(event, ui) {
+		var self = $(this).data("resizable"), o = self.options, cs = self.size, os = self.originalSize, op = self.originalPosition, a = self.axis, ratio = o._aspectRatio || event.shiftKey;
+		o.grid = typeof o.grid == "number" ? [o.grid, o.grid] : o.grid;
+		var ox = Math.round((cs.width - os.width) / (o.grid[0]||1)) * (o.grid[0]||1), oy = Math.round((cs.height - os.height) / (o.grid[1]||1)) * (o.grid[1]||1);
+
+		if (/^(se|s|e)$/.test(a)) {
+			self.size.width = os.width + ox;
+			self.size.height = os.height + oy;
+		}
+		else if (/^(ne)$/.test(a)) {
+			self.size.width = os.width + ox;
+			self.size.height = os.height + oy;
+			self.position.top = op.top - oy;
+		}
+		else if (/^(sw)$/.test(a)) {
+			self.size.width = os.width + ox;
+			self.size.height = os.height + oy;
+			self.position.left = op.left - ox;
+		}
+		else {
+			self.size.width = os.width + ox;
+			self.size.height = os.height + oy;
+			self.position.top = op.top - oy;
+			self.position.left = op.left - ox;
+		}
+	}
+
+});
+
+var num = function(v) {
+	return parseInt(v, 10) || 0;
+};
+
+var isNumber = function(value) {
+	return !isNaN(parseInt(value, 10));
+};
+
+})(jQuery);
+/*!
+ * jQuery UI Button 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Button
+ *
+ * Depends:
+ *	jquery.ui.core.js
+ *	jquery.ui.widget.js
+ */
+(function( $, undefined ) {
+
+var lastActive, startXPos, startYPos, clickDragged,
+	baseClasses = "ui-button ui-widget ui-state-default ui-corner-all",
+	stateClasses = "ui-state-hover ui-state-active ",
+	typeClasses = "ui-button-icons-only ui-button-icon-only ui-button-text-icons ui-button-text-icon-primary ui-button-text-icon-secondary ui-button-text-only",
+	formResetHandler = function() {
+		var buttons = $( this ).find( ":ui-button" );
+		setTimeout(function() {
+			buttons.button( "refresh" );
+		}, 1 );
+	},
+	radioGroup = function( radio ) {
+		var name = radio.name,
+			form = radio.form,
+			radios = $( [] );
+		if ( name ) {
+			if ( form ) {
+				radios = $( form ).find( "[name='" + name + "']" );
+			} else {
+				radios = $( "[name='" + name + "']", radio.ownerDocument )
+					.filter(function() {
+						return !this.form;
+					});
+			}
+		}
+		return radios;
+	};
+
+$.widget( "ui.button", {
+	options: {
+		disabled: null,
+		text: true,
+		label: null,
+		icons: {
+			primary: null,
+			secondary: null
+		}
+	},
+	_create: function() {
+		this.element.closest( "form" )
+			.unbind( "reset.button" )
+			.bind( "reset.button", formResetHandler );
+
+		if ( typeof this.options.disabled !== "boolean" ) {
+			this.options.disabled = !!this.element.propAttr( "disabled" );
+		} else {
+			this.element.propAttr( "disabled", this.options.disabled );
+		}
+
+		this._determineButtonType();
+		this.hasTitle = !!this.buttonElement.attr( "title" );
+
+		var self = this,
+			options = this.options,
+			toggleButton = this.type === "checkbox" || this.type === "radio",
+			hoverClass = "ui-state-hover" + ( !toggleButton ? " ui-state-active" : "" ),
+			focusClass = "ui-state-focus";
+
+		if ( options.label === null ) {
+			options.label = this.buttonElement.html();
+		}
+
+		this.buttonElement
+			.addClass( baseClasses )
+			.attr( "role", "button" )
+			.bind( "mouseenter.button", function() {
+				if ( options.disabled ) {
+					return;
+				}
+				$( this ).addClass( "ui-state-hover" );
+				if ( this === lastActive ) {
+					$( this ).addClass( "ui-state-active" );
+				}
+			})
+			.bind( "mouseleave.button", function() {
+				if ( options.disabled ) {
+					return;
+				}
+				$( this ).removeClass( hoverClass );
+			})
+			.bind( "click.button", function( event ) {
+				if ( options.disabled ) {
+					event.preventDefault();
+					event.stopImmediatePropagation();
+				}
+			});
+
+		this.element
+			.bind( "focus.button", function() {
+				// no need to check disabled, focus won't be triggered anyway
+				self.buttonElement.addClass( focusClass );
+			})
+			.bind( "blur.button", function() {
+				self.buttonElement.removeClass( focusClass );
+			});
+
+		if ( toggleButton ) {
+			this.element.bind( "change.button", function() {
+				if ( clickDragged ) {
+					return;
+				}
+				self.refresh();
+			});
+			// if mouse moves between mousedown and mouseup (drag) set clickDragged flag
+			// prevents issue where button state changes but checkbox/radio checked state
+			// does not in Firefox (see ticket #6970)
+			this.buttonElement
+				.bind( "mousedown.button", function( event ) {
+					if ( options.disabled ) {
+						return;
+					}
+					clickDragged = false;
+					startXPos = event.pageX;
+					startYPos = event.pageY;
+				})
+				.bind( "mouseup.button", function( event ) {
+					if ( options.disabled ) {
+						return;
+					}
+					if ( startXPos !== event.pageX || startYPos !== event.pageY ) {
+						clickDragged = true;
+					}
+			});
+		}
+
+		if ( this.type === "checkbox" ) {
+			this.buttonElement.bind( "click.button", function() {
+				if ( options.disabled || clickDragged ) {
+					return false;
+				}
+				$( this ).toggleClass( "ui-state-active" );
+				self.buttonElement.attr( "aria-pressed", self.element[0].checked );
+			});
+		} else if ( this.type === "radio" ) {
+			this.buttonElement.bind( "click.button", function() {
+				if ( options.disabled || clickDragged ) {
+					return false;
+				}
+				$( this ).addClass( "ui-state-active" );
+				self.buttonElement.attr( "aria-pressed", "true" );
+
+				var radio = self.element[ 0 ];
+				radioGroup( radio )
+					.not( radio )
+					.map(function() {
+						return $( this ).button( "widget" )[ 0 ];
+					})
+					.removeClass( "ui-state-active" )
+					.attr( "aria-pressed", "false" );
+			});
+		} else {
+			this.buttonElement
+				.bind( "mousedown.button", function() {
+					if ( options.disabled ) {
+						return false;
+					}
+					$( this ).addClass( "ui-state-active" );
+					lastActive = this;
+					$( document ).one( "mouseup", function() {
+						lastActive = null;
+					});
+				})
+				.bind( "mouseup.button", function() {
+					if ( options.disabled ) {
+						return false;
+					}
+					$( this ).removeClass( "ui-state-active" );
+				})
+				.bind( "keydown.button", function(event) {
+					if ( options.disabled ) {
+						return false;
+					}
+					if ( event.keyCode == $.ui.keyCode.SPACE || event.keyCode == $.ui.keyCode.ENTER ) {
+						$( this ).addClass( "ui-state-active" );
+					}
+				})
+				.bind( "keyup.button", function() {
+					$( this ).removeClass( "ui-state-active" );
+				});
+
+			if ( this.buttonElement.is("a") ) {
+				this.buttonElement.keyup(function(event) {
+					if ( event.keyCode === $.ui.keyCode.SPACE ) {
+						// TODO pass through original event correctly (just as 2nd argument doesn't work)
+						$( this ).click();
+					}
+				});
+			}
+		}
+
+		// TODO: pull out $.Widget's handling for the disabled option into
+		// $.Widget.prototype._setOptionDisabled so it's easy to proxy and can
+		// be overridden by individual plugins
+		this._setOption( "disabled", options.disabled );
+		this._resetButton();
+	},
+
+	_determineButtonType: function() {
+
+		if ( this.element.is(":checkbox") ) {
+			this.type = "checkbox";
+		} else if ( this.element.is(":radio") ) {
+			this.type = "radio";
+		} else if ( this.element.is("input") ) {
+			this.type = "input";
+		} else {
+			this.type = "button";
+		}
+
+		if ( this.type === "checkbox" || this.type === "radio" ) {
+			// we don't search against the document in case the element
+			// is disconnected from the DOM
+			var ancestor = this.element.parents().filter(":last"),
+				labelSelector = "label[for='" + this.element.attr("id") + "']";
+			this.buttonElement = ancestor.find( labelSelector );
+			if ( !this.buttonElement.length ) {
+				ancestor = ancestor.length ? ancestor.siblings() : this.element.siblings();
+				this.buttonElement = ancestor.filter( labelSelector );
+				if ( !this.buttonElement.length ) {
+					this.buttonElement = ancestor.find( labelSelector );
+				}
+			}
+			this.element.addClass( "ui-helper-hidden-accessible" );
+
+			var checked = this.element.is( ":checked" );
+			if ( checked ) {
+				this.buttonElement.addClass( "ui-state-active" );
+			}
+			this.buttonElement.attr( "aria-pressed", checked );
+		} else {
+			this.buttonElement = this.element;
+		}
+	},
+
+	widget: function() {
+		return this.buttonElement;
+	},
+
+	destroy: function() {
+		this.element
+			.removeClass( "ui-helper-hidden-accessible" );
+		this.buttonElement
+			.removeClass( baseClasses + " " + stateClasses + " " + typeClasses )
+			.removeAttr( "role" )
+			.removeAttr( "aria-pressed" )
+			.html( this.buttonElement.find(".ui-button-text").html() );
+
+		if ( !this.hasTitle ) {
+			this.buttonElement.removeAttr( "title" );
+		}
+
+		$.Widget.prototype.destroy.call( this );
+	},
+
+	_setOption: function( key, value ) {
+		$.Widget.prototype._setOption.apply( this, arguments );
+		if ( key === "disabled" ) {
+			if ( value ) {
+				this.element.propAttr( "disabled", true );
+			} else {
+				this.element.propAttr( "disabled", false );
+			}
+			return;
+		}
+		this._resetButton();
+	},
+
+	refresh: function() {
+		var isDisabled = this.element.is( ":disabled" );
+		if ( isDisabled !== this.options.disabled ) {
+			this._setOption( "disabled", isDisabled );
+		}
+		if ( this.type === "radio" ) {
+			radioGroup( this.element[0] ).each(function() {
+				if ( $( this ).is( ":checked" ) ) {
+					$( this ).button( "widget" )
+						.addClass( "ui-state-active" )
+						.attr( "aria-pressed", "true" );
+				} else {
+					$( this ).button( "widget" )
+						.removeClass( "ui-state-active" )
+						.attr( "aria-pressed", "false" );
+				}
+			});
+		} else if ( this.type === "checkbox" ) {
+			if ( this.element.is( ":checked" ) ) {
+				this.buttonElement
+					.addClass( "ui-state-active" )
+					.attr( "aria-pressed", "true" );
+			} else {
+				this.buttonElement
+					.removeClass( "ui-state-active" )
+					.attr( "aria-pressed", "false" );
+			}
+		}
+	},
+
+	_resetButton: function() {
+		if ( this.type === "input" ) {
+			if ( this.options.label ) {
+				this.element.val( this.options.label );
+			}
+			return;
+		}
+		var buttonElement = this.buttonElement.removeClass( typeClasses ),
+			buttonText = $( "<span></span>", this.element[0].ownerDocument )
+				.addClass( "ui-button-text" )
+				.html( this.options.label )
+				.appendTo( buttonElement.empty() )
+				.text(),
+			icons = this.options.icons,
+			multipleIcons = icons.primary && icons.secondary,
+			buttonClasses = [];  
+
+		if ( icons.primary || icons.secondary ) {
+			if ( this.options.text ) {
+				buttonClasses.push( "ui-button-text-icon" + ( multipleIcons ? "s" : ( icons.primary ? "-primary" : "-secondary" ) ) );
+			}
+
+			if ( icons.primary ) {
+				buttonElement.prepend( "<span class='ui-button-icon-primary ui-icon " + icons.primary + "'></span>" );
+			}
+
+			if ( icons.secondary ) {
+				buttonElement.append( "<span class='ui-button-icon-secondary ui-icon " + icons.secondary + "'></span>" );
+			}
+
+			if ( !this.options.text ) {
+				buttonClasses.push( multipleIcons ? "ui-button-icons-only" : "ui-button-icon-only" );
+
+				if ( !this.hasTitle ) {
+					buttonElement.attr( "title", buttonText );
+				}
+			}
+		} else {
+			buttonClasses.push( "ui-button-text-only" );
+		}
+		buttonElement.addClass( buttonClasses.join( " " ) );
+	}
+});
+
+$.widget( "ui.buttonset", {
+	options: {
+		items: ":button, :submit, :reset, :checkbox, :radio, a, :data(button)"
+	},
+
+	_create: function() {
+		this.element.addClass( "ui-buttonset" );
+	},
+	
+	_init: function() {
+		this.refresh();
+	},
+
+	_setOption: function( key, value ) {
+		if ( key === "disabled" ) {
+			this.buttons.button( "option", key, value );
+		}
+
+		$.Widget.prototype._setOption.apply( this, arguments );
+	},
+	
+	refresh: function() {
+		var rtl = this.element.css( "direction" ) === "rtl";
+		
+		this.buttons = this.element.find( this.options.items )
+			.filter( ":ui-button" )
+				.button( "refresh" )
+			.end()
+			.not( ":ui-button" )
+				.button()
+			.end()
+			.map(function() {
+				return $( this ).button( "widget" )[ 0 ];
+			})
+				.removeClass( "ui-corner-all ui-corner-left ui-corner-right" )
+				.filter( ":first" )
+					.addClass( rtl ? "ui-corner-right" : "ui-corner-left" )
+				.end()
+				.filter( ":last" )
+					.addClass( rtl ? "ui-corner-left" : "ui-corner-right" )
+				.end()
+			.end();
+	},
+
+	destroy: function() {
+		this.element.removeClass( "ui-buttonset" );
+		this.buttons
+			.map(function() {
+				return $( this ).button( "widget" )[ 0 ];
+			})
+				.removeClass( "ui-corner-left ui-corner-right" )
+			.end()
+			.button( "destroy" );
+
+		$.Widget.prototype.destroy.call( this );
+	}
+});
+
+}( jQuery ) );
+/*!
+ * jQuery UI Dialog 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Dialog
+ *
+ * Depends:
+ *	jquery.ui.core.js
+ *	jquery.ui.widget.js
+ *  jquery.ui.button.js
+ *	jquery.ui.draggable.js
+ *	jquery.ui.mouse.js
+ *	jquery.ui.position.js
+ *	jquery.ui.resizable.js
+ */
+(function( $, undefined ) {
+
+var uiDialogClasses =
+		'ui-dialog ' +
+		'ui-widget ' +
+		'ui-widget-content ' +
+		'ui-corner-all ',
+	sizeRelatedOptions = {
+		buttons: true,
+		height: true,
+		maxHeight: true,
+		maxWidth: true,
+		minHeight: true,
+		minWidth: true,
+		width: true
+	},
+	resizableRelatedOptions = {
+		maxHeight: true,
+		maxWidth: true,
+		minHeight: true,
+		minWidth: true
+	};
+
+$.widget("ui.dialog", {
+	options: {
+		autoOpen: true,
+		buttons: {},
+		closeOnEscape: true,
+		closeText: 'close',
+		dialogClass: '',
+		draggable: true,
+		hide: null,
+		height: 'auto',
+		maxHeight: false,
+		maxWidth: false,
+		minHeight: 150,
+		minWidth: 150,
+		modal: false,
+		position: {
+			my: 'center',
+			at: 'center',
+			collision: 'fit',
+			// ensure that the titlebar is never outside the document
+			using: function(pos) {
+				var topOffset = $(this).css(pos).offset().top;
+				if (topOffset < 0) {
+					$(this).css('top', pos.top - topOffset);
+				}
+			}
+		},
+		resizable: true,
+		show: null,
+		stack: true,
+		title: '',
+		width: 300,
+		zIndex: 1000
+	},
+
+	_create: function() {
+		this.originalTitle = this.element.attr('title');
+		// #5742 - .attr() might return a DOMElement
+		if ( typeof this.originalTitle !== "string" ) {
+			this.originalTitle = "";
+		}
+
+		this.options.title = this.options.title || this.originalTitle;
+		var self = this,
+			options = self.options,
+
+			title = options.title || '&#160;',
+			titleId = $.ui.dialog.getTitleId(self.element),
+
+			uiDialog = (self.uiDialog = $('<div></div>'))
+				.appendTo(document.body)
+				.hide()
+				.addClass(uiDialogClasses + options.dialogClass)
+				.css({
+					zIndex: options.zIndex
+				})
+				// setting tabIndex makes the div focusable
+				// setting outline to 0 prevents a border on focus in Mozilla
+				.attr('tabIndex', -1).css('outline', 0).keydown(function(event) {
+					if (options.closeOnEscape && !event.isDefaultPrevented() && event.keyCode &&
+						event.keyCode === $.ui.keyCode.ESCAPE) {
+						
+						self.close(event);
+						event.preventDefault();
+					}
+				})
+				.attr({
+					role: 'dialog',
+					'aria-labelledby': titleId
+				})
+				.mousedown(function(event) {
+					self.moveToTop(false, event);
+				}),
+
+			uiDialogContent = self.element
+				.show()
+				.removeAttr('title')
+				.addClass(
+					'ui-dialog-content ' +
+					'ui-widget-content')
+				.appendTo(uiDialog),
+
+			uiDialogTitlebar = (self.uiDialogTitlebar = $('<div></div>'))
+				.addClass(
+					'ui-dialog-titlebar ' +
+					'ui-widget-header ' +
+					'ui-corner-all ' +
+					'ui-helper-clearfix'
+				)
+				.prependTo(uiDialog),
+
+			uiDialogTitlebarClose = $('<a href="#"></a>')
+				.addClass(
+					'ui-dialog-titlebar-close ' +
+					'ui-corner-all'
+				)
+				.attr('role', 'button')
+				.hover(
+					function() {
+						uiDialogTitlebarClose.addClass('ui-state-hover');
+					},
+					function() {
+						uiDialogTitlebarClose.removeClass('ui-state-hover');
+					}
+				)
+				.focus(function() {
+					uiDialogTitlebarClose.addClass('ui-state-focus');
+				})
+				.blur(function() {
+					uiDialogTitlebarClose.removeClass('ui-state-focus');
+				})
+				.click(function(event) {
+					self.close(event);
+					return false;
+				})
+				.appendTo(uiDialogTitlebar),
+
+			uiDialogTitlebarCloseText = (self.uiDialogTitlebarCloseText = $('<span></span>'))
+				.addClass(
+					'ui-icon ' +
+					'ui-icon-closethick'
+				)
+				.text(options.closeText)
+				.appendTo(uiDialogTitlebarClose),
+
+			uiDialogTitle = $('<span></span>')
+				.addClass('ui-dialog-title')
+				.attr('id', titleId)
+				.html(title)
+				.prependTo(uiDialogTitlebar);
+
+		//handling of deprecated beforeclose (vs beforeClose) option
+		//Ticket #4669 http://dev.jqueryui.com/ticket/4669
+		//TODO: remove in 1.9pre
+		if ($.isFunction(options.beforeclose) && !$.isFunction(options.beforeClose)) {
+			options.beforeClose = options.beforeclose;
+		}
+
+		uiDialogTitlebar.find("*").add(uiDialogTitlebar).disableSelection();
+
+		if (options.draggable && $.fn.draggable) {
+			self._makeDraggable();
+		}
+		if (options.resizable && $.fn.resizable) {
+			self._makeResizable();
+		}
+
+		self._createButtons(options.buttons);
+		self._isOpen = false;
+
+		if ($.fn.bgiframe) {
+			uiDialog.bgiframe();
+		}
+	},
+
+	_init: function() {
+		if ( this.options.autoOpen ) {
+			this.open();
+		}
+	},
+
+	destroy: function() {
+		var self = this;
+		
+		if (self.overlay) {
+			self.overlay.destroy();
+		}
+		self.uiDialog.hide();
+		self.element
+			.unbind('.dialog')
+			.removeData('dialog')
+			.removeClass('ui-dialog-content ui-widget-content')
+			.hide().appendTo('body');
+		self.uiDialog.remove();
+
+		if (self.originalTitle) {
+			self.element.attr('title', self.originalTitle);
+		}
+
+		return self;
+	},
+
+	widget: function() {
+		return this.uiDialog;
+	},
+
+	close: function(event) {
+		var self = this,
+			maxZ, thisZ;
+		
+		if (false === self._trigger('beforeClose', event)) {
+			return;
+		}
+
+		if (self.overlay) {
+			self.overlay.destroy();
+		}
+		self.uiDialog.unbind('keypress.ui-dialog');
+
+		self._isOpen = false;
+
+		if (self.options.hide) {
+			self.uiDialog.hide(self.options.hide, function() {
+				self._trigger('close', event);
+			});
+		} else {
+			self.uiDialog.hide();
+			self._trigger('close', event);
+		}
+
+		$.ui.dialog.overlay.resize();
+
+		// adjust the maxZ to allow other modal dialogs to continue to work (see #4309)
+		if (self.options.modal) {
+			maxZ = 0;
+			$('.ui-dialog').each(function() {
+				if (this !== self.uiDialog[0]) {
+					thisZ = $(this).css('z-index');
+					if(!isNaN(thisZ)) {
+						maxZ = Math.max(maxZ, thisZ);
+					}
+				}
+			});
+			$.ui.dialog.maxZ = maxZ;
+		}
+
+		return self;
+	},
+
+	isOpen: function() {
+		return this._isOpen;
+	},
+
+	// the force parameter allows us to move modal dialogs to their correct
+	// position on open
+	moveToTop: function(force, event) {
+		var self = this,
+			options = self.options,
+			saveScroll;
+
+		if ((options.modal && !force) ||
+			(!options.stack && !options.modal)) {
+			return self._trigger('focus', event);
+		}
+
+		if (options.zIndex > $.ui.dialog.maxZ) {
+			$.ui.dialog.maxZ = options.zIndex;
+		}
+		if (self.overlay) {
+			$.ui.dialog.maxZ += 1;
+			self.overlay.$el.css('z-index', $.ui.dialog.overlay.maxZ = $.ui.dialog.maxZ);
+		}
+
+		//Save and then restore scroll since Opera 9.5+ resets when parent z-Index is changed.
+		//  http://ui.jquery.com/bugs/ticket/3193
+		saveScroll = { scrollTop: self.element.scrollTop(), scrollLeft: self.element.scrollLeft() };
+		$.ui.dialog.maxZ += 1;
+		self.uiDialog.css('z-index', $.ui.dialog.maxZ);
+		self.element.attr(saveScroll);
+		self._trigger('focus', event);
+
+		return self;
+	},
+
+	open: function() {
+		if (this._isOpen) { return; }
+
+		var self = this,
+			options = self.options,
+			uiDialog = self.uiDialog;
+
+		self.overlay = options.modal ? new $.ui.dialog.overlay(self) : null;
+		self._size();
+		self._position(options.position);
+		uiDialog.show(options.show);
+		self.moveToTop(true);
+
+		// prevent tabbing out of modal dialogs
+		if ( options.modal ) {
+			uiDialog.bind( "keydown.ui-dialog", function( event ) {
+				if ( event.keyCode !== $.ui.keyCode.TAB ) {
+					return;
+				}
+
+				var tabbables = $(':tabbable', this),
+					first = tabbables.filter(':first'),
+					last  = tabbables.filter(':last');
+
+				if (event.target === last[0] && !event.shiftKey) {
+					first.focus(1);
+					return false;
+				} else if (event.target === first[0] && event.shiftKey) {
+					last.focus(1);
+					return false;
+				}
+			});
+		}
+
+		// set focus to the first tabbable element in the content area or the first button
+		// if there are no tabbable elements, set focus on the dialog itself
+		$(self.element.find(':tabbable').get().concat(
+			uiDialog.find('.ui-dialog-buttonpane :tabbable').get().concat(
+				uiDialog.get()))).eq(0).focus();
+
+		self._isOpen = true;
+		self._trigger('open');
+
+		return self;
+	},
+
+	_createButtons: function(buttons) {
+		var self = this,
+			hasButtons = false,
+			uiDialogButtonPane = $('<div></div>')
+				.addClass(
+					'ui-dialog-buttonpane ' +
+					'ui-widget-content ' +
+					'ui-helper-clearfix'
+				),
+			uiButtonSet = $( "<div></div>" )
+				.addClass( "ui-dialog-buttonset" )
+				.appendTo( uiDialogButtonPane );
+
+		// if we already have a button pane, remove it
+		self.uiDialog.find('.ui-dialog-buttonpane').remove();
+
+		if (typeof buttons === 'object' && buttons !== null) {
+			$.each(buttons, function() {
+				return !(hasButtons = true);
+			});
+		}
+		if (hasButtons) {
+			$.each(buttons, function(name, props) {
+				props = $.isFunction( props ) ?
+					{ click: props, text: name } :
+					props;
+				var button = $('<button type="button"></button>')
+					.click(function() {
+						props.click.apply(self.element[0], arguments);
+					})
+					.appendTo(uiButtonSet);
+				// can't use .attr( props, true ) with jQuery 1.3.2.
+				$.each( props, function( key, value ) {
+					if ( key === "click" ) {
+						return;
+					}
+					if ( key in button ) {
+						button[ key ]( value );
+					} else {
+						button.attr( key, value );
+					}
+				});
+				if ($.fn.button) {
+					button.button();
+				}
+			});
+			uiDialogButtonPane.appendTo(self.uiDialog);
+		}
+	},
+
+	_makeDraggable: function() {
+		var self = this,
+			options = self.options,
+			doc = $(document),
+			heightBeforeDrag;
+
+		function filteredUi(ui) {
+			return {
+				position: ui.position,
+				offset: ui.offset
+			};
+		}
+
+		self.uiDialog.draggable({
+			cancel: '.ui-dialog-content, .ui-dialog-titlebar-close',
+			handle: '.ui-dialog-titlebar',
+			containment: 'document',
+			start: function(event, ui) {
+				heightBeforeDrag = options.height === "auto" ? "auto" : $(this).height();
+				$(this).height($(this).height()).addClass("ui-dialog-dragging");
+				self._trigger('dragStart', event, filteredUi(ui));
+			},
+			drag: function(event, ui) {
+				self._trigger('drag', event, filteredUi(ui));
+			},
+			stop: function(event, ui) {
+				options.position = [ui.position.left - doc.scrollLeft(),
+					ui.position.top - doc.scrollTop()];
+				$(this).removeClass("ui-dialog-dragging").height(heightBeforeDrag);
+				self._trigger('dragStop', event, filteredUi(ui));
+				$.ui.dialog.overlay.resize();
+			}
+		});
+	},
+
+	_makeResizable: function(handles) {
+		handles = (handles === undefined ? this.options.resizable : handles);
+		var self = this,
+			options = self.options,
+			// .ui-resizable has position: relative defined in the stylesheet
+			// but dialogs have to use absolute or fixed positioning
+			position = self.uiDialog.css('position'),
+			resizeHandles = (typeof handles === 'string' ?
+				handles	:
+				'n,e,s,w,se,sw,ne,nw'
+			);
+
+		function filteredUi(ui) {
+			return {
+				originalPosition: ui.originalPosition,
+				originalSize: ui.originalSize,
+				position: ui.position,
+				size: ui.size
+			};
+		}
+
+		self.uiDialog.resizable({
+			cancel: '.ui-dialog-content',
+			containment: 'document',
+			alsoResize: self.element,
+			maxWidth: options.maxWidth,
+			maxHeight: options.maxHeight,
+			minWidth: options.minWidth,
+			minHeight: self._minHeight(),
+			handles: resizeHandles,
+			start: function(event, ui) {
+				$(this).addClass("ui-dialog-resizing");
+				self._trigger('resizeStart', event, filteredUi(ui));
+			},
+			resize: function(event, ui) {
+				self._trigger('resize', event, filteredUi(ui));
+			},
+			stop: function(event, ui) {
+				$(this).removeClass("ui-dialog-resizing");
+				options.height = $(this).height();
+				options.width = $(this).width();
+				self._trigger('resizeStop', event, filteredUi(ui));
+				$.ui.dialog.overlay.resize();
+			}
+		})
+		.css('position', position)
+		.find('.ui-resizable-se').addClass('ui-icon ui-icon-grip-diagonal-se');
+	},
+
+	_minHeight: function() {
+		var options = this.options;
+
+		if (options.height === 'auto') {
+			return options.minHeight;
+		} else {
+			return Math.min(options.minHeight, options.height);
+		}
+	},
+
+	_position: function(position) {
+		var myAt = [],
+			offset = [0, 0],
+			isVisible;
+
+		if (position) {
+			// deep extending converts arrays to objects in jQuery <= 1.3.2 :-(
+	//		if (typeof position == 'string' || $.isArray(position)) {
+	//			myAt = $.isArray(position) ? position : position.split(' ');
+
+			if (typeof position === 'string' || (typeof position === 'object' && '0' in position)) {
+				myAt = position.split ? position.split(' ') : [position[0], position[1]];
+				if (myAt.length === 1) {
+					myAt[1] = myAt[0];
+				}
+
+				$.each(['left', 'top'], function(i, offsetPosition) {
+					if (+myAt[i] === myAt[i]) {
+						offset[i] = myAt[i];
+						myAt[i] = offsetPosition;
+					}
+				});
+
+				position = {
+					my: myAt.join(" "),
+					at: myAt.join(" "),
+					offset: offset.join(" ")
+				};
+			} 
+
+			position = $.extend({}, $.ui.dialog.prototype.options.position, position);
+		} else {
+			position = $.ui.dialog.prototype.options.position;
+		}
+
+		// need to show the dialog to get the actual offset in the position plugin
+		isVisible = this.uiDialog.is(':visible');
+		if (!isVisible) {
+			this.uiDialog.show();
+		}
+		this.uiDialog
+			// workaround for jQuery bug #5781 http://dev.jquery.com/ticket/5781
+			.css({ top: 0, left: 0 })
+			.position($.extend({ of: window }, position));
+		if (!isVisible) {
+			this.uiDialog.hide();
+		}
+	},
+
+	_setOptions: function( options ) {
+		var self = this,
+			resizableOptions = {},
+			resize = false;
+
+		$.each( options, function( key, value ) {
+			self._setOption( key, value );
+			
+			if ( key in sizeRelatedOptions ) {
+				resize = true;
+			}
+			if ( key in resizableRelatedOptions ) {
+				resizableOptions[ key ] = value;
+			}
+		});
+
+		if ( resize ) {
+			this._size();
+		}
+		if ( this.uiDialog.is( ":data(resizable)" ) ) {
+			this.uiDialog.resizable( "option", resizableOptions );
+		}
+	},
+
+	_setOption: function(key, value){
+		var self = this,
+			uiDialog = self.uiDialog;
+
+		switch (key) {
+			//handling of deprecated beforeclose (vs beforeClose) option
+			//Ticket #4669 http://dev.jqueryui.com/ticket/4669
+			//TODO: remove in 1.9pre
+			case "beforeclose":
+				key = "beforeClose";
+				break;
+			case "buttons":
+				self._createButtons(value);
+				break;
+			case "closeText":
+				// ensure that we always pass a string
+				self.uiDialogTitlebarCloseText.text("" + value);
+				break;
+			case "dialogClass":
+				uiDialog
+					.removeClass(self.options.dialogClass)
+					.addClass(uiDialogClasses + value);
+				break;
+			case "disabled":
+				if (value) {
+					uiDialog.addClass('ui-dialog-disabled');
+				} else {
+					uiDialog.removeClass('ui-dialog-disabled');
+				}
+				break;
+			case "draggable":
+				var isDraggable = uiDialog.is( ":data(draggable)" );
+				if ( isDraggable && !value ) {
+					uiDialog.draggable( "destroy" );
+				}
+				
+				if ( !isDraggable && value ) {
+					self._makeDraggable();
+				}
+				break;
+			case "position":
+				self._position(value);
+				break;
+			case "resizable":
+				// currently resizable, becoming non-resizable
+				var isResizable = uiDialog.is( ":data(resizable)" );
+				if (isResizable && !value) {
+					uiDialog.resizable('destroy');
+				}
+
+				// currently resizable, changing handles
+				if (isResizable && typeof value === 'string') {
+					uiDialog.resizable('option', 'handles', value);
+				}
+
+				// currently non-resizable, becoming resizable
+				if (!isResizable && value !== false) {
+					self._makeResizable(value);
+				}
+				break;
+			case "title":
+				// convert whatever was passed in o a string, for html() to not throw up
+				$(".ui-dialog-title", self.uiDialogTitlebar).html("" + (value || '&#160;'));
+				break;
+		}
+
+		$.Widget.prototype._setOption.apply(self, arguments);
+	},
+
+	_size: function() {
+		/* If the user has resized the dialog, the .ui-dialog and .ui-dialog-content
+		 * divs will both have width and height set, so we need to reset them
+		 */
+		var options = this.options,
+			nonContentHeight,
+			minContentHeight,
+			isVisible = this.uiDialog.is( ":visible" );
+
+		// reset content sizing
+		this.element.show().css({
+			width: 'auto',
+			minHeight: 0,
+			height: 0
+		});
+
+		if (options.minWidth > options.width) {
+			options.width = options.minWidth;
+		}
+
+		// reset wrapper sizing
+		// determine the height of all the non-content elements
+		nonContentHeight = this.uiDialog.css({
+				height: 'auto',
+				width: options.width
+			})
+			.height();
+		minContentHeight = Math.max( 0, options.minHeight - nonContentHeight );
+		
+		if ( options.height === "auto" ) {
+			// only needed for IE6 support
+			if ( $.support.minHeight ) {
+				this.element.css({
+					minHeight: minContentHeight,
+					height: "auto"
+				});
+			} else {
+				this.uiDialog.show();
+				var autoHeight = this.element.css( "height", "auto" ).height();
+				if ( !isVisible ) {
+					this.uiDialog.hide();
+				}
+				this.element.height( Math.max( autoHeight, minContentHeight ) );
+			}
+		} else {
+			this.element.height( Math.max( options.height - nonContentHeight, 0 ) );
+		}
+
+		if (this.uiDialog.is(':data(resizable)')) {
+			this.uiDialog.resizable('option', 'minHeight', this._minHeight());
+		}
+	}
+});
+
+$.extend($.ui.dialog, {
+	version: "1.8.23",
+
+	uuid: 0,
+	maxZ: 0,
+
+	getTitleId: function($el) {
+		var id = $el.attr('id');
+		if (!id) {
+			this.uuid += 1;
+			id = this.uuid;
+		}
+		return 'ui-dialog-title-' + id;
+	},
+
+	overlay: function(dialog) {
+		this.$el = $.ui.dialog.overlay.create(dialog);
+	}
+});
+
+$.extend($.ui.dialog.overlay, {
+	instances: [],
+	// reuse old instances due to IE memory leak with alpha transparency (see #5185)
+	oldInstances: [],
+	maxZ: 0,
+	events: $.map('focus,mousedown,mouseup,keydown,keypress,click'.split(','),
+		function(event) { return event + '.dialog-overlay'; }).join(' '),
+	create: function(dialog) {
+		if (this.instances.length === 0) {
+			// prevent use of anchors and inputs
+			// we use a setTimeout in case the overlay is created from an
+			// event that we're going to be cancelling (see #2804)
+			setTimeout(function() {
+				// handle $(el).dialog().dialog('close') (see #4065)
+				if ($.ui.dialog.overlay.instances.length) {
+					$(document).bind($.ui.dialog.overlay.events, function(event) {
+						// stop events if the z-index of the target is < the z-index of the overlay
+						// we cannot return true when we don't want to cancel the event (#3523)
+						if ($(event.target).zIndex() < $.ui.dialog.overlay.maxZ) {
+							return false;
+						}
+					});
+				}
+			}, 1);
+
+			// allow closing by pressing the escape key
+			$(document).bind('keydown.dialog-overlay', function(event) {
+				if (dialog.options.closeOnEscape && !event.isDefaultPrevented() && event.keyCode &&
+					event.keyCode === $.ui.keyCode.ESCAPE) {
+					
+					dialog.close(event);
+					event.preventDefault();
+				}
+			});
+
+			// handle window resize
+			$(window).bind('resize.dialog-overlay', $.ui.dialog.overlay.resize);
+		}
+
+		var $el = (this.oldInstances.pop() || $('<div></div>').addClass('ui-widget-overlay'))
+			.appendTo(document.body)
+			.css({
+				width: this.width(),
+				height: this.height()
+			});
+
+		if ($.fn.bgiframe) {
+			$el.bgiframe();
+		}
+
+		this.instances.push($el);
+		return $el;
+	},
+
+	destroy: function($el) {
+		var indexOf = $.inArray($el, this.instances);
+		if (indexOf != -1){
+			this.oldInstances.push(this.instances.splice(indexOf, 1)[0]);
+		}
+
+		if (this.instances.length === 0) {
+			$([document, window]).unbind('.dialog-overlay');
+		}
+
+		$el.remove();
+		
+		// adjust the maxZ to allow other modal dialogs to continue to work (see #4309)
+		var maxZ = 0;
+		$.each(this.instances, function() {
+			maxZ = Math.max(maxZ, this.css('z-index'));
+		});
+		this.maxZ = maxZ;
+	},
+
+	height: function() {
+		var scrollHeight,
+			offsetHeight;
+		// handle IE 6
+		if ($.browser.msie && $.browser.version < 7) {
+			scrollHeight = Math.max(
+				document.documentElement.scrollHeight,
+				document.body.scrollHeight
+			);
+			offsetHeight = Math.max(
+				document.documentElement.offsetHeight,
+				document.body.offsetHeight
+			);
+
+			if (scrollHeight < offsetHeight) {
+				return $(window).height() + 'px';
+			} else {
+				return scrollHeight + 'px';
+			}
+		// handle "good" browsers
+		} else {
+			return $(document).height() + 'px';
+		}
+	},
+
+	width: function() {
+		var scrollWidth,
+			offsetWidth;
+		// handle IE
+		if ( $.browser.msie ) {
+			scrollWidth = Math.max(
+				document.documentElement.scrollWidth,
+				document.body.scrollWidth
+			);
+			offsetWidth = Math.max(
+				document.documentElement.offsetWidth,
+				document.body.offsetWidth
+			);
+
+			if (scrollWidth < offsetWidth) {
+				return $(window).width() + 'px';
+			} else {
+				return scrollWidth + 'px';
+			}
+		// handle "good" browsers
+		} else {
+			return $(document).width() + 'px';
+		}
+	},
+
+	resize: function() {
+		/* If the dialog is draggable and the user drags it past the
+		 * right edge of the window, the document becomes wider so we
+		 * need to stretch the overlay. If the user then drags the
+		 * dialog back to the left, the document will become narrower,
+		 * so we need to shrink the overlay to the appropriate size.
+		 * This is handled by shrinking the overlay before setting it
+		 * to the full document size.
+		 */
+		var $overlays = $([]);
+		$.each($.ui.dialog.overlay.instances, function() {
+			$overlays = $overlays.add(this);
+		});
+
+		$overlays.css({
+			width: 0,
+			height: 0
+		}).css({
+			width: $.ui.dialog.overlay.width(),
+			height: $.ui.dialog.overlay.height()
+		});
+	}
+});
+
+$.extend($.ui.dialog.overlay.prototype, {
+	destroy: function() {
+		$.ui.dialog.overlay.destroy(this.$el);
+	}
+});
+
+}(jQuery));
+/*!
+ * jQuery UI Slider 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Slider
+ *
+ * Depends:
+ *	jquery.ui.core.js
+ *	jquery.ui.mouse.js
+ *	jquery.ui.widget.js
+ */
+(function( $, undefined ) {
+
+// number of pages in a slider
+// (how many times can you page up/down to go through the whole range)
+var numPages = 5;
+
+$.widget( "ui.slider", $.ui.mouse, {
+
+	widgetEventPrefix: "slide",
+
+	options: {
+		animate: false,
+		distance: 0,
+		max: 100,
+		min: 0,
+		orientation: "horizontal",
+		range: false,
+		step: 1,
+		value: 0,
+		values: null
+	},
+
+	_create: function() {
+		var self = this,
+			o = this.options,
+			existingHandles = this.element.find( ".ui-slider-handle" ).addClass( "ui-state-default ui-corner-all" ),
+			handle = "<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>",
+			handleCount = ( o.values && o.values.length ) || 1,
+			handles = [];
+
+		this._keySliding = false;
+		this._mouseSliding = false;
+		this._animateOff = true;
+		this._handleIndex = null;
+		this._detectOrientation();
+		this._mouseInit();
+
+		this.element
+			.addClass( "ui-slider" +
+				" ui-slider-" + this.orientation +
+				" ui-widget" +
+				" ui-widget-content" +
+				" ui-corner-all" +
+				( o.disabled ? " ui-slider-disabled ui-disabled" : "" ) );
+
+		this.range = $([]);
+
+		if ( o.range ) {
+			if ( o.range === true ) {
+				if ( !o.values ) {
+					o.values = [ this._valueMin(), this._valueMin() ];
+				}
+				if ( o.values.length && o.values.length !== 2 ) {
+					o.values = [ o.values[0], o.values[0] ];
+				}
+			}
+
+			this.range = $( "<div></div>" )
+				.appendTo( this.element )
+				.addClass( "ui-slider-range" +
+				// note: this isn't the most fittingly semantic framework class for this element,
+				// but worked best visually with a variety of themes
+				" ui-widget-header" + 
+				( ( o.range === "min" || o.range === "max" ) ? " ui-slider-range-" + o.range : "" ) );
+		}
+
+		for ( var i = existingHandles.length; i < handleCount; i += 1 ) {
+			handles.push( handle );
+		}
+
+		this.handles = existingHandles.add( $( handles.join( "" ) ).appendTo( self.element ) );
+
+		this.handle = this.handles.eq( 0 );
+
+		this.handles.add( this.range ).filter( "a" )
+			.click(function( event ) {
+				event.preventDefault();
+			})
+			.hover(function() {
+				if ( !o.disabled ) {
+					$( this ).addClass( "ui-state-hover" );
+				}
+			}, function() {
+				$( this ).removeClass( "ui-state-hover" );
+			})
+			.focus(function() {
+				if ( !o.disabled ) {
+					$( ".ui-slider .ui-state-focus" ).removeClass( "ui-state-focus" );
+					$( this ).addClass( "ui-state-focus" );
+				} else {
+					$( this ).blur();
+				}
+			})
+			.blur(function() {
+				$( this ).removeClass( "ui-state-focus" );
+			});
+
+		this.handles.each(function( i ) {
+			$( this ).data( "index.ui-slider-handle", i );
+		});
+
+		this.handles
+			.keydown(function( event ) {
+				var index = $( this ).data( "index.ui-slider-handle" ),
+					allowed,
+					curVal,
+					newVal,
+					step;
+	
+				if ( self.options.disabled ) {
+					return;
+				}
+	
+				switch ( event.keyCode ) {
+					case $.ui.keyCode.HOME:
+					case $.ui.keyCode.END:
+					case $.ui.keyCode.PAGE_UP:
+					case $.ui.keyCode.PAGE_DOWN:
+					case $.ui.keyCode.UP:
+					case $.ui.keyCode.RIGHT:
+					case $.ui.keyCode.DOWN:
+					case $.ui.keyCode.LEFT:
+						event.preventDefault();
+						if ( !self._keySliding ) {
+							self._keySliding = true;
+							$( this ).addClass( "ui-state-active" );
+							allowed = self._start( event, index );
+							if ( allowed === false ) {
+								return;
+							}
+						}
+						break;
+				}
+	
+				step = self.options.step;
+				if ( self.options.values && self.options.values.length ) {
+					curVal = newVal = self.values( index );
+				} else {
+					curVal = newVal = self.value();
+				}
+	
+				switch ( event.keyCode ) {
+					case $.ui.keyCode.HOME:
+						newVal = self._valueMin();
+						break;
+					case $.ui.keyCode.END:
+						newVal = self._valueMax();
+						break;
+					case $.ui.keyCode.PAGE_UP:
+						newVal = self._trimAlignValue( curVal + ( (self._valueMax() - self._valueMin()) / numPages ) );
+						break;
+					case $.ui.keyCode.PAGE_DOWN:
+						newVal = self._trimAlignValue( curVal - ( (self._valueMax() - self._valueMin()) / numPages ) );
+						break;
+					case $.ui.keyCode.UP:
+					case $.ui.keyCode.RIGHT:
+						if ( curVal === self._valueMax() ) {
+							return;
+						}
+						newVal = self._trimAlignValue( curVal + step );
+						break;
+					case $.ui.keyCode.DOWN:
+					case $.ui.keyCode.LEFT:
+						if ( curVal === self._valueMin() ) {
+							return;
+						}
+						newVal = self._trimAlignValue( curVal - step );
+						break;
+				}
+	
+				self._slide( event, index, newVal );
+			})
+			.keyup(function( event ) {
+				var index = $( this ).data( "index.ui-slider-handle" );
+	
+				if ( self._keySliding ) {
+					self._keySliding = false;
+					self._stop( event, index );
+					self._change( event, index );
+					$( this ).removeClass( "ui-state-active" );
+				}
+	
+			});
+
+		this._refreshValue();
+
+		this._animateOff = false;
+	},
+
+	destroy: function() {
+		this.handles.remove();
+		this.range.remove();
+
+		this.element
+			.removeClass( "ui-slider" +
+				" ui-slider-horizontal" +
+				" ui-slider-vertical" +
+				" ui-slider-disabled" +
+				" ui-widget" +
+				" ui-widget-content" +
+				" ui-corner-all" )
+			.removeData( "slider" )
+			.unbind( ".slider" );
+
+		this._mouseDestroy();
+
+		return this;
+	},
+
+	_mouseCapture: function( event ) {
+		var o = this.options,
+			position,
+			normValue,
+			distance,
+			closestHandle,
+			self,
+			index,
+			allowed,
+			offset,
+			mouseOverHandle;
+
+		if ( o.disabled ) {
+			return false;
+		}
+
+		this.elementSize = {
+			width: this.element.outerWidth(),
+			height: this.element.outerHeight()
+		};
+		this.elementOffset = this.element.offset();
+
+		position = { x: event.pageX, y: event.pageY };
+		normValue = this._normValueFromMouse( position );
+		distance = this._valueMax() - this._valueMin() + 1;
+		self = this;
+		this.handles.each(function( i ) {
+			var thisDistance = Math.abs( normValue - self.values(i) );
+			if ( distance > thisDistance ) {
+				distance = thisDistance;
+				closestHandle = $( this );
+				index = i;
+			}
+		});
+
+		// workaround for bug #3736 (if both handles of a range are at 0,
+		// the first is always used as the one with least distance,
+		// and moving it is obviously prevented by preventing negative ranges)
+		if( o.range === true && this.values(1) === o.min ) {
+			index += 1;
+			closestHandle = $( this.handles[index] );
+		}
+
+		allowed = this._start( event, index );
+		if ( allowed === false ) {
+			return false;
+		}
+		this._mouseSliding = true;
+
+		self._handleIndex = index;
+
+		closestHandle
+			.addClass( "ui-state-active" )
+			.focus();
+		
+		offset = closestHandle.offset();
+		mouseOverHandle = !$( event.target ).parents().andSelf().is( ".ui-slider-handle" );
+		this._clickOffset = mouseOverHandle ? { left: 0, top: 0 } : {
+			left: event.pageX - offset.left - ( closestHandle.width() / 2 ),
+			top: event.pageY - offset.top -
+				( closestHandle.height() / 2 ) -
+				( parseInt( closestHandle.css("borderTopWidth"), 10 ) || 0 ) -
+				( parseInt( closestHandle.css("borderBottomWidth"), 10 ) || 0) +
+				( parseInt( closestHandle.css("marginTop"), 10 ) || 0)
+		};
+
+		if ( !this.handles.hasClass( "ui-state-hover" ) ) {
+			this._slide( event, index, normValue );
+		}
+		this._animateOff = true;
+		return true;
+	},
+
+	_mouseStart: function( event ) {
+		return true;
+	},
+
+	_mouseDrag: function( event ) {
+		var position = { x: event.pageX, y: event.pageY },
+			normValue = this._normValueFromMouse( position );
+		
+		this._slide( event, this._handleIndex, normValue );
+
+		return false;
+	},
+
+	_mouseStop: function( event ) {
+		this.handles.removeClass( "ui-state-active" );
+		this._mouseSliding = false;
+
+		this._stop( event, this._handleIndex );
+		this._change( event, this._handleIndex );
+
+		this._handleIndex = null;
+		this._clickOffset = null;
+		this._animateOff = false;
+
+		return false;
+	},
+	
+	_detectOrientation: function() {
+		this.orientation = ( this.options.orientation === "vertical" ) ? "vertical" : "horizontal";
+	},
+
+	_normValueFromMouse: function( position ) {
+		var pixelTotal,
+			pixelMouse,
+			percentMouse,
+			valueTotal,
+			valueMouse;
+
+		if ( this.orientation === "horizontal" ) {
+			pixelTotal = this.elementSize.width;
+			pixelMouse = position.x - this.elementOffset.left - ( this._clickOffset ? this._clickOffset.left : 0 );
+		} else {
+			pixelTotal = this.elementSize.height;
+			pixelMouse = position.y - this.elementOffset.top - ( this._clickOffset ? this._clickOffset.top : 0 );
+		}
+
+		percentMouse = ( pixelMouse / pixelTotal );
+		if ( percentMouse > 1 ) {
+			percentMouse = 1;
+		}
+		if ( percentMouse < 0 ) {
+			percentMouse = 0;
+		}
+		if ( this.orientation === "vertical" ) {
+			percentMouse = 1 - percentMouse;
+		}
+
+		valueTotal = this._valueMax() - this._valueMin();
+		valueMouse = this._valueMin() + percentMouse * valueTotal;
+
+		return this._trimAlignValue( valueMouse );
+	},
+
+	_start: function( event, index ) {
+		var uiHash = {
+			handle: this.handles[ index ],
+			value: this.value()
+		};
+		if ( this.options.values && this.options.values.length ) {
+			uiHash.value = this.values( index );
+			uiHash.values = this.values();
+		}
+		return this._trigger( "start", event, uiHash );
+	},
+
+	_slide: function( event, index, newVal ) {
+		var otherVal,
+			newValues,
+			allowed;
+
+		if ( this.options.values && this.options.values.length ) {
+			otherVal = this.values( index ? 0 : 1 );
+
+			if ( ( this.options.values.length === 2 && this.options.range === true ) && 
+					( ( index === 0 && newVal > otherVal) || ( index === 1 && newVal < otherVal ) )
+				) {
+				newVal = otherVal;
+			}
+
+			if ( newVal !== this.values( index ) ) {
+				newValues = this.values();
+				newValues[ index ] = newVal;
+				// A slide can be canceled by returning false from the slide callback
+				allowed = this._trigger( "slide", event, {
+					handle: this.handles[ index ],
+					value: newVal,
+					values: newValues
+				} );
+				otherVal = this.values( index ? 0 : 1 );
+				if ( allowed !== false ) {
+					this.values( index, newVal, true );
+				}
+			}
+		} else {
+			if ( newVal !== this.value() ) {
+				// A slide can be canceled by returning false from the slide callback
+				allowed = this._trigger( "slide", event, {
+					handle: this.handles[ index ],
+					value: newVal
+				} );
+				if ( allowed !== false ) {
+					this.value( newVal );
+				}
+			}
+		}
+	},
+
+	_stop: function( event, index ) {
+		var uiHash = {
+			handle: this.handles[ index ],
+			value: this.value()
+		};
+		if ( this.options.values && this.options.values.length ) {
+			uiHash.value = this.values( index );
+			uiHash.values = this.values();
+		}
+
+		this._trigger( "stop", event, uiHash );
+	},
+
+	_change: function( event, index ) {
+		if ( !this._keySliding && !this._mouseSliding ) {
+			var uiHash = {
+				handle: this.handles[ index ],
+				value: this.value()
+			};
+			if ( this.options.values && this.options.values.length ) {
+				uiHash.value = this.values( index );
+				uiHash.values = this.values();
+			}
+
+			this._trigger( "change", event, uiHash );
+		}
+	},
+
+	value: function( newValue ) {
+		if ( arguments.length ) {
+			this.options.value = this._trimAlignValue( newValue );
+			this._refreshValue();
+			this._change( null, 0 );
+			return;
+		}
+
+		return this._value();
+	},
+
+	values: function( index, newValue ) {
+		var vals,
+			newValues,
+			i;
+
+		if ( arguments.length > 1 ) {
+			this.options.values[ index ] = this._trimAlignValue( newValue );
+			this._refreshValue();
+			this._change( null, index );
+			return;
+		}
+
+		if ( arguments.length ) {
+			if ( $.isArray( arguments[ 0 ] ) ) {
+				vals = this.options.values;
+				newValues = arguments[ 0 ];
+				for ( i = 0; i < vals.length; i += 1 ) {
+					vals[ i ] = this._trimAlignValue( newValues[ i ] );
+					this._change( null, i );
+				}
+				this._refreshValue();
+			} else {
+				if ( this.options.values && this.options.values.length ) {
+					return this._values( index );
+				} else {
+					return this.value();
+				}
+			}
+		} else {
+			return this._values();
+		}
+	},
+
+	_setOption: function( key, value ) {
+		var i,
+			valsLength = 0;
+
+		if ( $.isArray( this.options.values ) ) {
+			valsLength = this.options.values.length;
+		}
+
+		$.Widget.prototype._setOption.apply( this, arguments );
+
+		switch ( key ) {
+			case "disabled":
+				if ( value ) {
+					this.handles.filter( ".ui-state-focus" ).blur();
+					this.handles.removeClass( "ui-state-hover" );
+					this.handles.propAttr( "disabled", true );
+					this.element.addClass( "ui-disabled" );
+				} else {
+					this.handles.propAttr( "disabled", false );
+					this.element.removeClass( "ui-disabled" );
+				}
+				break;
+			case "orientation":
+				this._detectOrientation();
+				this.element
+					.removeClass( "ui-slider-horizontal ui-slider-vertical" )
+					.addClass( "ui-slider-" + this.orientation );
+				this._refreshValue();
+				break;
+			case "value":
+				this._animateOff = true;
+				this._refreshValue();
+				this._change( null, 0 );
+				this._animateOff = false;
+				break;
+			case "values":
+				this._animateOff = true;
+				this._refreshValue();
+				for ( i = 0; i < valsLength; i += 1 ) {
+					this._change( null, i );
+				}
+				this._animateOff = false;
+				break;
+		}
+	},
+
+	//internal value getter
+	// _value() returns value trimmed by min and max, aligned by step
+	_value: function() {
+		var val = this.options.value;
+		val = this._trimAlignValue( val );
+
+		return val;
+	},
+
+	//internal values getter
+	// _values() returns array of values trimmed by min and max, aligned by step
+	// _values( index ) returns single value trimmed by min and max, aligned by step
+	_values: function( index ) {
+		var val,
+			vals,
+			i;
+
+		if ( arguments.length ) {
+			val = this.options.values[ index ];
+			val = this._trimAlignValue( val );
+
+			return val;
+		} else {
+			// .slice() creates a copy of the array
+			// this copy gets trimmed by min and max and then returned
+			vals = this.options.values.slice();
+			for ( i = 0; i < vals.length; i+= 1) {
+				vals[ i ] = this._trimAlignValue( vals[ i ] );
+			}
+
+			return vals;
+		}
+	},
+	
+	// returns the step-aligned value that val is closest to, between (inclusive) min and max
+	_trimAlignValue: function( val ) {
+		if ( val <= this._valueMin() ) {
+			return this._valueMin();
+		}
+		if ( val >= this._valueMax() ) {
+			return this._valueMax();
+		}
+		var step = ( this.options.step > 0 ) ? this.options.step : 1,
+			valModStep = (val - this._valueMin()) % step,
+			alignValue = val - valModStep;
+
+		if ( Math.abs(valModStep) * 2 >= step ) {
+			alignValue += ( valModStep > 0 ) ? step : ( -step );
+		}
+
+		// Since JavaScript has problems with large floats, round
+		// the final value to 5 digits after the decimal point (see #4124)
+		return parseFloat( alignValue.toFixed(5) );
+	},
+
+	_valueMin: function() {
+		return this.options.min;
+	},
+
+	_valueMax: function() {
+		return this.options.max;
+	},
+	
+	_refreshValue: function() {
+		var oRange = this.options.range,
+			o = this.options,
+			self = this,
+			animate = ( !this._animateOff ) ? o.animate : false,
+			valPercent,
+			_set = {},
+			lastValPercent,
+			value,
+			valueMin,
+			valueMax;
+
+		if ( this.options.values && this.options.values.length ) {
+			this.handles.each(function( i, j ) {
+				valPercent = ( self.values(i) - self._valueMin() ) / ( self._valueMax() - self._valueMin() ) * 100;
+				_set[ self.orientation === "horizontal" ? "left" : "bottom" ] = valPercent + "%";
+				$( this ).stop( 1, 1 )[ animate ? "animate" : "css" ]( _set, o.animate );
+				if ( self.options.range === true ) {
+					if ( self.orientation === "horizontal" ) {
+						if ( i === 0 ) {
+							self.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { left: valPercent + "%" }, o.animate );
+						}
+						if ( i === 1 ) {
+							self.range[ animate ? "animate" : "css" ]( { width: ( valPercent - lastValPercent ) + "%" }, { queue: false, duration: o.animate } );
+						}
+					} else {
+						if ( i === 0 ) {
+							self.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { bottom: ( valPercent ) + "%" }, o.animate );
+						}
+						if ( i === 1 ) {
+							self.range[ animate ? "animate" : "css" ]( { height: ( valPercent - lastValPercent ) + "%" }, { queue: false, duration: o.animate } );
+						}
+					}
+				}
+				lastValPercent = valPercent;
+			});
+		} else {
+			value = this.value();
+			valueMin = this._valueMin();
+			valueMax = this._valueMax();
+			valPercent = ( valueMax !== valueMin ) ?
+					( value - valueMin ) / ( valueMax - valueMin ) * 100 :
+					0;
+			_set[ self.orientation === "horizontal" ? "left" : "bottom" ] = valPercent + "%";
+			this.handle.stop( 1, 1 )[ animate ? "animate" : "css" ]( _set, o.animate );
+
+			if ( oRange === "min" && this.orientation === "horizontal" ) {
+				this.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { width: valPercent + "%" }, o.animate );
+			}
+			if ( oRange === "max" && this.orientation === "horizontal" ) {
+				this.range[ animate ? "animate" : "css" ]( { width: ( 100 - valPercent ) + "%" }, { queue: false, duration: o.animate } );
+			}
+			if ( oRange === "min" && this.orientation === "vertical" ) {
+				this.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { height: valPercent + "%" }, o.animate );
+			}
+			if ( oRange === "max" && this.orientation === "vertical" ) {
+				this.range[ animate ? "animate" : "css" ]( { height: ( 100 - valPercent ) + "%" }, { queue: false, duration: o.animate } );
+			}
+		}
+	}
+
+});
+
+$.extend( $.ui.slider, {
+	version: "1.8.23"
+});
+
+}(jQuery));
+/*!
+ * jQuery UI Tabs 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Tabs
+ *
+ * Depends:
+ *	jquery.ui.core.js
+ *	jquery.ui.widget.js
+ */
+(function( $, undefined ) {
+
+var tabId = 0,
+	listId = 0;
+
+function getNextTabId() {
+	return ++tabId;
+}
+
+function getNextListId() {
+	return ++listId;
+}
+
+$.widget( "ui.tabs", {
+	options: {
+		add: null,
+		ajaxOptions: null,
+		cache: false,
+		cookie: null, // e.g. { expires: 7, path: '/', domain: 'jquery.com', secure: true }
+		collapsible: false,
+		disable: null,
+		disabled: [],
+		enable: null,
+		event: "click",
+		fx: null, // e.g. { height: 'toggle', opacity: 'toggle', duration: 200 }
+		idPrefix: "ui-tabs-",
+		load: null,
+		panelTemplate: "<div></div>",
+		remove: null,
+		select: null,
+		show: null,
+		spinner: "<em>Loading&#8230;</em>",
+		tabTemplate: "<li><a href='#{href}'><span>#{label}</span></a></li>"
+	},
+
+	_create: function() {
+		this._tabify( true );
+	},
+
+	_setOption: function( key, value ) {
+		if ( key == "selected" ) {
+			if (this.options.collapsible && value == this.options.selected ) {
+				return;
+			}
+			this.select( value );
+		} else {
+			this.options[ key ] = value;
+			this._tabify();
+		}
+	},
+
+	_tabId: function( a ) {
+		return a.title && a.title.replace( /\s/g, "_" ).replace( /[^\w\u00c0-\uFFFF-]/g, "" ) ||
+			this.options.idPrefix + getNextTabId();
+	},
+
+	_sanitizeSelector: function( hash ) {
+		// we need this because an id may contain a ":"
+		return hash.replace( /:/g, "\\:" );
+	},
+
+	_cookie: function() {
+		var cookie = this.cookie ||
+			( this.cookie = this.options.cookie.name || "ui-tabs-" + getNextListId() );
+		return $.cookie.apply( null, [ cookie ].concat( $.makeArray( arguments ) ) );
+	},
+
+	_ui: function( tab, panel ) {
+		return {
+			tab: tab,
+			panel: panel,
+			index: this.anchors.index( tab )
+		};
+	},
+
+	_cleanup: function() {
+		// restore all former loading tabs labels
+		this.lis.filter( ".ui-state-processing" )
+			.removeClass( "ui-state-processing" )
+			.find( "span:data(label.tabs)" )
+				.each(function() {
+					var el = $( this );
+					el.html( el.data( "label.tabs" ) ).removeData( "label.tabs" );
+				});
+	},
+
+	_tabify: function( init ) {
+		var self = this,
+			o = this.options,
+			fragmentId = /^#.+/; // Safari 2 reports '#' for an empty hash
+
+		this.list = this.element.find( "ol,ul" ).eq( 0 );
+		this.lis = $( " > li:has(a[href])", this.list );
+		this.anchors = this.lis.map(function() {
+			return $( "a", this )[ 0 ];
+		});
+		this.panels = $( [] );
+
+		this.anchors.each(function( i, a ) {
+			var href = $( a ).attr( "href" );
+			// For dynamically created HTML that contains a hash as href IE < 8 expands
+			// such href to the full page url with hash and then misinterprets tab as ajax.
+			// Same consideration applies for an added tab with a fragment identifier
+			// since a[href=#fragment-identifier] does unexpectedly not match.
+			// Thus normalize href attribute...
+			var hrefBase = href.split( "#" )[ 0 ],
+				baseEl;
+			if ( hrefBase && ( hrefBase === location.toString().split( "#" )[ 0 ] ||
+					( baseEl = $( "base" )[ 0 ]) && hrefBase === baseEl.href ) ) {
+				href = a.hash;
+				a.href = href;
+			}
+
+			// inline tab
+			if ( fragmentId.test( href ) ) {
+				self.panels = self.panels.add( self.element.find( self._sanitizeSelector( href ) ) );
+			// remote tab
+			// prevent loading the page itself if href is just "#"
+			} else if ( href && href !== "#" ) {
+				// required for restore on destroy
+				$.data( a, "href.tabs", href );
+
+				// TODO until #3808 is fixed strip fragment identifier from url
+				// (IE fails to load from such url)
+				$.data( a, "load.tabs", href.replace( /#.*$/, "" ) );
+
+				var id = self._tabId( a );
+				a.href = "#" + id;
+				var $panel = self.element.find( "#" + id );
+				if ( !$panel.length ) {
+					$panel = $( o.panelTemplate )
+						.attr( "id", id )
+						.addClass( "ui-tabs-panel ui-widget-content ui-corner-bottom" )
+						.insertAfter( self.panels[ i - 1 ] || self.list );
+					$panel.data( "destroy.tabs", true );
+				}
+				self.panels = self.panels.add( $panel );
+			// invalid tab href
+			} else {
+				o.disabled.push( i );
+			}
+		});
+
+		// initialization from scratch
+		if ( init ) {
+			// attach necessary classes for styling
+			this.element.addClass( "ui-tabs ui-widget ui-widget-content ui-corner-all" );
+			this.list.addClass( "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" );
+			this.lis.addClass( "ui-state-default ui-corner-top" );
+			this.panels.addClass( "ui-tabs-panel ui-widget-content ui-corner-bottom" );
+
+			// Selected tab
+			// use "selected" option or try to retrieve:
+			// 1. from fragment identifier in url
+			// 2. from cookie
+			// 3. from selected class attribute on <li>
+			if ( o.selected === undefined ) {
+				if ( location.hash ) {
+					this.anchors.each(function( i, a ) {
+						if ( a.hash == location.hash ) {
+							o.selected = i;
+							return false;
+						}
+					});
+				}
+				if ( typeof o.selected !== "number" && o.cookie ) {
+					o.selected = parseInt( self._cookie(), 10 );
+				}
+				if ( typeof o.selected !== "number" && this.lis.filter( ".ui-tabs-selected" ).length ) {
+					o.selected = this.lis.index( this.lis.filter( ".ui-tabs-selected" ) );
+				}
+				o.selected = o.selected || ( this.lis.length ? 0 : -1 );
+			} else if ( o.selected === null ) { // usage of null is deprecated, TODO remove in next release
+				o.selected = -1;
+			}
+
+			// sanity check - default to first tab...
+			o.selected = ( ( o.selected >= 0 && this.anchors[ o.selected ] ) || o.selected < 0 )
+				? o.selected
+				: 0;
+
+			// Take disabling tabs via class attribute from HTML
+			// into account and update option properly.
+			// A selected tab cannot become disabled.
+			o.disabled = $.unique( o.disabled.concat(
+				$.map( this.lis.filter( ".ui-state-disabled" ), function( n, i ) {
+					return self.lis.index( n );
+				})
+			) ).sort();
+
+			if ( $.inArray( o.selected, o.disabled ) != -1 ) {
+				o.disabled.splice( $.inArray( o.selected, o.disabled ), 1 );
+			}
+
+			// highlight selected tab
+			this.panels.addClass( "ui-tabs-hide" );
+			this.lis.removeClass( "ui-tabs-selected ui-state-active" );
+			// check for length avoids error when initializing empty list
+			if ( o.selected >= 0 && this.anchors.length ) {
+				self.element.find( self._sanitizeSelector( self.anchors[ o.selected ].hash ) ).removeClass( "ui-tabs-hide" );
+				this.lis.eq( o.selected ).addClass( "ui-tabs-selected ui-state-active" );
+
+				// seems to be expected behavior that the show callback is fired
+				self.element.queue( "tabs", function() {
+					self._trigger( "show", null,
+						self._ui( self.anchors[ o.selected ], self.element.find( self._sanitizeSelector( self.anchors[ o.selected ].hash ) )[ 0 ] ) );
+				});
+
+				this.load( o.selected );
+			}
+
+			// clean up to avoid memory leaks in certain versions of IE 6
+			// TODO: namespace this event
+			$( window ).bind( "unload", function() {
+				self.lis.add( self.anchors ).unbind( ".tabs" );
+				self.lis = self.anchors = self.panels = null;
+			});
+		// update selected after add/remove
+		} else {
+			o.selected = this.lis.index( this.lis.filter( ".ui-tabs-selected" ) );
+		}
+
+		// update collapsible
+		// TODO: use .toggleClass()
+		this.element[ o.collapsible ? "addClass" : "removeClass" ]( "ui-tabs-collapsible" );
+
+		// set or update cookie after init and add/remove respectively
+		if ( o.cookie ) {
+			this._cookie( o.selected, o.cookie );
+		}
+
+		// disable tabs
+		for ( var i = 0, li; ( li = this.lis[ i ] ); i++ ) {
+			$( li )[ $.inArray( i, o.disabled ) != -1 &&
+				// TODO: use .toggleClass()
+				!$( li ).hasClass( "ui-tabs-selected" ) ? "addClass" : "removeClass" ]( "ui-state-disabled" );
+		}
+
+		// reset cache if switching from cached to not cached
+		if ( o.cache === false ) {
+			this.anchors.removeData( "cache.tabs" );
+		}
+
+		// remove all handlers before, tabify may run on existing tabs after add or option change
+		this.lis.add( this.anchors ).unbind( ".tabs" );
+
+		if ( o.event !== "mouseover" ) {
+			var addState = function( state, el ) {
+				if ( el.is( ":not(.ui-state-disabled)" ) ) {
+					el.addClass( "ui-state-" + state );
+				}
+			};
+			var removeState = function( state, el ) {
+				el.removeClass( "ui-state-" + state );
+			};
+			this.lis.bind( "mouseover.tabs" , function() {
+				addState( "hover", $( this ) );
+			});
+			this.lis.bind( "mouseout.tabs", function() {
+				removeState( "hover", $( this ) );
+			});
+			this.anchors.bind( "focus.tabs", function() {
+				addState( "focus", $( this ).closest( "li" ) );
+			});
+			this.anchors.bind( "blur.tabs", function() {
+				removeState( "focus", $( this ).closest( "li" ) );
+			});
+		}
+
+		// set up animations
+		var hideFx, showFx;
+		if ( o.fx ) {
+			if ( $.isArray( o.fx ) ) {
+				hideFx = o.fx[ 0 ];
+				showFx = o.fx[ 1 ];
+			} else {
+				hideFx = showFx = o.fx;
+			}
+		}
+
+		// Reset certain styles left over from animation
+		// and prevent IE's ClearType bug...
+		function resetStyle( $el, fx ) {
+			$el.css( "display", "" );
+			if ( !$.support.opacity && fx.opacity ) {
+				$el[ 0 ].style.removeAttribute( "filter" );
+			}
+		}
+
+		// Show a tab...
+		var showTab = showFx
+			? function( clicked, $show ) {
+				$( clicked ).closest( "li" ).addClass( "ui-tabs-selected ui-state-active" );
+				$show.hide().removeClass( "ui-tabs-hide" ) // avoid flicker that way
+					.animate( showFx, showFx.duration || "normal", function() {
+						resetStyle( $show, showFx );
+						self._trigger( "show", null, self._ui( clicked, $show[ 0 ] ) );
+					});
+			}
+			: function( clicked, $show ) {
+				$( clicked ).closest( "li" ).addClass( "ui-tabs-selected ui-state-active" );
+				$show.removeClass( "ui-tabs-hide" );
+				self._trigger( "show", null, self._ui( clicked, $show[ 0 ] ) );
+			};
+
+		// Hide a tab, $show is optional...
+		var hideTab = hideFx
+			? function( clicked, $hide ) {
+				$hide.animate( hideFx, hideFx.duration || "normal", function() {
+					self.lis.removeClass( "ui-tabs-selected ui-state-active" );
+					$hide.addClass( "ui-tabs-hide" );
+					resetStyle( $hide, hideFx );
+					self.element.dequeue( "tabs" );
+				});
+			}
+			: function( clicked, $hide, $show ) {
+				self.lis.removeClass( "ui-tabs-selected ui-state-active" );
+				$hide.addClass( "ui-tabs-hide" );
+				self.element.dequeue( "tabs" );
+			};
+
+		// attach tab event handler, unbind to avoid duplicates from former tabifying...
+		this.anchors.bind( o.event + ".tabs", function() {
+			var el = this,
+				$li = $(el).closest( "li" ),
+				$hide = self.panels.filter( ":not(.ui-tabs-hide)" ),
+				$show = self.element.find( self._sanitizeSelector( el.hash ) );
+
+			// If tab is already selected and not collapsible or tab disabled or
+			// or is already loading or click callback returns false stop here.
+			// Check if click handler returns false last so that it is not executed
+			// for a disabled or loading tab!
+			if ( ( $li.hasClass( "ui-tabs-selected" ) && !o.collapsible) ||
+				$li.hasClass( "ui-state-disabled" ) ||
+				$li.hasClass( "ui-state-processing" ) ||
+				self.panels.filter( ":animated" ).length ||
+				self._trigger( "select", null, self._ui( this, $show[ 0 ] ) ) === false ) {
+				this.blur();
+				return false;
+			}
+
+			o.selected = self.anchors.index( this );
+
+			self.abort();
+
+			// if tab may be closed
+			if ( o.collapsible ) {
+				if ( $li.hasClass( "ui-tabs-selected" ) ) {
+					o.selected = -1;
+
+					if ( o.cookie ) {
+						self._cookie( o.selected, o.cookie );
+					}
+
+					self.element.queue( "tabs", function() {
+						hideTab( el, $hide );
+					}).dequeue( "tabs" );
+
+					this.blur();
+					return false;
+				} else if ( !$hide.length ) {
+					if ( o.cookie ) {
+						self._cookie( o.selected, o.cookie );
+					}
+
+					self.element.queue( "tabs", function() {
+						showTab( el, $show );
+					});
+
+					// TODO make passing in node possible, see also http://dev.jqueryui.com/ticket/3171
+					self.load( self.anchors.index( this ) );
+
+					this.blur();
+					return false;
+				}
+			}
+
+			if ( o.cookie ) {
+				self._cookie( o.selected, o.cookie );
+			}
+
+			// show new tab
+			if ( $show.length ) {
+				if ( $hide.length ) {
+					self.element.queue( "tabs", function() {
+						hideTab( el, $hide );
+					});
+				}
+				self.element.queue( "tabs", function() {
+					showTab( el, $show );
+				});
+
+				self.load( self.anchors.index( this ) );
+			} else {
+				throw "jQuery UI Tabs: Mismatching fragment identifier.";
+			}
+
+			// Prevent IE from keeping other link focussed when using the back button
+			// and remove dotted border from clicked link. This is controlled via CSS
+			// in modern browsers; blur() removes focus from address bar in Firefox
+			// which can become a usability and annoying problem with tabs('rotate').
+			if ( $.browser.msie ) {
+				this.blur();
+			}
+		});
+
+		// disable click in any case
+		this.anchors.bind( "click.tabs", function(){
+			return false;
+		});
+	},
+
+    _getIndex: function( index ) {
+		// meta-function to give users option to provide a href string instead of a numerical index.
+		// also sanitizes numerical indexes to valid values.
+		if ( typeof index == "string" ) {
+			index = this.anchors.index( this.anchors.filter( "[href$='" + index + "']" ) );
+		}
+
+		return index;
+	},
+
+	destroy: function() {
+		var o = this.options;
+
+		this.abort();
+
+		this.element
+			.unbind( ".tabs" )
+			.removeClass( "ui-tabs ui-widget ui-widget-content ui-corner-all ui-tabs-collapsible" )
+			.removeData( "tabs" );
+
+		this.list.removeClass( "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" );
+
+		this.anchors.each(function() {
+			var href = $.data( this, "href.tabs" );
+			if ( href ) {
+				this.href = href;
+			}
+			var $this = $( this ).unbind( ".tabs" );
+			$.each( [ "href", "load", "cache" ], function( i, prefix ) {
+				$this.removeData( prefix + ".tabs" );
+			});
+		});
+
+		this.lis.unbind( ".tabs" ).add( this.panels ).each(function() {
+			if ( $.data( this, "destroy.tabs" ) ) {
+				$( this ).remove();
+			} else {
+				$( this ).removeClass([
+					"ui-state-default",
+					"ui-corner-top",
+					"ui-tabs-selected",
+					"ui-state-active",
+					"ui-state-hover",
+					"ui-state-focus",
+					"ui-state-disabled",
+					"ui-tabs-panel",
+					"ui-widget-content",
+					"ui-corner-bottom",
+					"ui-tabs-hide"
+				].join( " " ) );
+			}
+		});
+
+		if ( o.cookie ) {
+			this._cookie( null, o.cookie );
+		}
+
+		return this;
+	},
+
+	add: function( url, label, index ) {
+		if ( index === undefined ) {
+			index = this.anchors.length;
+		}
+
+		var self = this,
+			o = this.options,
+			$li = $( o.tabTemplate.replace( /#\{href\}/g, url ).replace( /#\{label\}/g, label ) ),
+			id = !url.indexOf( "#" ) ? url.replace( "#", "" ) : this._tabId( $( "a", $li )[ 0 ] );
+
+		$li.addClass( "ui-state-default ui-corner-top" ).data( "destroy.tabs", true );
+
+		// try to find an existing element before creating a new one
+		var $panel = self.element.find( "#" + id );
+		if ( !$panel.length ) {
+			$panel = $( o.panelTemplate )
+				.attr( "id", id )
+				.data( "destroy.tabs", true );
+		}
+		$panel.addClass( "ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" );
+
+		if ( index >= this.lis.length ) {
+			$li.appendTo( this.list );
+			$panel.appendTo( this.list[ 0 ].parentNode );
+		} else {
+			$li.insertBefore( this.lis[ index ] );
+			$panel.insertBefore( this.panels[ index ] );
+		}
+
+		o.disabled = $.map( o.disabled, function( n, i ) {
+			return n >= index ? ++n : n;
+		});
+
+		this._tabify();
+
+		if ( this.anchors.length == 1 ) {
+			o.selected = 0;
+			$li.addClass( "ui-tabs-selected ui-state-active" );
+			$panel.removeClass( "ui-tabs-hide" );
+			this.element.queue( "tabs", function() {
+				self._trigger( "show", null, self._ui( self.anchors[ 0 ], self.panels[ 0 ] ) );
+			});
+
+			this.load( 0 );
+		}
+
+		this._trigger( "add", null, this._ui( this.anchors[ index ], this.panels[ index ] ) );
+		return this;
+	},
+
+	remove: function( index ) {
+		index = this._getIndex( index );
+		var o = this.options,
+			$li = this.lis.eq( index ).remove(),
+			$panel = this.panels.eq( index ).remove();
+
+		// If selected tab was removed focus tab to the right or
+		// in case the last tab was removed the tab to the left.
+		if ( $li.hasClass( "ui-tabs-selected" ) && this.anchors.length > 1) {
+			this.select( index + ( index + 1 < this.anchors.length ? 1 : -1 ) );
+		}
+
+		o.disabled = $.map(
+			$.grep( o.disabled, function(n, i) {
+				return n != index;
+			}),
+			function( n, i ) {
+				return n >= index ? --n : n;
+			});
+
+		this._tabify();
+
+		this._trigger( "remove", null, this._ui( $li.find( "a" )[ 0 ], $panel[ 0 ] ) );
+		return this;
+	},
+
+	enable: function( index ) {
+		index = this._getIndex( index );
+		var o = this.options;
+		if ( $.inArray( index, o.disabled ) == -1 ) {
+			return;
+		}
+
+		this.lis.eq( index ).removeClass( "ui-state-disabled" );
+		o.disabled = $.grep( o.disabled, function( n, i ) {
+			return n != index;
+		});
+
+		this._trigger( "enable", null, this._ui( this.anchors[ index ], this.panels[ index ] ) );
+		return this;
+	},
+
+	disable: function( index ) {
+		index = this._getIndex( index );
+		var self = this, o = this.options;
+		// cannot disable already selected tab
+		if ( index != o.selected ) {
+			this.lis.eq( index ).addClass( "ui-state-disabled" );
+
+			o.disabled.push( index );
+			o.disabled.sort();
+
+			this._trigger( "disable", null, this._ui( this.anchors[ index ], this.panels[ index ] ) );
+		}
+
+		return this;
+	},
+
+	select: function( index ) {
+		index = this._getIndex( index );
+		if ( index == -1 ) {
+			if ( this.options.collapsible && this.options.selected != -1 ) {
+				index = this.options.selected;
+			} else {
+				return this;
+			}
+		}
+		this.anchors.eq( index ).trigger( this.options.event + ".tabs" );
+		return this;
+	},
+
+	load: function( index ) {
+		index = this._getIndex( index );
+		var self = this,
+			o = this.options,
+			a = this.anchors.eq( index )[ 0 ],
+			url = $.data( a, "load.tabs" );
+
+		this.abort();
+
+		// not remote or from cache
+		if ( !url || this.element.queue( "tabs" ).length !== 0 && $.data( a, "cache.tabs" ) ) {
+			this.element.dequeue( "tabs" );
+			return;
+		}
+
+		// load remote from here on
+		this.lis.eq( index ).addClass( "ui-state-processing" );
+
+		if ( o.spinner ) {
+			var span = $( "span", a );
+			span.data( "label.tabs", span.html() ).html( o.spinner );
+		}
+
+		this.xhr = $.ajax( $.extend( {}, o.ajaxOptions, {
+			url: url,
+			success: function( r, s ) {
+				self.element.find( self._sanitizeSelector( a.hash ) ).html( r );
+
+				// take care of tab labels
+				self._cleanup();
+
+				if ( o.cache ) {
+					$.data( a, "cache.tabs", true );
+				}
+
+				self._trigger( "load", null, self._ui( self.anchors[ index ], self.panels[ index ] ) );
+				try {
+					o.ajaxOptions.success( r, s );
+				}
+				catch ( e ) {}
+			},
+			error: function( xhr, s, e ) {
+				// take care of tab labels
+				self._cleanup();
+
+				self._trigger( "load", null, self._ui( self.anchors[ index ], self.panels[ index ] ) );
+				try {
+					// Passing index avoid a race condition when this method is
+					// called after the user has selected another tab.
+					// Pass the anchor that initiated this request allows
+					// loadError to manipulate the tab content panel via $(a.hash)
+					o.ajaxOptions.error( xhr, s, index, a );
+				}
+				catch ( e ) {}
+			}
+		} ) );
+
+		// last, so that load event is fired before show...
+		self.element.dequeue( "tabs" );
+
+		return this;
+	},
+
+	abort: function() {
+		// stop possibly running animations
+		this.element.queue( [] );
+		this.panels.stop( false, true );
+
+		// "tabs" queue must not contain more than two elements,
+		// which are the callbacks for the latest clicked tab...
+		this.element.queue( "tabs", this.element.queue( "tabs" ).splice( -2, 2 ) );
+
+		// terminate pending requests from other tabs
+		if ( this.xhr ) {
+			this.xhr.abort();
+			delete this.xhr;
+		}
+
+		// take care of tab labels
+		this._cleanup();
+		return this;
+	},
+
+	url: function( index, url ) {
+		this.anchors.eq( index ).removeData( "cache.tabs" ).data( "load.tabs", url );
+		return this;
+	},
+
+	length: function() {
+		return this.anchors.length;
+	}
+});
+
+$.extend( $.ui.tabs, {
+	version: "1.8.23"
+});
+
+/*
+ * Tabs Extensions
+ */
+
+/*
+ * Rotate
+ */
+$.extend( $.ui.tabs.prototype, {
+	rotation: null,
+	rotate: function( ms, continuing ) {
+		var self = this,
+			o = this.options;
+
+		var rotate = self._rotate || ( self._rotate = function( e ) {
+			clearTimeout( self.rotation );
+			self.rotation = setTimeout(function() {
+				var t = o.selected;
+				self.select( ++t < self.anchors.length ? t : 0 );
+			}, ms );
+			
+			if ( e ) {
+				e.stopPropagation();
+			}
+		});
+
+		var stop = self._unrotate || ( self._unrotate = !continuing
+			? function(e) {
+				if (e.clientX) { // in case of a true click
+					self.rotate(null);
+				}
+			}
+			: function( e ) {
+				rotate();
+			});
+
+		// start rotation
+		if ( ms ) {
+			this.element.bind( "tabsshow", rotate );
+			this.anchors.bind( o.event + ".tabs", stop );
+			rotate();
+		// stop rotation
+		} else {
+			clearTimeout( self.rotation );
+			this.element.unbind( "tabsshow", rotate );
+			this.anchors.unbind( o.event + ".tabs", stop );
+			delete this._rotate;
+			delete this._unrotate;
+		}
+
+		return this;
+	}
+});
+
+})( jQuery );
+
+// Input 2
+/*
+ * jQuery UI Color Picker Widget
+ *
+ * Copyright 2012, Olav Andreas Lindekleiv (http://lindekleiv.com/)
+ * Available under the BSD License
+ * See the LICENSE file or http://opensource.org/licenses/BSD-3-Clause
+ *
+ * Available on BitBucket at
+ * https://bitbucket.org/lindekleiv/jquery-ui-colorpicker
+ */
+
+var __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+$.widget('oal.colorPicker', {
+  options: {
+    size: 250,
+    format: 'hsla'
+  },
+  _create: function() {
+    var alpha, lightness,
+      _this = this;
+    this.lightness = 0.0;
+    this.alpha = 1.0;
+    this.fromCenter = 0.0;
+    this.pickerPos = [0, 0];
+    this.parent = $('<div class="colorpicker"></div>');
+    this.parent.css({
+      width: this.options.size + 36
+    });
+    this.element.addClass('colorInput');
+    this.element.css({
+      width: this.options.size + 36
+    });
+    this.element.wrap(this.parent);
+    this.canvasId = "colorpicker" + (parseInt(Math.random() * 9999));
+    this.wheel = $("<canvas id='" + this.canvasId + "' width='" + this.options.size + "' height='" + this.options.size + "'></canvas>");
+    this.element.before(this.wheel);
+    this._draw();
+    lightness = $('<div class="circle lightness"></div>').css({
+      width: this.options.size,
+      height: this.options.size
+    });
+    this.element.before(lightness);
+    alpha = $('<div class="circle alpha"></div>').css({
+      width: this.options.size,
+      height: this.options.size
+    });
+    this.element.before(alpha);
+    this.lightnessSlider = $('<div class="lightness slider"><span class="handle"></span></div>').css({
+      height: this.options.size
+    });
+    this.element.before(this.lightnessSlider);
+    this.lightnessSlider.find('span.handle').draggable({
+      containment: 'parent',
+      drag: function(e, ui) {
+        return _this._setLightness(ui.position.top, true);
+      }
+    });
+    this.alphaSlider = $('<div class="alpha slider"><span class="handle"></span></div>').css({
+      height: this.options.size
+    });
+    this.element.before(this.alphaSlider);
+    this.alphaSlider.find('span.handle').draggable({
+      containment: 'parent',
+      drag: function(e, ui) {
+        return _this._setAlpha(ui.position.top, true);
+      }
+    });
+    this.picker = $('<span class="picker"></span>').css({
+      top: this.options.size / 2,
+      left: this.options.size / 2
+    });
+    this.element.before(this.picker);
+    this.picker.draggable({
+      drag: function(e, ui) {
+        var x, y;
+        x = ui.position.left - _this.options.size / 2;
+        y = ui.position.top - _this.options.size / 2;
+        return _this._setHue(x, y, true);
+      }
+    });
+    this.element.on('change', function() {
+      var a, b, color, g, h, hsla, l, pattern, r, rgb, rgba, s, _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8;
+      color = _this.element.val();
+      if (color.indexOf('hsla(') === 0) {
+        pattern = /^hsla\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)\)$/;
+        _ref = pattern.exec(color), hsla = _ref[0], h = _ref[1], s = _ref[2], l = _ref[3], a = _ref[4];
+        return _this.setColor(h, s, l, a);
+      } else if (color.indexOf('hsl(') === 0) {
+        pattern = /^hsl\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%\)$/;
+        _ref2 = pattern.exec(color), hsla = _ref2[0], h = _ref2[1], s = _ref2[2], l = _ref2[3];
+        return _this.setColor(h, s, l);
+      } else if (color.indexOf('rgba(') === 0) {
+        pattern = /^rgba\((\d{1,3}),[ ]?(\d{1,3}),[ ]?(\d{1,3}),[ ]?(\d?.\d{1,2})\)$/;
+        _ref3 = pattern.exec(color), rgba = _ref3[0], r = _ref3[1], g = _ref3[2], b = _ref3[3], a = _ref3[4];
+        _ref4 = _this._toHsla(r, g, b, a), h = _ref4[0], s = _ref4[1], l = _ref4[2], a = _ref4[3];
+        return _this.setColor(h, s, l, a);
+      } else if (color.indexOf('rgb(') === 0) {
+        pattern = /^rgb\((\d{1,3}),[ ]?(\d{1,3}),[ ]?(\d{1,3})\)$/;
+        _ref5 = pattern.exec(color), rgb = _ref5[0], r = _ref5[1], g = _ref5[2], b = _ref5[3];
+        _ref6 = _this._toHsla(r, g, b), h = _ref6[0], s = _ref6[1], l = _ref6[2], a = _ref6[3];
+        return _this.setColor(h, s, l, a);
+      } else if (color.indexOf('#') === 0 && color.length === 4) {
+        r = parseInt(color[1] + color[1], 16);
+        g = parseInt(color[2] + color[2], 16);
+        b = parseInt(color[3] + color[3], 16);
+        _ref7 = _this._toHsla(r, g, b), h = _ref7[0], s = _ref7[1], l = _ref7[2], a = _ref7[3];
+        return _this.setColor(h, s, l, a);
+      } else if (color.indexOf('#') === 0 && color.length === 7) {
+        r = parseInt(color[1] + color[2], 16);
+        g = parseInt(color[3] + color[4], 16);
+        b = parseInt(color[5] + color[6], 16);
+        _ref8 = _this._toHsla(r, g, b), h = _ref8[0], s = _ref8[1], l = _ref8[2], a = _ref8[3];
+        return _this.setColor(h, s, l, a);
+      }
+    });
+    alpha.on('click', function(e) {
+      var offset, x, y;
+      offset = $(e.target).offset();
+      x = e.clientX - offset.left - (_this.options.size / 2);
+      y = e.clientY - offset.top - (_this.options.size / 2);
+      _this._setHue(x, y);
+      return _this._update();
+    });
+    this.lightnessSlider.on('click', function(e) {
+      var offset;
+      offset = $(e.target).offset();
+      lightness = Math.abs(1 - (e.clientY - offset.top) / _this.options.size) * 100;
+      _this._setLightness(lightness, false);
+      return _this._update();
+    });
+    return this.alphaSlider.on('click', function(e) {
+      var offset;
+      offset = $(e.target).offset();
+      alpha = Math.abs(1 - (e.clientY - offset.top) / _this.options.size);
+      _this._setAlpha(alpha, false);
+      return _this._update();
+    });
+  },
+  _draw: function() {
+    var c, canvas, color, half, i, max, radialGradient, size;
+    canvas = document.getElementById(this.canvasId);
+    c = canvas.getContext('2d');
+    size = this.options.size;
+    half = size / 2;
+    max = size * 1.25;
+    for (i = 0; 0 <= max ? i <= max : i >= max; 0 <= max ? i++ : i--) {
+      c.save();
+      color = i / max;
+      c.strokeStyle = "hsl(" + (color * 360) + ",100%,50%)";
+      c.translate(half, half);
+      c.rotate(Math.PI * 2 * i / max);
+      c.beginPath();
+      c.lineWidth = 3;
+      c.moveTo(0, 0);
+      c.lineTo(0, half);
+      c.stroke();
+      c.restore();
+    }
+    radialGradient = c.createRadialGradient(half, half, 0, half, half, half);
+    radialGradient.addColorStop(0, 'hsl(0, 0%, 50%)');
+    radialGradient.addColorStop(1, 'hsla(0, 0%, 50%, 0)');
+    c.fillStyle = radialGradient;
+    return c.fillRect(0, 0, this.options.size, this.options.size);
+  },
+  _setHue: function(x, y, pos) {
+    if (pos == null) pos = false;
+    this.fromCenter = Math.sqrt(x * x + y * y);
+    this.pickerPos = [x, y];
+    if (pos) {
+      this._update();
+      if (this.fromCenter >= this.options.size / 2) return false;
+    } else {
+      return this.picker.css({
+        top: y + this.options.size / 2,
+        left: x + this.options.size / 2
+      });
+    }
+  },
+  _setLightness: function(l, pos) {
+    var color;
+    if (pos == null) pos = false;
+    if (pos) {
+      this.lightness = (l / this.options.size) - 0.5;
+      this._update();
+    } else {
+      this.lightness = 0.5 - (l / 100);
+      this.lightnessSlider.find('span.handle').css({
+        top: (this.lightness + 0.5) * this.options.size
+      });
+    }
+    if (this.lightness < 0) {
+      color = "rgba(255,255,255," + (Math.abs(this.lightness * 2)) + ")";
+    } else {
+      color = "rgba(0,0,0," + (this.lightness * 2) + ")";
+    }
+    return this.wheel.next().css({
+      backgroundColor: color
+    });
+  },
+  _setAlpha: function(a, pos) {
+    if (pos == null) pos = false;
+    if (pos) {
+      this.alpha = Math.abs(1 - a / this.options.size);
+      this._update();
+    } else {
+      this.alpha = a;
+      this.alphaSlider.find('span.handle').css({
+        top: Math.abs(1 - this.alpha) * this.options.size
+      });
+    }
+    return this.wheel.next().next().css({
+      opacity: Math.abs(1 - this.alpha)
+    });
+  },
+  _generateColor: function() {
+    var a, h, l, s;
+    h = parseInt(180 - (Math.atan2(this.pickerPos[0], this.pickerPos[1]) + Math.PI) / (Math.PI * 2) * 360);
+    if (h < 0) h += 360;
+    s = this.fromCenter / this.options.size * 100 * 2;
+    l = Math.abs(this.lightness - 0.5) * 100;
+    a = this.alpha;
+    if (h > 360) h = 360;
+    if (s > 100) s = 100;
+    if (l > 100) l = 100;
+    if (a > 1.0) a = 1.0;
+    s = Math.round(s * 100) / 100;
+    l = Math.round(l * 100) / 100;
+    a = Math.round(a * 100) / 100;
+    return [h, s, l, a];
+  },
+  _update: function() {
+    var a, b, bs, colorString, g, gs, h, l, r, response, rs, s, _ref, _ref2, _ref3, _ref4, _ref5;
+    _ref = this._generateColor(), h = _ref[0], s = _ref[1], l = _ref[2], a = _ref[3];
+    switch (this.options.format) {
+      case 'hsla':
+        colorString = "hsla(" + h + ", " + s + "%, " + l + "%, " + a + ")";
+        break;
+      case 'hsl':
+        colorString = "hsl(" + h + ", " + s + "%, " + l + "%)";
+        break;
+      case 'rgba':
+        _ref2 = this._toRgba(h, s, l, a), r = _ref2[0], g = _ref2[1], b = _ref2[2], a = _ref2[3];
+        colorString = "rgba(" + r + ", " + g + ", " + b + ", " + a + ")";
+        break;
+      case 'rgb':
+        _ref3 = this._toRgba(h, s, l), r = _ref3[0], g = _ref3[1], b = _ref3[2], a = _ref3[3];
+        colorString = "rgb(" + r + ", " + g + ", " + b + ")";
+        break;
+      case 'hex':
+        _ref4 = this._toRgba(h, s, l), r = _ref4[0], g = _ref4[1], b = _ref4[2], a = _ref4[3];
+        rs = r.toString(16);
+        gs = g.toString(16);
+        bs = b.toString(16);
+        if (rs.length === 1) rs = '0' + rs;
+        if (gs.length === 1) gs = '0' + gs;
+        if (bs.length === 1) bs = '0' + bs;
+        colorString = "#" + rs + gs + bs;
+        break;
+      default:
+        console.error('Color format not supported!');
+    }
+    this.element.val(colorString);
+    this.picker.css({
+      background: colorString
+    });
+    if ((_ref5 = this.options.format) === 'hsl' || _ref5 === 'hsla') {
+      response = {
+        hue: h,
+        saturation: s,
+        lightness: l
+      };
+    } else {
+      response = {
+        red: r,
+        green: g,
+        blue: b
+      };
+    }
+    if (__indexOf.call(this.options.format, 'a') >= 0) response.alpha = a;
+    response.color = colorString;
+    return this._trigger('colorChange', null, response);
+  },
+  _toRgba: function(h, s, l, a) {
+    var b, g, hue2rgb, p, q, r;
+    if (a == null) a = 1.0;
+    h = h / 360;
+    s = s / 100;
+    l = l / 100;
+    if (s === 0.0) {
+      r = l;
+      g = l;
+      b = l;
+    } else {
+      hue2rgb = function(p, q, t) {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1 / 6) return p + (q - p) * 6 * t;
+        if (t < 1 / 2) return q;
+        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+        return p;
+      };
+      if (l < 0.5) {
+        q = l * (1 + s);
+      } else {
+        q = l + s - l * s;
+      }
+      p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1 / 3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1 / 3);
+    }
+    return [parseInt(r * 255), parseInt(g * 255), parseInt(b * 255), a];
+  },
+  _toHsla: function(r, g, b, a) {
+    var add, d, h, l, max, min, s;
+    if (a == null) a = 1.0;
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    max = Math.max(r, g, b);
+    min = Math.min(r, g, b);
+    h = (max + min) / 2;
+    s = h;
+    l = h;
+    if (max === min) {
+      h = 0;
+      s = 0;
+    } else {
+      d = max - min;
+      if (l > 0.5) {
+        s = d / (2 - max - min);
+      } else {
+        s = d / (max + min);
+      }
+      switch (max) {
+        case r:
+          if (g < b) {
+            add = 6;
+          } else {
+            add = 0;
+          }
+          h = (g - b) / d + add;
+          break;
+        case g:
+          h = (b - r) / d + 2;
+          break;
+        case b:
+          h = (r - g) / d + 4;
+      }
+      h /= 6;
+    }
+    return [parseInt(h * 360), Math.round(s * 1000) / 10, Math.round(l * 1000) / 10, a];
+  },
+  setColor: function(h, s, l, a) {
+    var dist, x, y;
+    if (a == null) a = 1.0;
+    if (typeof h === 'string' && (h.indexOf('hsl') === 0 || h.indexOf('rgb') === 0 || h.indexOf('#') === 0)) {
+      this.element.val(h);
+      this.element.trigger('change');
+      return true;
+    }
+    h = parseInt(h);
+    h += 90;
+    if (h > 360) h %= 360;
+    if (h > 0) {
+      dist = s / 100 * (this.options.size / 2);
+      x = Math.cos(h / 360 * (Math.PI * 2)) * dist;
+      y = Math.sin(h / 360 * (Math.PI * 2)) * dist;
+      this._setHue(x, y);
+    }
+    if (s >= 0 && s <= 100) {
+      this.saturation = s;
+    } else if (s > 100) {
+      this.saturation = 100;
+    } else {
+      this.saturation = 0;
+    }
+    if (l > 100) {
+      l = 100;
+    } else if (l < 0) {
+      l = 0;
+    }
+    this._setLightness(l);
+    if (a > 1.0) {
+      a = 1.0;
+    } else if (a < 0.0) {
+      a = 0.0;
+    }
+    this._setAlpha(a);
+    return this._update();
+  },
+  _setOption: function(key, value) {
+    if (key === 'format' && (value === 'hsla' || value === 'hsl' || value === 'rgba' || value === 'rgb' || value === 'hex')) {
+      this.options.format = value;
+      this._update();
+    }
+    return $.Widget.prototype._setOption.apply(this, arguments);
+  }
+});
+// Input 3
+// Copyright 2006 The Closure Library Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * @fileoverview Names of standard colors with their associated hex values.
+ */
+
+goog.provide('goog.color.names');
+
+
+/**
+ * A map that contains a lot of colors that are recognised by various browsers.
+ * This list is way larger than the minimal one dictated by W3C.
+ * The keys of this map are the lowercase "readable" names of the colors, while
+ * the values are the "hex" values.
+ */
+goog.color.names = {
+  'aliceblue': '#f0f8ff',
+  'antiquewhite': '#faebd7',
+  'aqua': '#00ffff',
+  'aquamarine': '#7fffd4',
+  'azure': '#f0ffff',
+  'beige': '#f5f5dc',
+  'bisque': '#ffe4c4',
+  'black': '#000000',
+  'blanchedalmond': '#ffebcd',
+  'blue': '#0000ff',
+  'blueviolet': '#8a2be2',
+  'brown': '#a52a2a',
+  'burlywood': '#deb887',
+  'cadetblue': '#5f9ea0',
+  'chartreuse': '#7fff00',
+  'chocolate': '#d2691e',
+  'coral': '#ff7f50',
+  'cornflowerblue': '#6495ed',
+  'cornsilk': '#fff8dc',
+  'crimson': '#dc143c',
+  'cyan': '#00ffff',
+  'darkblue': '#00008b',
+  'darkcyan': '#008b8b',
+  'darkgoldenrod': '#b8860b',
+  'darkgray': '#a9a9a9',
+  'darkgreen': '#006400',
+  'darkgrey': '#a9a9a9',
+  'darkkhaki': '#bdb76b',
+  'darkmagenta': '#8b008b',
+  'darkolivegreen': '#556b2f',
+  'darkorange': '#ff8c00',
+  'darkorchid': '#9932cc',
+  'darkred': '#8b0000',
+  'darksalmon': '#e9967a',
+  'darkseagreen': '#8fbc8f',
+  'darkslateblue': '#483d8b',
+  'darkslategray': '#2f4f4f',
+  'darkslategrey': '#2f4f4f',
+  'darkturquoise': '#00ced1',
+  'darkviolet': '#9400d3',
+  'deeppink': '#ff1493',
+  'deepskyblue': '#00bfff',
+  'dimgray': '#696969',
+  'dimgrey': '#696969',
+  'dodgerblue': '#1e90ff',
+  'firebrick': '#b22222',
+  'floralwhite': '#fffaf0',
+  'forestgreen': '#228b22',
+  'fuchsia': '#ff00ff',
+  'gainsboro': '#dcdcdc',
+  'ghostwhite': '#f8f8ff',
+  'gold': '#ffd700',
+  'goldenrod': '#daa520',
+  'gray': '#808080',
+  'green': '#008000',
+  'greenyellow': '#adff2f',
+  'grey': '#808080',
+  'honeydew': '#f0fff0',
+  'hotpink': '#ff69b4',
+  'indianred': '#cd5c5c',
+  'indigo': '#4b0082',
+  'ivory': '#fffff0',
+  'khaki': '#f0e68c',
+  'lavender': '#e6e6fa',
+  'lavenderblush': '#fff0f5',
+  'lawngreen': '#7cfc00',
+  'lemonchiffon': '#fffacd',
+  'lightblue': '#add8e6',
+  'lightcoral': '#f08080',
+  'lightcyan': '#e0ffff',
+  'lightgoldenrodyellow': '#fafad2',
+  'lightgray': '#d3d3d3',
+  'lightgreen': '#90ee90',
+  'lightgrey': '#d3d3d3',
+  'lightpink': '#ffb6c1',
+  'lightsalmon': '#ffa07a',
+  'lightseagreen': '#20b2aa',
+  'lightskyblue': '#87cefa',
+  'lightslategray': '#778899',
+  'lightslategrey': '#778899',
+  'lightsteelblue': '#b0c4de',
+  'lightyellow': '#ffffe0',
+  'lime': '#00ff00',
+  'limegreen': '#32cd32',
+  'linen': '#faf0e6',
+  'magenta': '#ff00ff',
+  'maroon': '#800000',
+  'mediumaquamarine': '#66cdaa',
+  'mediumblue': '#0000cd',
+  'mediumorchid': '#ba55d3',
+  'mediumpurple': '#9370db',
+  'mediumseagreen': '#3cb371',
+  'mediumslateblue': '#7b68ee',
+  'mediumspringgreen': '#00fa9a',
+  'mediumturquoise': '#48d1cc',
+  'mediumvioletred': '#c71585',
+  'midnightblue': '#191970',
+  'mintcream': '#f5fffa',
+  'mistyrose': '#ffe4e1',
+  'moccasin': '#ffe4b5',
+  'navajowhite': '#ffdead',
+  'navy': '#000080',
+  'oldlace': '#fdf5e6',
+  'olive': '#808000',
+  'olivedrab': '#6b8e23',
+  'orange': '#ffa500',
+  'orangered': '#ff4500',
+  'orchid': '#da70d6',
+  'palegoldenrod': '#eee8aa',
+  'palegreen': '#98fb98',
+  'paleturquoise': '#afeeee',
+  'palevioletred': '#db7093',
+  'papayawhip': '#ffefd5',
+  'peachpuff': '#ffdab9',
+  'peru': '#cd853f',
+  'pink': '#ffc0cb',
+  'plum': '#dda0dd',
+  'powderblue': '#b0e0e6',
+  'purple': '#800080',
+  'red': '#ff0000',
+  'rosybrown': '#bc8f8f',
+  'royalblue': '#4169e1',
+  'saddlebrown': '#8b4513',
+  'salmon': '#fa8072',
+  'sandybrown': '#f4a460',
+  'seagreen': '#2e8b57',
+  'seashell': '#fff5ee',
+  'sienna': '#a0522d',
+  'silver': '#c0c0c0',
+  'skyblue': '#87ceeb',
+  'slateblue': '#6a5acd',
+  'slategray': '#708090',
+  'slategrey': '#708090',
+  'snow': '#fffafa',
+  'springgreen': '#00ff7f',
+  'steelblue': '#4682b4',
+  'tan': '#d2b48c',
+  'teal': '#008080',
+  'thistle': '#d8bfd8',
+  'tomato': '#ff6347',
+  'turquoise': '#40e0d0',
+  'violet': '#ee82ee',
+  'wheat': '#f5deb3',
+  'white': '#ffffff',
+  'whitesmoke': '#f5f5f5',
+  'yellow': '#ffff00',
+  'yellowgreen': '#9acd32'
+};
+
+// Input 4
+// Copyright 2009 The Closure Library Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * @fileoverview Provides a base class for custom Error objects such that the
+ * stack is correctly maintained.
+ *
+ * You should never need to throw goog.debug.Error(msg) directly, Error(msg) is
+ * sufficient.
+ *
+ */
+
+goog.provide('goog.debug.Error');
+
+
+
+/**
+ * Base class for custom error objects.
+ * @param {*=} opt_msg The message associated with the error.
+ * @constructor
+ * @extends {Error}
+ */
+goog.debug.Error = function(opt_msg) {
+
+  // Ensure there is a stack trace.
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, goog.debug.Error);
+  } else {
+    this.stack = new Error().stack || '';
+  }
+
+  if (opt_msg) {
+    this.message = String(opt_msg);
+  }
+};
+goog.inherits(goog.debug.Error, Error);
+
+
+/** @override */
+goog.debug.Error.prototype.name = 'CustomError';
+
+// Input 5
+// Copyright 2006 The Closure Library Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * @fileoverview Utilities for string manipulation.
+ */
+
+
+/**
+ * Namespace for string utilities
+ */
+goog.provide('goog.string');
+goog.provide('goog.string.Unicode');
+
+
+/**
+ * Common Unicode string characters.
+ * @enum {string}
+ */
+goog.string.Unicode = {
+  NBSP: '\xa0'
+};
+
+
+/**
+ * Fast prefix-checker.
+ * @param {string} str The string to check.
+ * @param {string} prefix A string to look for at the start of {@code str}.
+ * @return {boolean} True if {@code str} begins with {@code prefix}.
+ */
+goog.string.startsWith = function(str, prefix) {
+  return str.lastIndexOf(prefix, 0) == 0;
+};
+
+
+/**
+ * Fast suffix-checker.
+ * @param {string} str The string to check.
+ * @param {string} suffix A string to look for at the end of {@code str}.
+ * @return {boolean} True if {@code str} ends with {@code suffix}.
+ */
+goog.string.endsWith = function(str, suffix) {
+  var l = str.length - suffix.length;
+  return l >= 0 && str.indexOf(suffix, l) == l;
+};
+
+
+/**
+ * Case-insensitive prefix-checker.
+ * @param {string} str The string to check.
+ * @param {string} prefix  A string to look for at the end of {@code str}.
+ * @return {boolean} True if {@code str} begins with {@code prefix} (ignoring
+ *     case).
+ */
+goog.string.caseInsensitiveStartsWith = function(str, prefix) {
+  return goog.string.caseInsensitiveCompare(
+      prefix, str.substr(0, prefix.length)) == 0;
+};
+
+
+/**
+ * Case-insensitive suffix-checker.
+ * @param {string} str The string to check.
+ * @param {string} suffix A string to look for at the end of {@code str}.
+ * @return {boolean} True if {@code str} ends with {@code suffix} (ignoring
+ *     case).
+ */
+goog.string.caseInsensitiveEndsWith = function(str, suffix) {
+  return goog.string.caseInsensitiveCompare(
+      suffix, str.substr(str.length - suffix.length, suffix.length)) == 0;
+};
+
+
+/**
+ * Does simple python-style string substitution.
+ * subs("foo%s hot%s", "bar", "dog") becomes "foobar hotdog".
+ * @param {string} str The string containing the pattern.
+ * @param {...*} var_args The items to substitute into the pattern.
+ * @return {string} A copy of {@code str} in which each occurrence of
+ *     {@code %s} has been replaced an argument from {@code var_args}.
+ */
+goog.string.subs = function(str, var_args) {
+  // This appears to be slow, but testing shows it compares more or less
+  // equivalent to the regex.exec method.
+  for (var i = 1; i < arguments.length; i++) {
+    // We cast to String in case an argument is a Function.  Replacing $&, for
+    // example, with $$$& stops the replace from subsituting the whole match
+    // into the resultant string.  $$$& in the first replace becomes $$& in the
+    //  second, which leaves $& in the resultant string.  Also:
+    // $$, $`, $', $n $nn
+    var replacement = String(arguments[i]).replace(/\$/g, '$$$$');
+    str = str.replace(/\%s/, replacement);
+  }
+  return str;
+};
+
+
+/**
+ * Converts multiple whitespace chars (spaces, non-breaking-spaces, new lines
+ * and tabs) to a single space, and strips leading and trailing whitespace.
+ * @param {string} str Input string.
+ * @return {string} A copy of {@code str} with collapsed whitespace.
+ */
+goog.string.collapseWhitespace = function(str) {
+  // Since IE doesn't include non-breaking-space (0xa0) in their \s character
+  // class (as required by section 7.2 of the ECMAScript spec), we explicitly
+  // include it in the regexp to enforce consistent cross-browser behavior.
+  return str.replace(/[\s\xa0]+/g, ' ').replace(/^\s+|\s+$/g, '');
+};
+
+
+/**
+ * Checks if a string is empty or contains only whitespaces.
+ * @param {string} str The string to check.
+ * @return {boolean} True if {@code str} is empty or whitespace only.
+ */
+goog.string.isEmpty = function(str) {
+  // testing length == 0 first is actually slower in all browsers (about the
+  // same in Opera).
+  // Since IE doesn't include non-breaking-space (0xa0) in their \s character
+  // class (as required by section 7.2 of the ECMAScript spec), we explicitly
+  // include it in the regexp to enforce consistent cross-browser behavior.
+  return /^[\s\xa0]*$/.test(str);
+};
+
+
+/**
+ * Checks if a string is null, undefined, empty or contains only whitespaces.
+ * @param {*} str The string to check.
+ * @return {boolean} True if{@code str} is null, undefined, empty, or
+ *     whitespace only.
+ */
+goog.string.isEmptySafe = function(str) {
+  return goog.string.isEmpty(goog.string.makeSafe(str));
+};
+
+
+/**
+ * Checks if a string is all breaking whitespace.
+ * @param {string} str The string to check.
+ * @return {boolean} Whether the string is all breaking whitespace.
+ */
+goog.string.isBreakingWhitespace = function(str) {
+  return !/[^\t\n\r ]/.test(str);
+};
+
+
+/**
+ * Checks if a string contains all letters.
+ * @param {string} str string to check.
+ * @return {boolean} True if {@code str} consists entirely of letters.
+ */
+goog.string.isAlpha = function(str) {
+  return !/[^a-zA-Z]/.test(str);
+};
+
+
+/**
+ * Checks if a string contains only numbers.
+ * @param {*} str string to check. If not a string, it will be
+ *     casted to one.
+ * @return {boolean} True if {@code str} is numeric.
+ */
+goog.string.isNumeric = function(str) {
+  return !/[^0-9]/.test(str);
+};
+
+
+/**
+ * Checks if a string contains only numbers or letters.
+ * @param {string} str string to check.
+ * @return {boolean} True if {@code str} is alphanumeric.
+ */
+goog.string.isAlphaNumeric = function(str) {
+  return !/[^a-zA-Z0-9]/.test(str);
+};
+
+
+/**
+ * Checks if a character is a space character.
+ * @param {string} ch Character to check.
+ * @return {boolean} True if {code ch} is a space.
+ */
+goog.string.isSpace = function(ch) {
+  return ch == ' ';
+};
+
+
+/**
+ * Checks if a character is a valid unicode character.
+ * @param {string} ch Character to check.
+ * @return {boolean} True if {code ch} is a valid unicode character.
+ */
+goog.string.isUnicodeChar = function(ch) {
+  return ch.length == 1 && ch >= ' ' && ch <= '~' ||
+         ch >= '\u0080' && ch <= '\uFFFD';
+};
+
+
+/**
+ * Takes a string and replaces newlines with a space. Multiple lines are
+ * replaced with a single space.
+ * @param {string} str The string from which to strip newlines.
+ * @return {string} A copy of {@code str} stripped of newlines.
+ */
+goog.string.stripNewlines = function(str) {
+  return str.replace(/(\r\n|\r|\n)+/g, ' ');
+};
+
+
+/**
+ * Replaces Windows and Mac new lines with unix style: \r or \r\n with \n.
+ * @param {string} str The string to in which to canonicalize newlines.
+ * @return {string} {@code str} A copy of {@code} with canonicalized newlines.
+ */
+goog.string.canonicalizeNewlines = function(str) {
+  return str.replace(/(\r\n|\r|\n)/g, '\n');
+};
+
+
+/**
+ * Normalizes whitespace in a string, replacing all whitespace chars with
+ * a space.
+ * @param {string} str The string in which to normalize whitespace.
+ * @return {string} A copy of {@code str} with all whitespace normalized.
+ */
+goog.string.normalizeWhitespace = function(str) {
+  return str.replace(/\xa0|\s/g, ' ');
+};
+
+
+/**
+ * Normalizes spaces in a string, replacing all consecutive spaces and tabs
+ * with a single space. Replaces non-breaking space with a space.
+ * @param {string} str The string in which to normalize spaces.
+ * @return {string} A copy of {@code str} with all consecutive spaces and tabs
+ *    replaced with a single space.
+ */
+goog.string.normalizeSpaces = function(str) {
+  return str.replace(/\xa0|[ \t]+/g, ' ');
+};
+
+
+/**
+ * Removes the breaking spaces from the left and right of the string and
+ * collapses the sequences of breaking spaces in the middle into single spaces.
+ * The original and the result strings render the same way in HTML.
+ * @param {string} str A string in which to collapse spaces.
+ * @return {string} Copy of the string with normalized breaking spaces.
+ */
+goog.string.collapseBreakingSpaces = function(str) {
+  return str.replace(/[\t\r\n ]+/g, ' ').replace(
+      /^[\t\r\n ]+|[\t\r\n ]+$/g, '');
+};
+
+
+/**
+ * Trims white spaces to the left and right of a string.
+ * @param {string} str The string to trim.
+ * @return {string} A trimmed copy of {@code str}.
+ */
+goog.string.trim = function(str) {
+  // Since IE doesn't include non-breaking-space (0xa0) in their \s character
+  // class (as required by section 7.2 of the ECMAScript spec), we explicitly
+  // include it in the regexp to enforce consistent cross-browser behavior.
+  return str.replace(/^[\s\xa0]+|[\s\xa0]+$/g, '');
+};
+
+
+/**
+ * Trims whitespaces at the left end of a string.
+ * @param {string} str The string to left trim.
+ * @return {string} A trimmed copy of {@code str}.
+ */
+goog.string.trimLeft = function(str) {
+  // Since IE doesn't include non-breaking-space (0xa0) in their \s character
+  // class (as required by section 7.2 of the ECMAScript spec), we explicitly
+  // include it in the regexp to enforce consistent cross-browser behavior.
+  return str.replace(/^[\s\xa0]+/, '');
+};
+
+
+/**
+ * Trims whitespaces at the right end of a string.
+ * @param {string} str The string to right trim.
+ * @return {string} A trimmed copy of {@code str}.
+ */
+goog.string.trimRight = function(str) {
+  // Since IE doesn't include non-breaking-space (0xa0) in their \s character
+  // class (as required by section 7.2 of the ECMAScript spec), we explicitly
+  // include it in the regexp to enforce consistent cross-browser behavior.
+  return str.replace(/[\s\xa0]+$/, '');
+};
+
+
+/**
+ * A string comparator that ignores case.
+ * -1 = str1 less than str2
+ *  0 = str1 equals str2
+ *  1 = str1 greater than str2
+ *
+ * @param {string} str1 The string to compare.
+ * @param {string} str2 The string to compare {@code str1} to.
+ * @return {number} The comparator result, as described above.
+ */
+goog.string.caseInsensitiveCompare = function(str1, str2) {
+  var test1 = String(str1).toLowerCase();
+  var test2 = String(str2).toLowerCase();
+
+  if (test1 < test2) {
+    return -1;
+  } else if (test1 == test2) {
+    return 0;
+  } else {
+    return 1;
+  }
+};
+
+
+/**
+ * Regular expression used for splitting a string into substrings of fractional
+ * numbers, integers, and non-numeric characters.
+ * @type {RegExp}
+ * @private
+ */
+goog.string.numerateCompareRegExp_ = /(\.\d+)|(\d+)|(\D+)/g;
+
+
+/**
+ * String comparison function that handles numbers in a way humans might expect.
+ * Using this function, the string "File 2.jpg" sorts before "File 10.jpg". The
+ * comparison is mostly case-insensitive, though strings that are identical
+ * except for case are sorted with the upper-case strings before lower-case.
+ *
+ * This comparison function is significantly slower (about 500x) than either
+ * the default or the case-insensitive compare. It should not be used in
+ * time-critical code, but should be fast enough to sort several hundred short
+ * strings (like filenames) with a reasonable delay.
+ *
+ * @param {string} str1 The string to compare in a numerically sensitive way.
+ * @param {string} str2 The string to compare {@code str1} to.
+ * @return {number} less than 0 if str1 < str2, 0 if str1 == str2, greater than
+ *     0 if str1 > str2.
+ */
+goog.string.numerateCompare = function(str1, str2) {
+  if (str1 == str2) {
+    return 0;
+  }
+  if (!str1) {
+    return -1;
+  }
+  if (!str2) {
+    return 1;
+  }
+
+  // Using match to split the entire string ahead of time turns out to be faster
+  // for most inputs than using RegExp.exec or iterating over each character.
+  var tokens1 = str1.toLowerCase().match(goog.string.numerateCompareRegExp_);
+  var tokens2 = str2.toLowerCase().match(goog.string.numerateCompareRegExp_);
+
+  var count = Math.min(tokens1.length, tokens2.length);
+
+  for (var i = 0; i < count; i++) {
+    var a = tokens1[i];
+    var b = tokens2[i];
+
+    // Compare pairs of tokens, returning if one token sorts before the other.
+    if (a != b) {
+
+      // Only if both tokens are integers is a special comparison required.
+      // Decimal numbers are sorted as strings (e.g., '.09' < '.1').
+      var num1 = parseInt(a, 10);
+      if (!isNaN(num1)) {
+        var num2 = parseInt(b, 10);
+        if (!isNaN(num2) && num1 - num2) {
+          return num1 - num2;
+        }
+      }
+      return a < b ? -1 : 1;
+    }
+  }
+
+  // If one string is a substring of the other, the shorter string sorts first.
+  if (tokens1.length != tokens2.length) {
+    return tokens1.length - tokens2.length;
+  }
+
+  // The two strings must be equivalent except for case (perfect equality is
+  // tested at the head of the function.) Revert to default ASCII-betical string
+  // comparison to stablize the sort.
+  return str1 < str2 ? -1 : 1;
+};
+
+
+/**
+ * URL-encodes a string
+ * @param {*} str The string to url-encode.
+ * @return {string} An encoded copy of {@code str} that is safe for urls.
+ *     Note that '#', ':', and other characters used to delimit portions
+ *     of URLs *will* be encoded.
+ */
+goog.string.urlEncode = function(str) {
+  return encodeURIComponent(String(str));
+};
+
+
+/**
+ * URL-decodes the string. We need to specially handle '+'s because
+ * the javascript library doesn't convert them to spaces.
+ * @param {string} str The string to url decode.
+ * @return {string} The decoded {@code str}.
+ */
+goog.string.urlDecode = function(str) {
+  return decodeURIComponent(str.replace(/\+/g, ' '));
+};
+
+
+/**
+ * Converts \n to <br>s or <br />s.
+ * @param {string} str The string in which to convert newlines.
+ * @param {boolean=} opt_xml Whether to use XML compatible tags.
+ * @return {string} A copy of {@code str} with converted newlines.
+ */
+goog.string.newLineToBr = function(str, opt_xml) {
+  return str.replace(/(\r\n|\r|\n)/g, opt_xml ? '<br />' : '<br>');
+};
+
+
+/**
+ * Escape double quote '"' characters in addition to '&', '<', and '>' so that a
+ * string can be included in an HTML tag attribute value within double quotes.
+ *
+ * It should be noted that > doesn't need to be escaped for the HTML or XML to
+ * be valid, but it has been decided to escape it for consistency with other
+ * implementations.
+ *
+ * NOTE(user):
+ * HtmlEscape is often called during the generation of large blocks of HTML.
+ * Using statics for the regular expressions and strings is an optimization
+ * that can more than half the amount of time IE spends in this function for
+ * large apps, since strings and regexes both contribute to GC allocations.
+ *
+ * Testing for the presence of a character before escaping increases the number
+ * of function calls, but actually provides a speed increase for the average
+ * case -- since the average case often doesn't require the escaping of all 4
+ * characters and indexOf() is much cheaper than replace().
+ * The worst case does suffer slightly from the additional calls, therefore the
+ * opt_isLikelyToContainHtmlChars option has been included for situations
+ * where all 4 HTML entities are very likely to be present and need escaping.
+ *
+ * Some benchmarks (times tended to fluctuate +-0.05ms):
+ *                                     FireFox                     IE6
+ * (no chars / average (mix of cases) / all 4 chars)
+ * no checks                     0.13 / 0.22 / 0.22         0.23 / 0.53 / 0.80
+ * indexOf                       0.08 / 0.17 / 0.26         0.22 / 0.54 / 0.84
+ * indexOf + re test             0.07 / 0.17 / 0.28         0.19 / 0.50 / 0.85
+ *
+ * An additional advantage of checking if replace actually needs to be called
+ * is a reduction in the number of object allocations, so as the size of the
+ * application grows the difference between the various methods would increase.
+ *
+ * @param {string} str string to be escaped.
+ * @param {boolean=} opt_isLikelyToContainHtmlChars Don't perform a check to see
+ *     if the character needs replacing - use this option if you expect each of
+ *     the characters to appear often. Leave false if you expect few html
+ *     characters to occur in your strings, such as if you are escaping HTML.
+ * @return {string} An escaped copy of {@code str}.
+ */
+goog.string.htmlEscape = function(str, opt_isLikelyToContainHtmlChars) {
+
+  if (opt_isLikelyToContainHtmlChars) {
+    return str.replace(goog.string.amperRe_, '&amp;')
+          .replace(goog.string.ltRe_, '&lt;')
+          .replace(goog.string.gtRe_, '&gt;')
+          .replace(goog.string.quotRe_, '&quot;');
+
+  } else {
+    // quick test helps in the case when there are no chars to replace, in
+    // worst case this makes barely a difference to the time taken
+    if (!goog.string.allRe_.test(str)) return str;
+
+    // str.indexOf is faster than regex.test in this case
+    if (str.indexOf('&') != -1) {
+      str = str.replace(goog.string.amperRe_, '&amp;');
+    }
+    if (str.indexOf('<') != -1) {
+      str = str.replace(goog.string.ltRe_, '&lt;');
+    }
+    if (str.indexOf('>') != -1) {
+      str = str.replace(goog.string.gtRe_, '&gt;');
+    }
+    if (str.indexOf('"') != -1) {
+      str = str.replace(goog.string.quotRe_, '&quot;');
+    }
+    return str;
+  }
+};
+
+
+/**
+ * Regular expression that matches an ampersand, for use in escaping.
+ * @type {RegExp}
+ * @private
+ */
+goog.string.amperRe_ = /&/g;
+
+
+/**
+ * Regular expression that matches a less than sign, for use in escaping.
+ * @type {RegExp}
+ * @private
+ */
+goog.string.ltRe_ = /</g;
+
+
+/**
+ * Regular expression that matches a greater than sign, for use in escaping.
+ * @type {RegExp}
+ * @private
+ */
+goog.string.gtRe_ = />/g;
+
+
+/**
+ * Regular expression that matches a double quote, for use in escaping.
+ * @type {RegExp}
+ * @private
+ */
+goog.string.quotRe_ = /\"/g;
+
+
+/**
+ * Regular expression that matches any character that needs to be escaped.
+ * @type {RegExp}
+ * @private
+ */
+goog.string.allRe_ = /[&<>\"]/;
+
+
+/**
+ * Unescapes an HTML string.
+ *
+ * @param {string} str The string to unescape.
+ * @return {string} An unescaped copy of {@code str}.
+ */
+goog.string.unescapeEntities = function(str) {
+  if (goog.string.contains(str, '&')) {
+    // We are careful not to use a DOM if we do not have one. We use the []
+    // notation so that the JSCompiler will not complain about these objects and
+    // fields in the case where we have no DOM.
+    if ('document' in goog.global) {
+      return goog.string.unescapeEntitiesUsingDom_(str);
+    } else {
+      // Fall back on pure XML entities
+      return goog.string.unescapePureXmlEntities_(str);
+    }
+  }
+  return str;
+};
+
+
+/**
+ * Unescapes an HTML string using a DOM to resolve non-XML, non-numeric
+ * entities. This function is XSS-safe and whitespace-preserving.
+ * @private
+ * @param {string} str The string to unescape.
+ * @return {string} The unescaped {@code str} string.
+ */
+goog.string.unescapeEntitiesUsingDom_ = function(str) {
+  var seen = {'&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"'};
+  var div = document.createElement('div');
+  // Match as many valid entity characters as possible. If the actual entity
+  // happens to be shorter, it will still work as innerHTML will return the
+  // trailing characters unchanged. Since the entity characters do not include
+  // open angle bracket, there is no chance of XSS from the innerHTML use.
+  // Since no whitespace is passed to innerHTML, whitespace is preserved.
+  return str.replace(goog.string.HTML_ENTITY_PATTERN_, function(s, entity) {
+    // Check for cached entity.
+    var value = seen[s];
+    if (value) {
+      return value;
+    }
+    // Check for numeric entity.
+    if (entity.charAt(0) == '#') {
+      // Prefix with 0 so that hex entities (e.g. &#x10) parse as hex numbers.
+      var n = Number('0' + entity.substr(1));
+      if (!isNaN(n)) {
+        value = String.fromCharCode(n);
+      }
+    }
+    // Fall back to innerHTML otherwise.
+    if (!value) {
+      // Append a non-entity character to avoid a bug in Webkit that parses
+      // an invalid entity at the end of innerHTML text as the empty string.
+      div.innerHTML = s + ' ';
+      // Then remove the trailing character from the result.
+      value = div.firstChild.nodeValue.slice(0, -1);
+    }
+    // Cache and return.
+    return seen[s] = value;
+  });
+};
+
+
+/**
+ * Unescapes XML entities.
+ * @private
+ * @param {string} str The string to unescape.
+ * @return {string} An unescaped copy of {@code str}.
+ */
+goog.string.unescapePureXmlEntities_ = function(str) {
+  return str.replace(/&([^;]+);/g, function(s, entity) {
+    switch (entity) {
+      case 'amp':
+        return '&';
+      case 'lt':
+        return '<';
+      case 'gt':
+        return '>';
+      case 'quot':
+        return '"';
+      default:
+        if (entity.charAt(0) == '#') {
+          // Prefix with 0 so that hex entities (e.g. &#x10) parse as hex.
+          var n = Number('0' + entity.substr(1));
+          if (!isNaN(n)) {
+            return String.fromCharCode(n);
+          }
+        }
+        // For invalid entities we just return the entity
+        return s;
+    }
+  });
+};
+
+
+/**
+ * Regular expression that matches an HTML entity.
+ * See also HTML5: Tokenization / Tokenizing character references.
+ * @private
+ * @type {!RegExp}
+ */
+goog.string.HTML_ENTITY_PATTERN_ = /&([^;\s<&]+);?/g;
+
+
+/**
+ * Do escaping of whitespace to preserve spatial formatting. We use character
+ * entity #160 to make it safer for xml.
+ * @param {string} str The string in which to escape whitespace.
+ * @param {boolean=} opt_xml Whether to use XML compatible tags.
+ * @return {string} An escaped copy of {@code str}.
+ */
+goog.string.whitespaceEscape = function(str, opt_xml) {
+  return goog.string.newLineToBr(str.replace(/  /g, ' &#160;'), opt_xml);
+};
+
+
+/**
+ * Strip quote characters around a string.  The second argument is a string of
+ * characters to treat as quotes.  This can be a single character or a string of
+ * multiple character and in that case each of those are treated as possible
+ * quote characters. For example:
+ *
+ * <pre>
+ * goog.string.stripQuotes('"abc"', '"`') --> 'abc'
+ * goog.string.stripQuotes('`abc`', '"`') --> 'abc'
+ * </pre>
+ *
+ * @param {string} str The string to strip.
+ * @param {string} quoteChars The quote characters to strip.
+ * @return {string} A copy of {@code str} without the quotes.
+ */
+goog.string.stripQuotes = function(str, quoteChars) {
+  var length = quoteChars.length;
+  for (var i = 0; i < length; i++) {
+    var quoteChar = length == 1 ? quoteChars : quoteChars.charAt(i);
+    if (str.charAt(0) == quoteChar && str.charAt(str.length - 1) == quoteChar) {
+      return str.substring(1, str.length - 1);
+    }
+  }
+  return str;
+};
+
+
+/**
+ * Truncates a string to a certain length and adds '...' if necessary.  The
+ * length also accounts for the ellipsis, so a maximum length of 10 and a string
+ * 'Hello World!' produces 'Hello W...'.
+ * @param {string} str The string to truncate.
+ * @param {number} chars Max number of characters.
+ * @param {boolean=} opt_protectEscapedCharacters Whether to protect escaped
+ *     characters from being cut off in the middle.
+ * @return {string} The truncated {@code str} string.
+ */
+goog.string.truncate = function(str, chars, opt_protectEscapedCharacters) {
+  if (opt_protectEscapedCharacters) {
+    str = goog.string.unescapeEntities(str);
+  }
+
+  if (str.length > chars) {
+    str = str.substring(0, chars - 3) + '...';
+  }
+
+  if (opt_protectEscapedCharacters) {
+    str = goog.string.htmlEscape(str);
+  }
+
+  return str;
+};
+
+
+/**
+ * Truncate a string in the middle, adding "..." if necessary,
+ * and favoring the beginning of the string.
+ * @param {string} str The string to truncate the middle of.
+ * @param {number} chars Max number of characters.
+ * @param {boolean=} opt_protectEscapedCharacters Whether to protect escaped
+ *     characters from being cutoff in the middle.
+ * @param {number=} opt_trailingChars Optional number of trailing characters to
+ *     leave at the end of the string, instead of truncating as close to the
+ *     middle as possible.
+ * @return {string} A truncated copy of {@code str}.
+ */
+goog.string.truncateMiddle = function(str, chars,
+    opt_protectEscapedCharacters, opt_trailingChars) {
+  if (opt_protectEscapedCharacters) {
+    str = goog.string.unescapeEntities(str);
+  }
+
+  if (opt_trailingChars && str.length > chars) {
+    if (opt_trailingChars > chars) {
+      opt_trailingChars = chars;
+    }
+    var endPoint = str.length - opt_trailingChars;
+    var startPoint = chars - opt_trailingChars;
+    str = str.substring(0, startPoint) + '...' + str.substring(endPoint);
+  } else if (str.length > chars) {
+    // Favor the beginning of the string:
+    var half = Math.floor(chars / 2);
+    var endPos = str.length - half;
+    half += chars % 2;
+    str = str.substring(0, half) + '...' + str.substring(endPos);
+  }
+
+  if (opt_protectEscapedCharacters) {
+    str = goog.string.htmlEscape(str);
+  }
+
+  return str;
+};
+
+
+/**
+ * Special chars that need to be escaped for goog.string.quote.
+ * @private
+ * @type {Object}
+ */
+goog.string.specialEscapeChars_ = {
+  '\0': '\\0',
+  '\b': '\\b',
+  '\f': '\\f',
+  '\n': '\\n',
+  '\r': '\\r',
+  '\t': '\\t',
+  '\x0B': '\\x0B', // '\v' is not supported in JScript
+  '"': '\\"',
+  '\\': '\\\\'
+};
+
+
+/**
+ * Character mappings used internally for goog.string.escapeChar.
+ * @private
+ * @type {Object}
+ */
+goog.string.jsEscapeCache_ = {
+  '\'': '\\\''
+};
+
+
+/**
+ * Encloses a string in double quotes and escapes characters so that the
+ * string is a valid JS string.
+ * @param {string} s The string to quote.
+ * @return {string} A copy of {@code s} surrounded by double quotes.
+ */
+goog.string.quote = function(s) {
+  s = String(s);
+  if (s.quote) {
+    return s.quote();
+  } else {
+    var sb = ['"'];
+    for (var i = 0; i < s.length; i++) {
+      var ch = s.charAt(i);
+      var cc = ch.charCodeAt(0);
+      sb[i + 1] = goog.string.specialEscapeChars_[ch] ||
+          ((cc > 31 && cc < 127) ? ch : goog.string.escapeChar(ch));
+    }
+    sb.push('"');
+    return sb.join('');
+  }
+};
+
+
+/**
+ * Takes a string and returns the escaped string for that character.
+ * @param {string} str The string to escape.
+ * @return {string} An escaped string representing {@code str}.
+ */
+goog.string.escapeString = function(str) {
+  var sb = [];
+  for (var i = 0; i < str.length; i++) {
+    sb[i] = goog.string.escapeChar(str.charAt(i));
+  }
+  return sb.join('');
+};
+
+
+/**
+ * Takes a character and returns the escaped string for that character. For
+ * example escapeChar(String.fromCharCode(15)) -> "\\x0E".
+ * @param {string} c The character to escape.
+ * @return {string} An escaped string representing {@code c}.
+ */
+goog.string.escapeChar = function(c) {
+  if (c in goog.string.jsEscapeCache_) {
+    return goog.string.jsEscapeCache_[c];
+  }
+
+  if (c in goog.string.specialEscapeChars_) {
+    return goog.string.jsEscapeCache_[c] = goog.string.specialEscapeChars_[c];
+  }
+
+  var rv = c;
+  var cc = c.charCodeAt(0);
+  if (cc > 31 && cc < 127) {
+    rv = c;
+  } else {
+    // tab is 9 but handled above
+    if (cc < 256) {
+      rv = '\\x';
+      if (cc < 16 || cc > 256) {
+        rv += '0';
+      }
+    } else {
+      rv = '\\u';
+      if (cc < 4096) { // \u1000
+        rv += '0';
+      }
+    }
+    rv += cc.toString(16).toUpperCase();
+  }
+
+  return goog.string.jsEscapeCache_[c] = rv;
+};
+
+
+/**
+ * Takes a string and creates a map (Object) in which the keys are the
+ * characters in the string. The value for the key is set to true. You can
+ * then use goog.object.map or goog.array.map to change the values.
+ * @param {string} s The string to build the map from.
+ * @return {Object} The map of characters used.
+ */
+// TODO(arv): It seems like we should have a generic goog.array.toMap. But do
+//            we want a dependency on goog.array in goog.string?
+goog.string.toMap = function(s) {
+  var rv = {};
+  for (var i = 0; i < s.length; i++) {
+    rv[s.charAt(i)] = true;
+  }
+  return rv;
+};
+
+
+/**
+ * Checks whether a string contains a given substring.
+ * @param {string} s The string to test.
+ * @param {string} ss The substring to test for.
+ * @return {boolean} True if {@code s} contains {@code ss}.
+ */
+goog.string.contains = function(s, ss) {
+  return s.indexOf(ss) != -1;
+};
+
+
+/**
+ * Returns the non-overlapping occurrences of ss in s.
+ * If either s or ss evalutes to false, then returns zero.
+ * @param {string} s The string to look in.
+ * @param {string} ss The string to look for.
+ * @return {number} Number of occurrences of ss in s.
+ */
+goog.string.countOf = function(s, ss) {
+  return s && ss ? s.split(ss).length - 1 : 0;
+};
+
+
+/**
+ * Removes a substring of a specified length at a specific
+ * index in a string.
+ * @param {string} s The base string from which to remove.
+ * @param {number} index The index at which to remove the substring.
+ * @param {number} stringLength The length of the substring to remove.
+ * @return {string} A copy of {@code s} with the substring removed or the full
+ *     string if nothing is removed or the input is invalid.
+ */
+goog.string.removeAt = function(s, index, stringLength) {
+  var resultStr = s;
+  // If the index is greater or equal to 0 then remove substring
+  if (index >= 0 && index < s.length && stringLength > 0) {
+    resultStr = s.substr(0, index) +
+        s.substr(index + stringLength, s.length - index - stringLength);
+  }
+  return resultStr;
+};
+
+
+/**
+ *  Removes the first occurrence of a substring from a string.
+ *  @param {string} s The base string from which to remove.
+ *  @param {string} ss The string to remove.
+ *  @return {string} A copy of {@code s} with {@code ss} removed or the full
+ *      string if nothing is removed.
+ */
+goog.string.remove = function(s, ss) {
+  var re = new RegExp(goog.string.regExpEscape(ss), '');
+  return s.replace(re, '');
+};
+
+
+/**
+ *  Removes all occurrences of a substring from a string.
+ *  @param {string} s The base string from which to remove.
+ *  @param {string} ss The string to remove.
+ *  @return {string} A copy of {@code s} with {@code ss} removed or the full
+ *      string if nothing is removed.
+ */
+goog.string.removeAll = function(s, ss) {
+  var re = new RegExp(goog.string.regExpEscape(ss), 'g');
+  return s.replace(re, '');
+};
+
+
+/**
+ * Escapes characters in the string that are not safe to use in a RegExp.
+ * @param {*} s The string to escape. If not a string, it will be casted
+ *     to one.
+ * @return {string} A RegExp safe, escaped copy of {@code s}.
+ */
+goog.string.regExpEscape = function(s) {
+  return String(s).replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1').
+      replace(/\x08/g, '\\x08');
+};
+
+
+/**
+ * Repeats a string n times.
+ * @param {string} string The string to repeat.
+ * @param {number} length The number of times to repeat.
+ * @return {string} A string containing {@code length} repetitions of
+ *     {@code string}.
+ */
+goog.string.repeat = function(string, length) {
+  return new Array(length + 1).join(string);
+};
+
+
+/**
+ * Pads number to given length and optionally rounds it to a given precision.
+ * For example:
+ * <pre>padNumber(1.25, 2, 3) -> '01.250'
+ * padNumber(1.25, 2) -> '01.25'
+ * padNumber(1.25, 2, 1) -> '01.3'
+ * padNumber(1.25, 0) -> '1.25'</pre>
+ *
+ * @param {number} num The number to pad.
+ * @param {number} length The desired length.
+ * @param {number=} opt_precision The desired precision.
+ * @return {string} {@code num} as a string with the given options.
+ */
+goog.string.padNumber = function(num, length, opt_precision) {
+  var s = goog.isDef(opt_precision) ? num.toFixed(opt_precision) : String(num);
+  var index = s.indexOf('.');
+  if (index == -1) {
+    index = s.length;
+  }
+  return goog.string.repeat('0', Math.max(0, length - index)) + s;
+};
+
+
+/**
+ * Returns a string representation of the given object, with
+ * null and undefined being returned as the empty string.
+ *
+ * @param {*} obj The object to convert.
+ * @return {string} A string representation of the {@code obj}.
+ */
+goog.string.makeSafe = function(obj) {
+  return obj == null ? '' : String(obj);
+};
+
+
+/**
+ * Concatenates string expressions. This is useful
+ * since some browsers are very inefficient when it comes to using plus to
+ * concat strings. Be careful when using null and undefined here since
+ * these will not be included in the result. If you need to represent these
+ * be sure to cast the argument to a String first.
+ * For example:
+ * <pre>buildString('a', 'b', 'c', 'd') -> 'abcd'
+ * buildString(null, undefined) -> ''
+ * </pre>
+ * @param {...*} var_args A list of strings to concatenate. If not a string,
+ *     it will be casted to one.
+ * @return {string} The concatenation of {@code var_args}.
+ */
+goog.string.buildString = function(var_args) {
+  return Array.prototype.join.call(arguments, '');
+};
+
+
+/**
+ * Returns a string with at least 64-bits of randomness.
+ *
+ * Doesn't trust Javascript's random function entirely. Uses a combination of
+ * random and current timestamp, and then encodes the string in base-36 to
+ * make it shorter.
+ *
+ * @return {string} A random string, e.g. sn1s7vb4gcic.
+ */
+goog.string.getRandomString = function() {
+  var x = 2147483648;
+  return Math.floor(Math.random() * x).toString(36) +
+         Math.abs(Math.floor(Math.random() * x) ^ goog.now()).toString(36);
+};
+
+
+/**
+ * Compares two version numbers.
+ *
+ * @param {string|number} version1 Version of first item.
+ * @param {string|number} version2 Version of second item.
+ *
+ * @return {number}  1 if {@code version1} is higher.
+ *                   0 if arguments are equal.
+ *                  -1 if {@code version2} is higher.
+ */
+goog.string.compareVersions = function(version1, version2) {
+  var order = 0;
+  // Trim leading and trailing whitespace and split the versions into
+  // subversions.
+  var v1Subs = goog.string.trim(String(version1)).split('.');
+  var v2Subs = goog.string.trim(String(version2)).split('.');
+  var subCount = Math.max(v1Subs.length, v2Subs.length);
+
+  // Iterate over the subversions, as long as they appear to be equivalent.
+  for (var subIdx = 0; order == 0 && subIdx < subCount; subIdx++) {
+    var v1Sub = v1Subs[subIdx] || '';
+    var v2Sub = v2Subs[subIdx] || '';
+
+    // Split the subversions into pairs of numbers and qualifiers (like 'b').
+    // Two different RegExp objects are needed because they are both using
+    // the 'g' flag.
+    var v1CompParser = new RegExp('(\\d*)(\\D*)', 'g');
+    var v2CompParser = new RegExp('(\\d*)(\\D*)', 'g');
+    do {
+      var v1Comp = v1CompParser.exec(v1Sub) || ['', '', ''];
+      var v2Comp = v2CompParser.exec(v2Sub) || ['', '', ''];
+      // Break if there are no more matches.
+      if (v1Comp[0].length == 0 && v2Comp[0].length == 0) {
+        break;
+      }
+
+      // Parse the numeric part of the subversion. A missing number is
+      // equivalent to 0.
+      var v1CompNum = v1Comp[1].length == 0 ? 0 : parseInt(v1Comp[1], 10);
+      var v2CompNum = v2Comp[1].length == 0 ? 0 : parseInt(v2Comp[1], 10);
+
+      // Compare the subversion components. The number has the highest
+      // precedence. Next, if the numbers are equal, a subversion without any
+      // qualifier is always higher than a subversion with any qualifier. Next,
+      // the qualifiers are compared as strings.
+      order = goog.string.compareElements_(v1CompNum, v2CompNum) ||
+          goog.string.compareElements_(v1Comp[2].length == 0,
+              v2Comp[2].length == 0) ||
+          goog.string.compareElements_(v1Comp[2], v2Comp[2]);
+      // Stop as soon as an inequality is discovered.
+    } while (order == 0);
+  }
+
+  return order;
+};
+
+
+/**
+ * Compares elements of a version number.
+ *
+ * @param {string|number|boolean} left An element from a version number.
+ * @param {string|number|boolean} right An element from a version number.
+ *
+ * @return {number}  1 if {@code left} is higher.
+ *                   0 if arguments are equal.
+ *                  -1 if {@code right} is higher.
+ * @private
+ */
+goog.string.compareElements_ = function(left, right) {
+  if (left < right) {
+    return -1;
+  } else if (left > right) {
+    return 1;
+  }
+  return 0;
+};
+
+
+/**
+ * Maximum value of #goog.string.hashCode, exclusive. 2^32.
+ * @type {number}
+ * @private
+ */
+goog.string.HASHCODE_MAX_ = 0x100000000;
+
+
+/**
+ * String hash function similar to java.lang.String.hashCode().
+ * The hash code for a string is computed as
+ * s[0] * 31 ^ (n - 1) + s[1] * 31 ^ (n - 2) + ... + s[n - 1],
+ * where s[i] is the ith character of the string and n is the length of
+ * the string. We mod the result to make it between 0 (inclusive) and 2^32
+ * (exclusive).
+ * @param {string} str A string.
+ * @return {number} Hash value for {@code str}, between 0 (inclusive) and 2^32
+ *  (exclusive). The empty string returns 0.
+ */
+goog.string.hashCode = function(str) {
+  var result = 0;
+  for (var i = 0; i < str.length; ++i) {
+    result = 31 * result + str.charCodeAt(i);
+    // Normalize to 4 byte range, 0 ... 2^32.
+    result %= goog.string.HASHCODE_MAX_;
+  }
+  return result;
+};
+
+
+/**
+ * The most recent unique ID. |0 is equivalent to Math.floor in this case.
+ * @type {number}
+ * @private
+ */
+goog.string.uniqueStringCounter_ = Math.random() * 0x80000000 | 0;
+
+
+/**
+ * Generates and returns a string which is unique in the current document.
+ * This is useful, for example, to create unique IDs for DOM elements.
+ * @return {string} A unique id.
+ */
+goog.string.createUniqueString = function() {
+  return 'goog_' + goog.string.uniqueStringCounter_++;
+};
+
+
+/**
+ * Converts the supplied string to a number, which may be Ininity or NaN.
+ * This function strips whitespace: (toNumber(' 123') === 123)
+ * This function accepts scientific notation: (toNumber('1e1') === 10)
+ *
+ * This is better than Javascript's built-in conversions because, sadly:
+ *     (Number(' ') === 0) and (parseFloat('123a') === 123)
+ *
+ * @param {string} str The string to convert.
+ * @return {number} The number the supplied string represents, or NaN.
+ */
+goog.string.toNumber = function(str) {
+  var num = Number(str);
+  if (num == 0 && goog.string.isEmpty(str)) {
+    return NaN;
+  }
+  return num;
+};
+
+
+/**
+ * Converts a string from selector-case to camelCase (e.g. from
+ * "multi-part-string" to "multiPartString"), useful for converting
+ * CSS selectors and HTML dataset keys to their equivalent JS properties.
+ * @param {string} str The string in selector-case form.
+ * @return {string} The string in camelCase form.
+ */
+goog.string.toCamelCase = function(str) {
+  return String(str).replace(/\-([a-z])/g, function(all, match) {
+    return match.toUpperCase();
+  });
+};
+
+
+/**
+ * Converts a string from camelCase to selector-case (e.g. from
+ * "multiPartString" to "multi-part-string"), useful for converting JS
+ * style and dataset properties to equivalent CSS selectors and HTML keys.
+ * @param {string} str The string in camelCase form.
+ * @return {string} The string in selector-case form.
+ */
+goog.string.toSelectorCase = function(str) {
+  return String(str).replace(/([A-Z])/g, '-$1').toLowerCase();
+};
+
+
+/**
+ * Converts a string into TitleCase. First character of the string is always
+ * capitalized in addition to the first letter of every subsequent word.
+ * Words are delimited by one or more whitespaces by default. Custom delimiters
+ * can optionally be specified to replace the default, which doesn't preserve
+ * whitespace delimiters and instead must be explicitly included if needed.
+ *
+ * Default delimiter => " ":
+ *    goog.string.toTitleCase('oneTwoThree')    => 'OneTwoThree'
+ *    goog.string.toTitleCase('one two three')  => 'One Two Three'
+ *    goog.string.toTitleCase('  one   two   ') => '  One   Two   '
+ *    goog.string.toTitleCase('one_two_three')  => 'One_two_three'
+ *    goog.string.toTitleCase('one-two-three')  => 'One-two-three'
+ *
+ * Custom delimiter => "_-.":
+ *    goog.string.toTitleCase('oneTwoThree', '_-.')       => 'OneTwoThree'
+ *    goog.string.toTitleCase('one two three', '_-.')     => 'One two three'
+ *    goog.string.toTitleCase('  one   two   ', '_-.')    => '  one   two   '
+ *    goog.string.toTitleCase('one_two_three', '_-.')     => 'One_Two_Three'
+ *    goog.string.toTitleCase('one-two-three', '_-.')     => 'One-Two-Three'
+ *    goog.string.toTitleCase('one...two...three', '_-.') => 'One...Two...Three'
+ *    goog.string.toTitleCase('one. two. three', '_-.')   => 'One. two. three'
+ *    goog.string.toTitleCase('one-two.three', '_-.')     => 'One-Two.Three'
+ *
+ * @param {string} str String value in camelCase form.
+ * @param {string=} opt_delimiters Custom delimiter character set used to
+ *      distinguish words in the string value. Each character represents a
+ *      single delimiter. When provided, default whitespace delimiter is
+ *      overridden and must be explicitly included if needed.
+ * @return {string} String value in TitleCase form.
+ */
+goog.string.toTitleCase = function(str, opt_delimiters) {
+  var delimiters = goog.isString(opt_delimiters) ?
+      goog.string.regExpEscape(opt_delimiters) : '\\s';
+
+  // For IE8, we need to prevent using an empty character set. Otherwise,
+  // incorrect matching will occur.
+  delimiters = delimiters ? '|[' + delimiters + ']+' : '';
+
+  var regexp = new RegExp('(^' + delimiters + ')([a-z])', 'g');
+  return str.replace(regexp, function(all, p1, p2) {
+    return p1 + p2.toUpperCase();
+  });
+};
+
+
+/**
+ * Parse a string in decimal or hexidecimal ('0xFFFF') form.
+ *
+ * To parse a particular radix, please use parseInt(string, radix) directly. See
+ * https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/parseInt
+ *
+ * This is a wrapper for the built-in parseInt function that will only parse
+ * numbers as base 10 or base 16.  Some JS implementations assume strings
+ * starting with "0" are intended to be octal. ES3 allowed but discouraged
+ * this behavior. ES5 forbids it.  This function emulates the ES5 behavior.
+ *
+ * For more information, see Mozilla JS Reference: http://goo.gl/8RiFj
+ *
+ * @param {string|number|null|undefined} value The value to be parsed.
+ * @return {number} The number, parsed. If the string failed to parse, this
+ *     will be NaN.
+ */
+goog.string.parseInt = function(value) {
+  // Force finite numbers to strings.
+  if (isFinite(value)) {
+    value = String(value);
+  }
+
+  if (goog.isString(value)) {
+    // If the string starts with '0x' or '-0x', parse as hex.
+    return /^\s*-?0x/i.test(value) ?
+        parseInt(value, 16) : parseInt(value, 10);
+  }
+
+  return NaN;
+};
+
+// Input 6
+// Copyright 2008 The Closure Library Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * @fileoverview Utilities to check the preconditions, postconditions and
+ * invariants runtime.
+ *
+ * Methods in this package should be given special treatment by the compiler
+ * for type-inference. For example, <code>goog.asserts.assert(foo)</code>
+ * will restrict <code>foo</code> to a truthy value.
+ *
+ * The compiler has an option to disable asserts. So code like:
+ * <code>
+ * var x = goog.asserts.assert(foo()); goog.asserts.assert(bar());
+ * </code>
+ * will be transformed into:
+ * <code>
+ * var x = foo();
+ * </code>
+ * The compiler will leave in foo() (because its return value is used),
+ * but it will remove bar() because it assumes it does not have side-effects.
+ *
+ */
+
+goog.provide('goog.asserts');
+goog.provide('goog.asserts.AssertionError');
+
+goog.require('goog.debug.Error');
+goog.require('goog.string');
+
+
+/**
+ * @define {boolean} Whether to strip out asserts or to leave them in.
+ */
+goog.asserts.ENABLE_ASSERTS = goog.DEBUG;
+
+
+
+/**
+ * Error object for failed assertions.
+ * @param {string} messagePattern The pattern that was used to form message.
+ * @param {!Array.<*>} messageArgs The items to substitute into the pattern.
+ * @constructor
+ * @extends {goog.debug.Error}
+ */
+goog.asserts.AssertionError = function(messagePattern, messageArgs) {
+  messageArgs.unshift(messagePattern);
+  goog.debug.Error.call(this, goog.string.subs.apply(null, messageArgs));
+  // Remove the messagePattern afterwards to avoid permenantly modifying the
+  // passed in array.
+  messageArgs.shift();
+
+  /**
+   * The message pattern used to format the error message. Error handlers can
+   * use this to uniquely identify the assertion.
+   * @type {string}
+   */
+  this.messagePattern = messagePattern;
+};
+goog.inherits(goog.asserts.AssertionError, goog.debug.Error);
+
+
+/** @override */
+goog.asserts.AssertionError.prototype.name = 'AssertionError';
+
+
+/**
+ * Throws an exception with the given message and "Assertion failed" prefixed
+ * onto it.
+ * @param {string} defaultMessage The message to use if givenMessage is empty.
+ * @param {Array.<*>} defaultArgs The substitution arguments for defaultMessage.
+ * @param {string|undefined} givenMessage Message supplied by the caller.
+ * @param {Array.<*>} givenArgs The substitution arguments for givenMessage.
+ * @throws {goog.asserts.AssertionError} When the value is not a number.
+ * @private
+ */
+goog.asserts.doAssertFailure_ =
+    function(defaultMessage, defaultArgs, givenMessage, givenArgs) {
+  var message = 'Assertion failed';
+  if (givenMessage) {
+    message += ': ' + givenMessage;
+    var args = givenArgs;
+  } else if (defaultMessage) {
+    message += ': ' + defaultMessage;
+    args = defaultArgs;
+  }
+  // The '' + works around an Opera 10 bug in the unit tests. Without it,
+  // a stack trace is added to var message above. With this, a stack trace is
+  // not added until this line (it causes the extra garbage to be added after
+  // the assertion message instead of in the middle of it).
+  throw new goog.asserts.AssertionError('' + message, args || []);
+};
+
+
+/**
+ * Checks if the condition evaluates to true if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} condition The condition to check.
+ * @param {string=} opt_message Error message in case of failure.
+ * @param {...*} var_args The items to substitute into the failure message.
+ * @return {*} The value of the condition.
+ * @throws {goog.asserts.AssertionError} When the condition evaluates to false.
+ */
+goog.asserts.assert = function(condition, opt_message, var_args) {
+  if (goog.asserts.ENABLE_ASSERTS && !condition) {
+    goog.asserts.doAssertFailure_('', null, opt_message,
+        Array.prototype.slice.call(arguments, 2));
+  }
+  return condition;
+};
+
+
+/**
+ * Fails if goog.asserts.ENABLE_ASSERTS is true. This function is useful in case
+ * when we want to add a check in the unreachable area like switch-case
+ * statement:
+ *
+ * <pre>
+ *  switch(type) {
+ *    case FOO: doSomething(); break;
+ *    case BAR: doSomethingElse(); break;
+ *    default: goog.assert.fail('Unrecognized type: ' + type);
+ *      // We have only 2 types - "default:" section is unreachable code.
+ *  }
+ * </pre>
+ *
+ * @param {string=} opt_message Error message in case of failure.
+ * @param {...*} var_args The items to substitute into the failure message.
+ * @throws {goog.asserts.AssertionError} Failure.
+ */
+goog.asserts.fail = function(opt_message, var_args) {
+  if (goog.asserts.ENABLE_ASSERTS) {
+    throw new goog.asserts.AssertionError(
+        'Failure' + (opt_message ? ': ' + opt_message : ''),
+        Array.prototype.slice.call(arguments, 1));
+  }
+};
+
+
+/**
+ * Checks if the value is a number if goog.asserts.ENABLE_ASSERTS is true.
+ * @param {*} value The value to check.
+ * @param {string=} opt_message Error message in case of failure.
+ * @param {...*} var_args The items to substitute into the failure message.
+ * @return {number} The value, guaranteed to be a number when asserts enabled.
+ * @throws {goog.asserts.AssertionError} When the value is not a number.
+ */
+goog.asserts.assertNumber = function(value, opt_message, var_args) {
+  if (goog.asserts.ENABLE_ASSERTS && !goog.isNumber(value)) {
+    goog.asserts.doAssertFailure_('Expected number but got %s: %s.',
+        [goog.typeOf(value), value], opt_message,
+        Array.prototype.slice.call(arguments, 2));
+  }
+  return /** @type {number} */ (value);
+};
+
+
+/**
+ * Checks if the value is a string if goog.asserts.ENABLE_ASSERTS is true.
+ * @param {*} value The value to check.
+ * @param {string=} opt_message Error message in case of failure.
+ * @param {...*} var_args The items to substitute into the failure message.
+ * @return {string} The value, guaranteed to be a string when asserts enabled.
+ * @throws {goog.asserts.AssertionError} When the value is not a string.
+ */
+goog.asserts.assertString = function(value, opt_message, var_args) {
+  if (goog.asserts.ENABLE_ASSERTS && !goog.isString(value)) {
+    goog.asserts.doAssertFailure_('Expected string but got %s: %s.',
+        [goog.typeOf(value), value], opt_message,
+        Array.prototype.slice.call(arguments, 2));
+  }
+  return /** @type {string} */ (value);
+};
+
+
+/**
+ * Checks if the value is a function if goog.asserts.ENABLE_ASSERTS is true.
+ * @param {*} value The value to check.
+ * @param {string=} opt_message Error message in case of failure.
+ * @param {...*} var_args The items to substitute into the failure message.
+ * @return {!Function} The value, guaranteed to be a function when asserts
+ *     enabled.
+ * @throws {goog.asserts.AssertionError} When the value is not a function.
+ */
+goog.asserts.assertFunction = function(value, opt_message, var_args) {
+  if (goog.asserts.ENABLE_ASSERTS && !goog.isFunction(value)) {
+    goog.asserts.doAssertFailure_('Expected function but got %s: %s.',
+        [goog.typeOf(value), value], opt_message,
+        Array.prototype.slice.call(arguments, 2));
+  }
+  return /** @type {!Function} */ (value);
+};
+
+
+/**
+ * Checks if the value is an Object if goog.asserts.ENABLE_ASSERTS is true.
+ * @param {*} value The value to check.
+ * @param {string=} opt_message Error message in case of failure.
+ * @param {...*} var_args The items to substitute into the failure message.
+ * @return {!Object} The value, guaranteed to be a non-null object.
+ * @throws {goog.asserts.AssertionError} When the value is not an object.
+ */
+goog.asserts.assertObject = function(value, opt_message, var_args) {
+  if (goog.asserts.ENABLE_ASSERTS && !goog.isObject(value)) {
+    goog.asserts.doAssertFailure_('Expected object but got %s: %s.',
+        [goog.typeOf(value), value],
+        opt_message, Array.prototype.slice.call(arguments, 2));
+  }
+  return /** @type {!Object} */ (value);
+};
+
+
+/**
+ * Checks if the value is an Array if goog.asserts.ENABLE_ASSERTS is true.
+ * @param {*} value The value to check.
+ * @param {string=} opt_message Error message in case of failure.
+ * @param {...*} var_args The items to substitute into the failure message.
+ * @return {!Array} The value, guaranteed to be a non-null array.
+ * @throws {goog.asserts.AssertionError} When the value is not an array.
+ */
+goog.asserts.assertArray = function(value, opt_message, var_args) {
+  if (goog.asserts.ENABLE_ASSERTS && !goog.isArray(value)) {
+    goog.asserts.doAssertFailure_('Expected array but got %s: %s.',
+        [goog.typeOf(value), value], opt_message,
+        Array.prototype.slice.call(arguments, 2));
+  }
+  return /** @type {!Array} */ (value);
+};
+
+
+/**
+ * Checks if the value is a boolean if goog.asserts.ENABLE_ASSERTS is true.
+ * @param {*} value The value to check.
+ * @param {string=} opt_message Error message in case of failure.
+ * @param {...*} var_args The items to substitute into the failure message.
+ * @return {boolean} The value, guaranteed to be a boolean when asserts are
+ *     enabled.
+ * @throws {goog.asserts.AssertionError} When the value is not a boolean.
+ */
+goog.asserts.assertBoolean = function(value, opt_message, var_args) {
+  if (goog.asserts.ENABLE_ASSERTS && !goog.isBoolean(value)) {
+    goog.asserts.doAssertFailure_('Expected boolean but got %s: %s.',
+        [goog.typeOf(value), value], opt_message,
+        Array.prototype.slice.call(arguments, 2));
+  }
+  return /** @type {boolean} */ (value);
+};
+
+
+/**
+ * Checks if the value is an instance of the user-defined type if
+ * goog.asserts.ENABLE_ASSERTS is true.
+ *
+ * The compiler may tighten the type returned by this function.
+ *
+ * @param {*} value The value to check.
+ * @param {!Function} type A user-defined constructor.
+ * @param {string=} opt_message Error message in case of failure.
+ * @param {...*} var_args The items to substitute into the failure message.
+ * @throws {goog.asserts.AssertionError} When the value is not an instance of
+ *     type.
+ * @return {!Object}
+ */
+goog.asserts.assertInstanceof = function(value, type, opt_message, var_args) {
+  if (goog.asserts.ENABLE_ASSERTS && !(value instanceof type)) {
+    goog.asserts.doAssertFailure_('instanceof check failed.', null,
+        opt_message, Array.prototype.slice.call(arguments, 3));
+  }
+  return /** @type {!Object} */(value);
+};
+
+
+// Input 7
+// Copyright 2006 The Closure Library Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * @fileoverview Utilities for manipulating arrays.
+ *
+ */
+
+
+goog.provide('goog.array');
+goog.provide('goog.array.ArrayLike');
+
+goog.require('goog.asserts');
+
+
+/**
+ * @define {boolean} NATIVE_ARRAY_PROTOTYPES indicates whether the code should
+ * rely on Array.prototype functions, if available.
+ *
+ * The Array.prototype functions can be defined by external libraries like
+ * Prototype and setting this flag to false forces closure to use its own
+ * goog.array implementation.
+ *
+ * If your javascript can be loaded by a third party site and you are wary about
+ * relying on the prototype functions, specify
+ * "--define goog.NATIVE_ARRAY_PROTOTYPES=false" to the JSCompiler.
+ *
+ * Setting goog.TRUSTED_SITE to false will automatically set
+ * NATIVE_ARRAY_PROTOTYPES to false.
+ */
+goog.NATIVE_ARRAY_PROTOTYPES = goog.TRUSTED_SITE;
+
+
+/**
+ * @typedef {Array|NodeList|Arguments|{length: number}}
+ */
+goog.array.ArrayLike;
+
+
+/**
+ * Returns the last element in an array without removing it.
+ * @param {goog.array.ArrayLike} array The array.
+ * @return {*} Last item in array.
+ */
+goog.array.peek = function(array) {
+  return array[array.length - 1];
+};
+
+
+/**
+ * Reference to the original {@code Array.prototype}.
+ * @private
+ */
+goog.array.ARRAY_PROTOTYPE_ = Array.prototype;
+
+
+// NOTE(arv): Since most of the array functions are generic it allows you to
+// pass an array-like object. Strings have a length and are considered array-
+// like. However, the 'in' operator does not work on strings so we cannot just
+// use the array path even if the browser supports indexing into strings. We
+// therefore end up splitting the string.
+
+
+/**
+ * Returns the index of the first element of an array with a specified
+ * value, or -1 if the element is not present in the array.
+ *
+ * See {@link http://tinyurl.com/developer-mozilla-org-array-indexof}
+ *
+ * @param {goog.array.ArrayLike} arr The array to be searched.
+ * @param {*} obj The object for which we are searching.
+ * @param {number=} opt_fromIndex The index at which to start the search. If
+ *     omitted the search starts at index 0.
+ * @return {number} The index of the first matching array element.
+ */
+goog.array.indexOf = goog.NATIVE_ARRAY_PROTOTYPES &&
+                     goog.array.ARRAY_PROTOTYPE_.indexOf ?
+    function(arr, obj, opt_fromIndex) {
+      goog.asserts.assert(arr.length != null);
+
+      return goog.array.ARRAY_PROTOTYPE_.indexOf.call(arr, obj, opt_fromIndex);
+    } :
+    function(arr, obj, opt_fromIndex) {
+      var fromIndex = opt_fromIndex == null ?
+          0 : (opt_fromIndex < 0 ?
+               Math.max(0, arr.length + opt_fromIndex) : opt_fromIndex);
+
+      if (goog.isString(arr)) {
+        // Array.prototype.indexOf uses === so only strings should be found.
+        if (!goog.isString(obj) || obj.length != 1) {
+          return -1;
+        }
+        return arr.indexOf(obj, fromIndex);
+      }
+
+      for (var i = fromIndex; i < arr.length; i++) {
+        if (i in arr && arr[i] === obj)
+          return i;
+      }
+      return -1;
+    };
+
+
+/**
+ * Returns the index of the last element of an array with a specified value, or
+ * -1 if the element is not present in the array.
+ *
+ * See {@link http://tinyurl.com/developer-mozilla-org-array-lastindexof}
+ *
+ * @param {goog.array.ArrayLike} arr The array to be searched.
+ * @param {*} obj The object for which we are searching.
+ * @param {?number=} opt_fromIndex The index at which to start the search. If
+ *     omitted the search starts at the end of the array.
+ * @return {number} The index of the last matching array element.
+ */
+goog.array.lastIndexOf = goog.NATIVE_ARRAY_PROTOTYPES &&
+                         goog.array.ARRAY_PROTOTYPE_.lastIndexOf ?
+    function(arr, obj, opt_fromIndex) {
+      goog.asserts.assert(arr.length != null);
+
+      // Firefox treats undefined and null as 0 in the fromIndex argument which
+      // leads it to always return -1
+      var fromIndex = opt_fromIndex == null ? arr.length - 1 : opt_fromIndex;
+      return goog.array.ARRAY_PROTOTYPE_.lastIndexOf.call(arr, obj, fromIndex);
+    } :
+    function(arr, obj, opt_fromIndex) {
+      var fromIndex = opt_fromIndex == null ? arr.length - 1 : opt_fromIndex;
+
+      if (fromIndex < 0) {
+        fromIndex = Math.max(0, arr.length + fromIndex);
+      }
+
+      if (goog.isString(arr)) {
+        // Array.prototype.lastIndexOf uses === so only strings should be found.
+        if (!goog.isString(obj) || obj.length != 1) {
+          return -1;
+        }
+        return arr.lastIndexOf(obj, fromIndex);
+      }
+
+      for (var i = fromIndex; i >= 0; i--) {
+        if (i in arr && arr[i] === obj)
+          return i;
+      }
+      return -1;
+    };
+
+
+/**
+ * Calls a function for each element in an array. Skips holes in the array.
+ * See {@link http://tinyurl.com/developer-mozilla-org-array-foreach}
+ *
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array like object over
+ *     which to iterate.
+ * @param {?function(this: S, T, number, ?): ?} f The function to call for every
+ *     element. This function takes 3 arguments (the element, the index and the
+ *     array). The return value is ignored.
+ * @param {S=} opt_obj The object to be used as the value of 'this' within f.
+ * @template T,S
+ */
+goog.array.forEach = goog.NATIVE_ARRAY_PROTOTYPES &&
+                     goog.array.ARRAY_PROTOTYPE_.forEach ?
+    function(arr, f, opt_obj) {
+      goog.asserts.assert(arr.length != null);
+
+      goog.array.ARRAY_PROTOTYPE_.forEach.call(arr, f, opt_obj);
+    } :
+    function(arr, f, opt_obj) {
+      var l = arr.length;  // must be fixed during loop... see docs
+      var arr2 = goog.isString(arr) ? arr.split('') : arr;
+      for (var i = 0; i < l; i++) {
+        if (i in arr2) {
+          f.call(opt_obj, arr2[i], i, arr);
+        }
+      }
+    };
+
+
+/**
+ * Calls a function for each element in an array, starting from the last
+ * element rather than the first.
+ *
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this: S, T, number, ?): ?} f The function to call for every
+ *     element. This function
+ *     takes 3 arguments (the element, the index and the array). The return
+ *     value is ignored.
+ * @param {S=} opt_obj The object to be used as the value of 'this'
+ *     within f.
+ * @template T,S
+ */
+goog.array.forEachRight = function(arr, f, opt_obj) {
+  var l = arr.length;  // must be fixed during loop... see docs
+  var arr2 = goog.isString(arr) ? arr.split('') : arr;
+  for (var i = l - 1; i >= 0; --i) {
+    if (i in arr2) {
+      f.call(opt_obj, arr2[i], i, arr);
+    }
+  }
+};
+
+
+/**
+ * Calls a function for each element in an array, and if the function returns
+ * true adds the element to a new array.
+ *
+ * See {@link http://tinyurl.com/developer-mozilla-org-array-filter}
+ *
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, T, number, ?):boolean} f The function to call for
+ *     every element. This function
+ *     takes 3 arguments (the element, the index and the array) and must
+ *     return a Boolean. If the return value is true the element is added to the
+ *     result array. If it is false the element is not included.
+ * @param {S=} opt_obj The object to be used as the value of 'this'
+ *     within f.
+ * @return {!Array} a new array in which only elements that passed the test are
+ *     present.
+ * @template T,S
+ */
+goog.array.filter = goog.NATIVE_ARRAY_PROTOTYPES &&
+                    goog.array.ARRAY_PROTOTYPE_.filter ?
+    function(arr, f, opt_obj) {
+      goog.asserts.assert(arr.length != null);
+
+      return goog.array.ARRAY_PROTOTYPE_.filter.call(arr, f, opt_obj);
+    } :
+    function(arr, f, opt_obj) {
+      var l = arr.length;  // must be fixed during loop... see docs
+      var res = [];
+      var resLength = 0;
+      var arr2 = goog.isString(arr) ? arr.split('') : arr;
+      for (var i = 0; i < l; i++) {
+        if (i in arr2) {
+          var val = arr2[i];  // in case f mutates arr2
+          if (f.call(opt_obj, val, i, arr)) {
+            res[resLength++] = val;
+          }
+        }
+      }
+      return res;
+    };
+
+
+/**
+ * Calls a function for each element in an array and inserts the result into a
+ * new array.
+ *
+ * See {@link http://tinyurl.com/developer-mozilla-org-array-map}
+ *
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, T, number, ?):?} f The function to call for every
+ *     element. This function
+ *     takes 3 arguments (the element, the index and the array) and should
+ *     return something. The result will be inserted into a new array.
+ * @param {S=} opt_obj The object to be used as the value of 'this'
+ *     within f.
+ * @return {!Array} a new array with the results from f.
+ * @template T,S
+ */
+goog.array.map = goog.NATIVE_ARRAY_PROTOTYPES &&
+                 goog.array.ARRAY_PROTOTYPE_.map ?
+    function(arr, f, opt_obj) {
+      goog.asserts.assert(arr.length != null);
+
+      return goog.array.ARRAY_PROTOTYPE_.map.call(arr, f, opt_obj);
+    } :
+    function(arr, f, opt_obj) {
+      var l = arr.length;  // must be fixed during loop... see docs
+      var res = new Array(l);
+      var arr2 = goog.isString(arr) ? arr.split('') : arr;
+      for (var i = 0; i < l; i++) {
+        if (i in arr2) {
+          res[i] = f.call(opt_obj, arr2[i], i, arr);
+        }
+      }
+      return res;
+    };
+
+
+/**
+ * Passes every element of an array into a function and accumulates the result.
+ *
+ * See {@link http://tinyurl.com/developer-mozilla-org-array-reduce}
+ *
+ * For example:
+ * var a = [1, 2, 3, 4];
+ * goog.array.reduce(a, function(r, v, i, arr) {return r + v;}, 0);
+ * returns 10
+ *
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, R, T, number, ?) : R} f The function to call for
+ *     every element. This function
+ *     takes 4 arguments (the function's previous result or the initial value,
+ *     the value of the current array element, the current array index, and the
+ *     array itself)
+ *     function(previousValue, currentValue, index, array).
+ * @param {?} val The initial value to pass into the function on the first call.
+ * @param {S=} opt_obj  The object to be used as the value of 'this'
+ *     within f.
+ * @return {R} Result of evaluating f repeatedly across the values of the array.
+ * @template T,S,R
+ */
+goog.array.reduce = function(arr, f, val, opt_obj) {
+  if (arr.reduce) {
+    if (opt_obj) {
+      return arr.reduce(goog.bind(f, opt_obj), val);
+    } else {
+      return arr.reduce(f, val);
+    }
+  }
+  var rval = val;
+  goog.array.forEach(arr, function(val, index) {
+    rval = f.call(opt_obj, rval, val, index, arr);
+  });
+  return rval;
+};
+
+
+/**
+ * Passes every element of an array into a function and accumulates the result,
+ * starting from the last element and working towards the first.
+ *
+ * See {@link http://tinyurl.com/developer-mozilla-org-array-reduceright}
+ *
+ * For example:
+ * var a = ['a', 'b', 'c'];
+ * goog.array.reduceRight(a, function(r, v, i, arr) {return r + v;}, '');
+ * returns 'cba'
+ *
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, R, T, number, ?) : R} f The function to call for
+ *     every element. This function
+ *     takes 4 arguments (the function's previous result or the initial value,
+ *     the value of the current array element, the current array index, and the
+ *     array itself)
+ *     function(previousValue, currentValue, index, array).
+ * @param {?} val The initial value to pass into the function on the first call.
+ * @param {S=} opt_obj The object to be used as the value of 'this'
+ *     within f.
+ * @return {R} Object returned as a result of evaluating f repeatedly across the
+ *     values of the array.
+ * @template T,S,R
+ */
+goog.array.reduceRight = function(arr, f, val, opt_obj) {
+  if (arr.reduceRight) {
+    if (opt_obj) {
+      return arr.reduceRight(goog.bind(f, opt_obj), val);
+    } else {
+      return arr.reduceRight(f, val);
+    }
+  }
+  var rval = val;
+  goog.array.forEachRight(arr, function(val, index) {
+    rval = f.call(opt_obj, rval, val, index, arr);
+  });
+  return rval;
+};
+
+
+/**
+ * Calls f for each element of an array. If any call returns true, some()
+ * returns true (without checking the remaining elements). If all calls
+ * return false, some() returns false.
+ *
+ * See {@link http://tinyurl.com/developer-mozilla-org-array-some}
+ *
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, T, number, ?) : boolean} f The function to call for
+ *     for every element. This function takes 3 arguments (the element, the
+ *     index and the array) and should return a boolean.
+ * @param {S=} opt_obj  The object to be used as the value of 'this'
+ *     within f.
+ * @return {boolean} true if any element passes the test.
+ * @template T,S
+ */
+goog.array.some = goog.NATIVE_ARRAY_PROTOTYPES &&
+                  goog.array.ARRAY_PROTOTYPE_.some ?
+    function(arr, f, opt_obj) {
+      goog.asserts.assert(arr.length != null);
+
+      return goog.array.ARRAY_PROTOTYPE_.some.call(arr, f, opt_obj);
+    } :
+    function(arr, f, opt_obj) {
+      var l = arr.length;  // must be fixed during loop... see docs
+      var arr2 = goog.isString(arr) ? arr.split('') : arr;
+      for (var i = 0; i < l; i++) {
+        if (i in arr2 && f.call(opt_obj, arr2[i], i, arr)) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+
+/**
+ * Call f for each element of an array. If all calls return true, every()
+ * returns true. If any call returns false, every() returns false and
+ * does not continue to check the remaining elements.
+ *
+ * See {@link http://tinyurl.com/developer-mozilla-org-array-every}
+ *
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, T, number, ?) : boolean} f The function to call for
+ *     for every element. This function takes 3 arguments (the element, the
+ *     index and the array) and should return a boolean.
+ * @param {S=} opt_obj The object to be used as the value of 'this'
+ *     within f.
+ * @return {boolean} false if any element fails the test.
+ * @template T,S
+ */
+goog.array.every = goog.NATIVE_ARRAY_PROTOTYPES &&
+                   goog.array.ARRAY_PROTOTYPE_.every ?
+    function(arr, f, opt_obj) {
+      goog.asserts.assert(arr.length != null);
+
+      return goog.array.ARRAY_PROTOTYPE_.every.call(arr, f, opt_obj);
+    } :
+    function(arr, f, opt_obj) {
+      var l = arr.length;  // must be fixed during loop... see docs
+      var arr2 = goog.isString(arr) ? arr.split('') : arr;
+      for (var i = 0; i < l; i++) {
+        if (i in arr2 && !f.call(opt_obj, arr2[i], i, arr)) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+
+/**
+ * Counts the array elements that fulfill the predicate, i.e. for which the
+ * callback function returns true. Skips holes in the array.
+ *
+ * @param {!(Array.<T>|goog.array.ArrayLike)} arr Array or array like object
+ *     over which to iterate.
+ * @param {function(this: S, T, number, ?): boolean} f The function to call for
+ *     every element. Takes 3 arguments (the element, the index and the array).
+ * @param {S=} opt_obj The object to be used as the value of 'this' within f.
+ * @return {number} The number of the matching elements.
+ * @template T,S
+ */
+goog.array.count = function(arr, f, opt_obj) {
+  var count = 0;
+  goog.array.forEach(arr, function(element, index, arr) {
+    if (f.call(opt_obj, element, index, arr)) {
+      ++count;
+    }
+  }, opt_obj);
+  return count;
+};
+
+
+/**
+ * Search an array for the first element that satisfies a given condition and
+ * return that element.
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, T, number, ?) : boolean} f The function to call
+ *     for every element. This function takes 3 arguments (the element, the
+ *     index and the array) and should return a boolean.
+ * @param {S=} opt_obj An optional "this" context for the function.
+ * @return {T} The first array element that passes the test, or null if no
+ *     element is found.
+ * @template T,S
+ */
+goog.array.find = function(arr, f, opt_obj) {
+  var i = goog.array.findIndex(arr, f, opt_obj);
+  return i < 0 ? null : goog.isString(arr) ? arr.charAt(i) : arr[i];
+};
+
+
+/**
+ * Search an array for the first element that satisfies a given condition and
+ * return its index.
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, T, number, ?) : boolean} f The function to call for
+ *     every element. This function
+ *     takes 3 arguments (the element, the index and the array) and should
+ *     return a boolean.
+ * @param {S=} opt_obj An optional "this" context for the function.
+ * @return {number} The index of the first array element that passes the test,
+ *     or -1 if no element is found.
+ * @template T,S
+ */
+goog.array.findIndex = function(arr, f, opt_obj) {
+  var l = arr.length;  // must be fixed during loop... see docs
+  var arr2 = goog.isString(arr) ? arr.split('') : arr;
+  for (var i = 0; i < l; i++) {
+    if (i in arr2 && f.call(opt_obj, arr2[i], i, arr)) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+
+/**
+ * Search an array (in reverse order) for the last element that satisfies a
+ * given condition and return that element.
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, T, number, ?) : boolean} f The function to call
+ *     for every element. This function
+ *     takes 3 arguments (the element, the index and the array) and should
+ *     return a boolean.
+ * @param {S=} opt_obj An optional "this" context for the function.
+ * @return {T} The last array element that passes the test, or null if no
+ *     element is found.
+ * @template T,S
+ */
+goog.array.findRight = function(arr, f, opt_obj) {
+  var i = goog.array.findIndexRight(arr, f, opt_obj);
+  return i < 0 ? null : goog.isString(arr) ? arr.charAt(i) : arr[i];
+};
+
+
+/**
+ * Search an array (in reverse order) for the last element that satisfies a
+ * given condition and return its index.
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, T, number, ?) : boolean} f The function to call
+ *     for every element. This function
+ *     takes 3 arguments (the element, the index and the array) and should
+ *     return a boolean.
+ * @param {Object=} opt_obj An optional "this" context for the function.
+ * @return {number} The index of the last array element that passes the test,
+ *     or -1 if no element is found.
+ * @template T,S
+ */
+goog.array.findIndexRight = function(arr, f, opt_obj) {
+  var l = arr.length;  // must be fixed during loop... see docs
+  var arr2 = goog.isString(arr) ? arr.split('') : arr;
+  for (var i = l - 1; i >= 0; i--) {
+    if (i in arr2 && f.call(opt_obj, arr2[i], i, arr)) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+
+/**
+ * Whether the array contains the given object.
+ * @param {goog.array.ArrayLike} arr The array to test for the presence of the
+ *     element.
+ * @param {*} obj The object for which to test.
+ * @return {boolean} true if obj is present.
+ */
+goog.array.contains = function(arr, obj) {
+  return goog.array.indexOf(arr, obj) >= 0;
+};
+
+
+/**
+ * Whether the array is empty.
+ * @param {goog.array.ArrayLike} arr The array to test.
+ * @return {boolean} true if empty.
+ */
+goog.array.isEmpty = function(arr) {
+  return arr.length == 0;
+};
+
+
+/**
+ * Clears the array.
+ * @param {goog.array.ArrayLike} arr Array or array like object to clear.
+ */
+goog.array.clear = function(arr) {
+  // For non real arrays we don't have the magic length so we delete the
+  // indices.
+  if (!goog.isArray(arr)) {
+    for (var i = arr.length - 1; i >= 0; i--) {
+      delete arr[i];
+    }
+  }
+  arr.length = 0;
+};
+
+
+/**
+ * Pushes an item into an array, if it's not already in the array.
+ * @param {Array.<T>} arr Array into which to insert the item.
+ * @param {T} obj Value to add.
+ * @template T
+ */
+goog.array.insert = function(arr, obj) {
+  if (!goog.array.contains(arr, obj)) {
+    arr.push(obj);
+  }
+};
+
+
+/**
+ * Inserts an object at the given index of the array.
+ * @param {goog.array.ArrayLike} arr The array to modify.
+ * @param {*} obj The object to insert.
+ * @param {number=} opt_i The index at which to insert the object. If omitted,
+ *      treated as 0. A negative index is counted from the end of the array.
+ */
+goog.array.insertAt = function(arr, obj, opt_i) {
+  goog.array.splice(arr, opt_i, 0, obj);
+};
+
+
+/**
+ * Inserts at the given index of the array, all elements of another array.
+ * @param {goog.array.ArrayLike} arr The array to modify.
+ * @param {goog.array.ArrayLike} elementsToAdd The array of elements to add.
+ * @param {number=} opt_i The index at which to insert the object. If omitted,
+ *      treated as 0. A negative index is counted from the end of the array.
+ */
+goog.array.insertArrayAt = function(arr, elementsToAdd, opt_i) {
+  goog.partial(goog.array.splice, arr, opt_i, 0).apply(null, elementsToAdd);
+};
+
+
+/**
+ * Inserts an object into an array before a specified object.
+ * @param {Array.<T>} arr The array to modify.
+ * @param {T} obj The object to insert.
+ * @param {T=} opt_obj2 The object before which obj should be inserted. If obj2
+ *     is omitted or not found, obj is inserted at the end of the array.
+ * @template T
+ */
+goog.array.insertBefore = function(arr, obj, opt_obj2) {
+  var i;
+  if (arguments.length == 2 || (i = goog.array.indexOf(arr, opt_obj2)) < 0) {
+    arr.push(obj);
+  } else {
+    goog.array.insertAt(arr, obj, i);
+  }
+};
+
+
+/**
+ * Removes the first occurrence of a particular value from an array.
+ * @param {goog.array.ArrayLike} arr Array from which to remove value.
+ * @param {*} obj Object to remove.
+ * @return {boolean} True if an element was removed.
+ */
+goog.array.remove = function(arr, obj) {
+  var i = goog.array.indexOf(arr, obj);
+  var rv;
+  if ((rv = i >= 0)) {
+    goog.array.removeAt(arr, i);
+  }
+  return rv;
+};
+
+
+/**
+ * Removes from an array the element at index i
+ * @param {goog.array.ArrayLike} arr Array or array like object from which to
+ *     remove value.
+ * @param {number} i The index to remove.
+ * @return {boolean} True if an element was removed.
+ */
+goog.array.removeAt = function(arr, i) {
+  goog.asserts.assert(arr.length != null);
+
+  // use generic form of splice
+  // splice returns the removed items and if successful the length of that
+  // will be 1
+  return goog.array.ARRAY_PROTOTYPE_.splice.call(arr, i, 1).length == 1;
+};
+
+
+/**
+ * Removes the first value that satisfies the given condition.
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array
+ *     like object over which to iterate.
+ * @param {?function(this:S, T, number, ?) : boolean} f The function to call
+ *     for every element. This function
+ *     takes 3 arguments (the element, the index and the array) and should
+ *     return a boolean.
+ * @param {S=} opt_obj An optional "this" context for the function.
+ * @return {boolean} True if an element was removed.
+ * @template T,S
+ */
+goog.array.removeIf = function(arr, f, opt_obj) {
+  var i = goog.array.findIndex(arr, f, opt_obj);
+  if (i >= 0) {
+    goog.array.removeAt(arr, i);
+    return true;
+  }
+  return false;
+};
+
+
+/**
+ * Returns a new array that is the result of joining the arguments.  If arrays
+ * are passed then their items are added, however, if non-arrays are passed they
+ * will be added to the return array as is.
+ *
+ * Note that ArrayLike objects will be added as is, rather than having their
+ * items added.
+ *
+ * goog.array.concat([1, 2], [3, 4]) -> [1, 2, 3, 4]
+ * goog.array.concat(0, [1, 2]) -> [0, 1, 2]
+ * goog.array.concat([1, 2], null) -> [1, 2, null]
+ *
+ * There is bug in all current versions of IE (6, 7 and 8) where arrays created
+ * in an iframe become corrupted soon (not immediately) after the iframe is
+ * destroyed. This is common if loading data via goog.net.IframeIo, for example.
+ * This corruption only affects the concat method which will start throwing
+ * Catastrophic Errors (#-2147418113).
+ *
+ * See http://endoflow.com/scratch/corrupted-arrays.html for a test case.
+ *
+ * Internally goog.array should use this, so that all methods will continue to
+ * work on these broken array objects.
+ *
+ * @param {...*} var_args Items to concatenate.  Arrays will have each item
+ *     added, while primitives and objects will be added as is.
+ * @return {!Array} The new resultant array.
+ */
+goog.array.concat = function(var_args) {
+  return goog.array.ARRAY_PROTOTYPE_.concat.apply(
+      goog.array.ARRAY_PROTOTYPE_, arguments);
+};
+
+
+/**
+ * Converts an object to an array.
+ * @param {goog.array.ArrayLike} object  The object to convert to an array.
+ * @return {!Array} The object converted into an array. If object has a
+ *     length property, every property indexed with a non-negative number
+ *     less than length will be included in the result. If object does not
+ *     have a length property, an empty array will be returned.
+ */
+goog.array.toArray = function(object) {
+  var length = object.length;
+
+  // If length is not a number the following it false. This case is kept for
+  // backwards compatibility since there are callers that pass objects that are
+  // not array like.
+  if (length > 0) {
+    var rv = new Array(length);
+    for (var i = 0; i < length; i++) {
+      rv[i] = object[i];
+    }
+    return rv;
+  }
+  return [];
+};
+
+
+/**
+ * Does a shallow copy of an array.
+ * @param {goog.array.ArrayLike} arr  Array or array-like object to clone.
+ * @return {!Array} Clone of the input array.
+ */
+goog.array.clone = goog.array.toArray;
+
+
+/**
+ * Extends an array with another array, element, or "array like" object.
+ * This function operates 'in-place', it does not create a new Array.
+ *
+ * Example:
+ * var a = [];
+ * goog.array.extend(a, [0, 1]);
+ * a; // [0, 1]
+ * goog.array.extend(a, 2);
+ * a; // [0, 1, 2]
+ *
+ * @param {Array} arr1  The array to modify.
+ * @param {...*} var_args The elements or arrays of elements to add to arr1.
+ */
+goog.array.extend = function(arr1, var_args) {
+  for (var i = 1; i < arguments.length; i++) {
+    var arr2 = arguments[i];
+    // If we have an Array or an Arguments object we can just call push
+    // directly.
+    var isArrayLike;
+    if (goog.isArray(arr2) ||
+        // Detect Arguments. ES5 says that the [[Class]] of an Arguments object
+        // is "Arguments" but only V8 and JSC/Safari gets this right. We instead
+        // detect Arguments by checking for array like and presence of "callee".
+        (isArrayLike = goog.isArrayLike(arr2)) &&
+            // The getter for callee throws an exception in strict mode
+            // according to section 10.6 in ES5 so check for presence instead.
+            Object.prototype.hasOwnProperty.call(arr2, 'callee')) {
+      arr1.push.apply(arr1, arr2);
+    } else if (isArrayLike) {
+      // Otherwise loop over arr2 to prevent copying the object.
+      var len1 = arr1.length;
+      var len2 = arr2.length;
+      for (var j = 0; j < len2; j++) {
+        arr1[len1 + j] = arr2[j];
+      }
+    } else {
+      arr1.push(arr2);
+    }
+  }
+};
+
+
+/**
+ * Adds or removes elements from an array. This is a generic version of Array
+ * splice. This means that it might work on other objects similar to arrays,
+ * such as the arguments object.
+ *
+ * @param {goog.array.ArrayLike} arr The array to modify.
+ * @param {number|undefined} index The index at which to start changing the
+ *     array. If not defined, treated as 0.
+ * @param {number} howMany How many elements to remove (0 means no removal. A
+ *     value below 0 is treated as zero and so is any other non number. Numbers
+ *     are floored).
+ * @param {...*} var_args Optional, additional elements to insert into the
+ *     array.
+ * @return {!Array} the removed elements.
+ */
+goog.array.splice = function(arr, index, howMany, var_args) {
+  goog.asserts.assert(arr.length != null);
+
+  return goog.array.ARRAY_PROTOTYPE_.splice.apply(
+      arr, goog.array.slice(arguments, 1));
+};
+
+
+/**
+ * Returns a new array from a segment of an array. This is a generic version of
+ * Array slice. This means that it might work on other objects similar to
+ * arrays, such as the arguments object.
+ *
+ * @param {Array.<T>|goog.array.ArrayLike} arr The array from
+ * which to copy a segment.
+ * @param {number} start The index of the first element to copy.
+ * @param {number=} opt_end The index after the last element to copy.
+ * @return {!Array.<T>} A new array containing the specified segment of the
+ *     original array.
+ * @template T
+ */
+goog.array.slice = function(arr, start, opt_end) {
+  goog.asserts.assert(arr.length != null);
+
+  // passing 1 arg to slice is not the same as passing 2 where the second is
+  // null or undefined (in that case the second argument is treated as 0).
+  // we could use slice on the arguments object and then use apply instead of
+  // testing the length
+  if (arguments.length <= 2) {
+    return goog.array.ARRAY_PROTOTYPE_.slice.call(arr, start);
+  } else {
+    return goog.array.ARRAY_PROTOTYPE_.slice.call(arr, start, opt_end);
+  }
+};
+
+
+/**
+ * Removes all duplicates from an array (retaining only the first
+ * occurrence of each array element).  This function modifies the
+ * array in place and doesn't change the order of the non-duplicate items.
+ *
+ * For objects, duplicates are identified as having the same unique ID as
+ * defined by {@link goog.getUid}.
+ *
+ * Runtime: N,
+ * Worstcase space: 2N (no dupes)
+ *
+ * @param {goog.array.ArrayLike} arr The array from which to remove duplicates.
+ * @param {Array=} opt_rv An optional array in which to return the results,
+ *     instead of performing the removal inplace.  If specified, the original
+ *     array will remain unchanged.
+ */
+goog.array.removeDuplicates = function(arr, opt_rv) {
+  var returnArray = opt_rv || arr;
+
+  var seen = {}, cursorInsert = 0, cursorRead = 0;
+  while (cursorRead < arr.length) {
+    var current = arr[cursorRead++];
+
+    // Prefix each type with a single character representing the type to
+    // prevent conflicting keys (e.g. true and 'true').
+    var key = goog.isObject(current) ?
+        'o' + goog.getUid(current) :
+        (typeof current).charAt(0) + current;
+
+    if (!Object.prototype.hasOwnProperty.call(seen, key)) {
+      seen[key] = true;
+      returnArray[cursorInsert++] = current;
+    }
+  }
+  returnArray.length = cursorInsert;
+};
+
+
+/**
+ * Searches the specified array for the specified target using the binary
+ * search algorithm.  If no opt_compareFn is specified, elements are compared
+ * using <code>goog.array.defaultCompare</code>, which compares the elements
+ * using the built in < and > operators.  This will produce the expected
+ * behavior for homogeneous arrays of String(s) and Number(s). The array
+ * specified <b>must</b> be sorted in ascending order (as defined by the
+ * comparison function).  If the array is not sorted, results are undefined.
+ * If the array contains multiple instances of the specified target value, any
+ * of these instances may be found.
+ *
+ * Runtime: O(log n)
+ *
+ * @param {goog.array.ArrayLike} arr The array to be searched.
+ * @param {*} target The sought value.
+ * @param {Function=} opt_compareFn Optional comparison function by which the
+ *     array is ordered. Should take 2 arguments to compare, and return a
+ *     negative number, zero, or a positive number depending on whether the
+ *     first argument is less than, equal to, or greater than the second.
+ * @return {number} Lowest index of the target value if found, otherwise
+ *     (-(insertion point) - 1). The insertion point is where the value should
+ *     be inserted into arr to preserve the sorted property.  Return value >= 0
+ *     iff target is found.
+ */
+goog.array.binarySearch = function(arr, target, opt_compareFn) {
+  return goog.array.binarySearch_(arr,
+      opt_compareFn || goog.array.defaultCompare, false /* isEvaluator */,
+      target);
+};
+
+
+/**
+ * Selects an index in the specified array using the binary search algorithm.
+ * The evaluator receives an element and determines whether the desired index
+ * is before, at, or after it.  The evaluator must be consistent (formally,
+ * goog.array.map(goog.array.map(arr, evaluator, opt_obj), goog.math.sign)
+ * must be monotonically non-increasing).
+ *
+ * Runtime: O(log n)
+ *
+ * @param {goog.array.ArrayLike} arr The array to be searched.
+ * @param {Function} evaluator Evaluator function that receives 3 arguments
+ *     (the element, the index and the array). Should return a negative number,
+ *     zero, or a positive number depending on whether the desired index is
+ *     before, at, or after the element passed to it.
+ * @param {Object=} opt_obj The object to be used as the value of 'this'
+ *     within evaluator.
+ * @return {number} Index of the leftmost element matched by the evaluator, if
+ *     such exists; otherwise (-(insertion point) - 1). The insertion point is
+ *     the index of the first element for which the evaluator returns negative,
+ *     or arr.length if no such element exists. The return value is non-negative
+ *     iff a match is found.
+ */
+goog.array.binarySelect = function(arr, evaluator, opt_obj) {
+  return goog.array.binarySearch_(arr, evaluator, true /* isEvaluator */,
+      undefined /* opt_target */, opt_obj);
+};
+
+
+/**
+ * Implementation of a binary search algorithm which knows how to use both
+ * comparison functions and evaluators. If an evaluator is provided, will call
+ * the evaluator with the given optional data object, conforming to the
+ * interface defined in binarySelect. Otherwise, if a comparison function is
+ * provided, will call the comparison function against the given data object.
+ *
+ * This implementation purposefully does not use goog.bind or goog.partial for
+ * performance reasons.
+ *
+ * Runtime: O(log n)
+ *
+ * @param {goog.array.ArrayLike} arr The array to be searched.
+ * @param {Function} compareFn Either an evaluator or a comparison function,
+ *     as defined by binarySearch and binarySelect above.
+ * @param {boolean} isEvaluator Whether the function is an evaluator or a
+ *     comparison function.
+ * @param {*=} opt_target If the function is a comparison function, then this is
+ *     the target to binary search for.
+ * @param {Object=} opt_selfObj If the function is an evaluator, this is an
+  *    optional this object for the evaluator.
+ * @return {number} Lowest index of the target value if found, otherwise
+ *     (-(insertion point) - 1). The insertion point is where the value should
+ *     be inserted into arr to preserve the sorted property.  Return value >= 0
+ *     iff target is found.
+ * @private
+ */
+goog.array.binarySearch_ = function(arr, compareFn, isEvaluator, opt_target,
+    opt_selfObj) {
+  var left = 0;  // inclusive
+  var right = arr.length;  // exclusive
+  var found;
+  while (left < right) {
+    var middle = (left + right) >> 1;
+    var compareResult;
+    if (isEvaluator) {
+      compareResult = compareFn.call(opt_selfObj, arr[middle], middle, arr);
+    } else {
+      compareResult = compareFn(opt_target, arr[middle]);
+    }
+    if (compareResult > 0) {
+      left = middle + 1;
+    } else {
+      right = middle;
+      // We are looking for the lowest index so we can't return immediately.
+      found = !compareResult;
+    }
+  }
+  // left is the index if found, or the insertion point otherwise.
+  // ~left is a shorthand for -left - 1.
+  return found ? left : ~left;
+};
+
+
+/**
+ * Sorts the specified array into ascending order.  If no opt_compareFn is
+ * specified, elements are compared using
+ * <code>goog.array.defaultCompare</code>, which compares the elements using
+ * the built in < and > operators.  This will produce the expected behavior
+ * for homogeneous arrays of String(s) and Number(s), unlike the native sort,
+ * but will give unpredictable results for heterogenous lists of strings and
+ * numbers with different numbers of digits.
+ *
+ * This sort is not guaranteed to be stable.
+ *
+ * Runtime: Same as <code>Array.prototype.sort</code>
+ *
+ * @param {Array.<T>} arr The array to be sorted.
+ * @param {?function(T,T):number=} opt_compareFn Optional comparison
+ *     function by which the
+ *     array is to be ordered. Should take 2 arguments to compare, and return a
+ *     negative number, zero, or a positive number depending on whether the
+ *     first argument is less than, equal to, or greater than the second.
+ * @template T
+ */
+goog.array.sort = function(arr, opt_compareFn) {
+  // TODO(arv): Update type annotation since null is not accepted.
+  goog.asserts.assert(arr.length != null);
+
+  goog.array.ARRAY_PROTOTYPE_.sort.call(
+      arr, opt_compareFn || goog.array.defaultCompare);
+};
+
+
+/**
+ * Sorts the specified array into ascending order in a stable way.  If no
+ * opt_compareFn is specified, elements are compared using
+ * <code>goog.array.defaultCompare</code>, which compares the elements using
+ * the built in < and > operators.  This will produce the expected behavior
+ * for homogeneous arrays of String(s) and Number(s).
+ *
+ * Runtime: Same as <code>Array.prototype.sort</code>, plus an additional
+ * O(n) overhead of copying the array twice.
+ *
+ * @param {Array.<T>} arr The array to be sorted.
+ * @param {?function(T, T): number=} opt_compareFn Optional comparison function
+ *     by which the array is to be ordered. Should take 2 arguments to compare,
+ *     and return a negative number, zero, or a positive number depending on
+ *     whether the first argument is less than, equal to, or greater than the
+ *     second.
+ * @template T
+ */
+goog.array.stableSort = function(arr, opt_compareFn) {
+  for (var i = 0; i < arr.length; i++) {
+    arr[i] = {index: i, value: arr[i]};
+  }
+  var valueCompareFn = opt_compareFn || goog.array.defaultCompare;
+  function stableCompareFn(obj1, obj2) {
+    return valueCompareFn(obj1.value, obj2.value) || obj1.index - obj2.index;
+  };
+  goog.array.sort(arr, stableCompareFn);
+  for (var i = 0; i < arr.length; i++) {
+    arr[i] = arr[i].value;
+  }
+};
+
+
+/**
+ * Sorts an array of objects by the specified object key and compare
+ * function. If no compare function is provided, the key values are
+ * compared in ascending order using <code>goog.array.defaultCompare</code>.
+ * This won't work for keys that get renamed by the compiler. So use
+ * {'foo': 1, 'bar': 2} rather than {foo: 1, bar: 2}.
+ * @param {Array.<Object>} arr An array of objects to sort.
+ * @param {string} key The object key to sort by.
+ * @param {Function=} opt_compareFn The function to use to compare key
+ *     values.
+ */
+goog.array.sortObjectsByKey = function(arr, key, opt_compareFn) {
+  var compare = opt_compareFn || goog.array.defaultCompare;
+  goog.array.sort(arr, function(a, b) {
+    return compare(a[key], b[key]);
+  });
+};
+
+
+/**
+ * Tells if the array is sorted.
+ * @param {!Array.<T>} arr The array.
+ * @param {?function(T,T):number=} opt_compareFn Function to compare the
+ *     array elements.
+ *     Should take 2 arguments to compare, and return a negative number, zero,
+ *     or a positive number depending on whether the first argument is less
+ *     than, equal to, or greater than the second.
+ * @param {boolean=} opt_strict If true no equal elements are allowed.
+ * @return {boolean} Whether the array is sorted.
+ * @template T
+ */
+goog.array.isSorted = function(arr, opt_compareFn, opt_strict) {
+  var compare = opt_compareFn || goog.array.defaultCompare;
+  for (var i = 1; i < arr.length; i++) {
+    var compareResult = compare(arr[i - 1], arr[i]);
+    if (compareResult > 0 || compareResult == 0 && opt_strict) {
+      return false;
+    }
+  }
+  return true;
+};
+
+
+/**
+ * Compares two arrays for equality. Two arrays are considered equal if they
+ * have the same length and their corresponding elements are equal according to
+ * the comparison function.
+ *
+ * @param {goog.array.ArrayLike} arr1 The first array to compare.
+ * @param {goog.array.ArrayLike} arr2 The second array to compare.
+ * @param {Function=} opt_equalsFn Optional comparison function.
+ *     Should take 2 arguments to compare, and return true if the arguments
+ *     are equal. Defaults to {@link goog.array.defaultCompareEquality} which
+ *     compares the elements using the built-in '===' operator.
+ * @return {boolean} Whether the two arrays are equal.
+ */
+goog.array.equals = function(arr1, arr2, opt_equalsFn) {
+  if (!goog.isArrayLike(arr1) || !goog.isArrayLike(arr2) ||
+      arr1.length != arr2.length) {
+    return false;
+  }
+  var l = arr1.length;
+  var equalsFn = opt_equalsFn || goog.array.defaultCompareEquality;
+  for (var i = 0; i < l; i++) {
+    if (!equalsFn(arr1[i], arr2[i])) {
+      return false;
+    }
+  }
+  return true;
+};
+
+
+/**
+ * @deprecated Use {@link goog.array.equals}.
+ * @param {goog.array.ArrayLike} arr1 See {@link goog.array.equals}.
+ * @param {goog.array.ArrayLike} arr2 See {@link goog.array.equals}.
+ * @param {Function=} opt_equalsFn See {@link goog.array.equals}.
+ * @return {boolean} See {@link goog.array.equals}.
+ */
+goog.array.compare = function(arr1, arr2, opt_equalsFn) {
+  return goog.array.equals(arr1, arr2, opt_equalsFn);
+};
+
+
+/**
+ * 3-way array compare function.
+ * @param {!goog.array.ArrayLike} arr1 The first array to compare.
+ * @param {!goog.array.ArrayLike} arr2 The second array to compare.
+ * @param {?function(?, ?): number=} opt_compareFn Optional comparison function
+ *     by which the array is to be ordered. Should take 2 arguments to compare,
+ *     and return a negative number, zero, or a positive number depending on
+ *     whether the first argument is less than, equal to, or greater than the
+ *     second.
+ * @return {number} Negative number, zero, or a positive number depending on
+ *     whether the first argument is less than, equal to, or greater than the
+ *     second.
+ */
+goog.array.compare3 = function(arr1, arr2, opt_compareFn) {
+  var compare = opt_compareFn || goog.array.defaultCompare;
+  var l = Math.min(arr1.length, arr2.length);
+  for (var i = 0; i < l; i++) {
+    var result = compare(arr1[i], arr2[i]);
+    if (result != 0) {
+      return result;
+    }
+  }
+  return goog.array.defaultCompare(arr1.length, arr2.length);
+};
+
+
+/**
+ * Compares its two arguments for order, using the built in < and >
+ * operators.
+ * @param {*} a The first object to be compared.
+ * @param {*} b The second object to be compared.
+ * @return {number} A negative number, zero, or a positive number as the first
+ *     argument is less than, equal to, or greater than the second.
+ */
+goog.array.defaultCompare = function(a, b) {
+  return a > b ? 1 : a < b ? -1 : 0;
+};
+
+
+/**
+ * Compares its two arguments for equality, using the built in === operator.
+ * @param {*} a The first object to compare.
+ * @param {*} b The second object to compare.
+ * @return {boolean} True if the two arguments are equal, false otherwise.
+ */
+goog.array.defaultCompareEquality = function(a, b) {
+  return a === b;
+};
+
+
+/**
+ * Inserts a value into a sorted array. The array is not modified if the
+ * value is already present.
+ * @param {Array.<T>} array The array to modify.
+ * @param {T} value The object to insert.
+ * @param {?function(T,T):number=} opt_compareFn Optional comparison function by
+ *     which the
+ *     array is ordered. Should take 2 arguments to compare, and return a
+ *     negative number, zero, or a positive number depending on whether the
+ *     first argument is less than, equal to, or greater than the second.
+ * @return {boolean} True if an element was inserted.
+ * @template T
+ */
+goog.array.binaryInsert = function(array, value, opt_compareFn) {
+  var index = goog.array.binarySearch(array, value, opt_compareFn);
+  if (index < 0) {
+    goog.array.insertAt(array, value, -(index + 1));
+    return true;
+  }
+  return false;
+};
+
+
+/**
+ * Removes a value from a sorted array.
+ * @param {Array} array The array to modify.
+ * @param {*} value The object to remove.
+ * @param {Function=} opt_compareFn Optional comparison function by which the
+ *     array is ordered. Should take 2 arguments to compare, and return a
+ *     negative number, zero, or a positive number depending on whether the
+ *     first argument is less than, equal to, or greater than the second.
+ * @return {boolean} True if an element was removed.
+ */
+goog.array.binaryRemove = function(array, value, opt_compareFn) {
+  var index = goog.array.binarySearch(array, value, opt_compareFn);
+  return (index >= 0) ? goog.array.removeAt(array, index) : false;
+};
+
+
+/**
+ * Splits an array into disjoint buckets according to a splitting function.
+ * @param {Array.<T>} array The array.
+ * @param {function(T,number,Array.<T>):?} sorter Function to call for every
+ *     element.  This
+ *     takes 3 arguments (the element, the index and the array) and must
+ *     return a valid object key (a string, number, etc), or undefined, if
+ *     that object should not be placed in a bucket.
+ * @return {!Object} An object, with keys being all of the unique return values
+ *     of sorter, and values being arrays containing the items for
+ *     which the splitter returned that key.
+ * @template T
+ */
+goog.array.bucket = function(array, sorter) {
+  var buckets = {};
+
+  for (var i = 0; i < array.length; i++) {
+    var value = array[i];
+    var key = sorter(value, i, array);
+    if (goog.isDef(key)) {
+      // Push the value to the right bucket, creating it if necessary.
+      var bucket = buckets[key] || (buckets[key] = []);
+      bucket.push(value);
+    }
+  }
+
+  return buckets;
+};
+
+
+/**
+ * Creates a new object built from the provided array and the key-generation
+ * function.
+ * @param {Array.<T>|goog.array.ArrayLike} arr Array or array like object over
+ *     which to iterate whose elements will be the values in the new object.
+ * @param {?function(this:S, T, number, ?) : string} keyFunc The function to
+ *     call for every element. This function takes 3 arguments (the element, the
+ *     index and the array) and should return a string that will be used as the
+ *     key for the element in the new object. If the function returns the same
+ *     key for more than one element, the value for that key is
+ *     implementation-defined.
+ * @param {S=} opt_obj  The object to be used as the value of 'this'
+ *     within keyFunc.
+ * @return {!Object.<T>} The new object.
+ * @template T,S
+ */
+goog.array.toObject = function(arr, keyFunc, opt_obj) {
+  var ret = {};
+  goog.array.forEach(arr, function(element, index) {
+    ret[keyFunc.call(opt_obj, element, index, arr)] = element;
+  });
+  return ret;
+};
+
+
+/**
+ * Creates a range of numbers in an arithmetic progression.
+ *
+ * Range takes 1, 2, or 3 arguments:
+ * <pre>
+ * range(5) is the same as range(0, 5, 1) and produces [0, 1, 2, 3, 4]
+ * range(2, 5) is the same as range(2, 5, 1) and produces [2, 3, 4]
+ * range(-2, -5, -1) produces [-2, -3, -4]
+ * range(-2, -5, 1) produces [], since stepping by 1 wouldn't ever reach -5.
+ * </pre>
+ *
+ * @param {number} startOrEnd The starting value of the range if an end argument
+ *     is provided. Otherwise, the start value is 0, and this is the end value.
+ * @param {number=} opt_end The optional end value of the range.
+ * @param {number=} opt_step The step size between range values. Defaults to 1
+ *     if opt_step is undefined or 0.
+ * @return {!Array.<number>} An array of numbers for the requested range. May be
+ *     an empty array if adding the step would not converge toward the end
+ *     value.
+ */
+goog.array.range = function(startOrEnd, opt_end, opt_step) {
+  var array = [];
+  var start = 0;
+  var end = startOrEnd;
+  var step = opt_step || 1;
+  if (opt_end !== undefined) {
+    start = startOrEnd;
+    end = opt_end;
+  }
+
+  if (step * (end - start) < 0) {
+    // Sign mismatch: start + step will never reach the end value.
+    return [];
+  }
+
+  if (step > 0) {
+    for (var i = start; i < end; i += step) {
+      array.push(i);
+    }
+  } else {
+    for (var i = start; i > end; i += step) {
+      array.push(i);
+    }
+  }
+  return array;
+};
+
+
+/**
+ * Returns an array consisting of the given value repeated N times.
+ *
+ * @param {*} value The value to repeat.
+ * @param {number} n The repeat count.
+ * @return {!Array} An array with the repeated value.
+ */
+goog.array.repeat = function(value, n) {
+  var array = [];
+  for (var i = 0; i < n; i++) {
+    array[i] = value;
+  }
+  return array;
+};
+
+
+/**
+ * Returns an array consisting of every argument with all arrays
+ * expanded in-place recursively.
+ *
+ * @param {...*} var_args The values to flatten.
+ * @return {!Array} An array containing the flattened values.
+ */
+goog.array.flatten = function(var_args) {
+  var result = [];
+  for (var i = 0; i < arguments.length; i++) {
+    var element = arguments[i];
+    if (goog.isArray(element)) {
+      result.push.apply(result, goog.array.flatten.apply(null, element));
+    } else {
+      result.push(element);
+    }
+  }
+  return result;
+};
+
+
+/**
+ * Rotates an array in-place. After calling this method, the element at
+ * index i will be the element previously at index (i - n) %
+ * array.length, for all values of i between 0 and array.length - 1,
+ * inclusive.
+ *
+ * For example, suppose list comprises [t, a, n, k, s]. After invoking
+ * rotate(array, 1) (or rotate(array, -4)), array will comprise [s, t, a, n, k].
+ *
+ * @param {!Array.<T>} array The array to rotate.
+ * @param {number} n The amount to rotate.
+ * @return {!Array.<T>} The array.
+ * @template T
+ */
+goog.array.rotate = function(array, n) {
+  goog.asserts.assert(array.length != null);
+
+  if (array.length) {
+    n %= array.length;
+    if (n > 0) {
+      goog.array.ARRAY_PROTOTYPE_.unshift.apply(array, array.splice(-n, n));
+    } else if (n < 0) {
+      goog.array.ARRAY_PROTOTYPE_.push.apply(array, array.splice(0, -n));
+    }
+  }
+  return array;
+};
+
+
+/**
+ * Creates a new array for which the element at position i is an array of the
+ * ith element of the provided arrays.  The returned array will only be as long
+ * as the shortest array provided; additional values are ignored.  For example,
+ * the result of zipping [1, 2] and [3, 4, 5] is [[1,3], [2, 4]].
+ *
+ * This is similar to the zip() function in Python.  See {@link
+ * http://docs.python.org/library/functions.html#zip}
+ *
+ * @param {...!goog.array.ArrayLike} var_args Arrays to be combined.
+ * @return {!Array.<!Array>} A new array of arrays created from provided arrays.
+ */
+goog.array.zip = function(var_args) {
+  if (!arguments.length) {
+    return [];
+  }
+  var result = [];
+  for (var i = 0; true; i++) {
+    var value = [];
+    for (var j = 0; j < arguments.length; j++) {
+      var arr = arguments[j];
+      // If i is larger than the array length, this is the shortest array.
+      if (i >= arr.length) {
+        return result;
+      }
+      value.push(arr[i]);
+    }
+    result.push(value);
+  }
+};
+
+
+/**
+ * Shuffles the values in the specified array using the Fisher-Yates in-place
+ * shuffle (also known as the Knuth Shuffle). By default, calls Math.random()
+ * and so resets the state of that random number generator. Similarly, may reset
+ * the state of the any other specified random number generator.
+ *
+ * Runtime: O(n)
+ *
+ * @param {!Array} arr The array to be shuffled.
+ * @param {function():number=} opt_randFn Optional random function to use for
+ *     shuffling.
+ *     Takes no arguments, and returns a random number on the interval [0, 1).
+ *     Defaults to Math.random() using JavaScript's built-in Math library.
+ */
+goog.array.shuffle = function(arr, opt_randFn) {
+  var randFn = opt_randFn || Math.random;
+
+  for (var i = arr.length - 1; i > 0; i--) {
+    // Choose a random array index in [0, i] (inclusive with i).
+    var j = Math.floor(randFn() * (i + 1));
+
+    var tmp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = tmp;
+  }
+};
+
+// Input 8
+// Copyright 2006 The Closure Library Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * @fileoverview Additional mathematical functions.
+ */
+
+goog.provide('goog.math');
+
+goog.require('goog.array');
+goog.require('goog.asserts');
+
+
+/**
+ * Returns a random integer greater than or equal to 0 and less than {@code a}.
+ * @param {number} a  The upper bound for the random integer (exclusive).
+ * @return {number} A random integer N such that 0 <= N < a.
+ */
+goog.math.randomInt = function(a) {
+  return Math.floor(Math.random() * a);
+};
+
+
+/**
+ * Returns a random number greater than or equal to {@code a} and less than
+ * {@code b}.
+ * @param {number} a  The lower bound for the random number (inclusive).
+ * @param {number} b  The upper bound for the random number (exclusive).
+ * @return {number} A random number N such that a <= N < b.
+ */
+goog.math.uniformRandom = function(a, b) {
+  return a + Math.random() * (b - a);
+};
+
+
+/**
+ * Takes a number and clamps it to within the provided bounds.
+ * @param {number} value The input number.
+ * @param {number} min The minimum value to return.
+ * @param {number} max The maximum value to return.
+ * @return {number} The input number if it is within bounds, or the nearest
+ *     number within the bounds.
+ */
+goog.math.clamp = function(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+};
+
+
+/**
+ * The % operator in JavaScript returns the remainder of a / b, but differs from
+ * some other languages in that the result will have the same sign as the
+ * dividend. For example, -1 % 8 == -1, whereas in some other languages
+ * (such as Python) the result would be 7. This function emulates the more
+ * correct modulo behavior, which is useful for certain applications such as
+ * calculating an offset index in a circular list.
+ *
+ * @param {number} a The dividend.
+ * @param {number} b The divisor.
+ * @return {number} a % b where the result is between 0 and b (either 0 <= x < b
+ *     or b < x <= 0, depending on the sign of b).
+ */
+goog.math.modulo = function(a, b) {
+  var r = a % b;
+  // If r and b differ in sign, add b to wrap the result to the correct sign.
+  return (r * b < 0) ? r + b : r;
+};
+
+
+/**
+ * Performs linear interpolation between values a and b. Returns the value
+ * between a and b proportional to x (when x is between 0 and 1. When x is
+ * outside this range, the return value is a linear extrapolation).
+ * @param {number} a A number.
+ * @param {number} b A number.
+ * @param {number} x The proportion between a and b.
+ * @return {number} The interpolated value between a and b.
+ */
+goog.math.lerp = function(a, b, x) {
+  return a + x * (b - a);
+};
+
+
+/**
+ * Tests whether the two values are equal to each other, within a certain
+ * tolerance to adjust for floating pount errors.
+ * @param {number} a A number.
+ * @param {number} b A number.
+ * @param {number=} opt_tolerance Optional tolerance range. Defaults
+ *     to 0.000001. If specified, should be greater than 0.
+ * @return {boolean} Whether {@code a} and {@code b} are nearly equal.
+ */
+goog.math.nearlyEquals = function(a, b, opt_tolerance) {
+  return Math.abs(a - b) <= (opt_tolerance || 0.000001);
+};
+
+
+/**
+ * Standardizes an angle to be in range [0-360). Negative angles become
+ * positive, and values greater than 360 are returned modulo 360.
+ * @param {number} angle Angle in degrees.
+ * @return {number} Standardized angle.
+ */
+goog.math.standardAngle = function(angle) {
+  return goog.math.modulo(angle, 360);
+};
+
+
+/**
+ * Converts degrees to radians.
+ * @param {number} angleDegrees Angle in degrees.
+ * @return {number} Angle in radians.
+ */
+goog.math.toRadians = function(angleDegrees) {
+  return angleDegrees * Math.PI / 180;
+};
+
+
+/**
+ * Converts radians to degrees.
+ * @param {number} angleRadians Angle in radians.
+ * @return {number} Angle in degrees.
+ */
+goog.math.toDegrees = function(angleRadians) {
+  return angleRadians * 180 / Math.PI;
+};
+
+
+/**
+ * For a given angle and radius, finds the X portion of the offset.
+ * @param {number} degrees Angle in degrees (zero points in +X direction).
+ * @param {number} radius Radius.
+ * @return {number} The x-distance for the angle and radius.
+ */
+goog.math.angleDx = function(degrees, radius) {
+  return radius * Math.cos(goog.math.toRadians(degrees));
+};
+
+
+/**
+ * For a given angle and radius, finds the Y portion of the offset.
+ * @param {number} degrees Angle in degrees (zero points in +X direction).
+ * @param {number} radius Radius.
+ * @return {number} The y-distance for the angle and radius.
+ */
+goog.math.angleDy = function(degrees, radius) {
+  return radius * Math.sin(goog.math.toRadians(degrees));
+};
+
+
+/**
+ * Computes the angle between two points (x1,y1) and (x2,y2).
+ * Angle zero points in the +X direction, 90 degrees points in the +Y
+ * direction (down) and from there we grow clockwise towards 360 degrees.
+ * @param {number} x1 x of first point.
+ * @param {number} y1 y of first point.
+ * @param {number} x2 x of second point.
+ * @param {number} y2 y of second point.
+ * @return {number} Standardized angle in degrees of the vector from
+ *     x1,y1 to x2,y2.
+ */
+goog.math.angle = function(x1, y1, x2, y2) {
+  return goog.math.standardAngle(goog.math.toDegrees(Math.atan2(y2 - y1,
+                                                                x2 - x1)));
+};
+
+
+/**
+ * Computes the difference between startAngle and endAngle (angles in degrees).
+ * @param {number} startAngle  Start angle in degrees.
+ * @param {number} endAngle  End angle in degrees.
+ * @return {number} The number of degrees that when added to
+ *     startAngle will result in endAngle. Positive numbers mean that the
+ *     direction is clockwise. Negative numbers indicate a counter-clockwise
+ *     direction.
+ *     The shortest route (clockwise vs counter-clockwise) between the angles
+ *     is used.
+ *     When the difference is 180 degrees, the function returns 180 (not -180)
+ *     angleDifference(30, 40) is 10, and angleDifference(40, 30) is -10.
+ *     angleDifference(350, 10) is 20, and angleDifference(10, 350) is -20.
+ */
+goog.math.angleDifference = function(startAngle, endAngle) {
+  var d = goog.math.standardAngle(endAngle) -
+          goog.math.standardAngle(startAngle);
+  if (d > 180) {
+    d = d - 360;
+  } else if (d <= -180) {
+    d = 360 + d;
+  }
+  return d;
+};
+
+
+/**
+ * Returns the sign of a number as per the "sign" or "signum" function.
+ * @param {number} x The number to take the sign of.
+ * @return {number} -1 when negative, 1 when positive, 0 when 0.
+ */
+goog.math.sign = function(x) {
+  return x == 0 ? 0 : (x < 0 ? -1 : 1);
+};
+
+
+/**
+ * JavaScript implementation of Longest Common Subsequence problem.
+ * http://en.wikipedia.org/wiki/Longest_common_subsequence
+ *
+ * Returns the longest possible array that is subarray of both of given arrays.
+ *
+ * @param {Array.<Object>} array1 First array of objects.
+ * @param {Array.<Object>} array2 Second array of objects.
+ * @param {Function=} opt_compareFn Function that acts as a custom comparator
+ *     for the array ojects. Function should return true if objects are equal,
+ *     otherwise false.
+ * @param {Function=} opt_collectorFn Function used to decide what to return
+ *     as a result subsequence. It accepts 2 arguments: index of common element
+ *     in the first array and index in the second. The default function returns
+ *     element from the first array.
+ * @return {Array.<Object>} A list of objects that are common to both arrays
+ *     such that there is no common subsequence with size greater than the
+ *     length of the list.
+ */
+goog.math.longestCommonSubsequence = function(
+    array1, array2, opt_compareFn, opt_collectorFn) {
+
+  var compare = opt_compareFn || function(a, b) {
+    return a == b;
+  };
+
+  var collect = opt_collectorFn || function(i1, i2) {
+    return array1[i1];
+  };
+
+  var length1 = array1.length;
+  var length2 = array2.length;
+
+  var arr = [];
+  for (var i = 0; i < length1 + 1; i++) {
+    arr[i] = [];
+    arr[i][0] = 0;
+  }
+
+  for (var j = 0; j < length2 + 1; j++) {
+    arr[0][j] = 0;
+  }
+
+  for (i = 1; i <= length1; i++) {
+    for (j = 1; j <= length1; j++) {
+      if (compare(array1[i - 1], array2[j - 1])) {
+        arr[i][j] = arr[i - 1][j - 1] + 1;
+      } else {
+        arr[i][j] = Math.max(arr[i - 1][j], arr[i][j - 1]);
+      }
+    }
+  }
+
+  // Backtracking
+  var result = [];
+  var i = length1, j = length2;
+  while (i > 0 && j > 0) {
+    if (compare(array1[i - 1], array2[j - 1])) {
+      result.unshift(collect(i - 1, j - 1));
+      i--;
+      j--;
+    } else {
+      if (arr[i - 1][j] > arr[i][j - 1]) {
+        i--;
+      } else {
+        j--;
+      }
+    }
+  }
+
+  return result;
+};
+
+
+/**
+ * Returns the sum of the arguments.
+ * @param {...number} var_args Numbers to add.
+ * @return {number} The sum of the arguments (0 if no arguments were provided,
+ *     {@code NaN} if any of the arguments is not a valid number).
+ */
+goog.math.sum = function(var_args) {
+  return /** @type {number} */ (goog.array.reduce(arguments,
+      function(sum, value) {
+        return sum + value;
+      }, 0));
+};
+
+
+/**
+ * Returns the arithmetic mean of the arguments.
+ * @param {...number} var_args Numbers to average.
+ * @return {number} The average of the arguments ({@code NaN} if no arguments
+ *     were provided or any of the arguments is not a valid number).
+ */
+goog.math.average = function(var_args) {
+  return goog.math.sum.apply(null, arguments) / arguments.length;
+};
+
+
+/**
+ * Returns the sample standard deviation of the arguments.  For a definition of
+ * sample standard deviation, see e.g.
+ * http://en.wikipedia.org/wiki/Standard_deviation
+ * @param {...number} var_args Number samples to analyze.
+ * @return {number} The sample standard deviation of the arguments (0 if fewer
+ *     than two samples were provided, or {@code NaN} if any of the samples is
+ *     not a valid number).
+ */
+goog.math.standardDeviation = function(var_args) {
+  var sampleSize = arguments.length;
+  if (sampleSize < 2) {
+    return 0;
+  }
+
+  var mean = goog.math.average.apply(null, arguments);
+  var variance = goog.math.sum.apply(null, goog.array.map(arguments,
+      function(val) {
+        return Math.pow(val - mean, 2);
+      })) / (sampleSize - 1);
+
+  return Math.sqrt(variance);
+};
+
+
+/**
+ * Returns whether the supplied number represents an integer, i.e. that is has
+ * no fractional component.  No range-checking is performed on the number.
+ * @param {number} num The number to test.
+ * @return {boolean} Whether {@code num} is an integer.
+ */
+goog.math.isInt = function(num) {
+  return isFinite(num) && num % 1 == 0;
+};
+
+
+/**
+ * Returns whether the supplied number is finite and not NaN.
+ * @param {number} num The number to test.
+ * @return {boolean} Whether {@code num} is a finite number.
+ */
+goog.math.isFiniteNumber = function(num) {
+  return isFinite(num) && !isNaN(num);
+};
+
+
+/**
+ * A tweaked variant of {@code Math.floor} which tolerates if the passed number
+ * is infinitesimally smaller than the closest integer. It often happens with
+ * the results of floating point calculations because of the finite precision
+ * of the intermediate results. For example {@code Math.floor(Math.log(1000) /
+ * Math.LN10) == 2}, not 3 as one would expect.
+ * @param {number} num A number.
+ * @param {number=} opt_epsilon An infinitesimally small positive number, the
+ *     rounding error to tolerate.
+ * @return {number} The largest integer less than or equal to {@code num}.
+ */
+goog.math.safeFloor = function(num, opt_epsilon) {
+  goog.asserts.assert(!goog.isDef(opt_epsilon) || opt_epsilon > 0);
+  return Math.floor(num + (opt_epsilon || 2e-15));
+};
+
+
+/**
+ * A tweaked variant of {@code Math.ceil}. See {@code goog.math.safeFloor} for
+ * details.
+ * @param {number} num A number.
+ * @param {number=} opt_epsilon An infinitesimally small positive number, the
+ *     rounding error to tolerate.
+ * @return {number} The smallest integer greater than or equal to {@code num}.
+ */
+goog.math.safeCeil = function(num, opt_epsilon) {
+  goog.asserts.assert(!goog.isDef(opt_epsilon) || opt_epsilon > 0);
+  return Math.ceil(num - (opt_epsilon || 2e-15));
+};
+
+// Input 9
+// Copyright 2006 The Closure Library Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * @fileoverview Utilities related to color and color conversion.
+ */
+
+goog.provide('goog.color');
+
+goog.require('goog.color.names');
+goog.require('goog.math');
+
+
+/**
+ * RGB color representation. An array containing three elements [r, g, b],
+ * each an integer in [0, 255], representing the red, green, and blue components
+ * of the color respectively.
+ * @typedef {Array.<number>}
+ */
+goog.color.Rgb;
+
+
+/**
+ * HSV color representation. An array containing three elements [h, s, v]:
+ * h (hue) must be an integer in [0, 360], cyclic.
+ * s (saturation) must be a number in [0, 1].
+ * v (value/brightness) must be an integer in [0, 255].
+ * @typedef {Array.<number>}
+ */
+goog.color.Hsv;
+
+
+/**
+ * HSL color representation. An array containing three elements [h, s, l]:
+ * h (hue) must be an integer in [0, 360], cyclic.
+ * s (saturation) must be a number in [0, 1].
+ * l (lightness) must be a number in [0, 1].
+ * @typedef {Array.<number>}
+ */
+goog.color.Hsl;
+
+
+/**
+ * Parses a color out of a string.
+ * @param {string} str Color in some format.
+ * @return {Object} Contains two properties: 'hex', which is a string containing
+ *     a hex representation of the color, as well as 'type', which is a string
+ *     containing the type of color format passed in ('hex', 'rgb', 'named').
+ */
+goog.color.parse = function(str) {
+  var result = {};
+  str = String(str);
+
+  var maybeHex = goog.color.prependHashIfNecessaryHelper(str);
+  if (goog.color.isValidHexColor_(maybeHex)) {
+    result.hex = goog.color.normalizeHex(maybeHex);
+    result.type = 'hex';
+    return result;
+  } else {
+    var rgb = goog.color.isValidRgbColor_(str);
+    if (rgb.length) {
+      result.hex = goog.color.rgbArrayToHex(rgb);
+      result.type = 'rgb';
+      return result;
+    } else if (goog.color.names) {
+      var hex = goog.color.names[str.toLowerCase()];
+      if (hex) {
+        result.hex = hex;
+        result.type = 'named';
+        return result;
+      }
+    }
+  }
+  throw Error(str + ' is not a valid color string');
+};
+
+
+/**
+ * Determines if the given string can be parsed as a color.
+ *     {@see goog.color.parse}.
+ * @param {string} str Potential color string.
+ * @return {boolean} True if str is in a format that can be parsed to a color.
+ */
+goog.color.isValidColor = function(str) {
+  var maybeHex = goog.color.prependHashIfNecessaryHelper(str);
+  return !!(goog.color.isValidHexColor_(maybeHex) ||
+            goog.color.isValidRgbColor_(str).length ||
+            goog.color.names && goog.color.names[str.toLowerCase()]);
+};
+
+
+/**
+ * Parses red, green, blue components out of a valid rgb color string.
+ * Throws Error if the color string is invalid.
+ * @param {string} str RGB representation of a color.
+ *    {@see goog.color.isValidRgbColor_}.
+ * @return {!goog.color.Rgb} rgb representation of the color.
+ */
+goog.color.parseRgb = function(str) {
+  var rgb = goog.color.isValidRgbColor_(str);
+  if (!rgb.length) {
+    throw Error(str + ' is not a valid RGB color');
+  }
+  return rgb;
+};
+
+
+/**
+ * Converts a hex representation of a color to RGB.
+ * @param {string} hexColor Color to convert.
+ * @return {string} string of the form 'rgb(R,G,B)' which can be used in
+ *    styles.
+ */
+goog.color.hexToRgbStyle = function(hexColor) {
+  return goog.color.rgbStyle_(goog.color.hexToRgb(hexColor));
+};
+
+
+/**
+ * Regular expression for extracting the digits in a hex color triplet.
+ * @type {RegExp}
+ * @private
+ */
+goog.color.hexTripletRe_ = /#(.)(.)(.)/;
+
+
+/**
+ * Normalize an hex representation of a color
+ * @param {string} hexColor an hex color string.
+ * @return {string} hex color in the format '#rrggbb' with all lowercase
+ *     literals.
+ */
+goog.color.normalizeHex = function(hexColor) {
+  if (!goog.color.isValidHexColor_(hexColor)) {
+    throw Error("'" + hexColor + "' is not a valid hex color");
+  }
+  if (hexColor.length == 4) { // of the form #RGB
+    hexColor = hexColor.replace(goog.color.hexTripletRe_, '#$1$1$2$2$3$3');
+  }
+  return hexColor.toLowerCase();
+};
+
+
+/**
+ * Converts a hex representation of a color to RGB.
+ * @param {string} hexColor Color to convert.
+ * @return {!goog.color.Rgb} rgb representation of the color.
+ */
+goog.color.hexToRgb = function(hexColor) {
+  hexColor = goog.color.normalizeHex(hexColor);
+  var r = parseInt(hexColor.substr(1, 2), 16);
+  var g = parseInt(hexColor.substr(3, 2), 16);
+  var b = parseInt(hexColor.substr(5, 2), 16);
+
+  return [r, g, b];
+};
+
+
+/**
+ * Converts a color from RGB to hex representation.
+ * @param {number} r Amount of red, int between 0 and 255.
+ * @param {number} g Amount of green, int between 0 and 255.
+ * @param {number} b Amount of blue, int between 0 and 255.
+ * @return {string} hex representation of the color.
+ */
+goog.color.rgbToHex = function(r, g, b) {
+  r = Number(r);
+  g = Number(g);
+  b = Number(b);
+  if (isNaN(r) || r < 0 || r > 255 ||
+      isNaN(g) || g < 0 || g > 255 ||
+      isNaN(b) || b < 0 || b > 255) {
+    throw Error('"(' + r + ',' + g + ',' + b + '") is not a valid RGB color');
+  }
+  var hexR = goog.color.prependZeroIfNecessaryHelper(r.toString(16));
+  var hexG = goog.color.prependZeroIfNecessaryHelper(g.toString(16));
+  var hexB = goog.color.prependZeroIfNecessaryHelper(b.toString(16));
+  return '#' + hexR + hexG + hexB;
+};
+
+
+/**
+ * Converts a color from RGB to hex representation.
+ * @param {goog.color.Rgb} rgb rgb representation of the color.
+ * @return {string} hex representation of the color.
+ */
+goog.color.rgbArrayToHex = function(rgb) {
+  return goog.color.rgbToHex(rgb[0], rgb[1], rgb[2]);
+};
+
+
+/**
+ * Converts a color from RGB color space to HSL color space.
+ * Modified from {@link http://en.wikipedia.org/wiki/HLS_color_space}.
+ * @param {number} r Value of red, in [0, 255].
+ * @param {number} g Value of green, in [0, 255].
+ * @param {number} b Value of blue, in [0, 255].
+ * @return {!goog.color.Hsl} hsl representation of the color.
+ */
+goog.color.rgbToHsl = function(r, g, b) {
+  // First must normalize r, g, b to be between 0 and 1.
+  var normR = r / 255;
+  var normG = g / 255;
+  var normB = b / 255;
+  var max = Math.max(normR, normG, normB);
+  var min = Math.min(normR, normG, normB);
+  var h = 0;
+  var s = 0;
+
+  // Luminosity is the average of the max and min rgb color intensities.
+  var l = 0.5 * (max + min);
+
+  // The hue and saturation are dependent on which color intensity is the max.
+  // If max and min are equal, the color is gray and h and s should be 0.
+  if (max != min) {
+    if (max == normR) {
+      h = 60 * (normG - normB) / (max - min);
+    } else if (max == normG) {
+      h = 60 * (normB - normR) / (max - min) + 120;
+    } else if (max == normB) {
+      h = 60 * (normR - normG) / (max - min) + 240;
+    }
+
+    if (0 < l && l <= 0.5) {
+      s = (max - min) / (2 * l);
+    } else {
+      s = (max - min) / (2 - 2 * l);
+    }
+  }
+
+  // Make sure the hue falls between 0 and 360.
+  return [Math.round(h + 360) % 360, s, l];
+};
+
+
+/**
+ * Converts a color from RGB color space to HSL color space.
+ * @param {goog.color.Rgb} rgb rgb representation of the color.
+ * @return {!goog.color.Hsl} hsl representation of the color.
+ */
+goog.color.rgbArrayToHsl = function(rgb) {
+  return goog.color.rgbToHsl(rgb[0], rgb[1], rgb[2]);
+};
+
+
+/**
+ * Helper for hslToRgb.
+ * @param {number} v1 Helper variable 1.
+ * @param {number} v2 Helper variable 2.
+ * @param {number} vH Helper variable 3.
+ * @return {number} Appropriate RGB value, given the above.
+ * @private
+ */
+goog.color.hueToRgb_ = function(v1, v2, vH) {
+  if (vH < 0) {
+    vH += 1;
+  } else if (vH > 1) {
+    vH -= 1;
+  }
+  if ((6 * vH) < 1) {
+    return (v1 + (v2 - v1) * 6 * vH);
+  } else if (2 * vH < 1) {
+    return v2;
+  } else if (3 * vH < 2) {
+    return (v1 + (v2 - v1) * ((2 / 3) - vH) * 6);
+  }
+  return v1;
+};
+
+
+/**
+ * Converts a color from HSL color space to RGB color space.
+ * Modified from {@link http://www.easyrgb.com/math.html}
+ * @param {number} h Hue, in [0, 360].
+ * @param {number} s Saturation, in [0, 1].
+ * @param {number} l Luminosity, in [0, 1].
+ * @return {!goog.color.Rgb} rgb representation of the color.
+ */
+goog.color.hslToRgb = function(h, s, l) {
+  var r = 0;
+  var g = 0;
+  var b = 0;
+  var normH = h / 360; // normalize h to fall in [0, 1]
+
+  if (s == 0) {
+    r = g = b = l * 255;
+  } else {
+    var temp1 = 0;
+    var temp2 = 0;
+    if (l < 0.5) {
+      temp2 = l * (1 + s);
+    } else {
+      temp2 = l + s - (s * l);
+    }
+    temp1 = 2 * l - temp2;
+    r = 255 * goog.color.hueToRgb_(temp1, temp2, normH + (1 / 3));
+    g = 255 * goog.color.hueToRgb_(temp1, temp2, normH);
+    b = 255 * goog.color.hueToRgb_(temp1, temp2, normH - (1 / 3));
+  }
+
+  return [Math.round(r), Math.round(g), Math.round(b)];
+};
+
+
+/**
+ * Converts a color from HSL color space to RGB color space.
+ * @param {goog.color.Hsl} hsl hsl representation of the color.
+ * @return {!goog.color.Rgb} rgb representation of the color.
+ */
+goog.color.hslArrayToRgb = function(hsl) {
+  return goog.color.hslToRgb(hsl[0], hsl[1], hsl[2]);
+};
+
+
+/**
+ * Helper for isValidHexColor_.
+ * @type {RegExp}
+ * @private
+ */
+goog.color.validHexColorRe_ = /^#(?:[0-9a-f]{3}){1,2}$/i;
+
+
+/**
+ * Checks if a string is a valid hex color.  We expect strings of the format
+ * #RRGGBB (ex: #1b3d5f) or #RGB (ex: #3CA == #33CCAA).
+ * @param {string} str String to check.
+ * @return {boolean} Whether the string is a valid hex color.
+ * @private
+ */
+goog.color.isValidHexColor_ = function(str) {
+  return goog.color.validHexColorRe_.test(str);
+};
+
+
+/**
+ * Helper for isNormalizedHexColor_.
+ * @type {RegExp}
+ * @private
+ */
+goog.color.normalizedHexColorRe_ = /^#[0-9a-f]{6}$/;
+
+
+/**
+ * Checks if a string is a normalized hex color.
+ * We expect strings of the format #RRGGBB (ex: #1b3d5f)
+ * using only lowercase letters.
+ * @param {string} str String to check.
+ * @return {boolean} Whether the string is a normalized hex color.
+ * @private
+ */
+goog.color.isNormalizedHexColor_ = function(str) {
+  return goog.color.normalizedHexColorRe_.test(str);
+};
+
+
+/**
+ * Regular expression for matching and capturing RGB style strings. Helper for
+ * isValidRgbColor_.
+ * @type {RegExp}
+ * @private
+ */
+goog.color.rgbColorRe_ =
+    /^(?:rgb)?\((0|[1-9]\d{0,2}),\s?(0|[1-9]\d{0,2}),\s?(0|[1-9]\d{0,2})\)$/i;
+
+
+/**
+ * Checks if a string is a valid rgb color.  We expect strings of the format
+ * '(r, g, b)', or 'rgb(r, g, b)', where each color component is an int in
+ * [0, 255].
+ * @param {string} str String to check.
+ * @return {!goog.color.Rgb} the rgb representation of the color if it is
+ *     a valid color, or the empty array otherwise.
+ * @private
+ */
+goog.color.isValidRgbColor_ = function(str) {
+  // Each component is separate (rather than using a repeater) so we can
+  // capture the match. Also, we explicitly set each component to be either 0,
+  // or start with a non-zero, to prevent octal numbers from slipping through.
+  var regExpResultArray = str.match(goog.color.rgbColorRe_);
+  if (regExpResultArray) {
+    var r = Number(regExpResultArray[1]);
+    var g = Number(regExpResultArray[2]);
+    var b = Number(regExpResultArray[3]);
+    if (r >= 0 && r <= 255 &&
+        g >= 0 && g <= 255 &&
+        b >= 0 && b <= 255) {
+      return [r, g, b];
+    }
+  }
+  return [];
+};
+
+
+/**
+ * Takes a hex value and prepends a zero if it's a single digit.
+ * Small helper method for use by goog.color and friends.
+ * @param {string} hex Hex value to prepend if single digit.
+ * @return {string} hex value prepended with zero if it was single digit,
+ *     otherwise the same value that was passed in.
+ */
+goog.color.prependZeroIfNecessaryHelper = function(hex) {
+  return hex.length == 1 ? '0' + hex : hex;
+};
+
+
+/**
+ * Takes a string a prepends a '#' sign if one doesn't exist.
+ * Small helper method for use by goog.color and friends.
+ * @param {string} str String to check.
+ * @return {string} The value passed in, prepended with a '#' if it didn't
+ *     already have one.
+ */
+goog.color.prependHashIfNecessaryHelper = function(str) {
+  return str.charAt(0) == '#' ? str : '#' + str;
+};
+
+
+/**
+ * Takes an array of [r, g, b] and converts it into a string appropriate for
+ * CSS styles.
+ * @param {goog.color.Rgb} rgb rgb representation of the color.
+ * @return {string} string of the form 'rgb(r,g,b)'.
+ * @private
+ */
+goog.color.rgbStyle_ = function(rgb) {
+  return 'rgb(' + rgb.join(',') + ')';
+};
+
+
+/**
+ * Converts an HSV triplet to an RGB array.  V is brightness because b is
+ *   reserved for blue in RGB.
+ * @param {number} h Hue value in [0, 360].
+ * @param {number} s Saturation value in [0, 1].
+ * @param {number} brightness brightness in [0, 255].
+ * @return {!goog.color.Rgb} rgb representation of the color.
+ */
+goog.color.hsvToRgb = function(h, s, brightness) {
+  var red = 0;
+  var green = 0;
+  var blue = 0;
+  if (s == 0) {
+    red = brightness;
+    green = brightness;
+    blue = brightness;
+  } else {
+    var sextant = Math.floor(h / 60);
+    var remainder = (h / 60) - sextant;
+    var val1 = brightness * (1 - s);
+    var val2 = brightness * (1 - (s * remainder));
+    var val3 = brightness * (1 - (s * (1 - remainder)));
+    switch (sextant) {
+      case 1:
+        red = val2;
+        green = brightness;
+        blue = val1;
+        break;
+      case 2:
+        red = val1;
+        green = brightness;
+        blue = val3;
+        break;
+      case 3:
+        red = val1;
+        green = val2;
+        blue = brightness;
+        break;
+      case 4:
+        red = val3;
+        green = val1;
+        blue = brightness;
+        break;
+      case 5:
+        red = brightness;
+        green = val1;
+        blue = val2;
+        break;
+      case 6:
+      case 0:
+        red = brightness;
+        green = val3;
+        blue = val1;
+        break;
+    }
+  }
+
+  return [Math.floor(red), Math.floor(green), Math.floor(blue)];
+};
+
+
+/**
+ * Converts from RGB values to an array of HSV values.
+ * @param {number} red Red value in [0, 255].
+ * @param {number} green Green value in [0, 255].
+ * @param {number} blue Blue value in [0, 255].
+ * @return {!goog.color.Hsv} hsv representation of the color.
+ */
+goog.color.rgbToHsv = function(red, green, blue) {
+
+  var max = Math.max(Math.max(red, green), blue);
+  var min = Math.min(Math.min(red, green), blue);
+  var hue;
+  var saturation;
+  var value = max;
+  if (min == max) {
+    hue = 0;
+    saturation = 0;
+  } else {
+    var delta = (max - min);
+    saturation = delta / max;
+
+    if (red == max) {
+      hue = (green - blue) / delta;
+    } else if (green == max) {
+      hue = 2 + ((blue - red) / delta);
+    } else {
+      hue = 4 + ((red - green) / delta);
+    }
+    hue *= 60;
+    if (hue < 0) {
+      hue += 360;
+    }
+    if (hue > 360) {
+      hue -= 360;
+    }
+  }
+
+  return [hue, saturation, value];
+};
+
+
+/**
+ * Converts from an array of RGB values to an array of HSV values.
+ * @param {goog.color.Rgb} rgb rgb representation of the color.
+ * @return {!goog.color.Hsv} hsv representation of the color.
+ */
+goog.color.rgbArrayToHsv = function(rgb) {
+  return goog.color.rgbToHsv(rgb[0], rgb[1], rgb[2]);
+};
+
+
+/**
+ * Converts an HSV triplet to an RGB array.
+ * @param {goog.color.Hsv} hsv hsv representation of the color.
+ * @return {!goog.color.Rgb} rgb representation of the color.
+ */
+goog.color.hsvArrayToRgb = function(hsv) {
+  return goog.color.hsvToRgb(hsv[0], hsv[1], hsv[2]);
+};
+
+
+/**
+ * Converts a hex representation of a color to HSL.
+ * @param {string} hex Color to convert.
+ * @return {!goog.color.Hsv} hsv representation of the color.
+ */
+goog.color.hexToHsl = function(hex) {
+  var rgb = goog.color.hexToRgb(hex);
+  return goog.color.rgbToHsl(rgb[0], rgb[1], rgb[2]);
+};
+
+
+/**
+ * Converts from h,s,l values to a hex string
+ * @param {number} h Hue, in [0, 360].
+ * @param {number} s Saturation, in [0, 1].
+ * @param {number} l Luminosity, in [0, 1].
+ * @return {string} hex representation of the color.
+ */
+goog.color.hslToHex = function(h, s, l) {
+  return goog.color.rgbArrayToHex(goog.color.hslToRgb(h, s, l));
+};
+
+
+/**
+ * Converts from an hsl array to a hex string
+ * @param {goog.color.Hsl} hsl hsl representation of the color.
+ * @return {string} hex representation of the color.
+ */
+goog.color.hslArrayToHex = function(hsl) {
+  return goog.color.rgbArrayToHex(goog.color.hslToRgb(hsl[0], hsl[1], hsl[2]));
+};
+
+
+/**
+ * Converts a hex representation of a color to HSV
+ * @param {string} hex Color to convert.
+ * @return {!goog.color.Hsv} hsv representation of the color.
+ */
+goog.color.hexToHsv = function(hex) {
+  return goog.color.rgbArrayToHsv(goog.color.hexToRgb(hex));
+};
+
+
+/**
+ * Converts from h,s,v values to a hex string
+ * @param {number} h Hue, in [0, 360].
+ * @param {number} s Saturation, in [0, 1].
+ * @param {number} v Value, in [0, 255].
+ * @return {string} hex representation of the color.
+ */
+goog.color.hsvToHex = function(h, s, v) {
+  return goog.color.rgbArrayToHex(goog.color.hsvToRgb(h, s, v));
+};
+
+
+/**
+ * Converts from an HSV array to a hex string
+ * @param {goog.color.Hsv} hsv hsv representation of the color.
+ * @return {string} hex representation of the color.
+ */
+goog.color.hsvArrayToHex = function(hsv) {
+  return goog.color.hsvToHex(hsv[0], hsv[1], hsv[2]);
+};
+
+
+/**
+ * Calculates the Euclidean distance between two color vectors on an HSL sphere.
+ * A demo of the sphere can be found at:
+ * http://en.wikipedia.org/wiki/HSL_color_space
+ * In short, a vector for color (H, S, L) in this system can be expressed as
+ * (S*L'*cos(2*PI*H), S*L'*sin(2*PI*H), L), where L' = abs(L - 0.5), and we
+ * simply calculate the 1-2 distance using these coordinates
+ * @param {goog.color.Hsl} hsl1 First color in hsl representation.
+ * @param {goog.color.Hsl} hsl2 Second color in hsl representation.
+ * @return {number} Distance between the two colors, in the range [0, 1].
+ */
+goog.color.hslDistance = function(hsl1, hsl2) {
+  var sl1, sl2;
+  if (hsl1[2] <= 0.5) {
+    sl1 = hsl1[1] * hsl1[2];
+  } else {
+    sl1 = hsl1[1] * (1.0 - hsl1[2]);
+  }
+
+  if (hsl2[2] <= 0.5) {
+    sl2 = hsl2[1] * hsl2[2];
+  } else {
+    sl2 = hsl2[1] * (1.0 - hsl2[2]);
+  }
+
+  var h1 = hsl1[0] / 360.0;
+  var h2 = hsl2[0] / 360.0;
+  var dh = (h1 - h2) * 2.0 * Math.PI;
+  return (hsl1[2] - hsl2[2]) * (hsl1[2] - hsl2[2]) +
+      sl1 * sl1 + sl2 * sl2 - 2 * sl1 * sl2 * Math.cos(dh);
+};
+
+
+/**
+ * Blend two colors together, using the specified factor to indicate the weight
+ * given to the first color
+ * @param {goog.color.Rgb} rgb1 First color represented in rgb.
+ * @param {goog.color.Rgb} rgb2 Second color represented in rgb.
+ * @param {number} factor The weight to be given to rgb1 over rgb2. Values
+ *     should be in the range [0, 1]. If less than 0, factor will be set to 0.
+ *     If greater than 1, factor will be set to 1.
+ * @return {!goog.color.Rgb} Combined color represented in rgb.
+ */
+goog.color.blend = function(rgb1, rgb2, factor) {
+  factor = goog.math.clamp(factor, 0, 1);
+
+  return [
+    Math.round(factor * rgb1[0] + (1.0 - factor) * rgb2[0]),
+    Math.round(factor * rgb1[1] + (1.0 - factor) * rgb2[1]),
+    Math.round(factor * rgb1[2] + (1.0 - factor) * rgb2[2])
+  ];
+};
+
+
+/**
+ * Adds black to the specified color, darkening it
+ * @param {goog.color.Rgb} rgb rgb representation of the color.
+ * @param {number} factor Number in the range [0, 1]. 0 will do nothing, while
+ *     1 will return black. If less than 0, factor will be set to 0. If greater
+ *     than 1, factor will be set to 1.
+ * @return {!goog.color.Rgb} Combined rgb color.
+ */
+goog.color.darken = function(rgb, factor) {
+  var black = [0, 0, 0];
+  return goog.color.blend(black, rgb, factor);
+};
+
+
+/**
+ * Adds white to the specified color, lightening it
+ * @param {goog.color.Rgb} rgb rgb representation of the color.
+ * @param {number} factor Number in the range [0, 1].  0 will do nothing, while
+ *     1 will return white. If less than 0, factor will be set to 0. If greater
+ *     than 1, factor will be set to 1.
+ * @return {!goog.color.Rgb} Combined rgb color.
+ */
+goog.color.lighten = function(rgb, factor) {
+  var white = [255, 255, 255];
+  return goog.color.blend(white, rgb, factor);
+};
+
+
+/**
+ * Find the "best" (highest-contrast) of the suggested colors for the prime
+ * color. Uses W3C formula for judging readability and visual accessibility:
+ * http://www.w3.org/TR/AERT#color-contrast
+ * @param {goog.color.Rgb} prime Color represented as a rgb array.
+ * @param {Array.<goog.color.Rgb>} suggestions Array of colors,
+ *     each representing a rgb array.
+ * @return {!goog.color.Rgb} Highest-contrast color represented by an array..
+ */
+goog.color.highContrast = function(prime, suggestions) {
+  var suggestionsWithDiff = [];
+  for (var i = 0; i < suggestions.length; i++) {
+    suggestionsWithDiff.push({
+      color: suggestions[i],
+      diff: goog.color.yiqBrightnessDiff_(suggestions[i], prime) +
+          goog.color.colorDiff_(suggestions[i], prime)
+    });
+  }
+  suggestionsWithDiff.sort(function(a, b) {
+    return b.diff - a.diff;
+  });
+  return suggestionsWithDiff[0].color;
+};
+
+
+/**
+ * Calculate brightness of a color according to YIQ formula (brightness is Y).
+ * More info on YIQ here: http://en.wikipedia.org/wiki/YIQ. Helper method for
+ * goog.color.highContrast()
+ * @param {goog.color.Rgb} rgb Color represented by a rgb array.
+ * @return {number} brightness (Y).
+ * @private
+ */
+goog.color.yiqBrightness_ = function(rgb) {
+  return Math.round((rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000);
+};
+
+
+/**
+ * Calculate difference in brightness of two colors. Helper method for
+ * goog.color.highContrast()
+ * @param {goog.color.Rgb} rgb1 Color represented by a rgb array.
+ * @param {goog.color.Rgb} rgb2 Color represented by a rgb array.
+ * @return {number} Brightness difference.
+ * @private
+ */
+goog.color.yiqBrightnessDiff_ = function(rgb1, rgb2) {
+  return Math.abs(goog.color.yiqBrightness_(rgb1) -
+                  goog.color.yiqBrightness_(rgb2));
+};
+
+
+/**
+ * Calculate color difference between two colors. Helper method for
+ * goog.color.highContrast()
+ * @param {goog.color.Rgb} rgb1 Color represented by a rgb array.
+ * @param {goog.color.Rgb} rgb2 Color represented by a rgb array.
+ * @return {number} Color difference.
+ * @private
+ */
+goog.color.colorDiff_ = function(rgb1, rgb2) {
+  return Math.abs(rgb1[0] - rgb2[0]) + Math.abs(rgb1[1] - rgb2[1]) +
+      Math.abs(rgb1[2] - rgb2[2]);
+};
+
+// Input 10
+/**
+ * This is the main script of Terminal Color Scheme Designer
+ * author: Maciej Ciemborowicz
+ */
+
+// social media ///////////////////////////////////////////////////////////////////////////////////
+
+(function() {
+
+	// twitter button
+	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+})();
+
+// jquery ui vertial radio ////////////////////////////////////////////////////////////////////////
+
+(function( $ ){
+	//plugin buttonset vertical
+	$.fn.buttonsetv = function() {
+		$(':radio, :checkbox', this).wrap('<div style="margin: 1px"/>');
+		$(this).buttonset();
+		$('label:first', this).removeClass('ui-corner-left').addClass('ui-corner-top');
+		$('label:last', this).removeClass('ui-corner-right').addClass('ui-corner-bottom');
+		mw = 0; // max witdh
+		$('label', this).each(function(index){
+			 w = $(this).width();
+			 if (w > mw) mw = w;
+		})
+		$('label', this).each(function(index){
+			$(this).width(mw);
+		})
+	};
+})( jQuery );
+
+// Backbone app ///////////////////////////////////////////////////////////////////////////////////
+
+_4bit = function() {
+
+	goog.require('goog.color');
+
+	/**
+	 * Creates HSL color objects
+	 *
+	 * @param {Number} h	Hue between 0 and 360
+	 * @param {Number} s	Saturation between 0 and 1
+	 * @param {Number} l	Lightness between 0 and 1
+	 *
+	 * @return {Object}	HSL color
+	 */
+	function HSL(h, s, l) {
+		var color = [h, s, l];
+		var dye = [0, 0, 0, 0];	// hsla tint
+
+		getHue = function() {
+			return color[0];
+		}
+
+		getSaturation = function() {
+			return color[1];
+		}
+
+		getLightness = function() {
+			return color[2];
+		}
+
+		setHue = function(h) {
+			color[0] = h;
+		}
+
+		setSaturation = function(s) {
+			color[1] = s;
+		}
+
+		setLightness = function(l) {
+			color[2] = l;
+		}
+
+		setDye = function(hsla) {
+			dye = hsla;
+		}
+
+		setHsl = function(h, s, l) {
+			color = [h, s, l];
+		}
+
+		stringify = function() {
+			var blended = goog.color.hslArrayToRgb(color);
+			var blender = goog.color.hslToRgb(dye[0], dye[1], dye[2]);
+			var factor = dye[3];
+			var rgb = goog.color.blend(blender, blended, factor);
+			return goog.color.rgbArrayToHex(rgb);
+		}
+
+		toRgb = function() {
+			return goog.color.hslArrayToRgb(color);
+		}
+
+		return {
+			getHue: getHue,
+			getSaturation: getSaturation,
+			getLightness: getLightness,
+			setHue: setHue,
+			setSaturation: setSaturation,
+			setLightness: setLightness,
+			setDye: setDye,
+			setHsl: setHsl,
+			toString: stringify,
+			toRgb: toRgb
+		}
+	}
+
+	var COLOR_NAMES = [
+		'black',
+		'bright_black',
+		'red',
+		'bright_red',
+		'green',
+		'bright_green',
+		'yellow',
+		'bright_yellow',
+		'blue',
+		'bright_blue',
+		'magenta',
+		'bright_magenta',
+		'cyan',
+		'bright_cyan',
+		'white',
+		'bright_white'
+	]
+
+	var Scheme = Backbone.Model.extend({
+
+		defaults: {
+			hue: -15,
+			saturation: 0.5,
+			normal_lightness: 0.5,
+			bright_lightness: 0.75,
+			black: [HSL(0, 0, 0), HSL(0, 0, 0.125)],
+			white: [HSL(0, 0, 0.875), HSL(0, 0, 1)],
+			background: HSL(0, 0, 0),
+			foreground: HSL(0, 0, 1)
+		},
+
+		initialize: function() {
+			var that = this
+			var degrees = [0, 60, 120, 180, 240, 300];
+			var normal_array = _.map(degrees, function(degree) {
+				return HSL(that.get('hue') + degree, that.get('saturation'), that.get('normal_lightness'));
+			});
+			var bright_array = _.map(degrees, function(degree) {
+				return HSL(that.get('hue') + degree, that.get('saturation'), that.get('bright_lightness'));
+			});
+
+			this.set({
+				bright: bright_array,
+				normal: normal_array
+			});
+
+			this.set({
+				colors: {
+					background: this.get('background'),
+					foreground: this.get('foreground'),
+					black: this.get('black')[0],
+					bright_black: this.get('black')[1],
+					red: this.get('normal')[0],
+					bright_red: this.get('bright')[0],
+					green: this.get('normal')[2],
+					bright_green: this.get('bright')[2],
+					yellow: this.get('normal')[1],
+					bright_yellow: this.get('bright')[1],
+					blue: this.get('normal')[4],
+					bright_blue: this.get('bright')[4],
+					magenta: this.get('normal')[5],
+					bright_magenta: this.get('bright')[5],
+					cyan: this.get('normal')[3],
+					bright_cyan: this.get('bright')[3],
+					white: this.get('white')[0],
+					bright_white: this.get('white')[1]
+				}
+			});
+		},
+
+		setHue: function(hue) {
+			this.set('hue', this.get('hue') + hue)
+			_.each([this.get('bright'), this.get('normal')], function(colors) {
+				_.each(colors, function(color) {
+					color.setHue(hue + color.getHue());
+				});
+			});
+			this.trigger('change');
+		},
+
+		setSaturation: function(saturation) {
+			this.set('saturation', saturation)
+			_.each([this.get('bright'), this.get('normal')], function(colors) {
+				_.each(colors, function(color) {
+					color.setSaturation(saturation);
+				});
+			});
+			this.trigger('change');
+		},
+
+		setLightness: function(type, lightness) {
+			switch(type) {
+				case 'normal':
+					this.set('normal_lightness', lightness)
+					_.each(this.get('normal'), function(color) {
+						color.setLightness(lightness);
+					});
+					break;
+				case 'bright':
+					this.set('bright_lightness', lightness)
+					_.each(this.get('bright'), function(color) {
+						color.setLightness(lightness);
+					});
+					break;
+				default:
+					this.get('colors')[type].setLightness(lightness);
+			}
+
+			this.trigger('change');
+		},
+
+		dye: function(h, s, l, a, type) {
+			var colors = this.get('colors');
+			var achromatic = [
+				colors.black,
+				colors.bright_black,
+				colors.white,
+				colors.bright_white
+			];
+			var colors_array = [];
+
+			if ('achromatic' === type) {
+				colors_array.push(achromatic);
+			} else if ('color' === type) {
+				colors_array.push(this.get('bright'));
+				colors_array.push(this.get('normal'));
+			} else {
+				colors_array.push(achromatic);
+				colors_array.push(this.get('bright'));
+				colors_array.push(this.get('normal'));
+			}
+
+			this.set('dye', [h, s, l, a]);
+
+			_.each(colors_array, function(colors) {
+				_.each(colors, function(color) {
+          console.log(color)
+					color.setDye([h, s, l, a]);
+				});
+			});
+
+			this.trigger('change');
+		},
+
+		setBackground: function(h, s, l, option) {
+			var background = this.get('background');
+
+			if ('custom' === option) {
+				background.setHsl(h, s, l);
+				this.get('colors')['background'] = background;
+			} else {
+				this.get('colors')['background'] = this.get('colors')[option];
+			}
+
+			this.trigger('change');
+		},
+
+		setForeground: function(h, s, l, option) {
+			var foreground = this.get('foreground');
+
+			if ('custom' === option) {
+				foreground.setHsl(h, s, l);
+				this.get('colors')['foreground'] = foreground;
+			} else {
+				this.get('colors')['foreground'] = this.get('colors')[option];
+			}
+
+			this.trigger('change');
+		}
+
+	});
+
+	var scheme = new Scheme();
+
+	var SchemeView = Backbone.View.extend({
+
+		el: $('#display'),
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			this.render();
+
+			$("#advanced").tabs();
+		},
+
+		render: function() {
+			var string = '';
+			var color_names = ['foreground', 'bright_foreground'];
+			var bg_names = ['background'];
+			var columns_th = [' ', ' ', '40m', '41m', '42m', '43m', '44m', '45m', '46m', '47m'];
+			var rows_th =['m','1m','30m','1;30m','31m','1;31m','32m','1;32m','33m','1;33m','34m','1;34m','35m','1;35m','36m','1;36m','37m','1;37m'];
+			var row_index = 0;
+
+			string += '<p>Welcome to fish, the friendly interactive shell</p>';
+			string += '<p>Type <span class="green">help</span> for instructions on how to use fish</p>'
+			string += '<p><span class="cyan">ciembor</span>@browser <span class="cyan">~</span>> <span class="blue">./colors.sh</span></p>'
+			string += '<br />';
+
+			/* table with colors */
+			string += '<table id="colors">';
+
+			string += '<tr>';
+			_.each(columns_th, function(th) {
+				string += '<th>' + th + '</th>';
+			});
+			string += '</tr>';
+
+			_.each(COLOR_NAMES, function(name) {
+				if (0 !== name.indexOf('bright_')) {
+					bg_names.push(name);
+				}
+				color_names.push(name);
+			});
+
+			_.each(color_names, function(name) {
+				string += '<tr>';
+				string += '<th class="row-th">' + rows_th[row_index] + '</th>';
+				row_index += 1;
+
+				_.each(bg_names, function(bg_name) {
+					string += '<td class="';
+					if (0 === name.indexOf('bright_')) {
+						string += 'bold ';
+					}
+					if ('bright_foreground' === name) {
+						string += 'foreground';
+					} else {
+						string += name;
+					}
+					string += ' bg-' + bg_name;
+					string += '">gYw</td>';
+				})
+
+				string += '</tr>';
+			})
+			string += '</table>';
+
+			string += '<br />';
+			string += '<p><span class="cyan">ciembor</span>@browser <span class="cyan">~</span>></p>';
+
+			$(this.el).html(string);
+		}
+
+	});
+
+	var SchemeCSSView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			this.model.bind('change', _.bind(this.render, this));
+			this.render();
+		},
+
+		render: function() {
+			var that = this;
+			$('#display').css('color', that.model.get('colors')['foreground']);
+			$('#display').css('background-color', that.model.get('colors')['background']);
+			_.each(COLOR_NAMES, function(name) {
+				$('.' + name).css('color', that.model.get('colors')[name]);
+				$('.bg-' + name).css('background-color', that.model.get('colors')[name]);
+			});
+		}
+
+	});
+
+	var SchemeGuakeView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#guake-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', 'set_colors.sh');
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var palette = [];
+			var colors = that.model.get("colors");
+      var blob = null;
+      var file = null;
+
+			// Duplicate: #ab1224 -> #abab12122424, which is the expected format
+			function gnomeColor(color) {
+				return color.toString().replace(/#(.{2})(.{2})(.{2})/, '#$1$1$2$2$3$3');
+			}
+
+			_.each(COLOR_NAMES, function(name) {
+				palette.push( gnomeColor(colors[name]) )
+			});
+
+			out = '#!/bin/bash \n\n';
+			out += '# Save this script into set_colors.sh, make this file executable and run it: \n';
+			out += '# \n';
+			out += '# $ chmod +x set_colors.sh \n';
+			out += '# $ ./set_colors.sh \n';
+			out += '# \n';
+			out += '# Alternatively copy lines below directly into your shell. \n\n';
+
+			out += "gconftool-2 -s -t string /apps/guake/style/background/color '" + gnomeColor(colors["background"]) + "'" +'\n';
+			out += "gconftool-2 -s -t string /apps/guake/style/font/color '" + gnomeColor(colors["foreground"]) + "'" + '\n';
+			out += "gconftool-2 -s -t string /apps/guake/style/font/palette '" + palette.join(":") + "'" + '\n';
+
+      return new Blob([out], { type: 'text/text' });
+		}
+
+	});
+
+	var SchemeGnomeTerminalView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#gnome-terminal-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', 'set_colors.sh');
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var palette = [];
+			var colors = that.model.get("colors");
+
+			// Duplicate: #ab1224 -> #abab12122424, which is the expected format
+			function gnomeColor(color) {
+				return color.toString().replace(/#(.{2})(.{2})(.{2})/, '#$1$1$2$2$3$3');
+			}
+
+			_.each(COLOR_NAMES, function(name) {
+				if (0 !== name.indexOf('bright_')) {
+					palette.push( gnomeColor(colors[name]) );
+				}
+			});
+
+			_.each(COLOR_NAMES, function(name) {
+				if (0 === name.indexOf('bright_')) {
+					palette.push( gnomeColor(colors[name]) );
+				}
+			});
+
+			out = '#!/bin/bash \n\n';
+			out += '# Save this script into set_colors.sh, make this file executable and run it: \n';
+			out += '# \n';
+			out += '# $ chmod +x set_colors.sh \n';
+			out += '# $ ./set_colors.sh \n';
+			out += '# \n';
+			out += '# Alternatively copy lines below directly into your shell. \n\n';
+
+			out += "gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_theme_background --type bool false \n";
+			out += "gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_theme_colors --type bool false \n";
+			out += "gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/background_color '" + gnomeColor(colors["background"]) + "'" +'\n';
+			out += "gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/foreground_color '" + gnomeColor(colors["foreground"]) + "'" + '\n';
+			out += "gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/palette '" + palette.join(":") + "'" + '\n';
+
+			return new Blob([out], { type: 'text/text' });
+		}
+
+	});
+
+	var SchemeKonsoleView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#konsole-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', '4bit.colorscheme');
+			});
+		},
+
+		colorRgb: function(context, color) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			return rgbArray[0] + ',' + rgbArray[1] + ',' + rgbArray[2];
+		},
+
+		render: function() {
+			var that = this;
+			var out = '';
+			var counter = 0;
+			var tpf = "Transparency=false" + '\n' + '\n';
+			var name = '4bit-' + that.model.get("colors")["foreground"] + "-on-" + that.model.get("colors")["background"];
+			name = name.replace(/#/g,'');
+
+			out += '# --- ~/.kde/share/apps/konsole/NAME.colorscheme -------------------------------\n';
+			out += '# ------------------------------------------------------------------------------\n';
+			out += '# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
+			out += '# ------------------------------------------------------------------------------\n';
+			out += '# --- http://ciembor.github.io/4bit --------------------------------------------\n';
+			out += '# ------------------------------------------------------------------------------\n\n';
+
+			out += '# --- special colors ---\n\n';
+			out += '[Background]\n';
+			out += 'Color='	+ that.colorRgb(that, "background") + '\n';
+			out += tpf;
+			out += '[BackgroundIntense]\n';
+			out += 'color='	+ that.colorRgb(that, "background") + '\n';
+			out += tpf;
+			out += '[Foreground]\n';
+			out += 'Color='	+ that.colorRgb(that, "foreground") + '\n';
+			out += tpf;
+			out += '[ForegroundIntense]\n';
+			out += 'Color='	+ that.colorRgb(that, "foreground") + '\n';
+			out += 'Bold=true\n';
+			out += tpf;
+
+			out += '# --- standard colors ---\n\n';
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2;
+
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+				if (number > 7) {
+					colorsuffix = number % 8 + "Intense";
+				} else {
+					colorsuffix = number % 8;
+				}
+				out += '[Color' + colorsuffix + ']\n';
+				out += 'Color=' + that.colorRgb(that, name) + '\n';
+				out += tpf;
+				counter++;
+			});
+
+			out += '# --- general options ---\n\n';
+			out += '[General]\nDescription=' + name + '\nOpacity=1\n';
+
+			return new Blob([out], { type: 'text/text' });
+		}
+
+	});
+
+	var SchemeITerm2View = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#iterm2-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', '4bit.itermcolors');
+			});
+		},
+
+		colorRgb: function(context, color) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			return rgbArray[0] + ',' + rgbArray[1] + ',' + rgbArray[2];
+		},
+
+		colorKeyDict: function(context, color, name) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			var out = '';
+			out += '	<key>'+name+' Color</key>\n';
+			out += '	<dict>\n';
+			out += '		<key>Blue Component</key>\n';
+			out += '		<real>'+rgbArray[2]/255+'</real>\n';
+			out += '		<key>Green Component</key>\n';
+			out += '		<real>'+rgbArray[1]/255+'</real>\n';
+			out += '		<key>Red Component</key>\n';
+			out += '		<real>'+rgbArray[0]/255+'</real>\n';
+			out += '	</dict>\n';
+			return out;
+		},
+
+		render: function() {
+			var that = this;
+			var out = '';
+			var counter = 0;
+			var name = '4bit-' + that.model.get("colors")["foreground"] + "-on-" + that.model.get("colors")["background"];
+			name = name.replace(/#/g,'');
+
+			out += '<?xml version="1.0" encoding="UTF-8"?>\n';
+			out += '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n';
+			out += '\n<!--\n\n';
+			out += '      Save this file to '+name+'.itermcolors                                    \n';
+			out += '      and load it with iTerm2 Preferences panel                                 \n';
+			out += '                                                                                \n';
+			out += '      generated with 4bit Terminal Color Scheme Designer                        \n';
+			out += '                                                                                \n';
+			out += '      http://ciembor.github.io/4bit                                             \n';
+			out += '                                                                                \n';
+			out += '-->\n\n';
+
+			out += '<plist version="1.0">\n';
+			out += '<dict>\n';
+
+			out += '<!-- special colors -->\n';
+			out += that.colorKeyDict(that, "background", "Background");
+			out += that.colorKeyDict(that, "foreground", "Foreground");
+			out += that.colorKeyDict(that, "foreground", "Cursor");
+			out += that.colorKeyDict(that, "background", "Cursor Text");
+
+			out += '<!-- standard colors -->\n';
+
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2;
+
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+
+				out += '	<!-- ' + name + ' -->\n';
+				out += that.colorKeyDict(that, name, "Ansi "+number);
+
+				counter += 1;
+			});
+
+			out += '</dict>\n';
+			out += '</plist>\n';
+			out += '\n';
+
+			return new Blob([out], { type: 'text/text' });
+		}
+
+	});
+
+	var SchemeXresourcesView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#xresources-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', '.Xresources');
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var xresources = '';
+			var counter = 0;
+
+			xresources += '! --- ~/.Xresources ------------------------------------------------------------\n';
+			xresources += '! ------------------------------------------------------------------------------\n';
+			xresources += '! --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
+			xresources += '! ------------------------------------------------------------------------------\n';
+			xresources += '! --- http://ciembor.github.io/4bit --------------------------------------------\n';
+			xresources += '! ------------------------------------------------------------------------------\n\n';
+
+			xresources += '! --- special colors ---\n\n';
+			xresources += '*background: ' + that.model.get('colors')['background'] + '\n';
+			xresources += '*foreground: ' + that.model.get('colors')['foreground'] + '\n\n';
+
+			xresources += '! --- standard colors ---\n\n';
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2;
+
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+
+				xresources += '! ' + name + '\n';
+				xresources += '*color' + number + ': ' + that.model.get('colors')[name] + '\n\n';
+				counter += 1;
+			});
+
+			xresources += '\n! ------------------------------------------------------------------------------\n';
+			xresources += '! --- end of terminal colors section -------------------------------------------\n';
+			xresources += '! ------------------------------------------------------------------------------\n\n';
+
+			return new Blob([xresources], { type: 'text/text' });
+		}
+
+	});
+
+	var SchemeXfceTerminalView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#xfce-terminal-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', 'terminalrc');
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var terminalrc = '[Configuration]\n';
+			var counter = 1;
+
+			// special colors
+			terminalrc += 'ColorBackground=' + that.model.get('colors')['background'] + '\n';
+			terminalrc += 'ColorForeground=' + that.model.get('colors')['foreground'] + '\n';
+			terminalrc += 'ColorCursor=' + that.model.get('colors')['foreground'] + '\n';
+
+			// standard colors
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2 + 0.5;
+
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+
+				terminalrc += 'ColorPalette' + number + '=' + that.model.get('colors')[name] + '\n';
+				counter += 1;
+			});
+
+			return new Blob([terminalrc], { type: 'text/text' });
+		}
+
+	});
+
+	var SchemeMinttyView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#mintty-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', '4bit-mintty-color-scheme');
+			});
+		},
+
+		colorRgb: function(context, color) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			return rgbArray[0] + ',' + rgbArray[1] + ',' + rgbArray[2];
+		},
+
+		render: function() {
+			function MinttyName(name) {
+				if (0 === name.indexOf('bright_')) {
+					name = name.substring('bright_'.length);
+					return 'Bold' + name.charAt(0).toUpperCase() + name.slice(1);
+				} else {
+					return name.charAt(0).toUpperCase() + name.slice(1);
+				}
+			}
+
+			var that = this;
+			var out = '';
+
+			out += 'BackgroundColour='	+ that.colorRgb(that, "background") + '\n';
+			out += 'ForegroundColour='	+ that.colorRgb(that, "foreground") + '\n';
+			out += 'CursorColour='	+ that.colorRgb(that, "foreground") + '\n';
+
+			_.each(COLOR_NAMES, function(name) {
+				out += MinttyName(name) + '=' + that.colorRgb(that, name) + '\n';
+			});
+
+			return new Blob([out], { type: 'text/text' });
+		}
+
+	});
+
+	var SchemePuttyView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#putty-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', '4bit-putty-color-scheme.reg');
+			});
+		},
+
+		colorRgb: function(context, color) {
+			var rgbArray = context.model.get("colors")[color].toRgb();
+			return rgbArray[0] + ',' + rgbArray[1] + ',' + rgbArray[2];
+		},
+
+		render: function() {
+			var that = this;
+			var out = '';
+			var counter = 6;
+			out += 'Windows Registry Editor Version 5.00 \n\n';
+			out += '[HKEY_CURRENT_USER\\Software\\SimonTatham\\PuTTY\\Sessions\\Default%20Settings]\n';
+
+			out += '"Colour0"="' + that.colorRgb(that, "foreground") + '"\n';
+			out += '"Colour1"="' + that.colorRgb(that, "foreground") + '"\n';
+			out += '"Colour2"="' + that.colorRgb(that, "background") + '"\n';
+			out += '"Colour3"="' + that.colorRgb(that, "background") + '"\n';
+			out += '"Colour4"="' + that.colorRgb(that, "background") + '"\n';
+			out += '"Colour5"="' + that.colorRgb(that, "foreground") + '"\n';
+
+			_.each(COLOR_NAMES, function(name) {
+				out += '"Colour' + counter + '"="' + that.colorRgb(that, name) + '"\n';
+				counter += 1;
+			});
+
+			return new Blob([out], { type: 'text/text' });
+		}
+
+	});
+
+	var SchemeTerminatorView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#terminator-button').on('click', function(event) {
+				var blob = that.render();
+        var blobURL = URL.createObjectURL(blob);
+        var link = $(event.target);
+
+        link.attr('href', blobURL);
+        link.attr('download', 'config');
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var out = '';
+			var palette_normal = [];
+			var palette_bright = [];
+			var colors = that.model.get('colors');
+			var name = '4bit-' + (new Date()).getTime();
+
+			_.each(COLOR_NAMES, function(name) {
+				if (0 === name.indexOf('bright_')) {
+					palette_bright.push(colors[name]);
+					palette_normal.push(colors[name.substr('bright_'.length)]);
+				}
+			});
+
+			var palette = palette_normal.concat(palette_bright);
+
+			out += '# Color scheme configuration for Terminator terminal emulator (http://gnometerminator.blogspot.com/p/introduction.html and https://launchpad.net/terminator)\n';
+			out += '# \n';
+			out += '# Copy the following lines within the [profiles] section of terminator configuration file at ~/.config/terminator/config\n\n';
+
+			out += '[[' + name + ']]\n';
+			out += '  use_theme_colors = False\n';
+			out += '  background_color = "' + colors['background'] + '"\n';
+			out += '  foreground_color = "' + colors['foreground'] + '"\n';
+			out += '  palette = "' + palette.join(':') + '"' + '\n';
+
+			return new Blob([out], { type: 'text/text' });
+		}
+	});
+
+	var ControlsView = Backbone.View.extend({
+
+		el: $('#controls'),
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+
+			var that = this;
+
+			$("#hue-slider").slider({
+				value: that.model.get('hue') + 30,
+				min: 0,
+				max: 60,
+				step: 1,
+				slide: function( event, ui ) {
+					that.model.setHue((ui.value - 30) - that.model.get('hue'));
+				}
+			});
+
+			$("#saturation-slider").slider({
+				value: that.model.get('saturation') * 256,
+				min: 0,
+				max: 256,
+				step: 1,
+				slide: function( event, ui ) {
+					that.model.setSaturation(ui.value / 256);
+				}
+			});
+
+			$("#lightness-slider").slider({
+				range: true,
+				values: [that.model.get('normal_lightness') * 256, that.model.get('bright_lightness') * 256],
+				min: 0,
+				max: 256,
+				step: 1,
+				slide: function( event, ui ) {
+					that.model.setLightness('normal', ui.values[0] / 256);
+					that.model.setLightness('bright', ui.values[1] / 256);
+				}
+			});
+
+			$("#black-slider").slider({
+				range: true,
+				values: [
+					that.model.get('colors').black.getLightness() * 256,
+					that.model.get('colors').bright_black.getLightness() * 256
+				],
+				min: 0,
+				max: 128,
+				step: 1,
+				slide: function( event, ui ) {
+					that.model.setLightness('black', ui.values[0] / 256);
+					that.model.setLightness('bright_black', ui.values[1] / 256);
+				}
+			});
+
+			$("#white-slider").slider({
+				range: true,
+				values: [
+					that.model.get('colors').white.getLightness() * 256,
+					that.model.get('colors').bright_white.getLightness() * 256
+				],
+				min: 128,
+				max: 256,
+				step: 1,
+				slide: function( event, ui ) {
+					that.model.setLightness('white', ui.values[0] / 256);
+					that.model.setLightness('bright_white', ui.values[1] / 256);
+				}
+			});
+
+			$('#dye-colorpicker').colorPicker({
+				format: 'hsla',
+				size: 90,
+				colorChange: function(e, ui) {
+					var pattern, _ref, h, s, l, a;
+					var type = $('input[name=dye]:checked').val()
+					pattern = /^hsla\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)\)$/;
+					_ref = pattern.exec(ui.color), h = _ref[1], s = _ref[2] / 100, l = _ref[3] / 100, a = _ref[4];
+
+					switch(type) {
+						case 'none':
+							that.model.dye(0, 0, 0, 0, 'all');
+							break;
+						case 'color':
+							that.model.dye(0, 0, 0, 0, 'achromatic');
+							that.model.dye(h, s, l, a, 'color');
+							break;
+						case 'achromatic':
+							that.model.dye(0, 0, 0, 0, 'color');
+							that.model.dye(h, s, l, a, 'achromatic');
+							break;
+						case 'all':
+							that.model.dye(h, s, l, a, 'all');
+							break;
+					}
+				}
+			});
+
+			$('#dye-colorpicker').colorPicker('setColor', 180, 50, 50, 0.25);
+
+			$("input[name=dye]").change(function() {
+				$('#dye-colorpicker').change();
+			});
+
+			$('#background-colorpicker').colorPicker({
+				format: 'hsl',
+				size: 90,
+				colorChange: function(e, ui) {
+					var pattern, _ref, h, s, l;
+					var option = $('input[name=background]:checked').val()
+					pattern = /^hsl\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%\)$/;
+					_ref = pattern.exec(ui.color), h = _ref[1], s = _ref[2] / 100, l = _ref[3] / 100;
+					that.model.setBackground(h, s, l, option);
+				}
+			});
+
+			$('#background-colorpicker').colorPicker('setColor', 180, 50, 10);
+
+			$("input[name=background]").change(function() {
+				$('#background-colorpicker').change();
+			});
+
+			$('#background .alpha .ui-draggable').removeClass('ui-draggable handle');
+
+			$('#foreground-colorpicker').colorPicker({
+				format: 'hsl',
+				size: 90,
+				colorChange: function(e, ui) {
+					var pattern, _ref, h, s, l;
+					var option = $('input[name=foreground]:checked').val()
+					pattern = /^hsl\((\d+),\s+(\d+(?:.\d+)?)%,\s+(\d+(?:.\d+)?)%\)$/;
+					_ref = pattern.exec(ui.color), h = _ref[1], s = _ref[2] / 100, l = _ref[3] / 100;
+					that.model.setForeground(h, s, l, option);
+				}
+			});
+
+			$('#foreground-colorpicker').colorPicker('setColor', 180, 50, 90);
+
+			$("input[name=foreground]").change(function() {
+				$('#foreground-colorpicker').change();
+			});
+
+			$('#foreground .alpha .ui-draggable').removeClass('ui-draggable handle');
+
+			$(".radio-group").buttonsetv();
+
+		}
+
+	});
+
+	var schemeView = new SchemeView();
+	var schemeCSSView = new SchemeCSSView();
+	var schemeXresourcesView = new SchemeXresourcesView();
+	var schemeKonsoleView = new SchemeKonsoleView();
+	var schemeMinttyView = new SchemeMinttyView();
+	var schemeITerm2View = new SchemeITerm2View();
+	var schemeGuakeView = new SchemeGuakeView();
+	var schemeGnomeTerminalView = new SchemeGnomeTerminalView();
+	var schemeXfceTerminalView = new SchemeXfceTerminalView();
+	var schemePuttyView = new SchemePuttyView();
+	var schemeTerminatorView = new SchemeTerminatorView();
+	var controlsView = new ControlsView();
+
+	// basic layout behaviour /////////////////////////////
+
+	$('footer p').hover(
+		function() {
+			$(this).find('a').addClass('blue');
+			schemeCSSView.render();
+		},
+		function() {
+			$(this).find('a').removeClass('blue');
+			$(this).find('a').removeAttr("style");
+		}
+	);
+
+	$(window).bind('load', function() {
+		$('#display').css('visibility', 'visible');
+		$('#controls').css('visibility', 'visible');
+		$('#skews').fadeIn(700);
+		$('#app').animate({opacity: 1}, 700);
+		$('#get-scheme-button').click(function(button) {
+			$('#dialog-modal').dialog({
+				height: 90 + 50 * $('.get-scheme-link').length,
+				width: 450,
+				modal: true,
+				draggable: false,
+				resizable: false,
+        open: function( event, ui ) {
+          $('.ui-dialog').css('display', 'flex');
+        }
+			});
+		});
+	});
+
+}
+
