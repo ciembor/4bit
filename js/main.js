@@ -894,6 +894,102 @@ _4bit = function() {
 		}
 	});
 
+	var SchemeConemuView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#conemu-button').hover(function() {
+				that.render();
+			});
+			$('#conemu-button').focus(function() {
+				that.render();
+			});
+		},
+
+		colorBgrHex: function(context, color) {
+			var rgbHex = context.model.get("colors")[color].toString();
+			return rgbHex.substr(5,2) + rgbHex.substr(3,2) + rgbHex.substr(1,2);
+
+		},
+
+		render: function() {
+			var that = this;
+			var date = new Date();
+			var out = '<key name="Palette1" modified="' + date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '" build="180131">\n';
+			var counter = 1;
+			var name = '4bit generated ' + Math.floor(date.getTime()/1000);
+
+			out += '\t<value name="Name" type="string" data="' + name +'" />\n';
+			out += '\t<value name="ExtendColors" type="hex" data="00" />\n';
+			out += '\t<value name="ExtendColorIdx" type="hex" data="0E" />\n';
+			out += '\t<value name="TextColorIdx" type="hex" data="10"/>\n';
+			out += '\t<value name="BackColorIdx" type="hex" data="10"/>\n';
+			out += '\t<value name="PopTextColorIdx" type="hex" data="10"/>\n';
+			out += '\t<value name="PopBackColorIdx" type="hex" data="10"/>\n';
+
+			// special colors (not used in ConEmu)
+			// out += 'ColorBackground=' + that.model.get('colors')['background'] + '\n';
+			// out += 'ColorForeground=' + that.model.get('colors')['foreground'] + '\n';
+			// out += 'ColorCursor=' + that.model.get('colors')['foreground'] + '\n';
+
+			// standard colors
+			out += '\t<value name="ColorTable00" type="dword" data="00' + that.colorBgrHex(that, "black") + '"/>\n'; 
+			out += '\t<value name="ColorTable01" type="dword" data="00' + that.colorBgrHex(that, "blue") + '"/>\n'; 
+			out += '\t<value name="ColorTable02" type="dword" data="00' + that.colorBgrHex(that, "green") + '"/>\n'; 
+			out += '\t<value name="ColorTable03" type="dword" data="00' + that.colorBgrHex(that, "cyan") + '"/>\n'; 
+			out += '\t<value name="ColorTable04" type="dword" data="00' + that.colorBgrHex(that, "red") + '"/>\n'; 
+			out += '\t<value name="ColorTable05" type="dword" data="00' + that.colorBgrHex(that, "magenta") + '"/>\n'; 
+			out += '\t<value name="ColorTable06" type="dword" data="00' + that.colorBgrHex(that, "yellow") + '"/>\n'; 
+			out += '\t<value name="ColorTable07" type="dword" data="00' + that.colorBgrHex(that, "white") + '"/>\n'; 
+			out += '\t<value name="ColorTable08" type="dword" data="00' + that.colorBgrHex(that, "bright_black") + '"/>\n'; 
+			out += '\t<value name="ColorTable09" type="dword" data="00' + that.colorBgrHex(that, "bright_blue") + '"/>\n'; 
+			out += '\t<value name="ColorTable10" type="dword" data="00' + that.colorBgrHex(that, "bright_green") + '"/>\n'; 
+			out += '\t<value name="ColorTable11" type="dword" data="00' + that.colorBgrHex(that, "bright_cyan") + '"/>\n'; 
+			out += '\t<value name="ColorTable12" type="dword" data="00' + that.colorBgrHex(that, "bright_red") + '"/>\n'; 
+			out += '\t<value name="ColorTable13" type="dword" data="00' + that.colorBgrHex(that, "bright_magenta") + '"/>\n'; 
+			out += '\t<value name="ColorTable14" type="dword" data="00' + that.colorBgrHex(that, "bright_yellow") + '"/>\n'; 
+			out += '\t<value name="ColorTable15" type="dword" data="00' + that.colorBgrHex(that, "bright_white") + '"/>\n'; 
+
+			// extended colors (static/defaults)
+			out += '\t<value name="ColorTable16" type="dword" data="00000000"/>\n';
+			out += '\t<value name="ColorTable17" type="dword" data="00800000"/>\n';
+			out += '\t<value name="ColorTable18" type="dword" data="00008000"/>\n';
+			out += '\t<value name="ColorTable19" type="dword" data="00808000"/>\n';
+			out += '\t<value name="ColorTable20" type="dword" data="00000080"/>\n';
+			out += '\t<value name="ColorTable21" type="dword" data="00800080"/>\n';
+			out += '\t<value name="ColorTable22" type="dword" data="00008080"/>\n';
+			out += '\t<value name="ColorTable23" type="dword" data="00c0c0c0"/>\n';
+			out += '\t<value name="ColorTable24" type="dword" data="00808080"/>\n';
+			out += '\t<value name="ColorTable25" type="dword" data="00ff0000"/>\n';
+			out += '\t<value name="ColorTable26" type="dword" data="0000ff00"/>\n';
+			out += '\t<value name="ColorTable27" type="dword" data="00ffff00"/>\n';
+			out += '\t<value name="ColorTable28" type="dword" data="000000ff"/>\n';
+			out += '\t<value name="ColorTable29" type="dword" data="00ff00ff"/>\n';
+			out += '\t<value name="ColorTable30" type="dword" data="0000ffff"/>\n';
+			out += '\t<value name="ColorTable31" type="dword" data="00ffffff"/>\n';
+			out += '</key>';
+
+			/*
+			_.each(COLOR_NAMES, function(name) {
+				var number = counter / 2 + 0.5;
+
+				if (0 === name.indexOf('bright_')) {
+					number += 7.5;
+				}
+
+				// out += 'ColorPalette' + number + '=' + that.model.get('colors')[name] + '\n';
+				counter += 1;
+			});
+			*/
+
+			$('#conemu-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+		}
+
+	});
+
 	var ControlsView = Backbone.View.extend({
 
 		el: $('#controls'),
@@ -1058,6 +1154,7 @@ _4bit = function() {
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var schemePuttyView = new SchemePuttyView();
 	var schemeTerminatorView = new SchemeTerminatorView();
+	var schemeConemuView = new SchemeConemuView();
 	var controlsView = new ControlsView();
 
 	// basic layout behaviour /////////////////////////////
