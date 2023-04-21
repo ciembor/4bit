@@ -405,6 +405,11 @@ _4bit = function() {
 			var that = this;
 			var palette = [];
 			var colors = that.model.get("colors");
+			var bright_color_names = COLOR_NAMES.filter(function(color_name) {
+				return color_name.startsWith('bright_');
+			});
+			var standard_color_names = COLOR_NAMES.filter(color_name => !bright_color_names.includes(color_name));
+
 			var blob = null;
 			var file = null;
 
@@ -413,9 +418,16 @@ _4bit = function() {
 				return color.toString().replace(/#(.{2})(.{2})(.{2})/, '#$1$1$2$2$3$3');
 			}
 
-			_.each(COLOR_NAMES, function(name) {
-				palette.push( gnomeColor(colors[name]) )
+			_.each(standard_color_names, function(name) {
+				palette.push(gnomeColor(colors[name]));
 			});
+
+			_.each(bright_color_names, function(name) {
+				palette.push(gnomeColor(colors[name]));
+			});
+
+			palette.push(gnomeColor(colors["foreground"]));
+			palette.push(gnomeColor(colors["background"]));
 
 			out = '#!/bin/bash \n\n';
 			out += '# Save this script into set_colors.sh, make this file executable and run it: \n';
@@ -425,9 +437,8 @@ _4bit = function() {
 			out += '# \n';
 			out += '# Alternatively copy lines below directly into your shell. \n\n';
 
-			out += "gconftool-2 -s -t string /apps/guake/style/background/color '" + gnomeColor(colors["background"]) + "'" +'\n';
-			out += "gconftool-2 -s -t string /apps/guake/style/font/color '" + gnomeColor(colors["foreground"]) + "'" + '\n';
-			out += "gconftool-2 -s -t string /apps/guake/style/font/palette '" + palette.join(":") + "'" + '\n';
+			out += "dconf write /apps/guake/style/font/palette \"'" + palette.join(":") + "'\"" + '\n';
+			out += "dconf write /apps/guake/style/font/palette-name \"'4bit Color Scheme Designer'\""
 
 			return new Blob([out], { type: 'text/text' });
 		}
