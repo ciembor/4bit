@@ -1,10 +1,10 @@
-[4bit](http://ciembor.github.io/4bit) Terminal Color Scheme Designer
+[4bit](https://ciembor.github.io/4bit) Terminal Color Scheme Designer
 =========
 
 For users
 ---------
 
-1. Go to http://ciembor.github.io/4bit.
+1. Go to https://ciembor.github.io/4bit.
 2. Design your terminal look.
 3. Click `Get Scheme` button and select the format of configuration file.
 
@@ -38,10 +38,10 @@ For developers
 ---------
 
 You will need some system tools to run the build script:
-* [GNU Bash](http://www.gnu.org/software/bash/)
+* [GNU Bash](https://www.gnu.org/software/bash/)
 * [Java Runtime Environment 8](https://www.java.com/en/download/manual.jsp)
-* [Python 2](http://www.python.org/download/releases/2.7.2/)
-* [LESS compiler (lessc)](http://lesscss.org/)
+* [Python 2](https://www.python.org/downloads/release/python-2718/)
+* [LESS compiler (lessc)](https://lesscss.org/)
 * [NPM](https://www.npmjs.com/)
 
 After `git clone` run `npm install`. After that run `./build.sh`. It generates compiled JavaScript, compiled LESS, and merged CSS. For compiling code for production run `./build.sh production`.
@@ -51,7 +51,7 @@ Author
 
 __Maciej Ciemborowicz__
 
-* http://twitter.com/ciembor
+* https://twitter.com/ciembor
 * https://pl.linkedin.com/in/maciej-ciemborowicz-57202470
 
 Contributors
@@ -59,16 +59,15 @@ Contributors
 
 __Stefan Wienert__
 
-* http://github.com/zealot128
-* http://stefanwienert.net
+* https://github.com/zealot128
 
 __Victor Hugo Borja__
 
-* http://github.com/vic
-* http://twitter.com/vborja
+* https://github.com/vic
+* https://twitter.com/vborja
 
 Resources
 ---------
 
 * [ArchLinux Wiki - X resources](https://wiki.archlinux.org/index.php/X_resources)
-* [original colors.sh](http://code.google.com/p/iterm2/source/browse/trunk/tests/colors.sh)
+* [original colors.sh](https://github.com/gnachman/iTerm2/blob/master/tests/colors.sh)

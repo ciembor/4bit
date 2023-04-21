@@ -83,16 +83,22 @@ _4bit = function() {
 			color = [h, s, l];
 		}
 
-		stringify = function() {
-			var blended = goog.color.hslArrayToRgb(color);
+		blendedRgb = function(color, dye) {
+			var to_blend = goog.color.hslArrayToRgb(color);
 			var blender = goog.color.hslToRgb(dye[0], dye[1], dye[2]);
 			var factor = dye[3];
-			var rgb = goog.color.blend(blender, blended, factor);
+			var rgb = goog.color.blend(blender, to_blend, factor);
+
+			return rgb;
+		}
+
+		stringify = function() {
+			var rgb = blendedRgb(color, dye);
 			return goog.color.rgbArrayToHex(rgb);
 		}
 
 		toRgb = function() {
-			return goog.color.hslArrayToRgb(color);
+			return blendedRgb(color, dye);
 		}
 
 		return {
@@ -246,7 +252,6 @@ _4bit = function() {
 
 			_.each(colors_array, function(colors) {
 				_.each(colors, function(color) {
-          console.log(color)
 					color.setDye([h, s, l, a]);
 				});
 			});
@@ -388,11 +393,11 @@ _4bit = function() {
 			var that = this;
 			$('#guake-button').on('click', function(event) {
 				var blob = that.render();
-        var blobURL = URL.createObjectURL(blob);
-        var link = $(event.target);
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
 
-        link.attr('href', blobURL);
-        link.attr('download', 'set_colors.sh');
+				link.attr('href', blobURL);
+				link.attr('download', 'set_colors.sh');
 			});
 		},
 
@@ -400,8 +405,8 @@ _4bit = function() {
 			var that = this;
 			var palette = [];
 			var colors = that.model.get("colors");
-      var blob = null;
-      var file = null;
+			var blob = null;
+			var file = null;
 
 			// Duplicate: #ab1224 -> #abab12122424, which is the expected format
 			function gnomeColor(color) {
@@ -424,7 +429,7 @@ _4bit = function() {
 			out += "gconftool-2 -s -t string /apps/guake/style/font/color '" + gnomeColor(colors["foreground"]) + "'" + '\n';
 			out += "gconftool-2 -s -t string /apps/guake/style/font/palette '" + palette.join(":") + "'" + '\n';
 
-      return new Blob([out], { type: 'text/text' });
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -438,11 +443,11 @@ _4bit = function() {
 			var that = this;
 			$('#gnome-terminal-button').on('click', function(event) {
 				var blob = that.render();
-        var blobURL = URL.createObjectURL(blob);
-        var link = $(event.target);
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
 
-        link.attr('href', blobURL);
-        link.attr('download', 'set_colors.sh');
+				link.attr('href', blobURL);
+				link.attr('download', 'set_colors.sh');
 			});
 		},
 
@@ -496,11 +501,11 @@ _4bit = function() {
 			var that = this;
 			$('#konsole-button').on('click', function(event) {
 				var blob = that.render();
-        var blobURL = URL.createObjectURL(blob);
-        var link = $(event.target);
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
 
-        link.attr('href', blobURL);
-        link.attr('download', '4bit.colorscheme');
+				link.attr('href', blobURL);
+				link.attr('download', '4bit.colorscheme');
 			});
 		},
 
@@ -574,11 +579,11 @@ _4bit = function() {
 			var that = this;
 			$('#iterm2-button').on('click', function(event) {
 				var blob = that.render();
-        var blobURL = URL.createObjectURL(blob);
-        var link = $(event.target);
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
 
-        link.attr('href', blobURL);
-        link.attr('download', '4bit.itermcolors');
+				link.attr('href', blobURL);
+				link.attr('download', '4bit.itermcolors');
 			});
 		},
 
@@ -663,11 +668,11 @@ _4bit = function() {
 			var that = this;
 			$('#xresources-button').on('click', function(event) {
 				var blob = that.render();
-        var blobURL = URL.createObjectURL(blob);
-        var link = $(event.target);
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
 
-        link.attr('href', blobURL);
-        link.attr('download', '.Xresources');
+				link.attr('href', blobURL);
+				link.attr('download', '.Xresources');
 			});
 		},
 
@@ -718,11 +723,11 @@ _4bit = function() {
 			var that = this;
 			$('#xfce-terminal-button').on('click', function(event) {
 				var blob = that.render();
-        var blobURL = URL.createObjectURL(blob);
-        var link = $(event.target);
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
 
-        link.attr('href', blobURL);
-        link.attr('download', 'terminalrc');
+				link.attr('href', blobURL);
+				link.attr('download', 'terminalrc');
 			});
 		},
 
@@ -762,11 +767,11 @@ _4bit = function() {
 			var that = this;
 			$('#mintty-button').on('click', function(event) {
 				var blob = that.render();
-        var blobURL = URL.createObjectURL(blob);
-        var link = $(event.target);
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
 
-        link.attr('href', blobURL);
-        link.attr('download', '4bit-color-scheme.minttyrc');
+				link.attr('href', blobURL);
+				link.attr('download', '4bit-color-scheme.minttyrc');
 			});
 		},
 
@@ -810,11 +815,11 @@ _4bit = function() {
 			var that = this;
 			$('#putty-button').on('click', function(event) {
 				var blob = that.render();
-        var blobURL = URL.createObjectURL(blob);
-        var link = $(event.target);
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
 
-        link.attr('href', blobURL);
-        link.attr('download', '4bit-putty-color-scheme.reg');
+				link.attr('href', blobURL);
+				link.attr('download', '4bit-putty-color-scheme.reg');
 			});
 		},
 
@@ -856,11 +861,11 @@ _4bit = function() {
 			var that = this;
 			$('#terminator-button').on('click', function(event) {
 				var blob = that.render();
-        var blobURL = URL.createObjectURL(blob);
-        var link = $(event.target);
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
 
-        link.attr('href', blobURL);
-        link.attr('download', 'config');
+				link.attr('href', blobURL);
+				link.attr('download', 'config');
 			});
 		},
 
@@ -1086,9 +1091,9 @@ _4bit = function() {
 				modal: true,
 				draggable: false,
 				resizable: false,
-        open: function( event, ui ) {
-          $('.ui-dialog').css('display', 'flex');
-        }
+				open: function( event, ui ) {
+					$('.ui-dialog').css('display', 'flex');
+				}
 			});
 		});
 	});
