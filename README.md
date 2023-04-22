@@ -32,7 +32,7 @@ Save the generated file with `.reg` extension and double click it.
 Copy lines within the [profiles] section of the generated configuration file to ~/.config/terminator/config file.
 
 * __Alacritty:__
-Put the generated file to ~/.config/alacritty/alacritty.yml.
+Put the generated file to `~/.config/alacritty/alacritty.yml`.
 
 * __Mintty:__
 Copy the colors and save it in `~/.minttyrc`.
