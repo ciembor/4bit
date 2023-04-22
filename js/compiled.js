@@ -12756,6 +12756,63 @@ _4bit = function() {
 		}
 	});
 
+	var SchemeAlacrittyView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#alacritty-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', 'alacritty.yml');
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var out = '';
+			var counter = 0;
+
+			out += '# --- ~/.config/alacritty/alacritty.yml ----------------------------------------\n';
+			out += '# ------------------------------------------------------------------------------\n';
+			out += '# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
+			out += '# ------------------------------------------------------------------------------\n';
+			out += '# --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			out += '# ------------------------------------------------------------------------------\n\n';
+			out += 'colors:\n';
+			out += '  primary:\n';
+			out += '    background: \'0x' + String(that.model.get('colors')['background']).substring(1) + '\'\n';
+			out += '    foreground: \'0x' + String(that.model.get('colors')['foreground']).substring(1) + '\'\n\n';
+      out += '  normal:\n';
+
+			_.each(COLOR_NAMES, function(name) {
+				if (0 !== name.indexOf('bright_')) {
+					out += '    ' + name + ': \'0x' + String(that.model.get('colors')[name]).substring(1) + '\'\n';
+				}
+			});
+
+      out += '\n  bright:\n';
+			_.each(COLOR_NAMES, function(name) {
+				if (0 === name.indexOf('bright_')) {
+					out += '    ' + name.substring('bright_'.length) + ': \'0x' + String(that.model.get('colors')[name]).substring(1) + '\'\n';
+				}
+			});
+
+			out += '\n# ------------------------------------------------------------------------------\n';
+			out += '# --- end of terminal colors section -------------------------------------------\n';
+			out += '# ------------------------------------------------------------------------------\n\n';
+
+			return new Blob([out], { type: 'text/text' });
+		}
+
+	});
+
+
 	var ControlsView = Backbone.View.extend({
 
 		el: $('#controls'),
@@ -12920,6 +12977,7 @@ _4bit = function() {
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var schemePuttyView = new SchemePuttyView();
 	var schemeTerminatorView = new SchemeTerminatorView();
+	var schemeAlacrittyView = new SchemeAlacrittyView();
 	var controlsView = new ControlsView();
 
 	// basic layout behaviour /////////////////////////////

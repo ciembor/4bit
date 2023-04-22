@@ -924,49 +924,51 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#alacritty-button').hover(function() {
-				that.render();
-			});
-			$('#alacritty-button').focus(function() {
-				that.render();
+			$('#alacritty-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', 'alacritty.yml');
 			});
 		},
 
 		render: function() {
 			var that = this;
-			var alacritty = '';
+			var out = '';
 			var counter = 0;
 
-			alacritty += '# --- ~/.config/alacritty/alacritty.yml ----------------------------------------\n';
-			alacritty += '# ------------------------------------------------------------------------------\n';
-			alacritty += '# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
-			alacritty += '# ------------------------------------------------------------------------------\n';
-			alacritty += '# --- http://ciembor.github.com/4bit -------------------------------------------\n';
-			alacritty += '# ------------------------------------------------------------------------------\n\n';
-			alacritty += 'colors:\n';
-			alacritty += '  primary:\n';
-			alacritty += '    background: \'0x' + String(that.model.get('colors')['background']).substring(1) + '\'\n';
-			alacritty += '    foreground: \'0x' + String(that.model.get('colors')['foreground']).substring(1) + '\'\n\n';
+			out += '# --- ~/.config/alacritty/alacritty.yml ----------------------------------------\n';
+			out += '# ------------------------------------------------------------------------------\n';
+			out += '# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
+			out += '# ------------------------------------------------------------------------------\n';
+			out += '# --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			out += '# ------------------------------------------------------------------------------\n\n';
+			out += 'colors:\n';
+			out += '  primary:\n';
+			out += '    background: \'0x' + String(that.model.get('colors')['background']).substring(1) + '\'\n';
+			out += '    foreground: \'0x' + String(that.model.get('colors')['foreground']).substring(1) + '\'\n\n';
+      out += '  normal:\n';
 
-                        alacritty += '  normal:\n';
 			_.each(COLOR_NAMES, function(name) {
 				if (0 !== name.indexOf('bright_')) {
-					alacritty += '    ' + name + ': \'0x' + String(that.model.get('colors')[name]).substring(1) + '\'\n';
+					out += '    ' + name + ': \'0x' + String(that.model.get('colors')[name]).substring(1) + '\'\n';
 				}
 			});
-			
-                        alacritty += '\n  bright:\n';	
+
+      out += '\n  bright:\n';
 			_.each(COLOR_NAMES, function(name) {
 				if (0 === name.indexOf('bright_')) {
-					alacritty += '    ' + name.substring('bright_'.length) + ': \'0x' + String(that.model.get('colors')[name]).substring(1) + '\'\n';
+					out += '    ' + name.substring('bright_'.length) + ': \'0x' + String(that.model.get('colors')[name]).substring(1) + '\'\n';
 				}
 			});
 
-			alacritty += '\n# ------------------------------------------------------------------------------\n';
-			alacritty += '# --- end of terminal colors section -------------------------------------------\n';
-			alacritty += '# ------------------------------------------------------------------------------\n\n';
+			out += '\n# ------------------------------------------------------------------------------\n';
+			out += '# --- end of terminal colors section -------------------------------------------\n';
+			out += '# ------------------------------------------------------------------------------\n\n';
 
-			$('#alacritty-button').attr('href', 'data:text/plain,' + encodeURIComponent(alacritty));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
