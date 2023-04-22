@@ -1,0 +1,3 @@
+[submodule "lib/google-closure-library"]
+	path = lib/google-closure-library
+	url = https://github.com/ciembor/google-closure-library

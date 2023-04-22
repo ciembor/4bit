@@ -7,24 +7,8 @@
 
 (function() {
 
-	// facebook button
-	(function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) return;
-		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-
 	// twitter button
 	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-
-	// google plus button
-	(function() {
-		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-		po.src = 'https://apis.google.com/js/plusone.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-	})();
 
 })();
 
@@ -99,16 +83,22 @@ _4bit = function() {
 			color = [h, s, l];
 		}
 
-		stringify = function() {
-			var blended = goog.color.hslArrayToRgb(color);
+		blendedRgb = function(color, dye) {
+			var to_blend = goog.color.hslArrayToRgb(color);
 			var blender = goog.color.hslToRgb(dye[0], dye[1], dye[2]);
 			var factor = dye[3];
-			var rgb = goog.color.blend(blender, blended, factor);
+			var rgb = goog.color.blend(blender, to_blend, factor);
+
+			return rgb;
+		}
+
+		stringify = function() {
+			var rgb = blendedRgb(color, dye);
 			return goog.color.rgbArrayToHex(rgb);
 		}
 
 		toRgb = function() {
-			return goog.color.hslArrayToRgb(color);
+			return blendedRgb(color, dye);
 		}
 
 		return {
@@ -147,12 +137,12 @@ _4bit = function() {
 	var Scheme = Backbone.Model.extend({
 
 		defaults: {
-			hue: 0,
-			saturation: 0.3,
-			normal_lightness: 0.6,
-			bright_lightness: 0.8,
-			black: [HSL(0, 0, 0), HSL(0, 0, 0.15)],
-			white: [HSL(0, 0, 0.85), HSL(0, 0, 1)],
+			hue: -15,
+			saturation: 0.5,
+			normal_lightness: 0.5,
+			bright_lightness: 0.75,
+			black: [HSL(0, 0, 0), HSL(0, 0, 0.125)],
+			white: [HSL(0, 0, 0.875), HSL(0, 0, 1)],
 			background: HSL(0, 0, 0),
 			foreground: HSL(0, 0, 1)
 		},
@@ -217,7 +207,6 @@ _4bit = function() {
 		},
 
 		setLightness: function(type, lightness) {
-
 			switch(type) {
 				case 'normal':
 					this.set('normal_lightness', lightness)
@@ -402,11 +391,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#guake-button').hover(function() {
-				that.render();
-			});
-			$('#guake-button').focus(function() {
-				that.render();
+			$('#guake-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', 'set_colors.sh');
 			});
 		},
 
@@ -414,15 +405,29 @@ _4bit = function() {
 			var that = this;
 			var palette = [];
 			var colors = that.model.get("colors");
+			var bright_color_names = COLOR_NAMES.filter(function(color_name) {
+				return color_name.startsWith('bright_');
+			});
+			var standard_color_names = COLOR_NAMES.filter(color_name => !bright_color_names.includes(color_name));
+
+			var blob = null;
+			var file = null;
 
 			// Duplicate: #ab1224 -> #abab12122424, which is the expected format
 			function gnomeColor(color) {
 				return color.toString().replace(/#(.{2})(.{2})(.{2})/, '#$1$1$2$2$3$3');
 			}
 
-			_.each(COLOR_NAMES, function(name) {
-				palette.push( gnomeColor(colors[name]) )
+			_.each(standard_color_names, function(name) {
+				palette.push(gnomeColor(colors[name]));
 			});
+
+			_.each(bright_color_names, function(name) {
+				palette.push(gnomeColor(colors[name]));
+			});
+
+			palette.push(gnomeColor(colors["foreground"]));
+			palette.push(gnomeColor(colors["background"]));
 
 			out = '#!/bin/bash \n\n';
 			out += '# Save this script into set_colors.sh, make this file executable and run it: \n';
@@ -432,11 +437,10 @@ _4bit = function() {
 			out += '# \n';
 			out += '# Alternatively copy lines below directly into your shell. \n\n';
 
-			out += "gconftool-2 -s -t string /apps/guake/style/background/color '" + gnomeColor(colors["background"]) + "'" +'\n';
-			out += "gconftool-2 -s -t string /apps/guake/style/font/color '" + gnomeColor(colors["foreground"]) + "'" + '\n';
-			out += "gconftool-2 -s -t string /apps/guake/style/font/palette '" + palette.join(":") + "'" + '\n';
+			out += "dconf write /apps/guake/style/font/palette \"'" + palette.join(":") + "'\"" + '\n';
+			out += "dconf write /apps/guake/style/font/palette-name \"'4bit Color Scheme Designer'\""
 
-			$('#guake-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -448,11 +452,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#gnome-terminal-button').hover(function() {
-				that.render();
-			});
-			$('#gnome-terminal-button').focus(function() {
-				that.render();
+			$('#gnome-terminal-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', 'set_colors.sh');
 			});
 		},
 
@@ -469,13 +475,13 @@ _4bit = function() {
 			_.each(COLOR_NAMES, function(name) {
 				if (0 !== name.indexOf('bright_')) {
 					palette.push( gnomeColor(colors[name]) );
-				}	
+				}
 			});
-			
+
 			_.each(COLOR_NAMES, function(name) {
 				if (0 === name.indexOf('bright_')) {
 					palette.push( gnomeColor(colors[name]) );
-				}	
+				}
 			});
 
 			out = '#!/bin/bash \n\n';
@@ -492,7 +498,7 @@ _4bit = function() {
 			out += "gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/foreground_color '" + gnomeColor(colors["foreground"]) + "'" + '\n';
 			out += "gconftool-2 -s -t string /apps/gnome-terminal/profiles/Default/palette '" + palette.join(":") + "'" + '\n';
 
-			$('#gnome-terminal-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -504,11 +510,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#konsole-button').hover(function() {
-				that.render();
-			});
-			$('#konsole-button').focus(function() {
-				that.render();
+			$('#konsole-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', '4bit.colorscheme');
 			});
 		},
 
@@ -529,7 +537,7 @@ _4bit = function() {
 			out += '# ------------------------------------------------------------------------------\n';
 			out += '# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
 			out += '# ------------------------------------------------------------------------------\n';
-			out += '# --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			out += '# --- http://ciembor.github.io/4bit --------------------------------------------\n';
 			out += '# ------------------------------------------------------------------------------\n\n';
 
 			out += '# --- special colors ---\n\n';
@@ -568,7 +576,7 @@ _4bit = function() {
 			out += '# --- general options ---\n\n';
 			out += '[General]\nDescription=' + name + '\nOpacity=1\n';
 
-			$('#konsole-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -580,11 +588,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#iterm2-button').hover(function() {
-				that.render();
-			});
-			$('#iterm2-button').focus(function() {
-				that.render();
+			$('#iterm2-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', '4bit.itermcolors');
 			});
 		},
 
@@ -623,7 +633,7 @@ _4bit = function() {
 			out += '                                                                                \n';
 			out += '      generated with 4bit Terminal Color Scheme Designer                        \n';
 			out += '                                                                                \n';
-			out += '      http://ciembor.github.com/4bit                                            \n';
+			out += '      http://ciembor.github.io/4bit                                             \n';
 			out += '                                                                                \n';
 			out += '-->\n\n';
 
@@ -655,7 +665,7 @@ _4bit = function() {
 			out += '</plist>\n';
 			out += '\n';
 
-			$('#iterm2-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -667,11 +677,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#xresources-button').hover(function() {
-				that.render();
-			});
-			$('#xresources-button').focus(function() {
-				that.render();
+			$('#xresources-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', '.Xresources');
 			});
 		},
 
@@ -684,7 +696,7 @@ _4bit = function() {
 			xresources += '! ------------------------------------------------------------------------------\n';
 			xresources += '! --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
 			xresources += '! ------------------------------------------------------------------------------\n';
-			xresources += '! --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			xresources += '! --- http://ciembor.github.io/4bit --------------------------------------------\n';
 			xresources += '! ------------------------------------------------------------------------------\n\n';
 
 			xresources += '! --- special colors ---\n\n';
@@ -708,7 +720,7 @@ _4bit = function() {
 			xresources += '! --- end of terminal colors section -------------------------------------------\n';
 			xresources += '! ------------------------------------------------------------------------------\n\n';
 
-			$('#xresources-button').attr('href', 'data:text/plain,' + encodeURIComponent(xresources));
+			return new Blob([xresources], { type: 'text/text' });
 		}
 
 	});
@@ -720,37 +732,45 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#xfce-terminal-button').hover(function() {
-				that.render();
-			});
-			$('#xfce-terminal-button').focus(function() {
-				that.render();
+			$('#xfce-terminal-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', '4bit.scheme');
 			});
 		},
 
 		render: function() {
 			var that = this;
-			var terminalrc = '[Configuration]\n';
-			var counter = 1;
+			var out = '[Scheme]\n';
+			var bright_color_names = COLOR_NAMES.filter(function(color_name) {
+				return color_name.startsWith('bright_');
+			});
+			var standard_color_names = COLOR_NAMES.filter(color_name => !bright_color_names.includes(color_name));
+			var color_palette = [];
 
-			// special colors
-			terminalrc += 'ColorBackground=' + that.model.get('colors')['background'] + '\n';
-			terminalrc += 'ColorForeground=' + that.model.get('colors')['foreground'] + '\n';
-			terminalrc += 'ColorCursor=' + that.model.get('colors')['foreground'] + '\n';
-
-			// standard colors
-			_.each(COLOR_NAMES, function(name) {
-				var number = counter / 2 + 0.5;
-
-				if (0 === name.indexOf('bright_')) {
-					number += 7.5;
-				}
-
-				terminalrc += 'ColorPalette' + number + '=' + that.model.get('colors')[name] + '\n';
-				counter += 1;
+			_.each(standard_color_names, function(color_name) {
+				color_palette.push(that.model.get('colors')[color_name])
 			});
 
-			$('#xfce-terminal-button').attr('href', 'data:text/plain,' + encodeURIComponent(terminalrc));
+			_.each(bright_color_names, function(color_name) {
+				color_palette.push(that.model.get('colors')[color_name])
+			});
+
+			out += 'Name=4bit-terminal-color-scheme-designer' + '\n';
+
+			// special colors
+			out += 'ColorBackground=' + that.model.get('colors')['background'] + '\n';
+			out += 'ColorForeground=' + that.model.get('colors')['foreground'] + '\n';
+			out += 'ColorCursor=' + that.model.get('colors')['foreground'] + '\n';
+
+			// standard colors
+			out += 'ColorPalette=';
+			out += color_palette.join(';');
+
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -762,11 +782,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#mintty-button').hover(function() {
-				that.render();
-			});
-			$('#mintty-button').focus(function() {
-				that.render();
+			$('#mintty-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', '4bit-color-scheme.minttyrc');
 			});
 		},
 
@@ -796,7 +818,7 @@ _4bit = function() {
 				out += MinttyName(name) + '=' + that.colorRgb(that, name) + '\n';
 			});
 
-			$('#mintty-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -808,11 +830,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#putty-button').hover(function() {
-				that.render();
-			});
-			$('#putty-button').focus(function() {
-				that.render();
+			$('#putty-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', '4bit-putty-color-scheme.reg');
 			});
 		},
 
@@ -840,7 +864,7 @@ _4bit = function() {
 				counter += 1;
 			});
 
-			$('#putty-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});
@@ -852,11 +876,13 @@ _4bit = function() {
 		initialize: function() {
 			_.bindAll(this, 'render');
 			var that = this;
-			$('#terminator-button').hover(function() {
-				that.render();
-			});
-			$('#terminator-button').focus(function() {
-				that.render();
+			$('#terminator-button').on('click', function(event) {
+				var blob = that.render();
+				var blobURL = URL.createObjectURL(blob);
+				var link = $(event.target);
+
+				link.attr('href', blobURL);
+				link.attr('download', 'config');
 			});
 		},
 
@@ -887,7 +913,7 @@ _4bit = function() {
 			out += '  foreground_color = "' + colors['foreground'] + '"\n';
 			out += '  palette = "' + palette.join(':') + '"' + '\n';
 
-			$('#terminator-button').attr('href', 'data:text/plain,' + encodeURIComponent(out));
+			return new Blob([out], { type: 'text/text' });
 		}
 	});
 
@@ -1047,7 +1073,7 @@ _4bit = function() {
 				}
 			});
 
-			$('#dye-colorpicker').colorPicker('setColor', 210, 50, 50, 0.2);
+			$('#dye-colorpicker').colorPicker('setColor', 180, 50, 50, 0.25);
 
 			$("input[name=dye]").change(function() {
 				$('#dye-colorpicker').change();
@@ -1065,7 +1091,7 @@ _4bit = function() {
 				}
 			});
 
-			$('#background-colorpicker').colorPicker('setColor', 210, 50, 10);
+			$('#background-colorpicker').colorPicker('setColor', 180, 50, 10);
 
 			$("input[name=background]").change(function() {
 				$('#background-colorpicker').change();
@@ -1085,7 +1111,7 @@ _4bit = function() {
 				}
 			});
 
-			$('#foreground-colorpicker').colorPicker('setColor', 210, 50, 90);
+			$('#foreground-colorpicker').colorPicker('setColor', 180, 50, 90);
 
 			$("input[name=foreground]").change(function() {
 				$('#foreground-colorpicker').change();
@@ -1126,21 +1152,23 @@ _4bit = function() {
 		}
 	);
 
-	$(window).bind("load", function() {
+	$(window).bind('load', function() {
 		$('#display').css('visibility', 'visible');
 		$('#controls').css('visibility', 'visible');
 		$('#skews').fadeIn(700);
 		$('#app').animate({opacity: 1}, 700);
-		$("#get-scheme-button").click(function(button) {
-			$("#dialog-modal").dialog({
+		$('#get-scheme-button').click(function(button) {
+			$('#dialog-modal').dialog({
 				height: 90 + 50 * $('.get-scheme-link').length,
 				width: 450,
 				modal: true,
 				draggable: false,
-				resizable: false
+				resizable: false,
+				open: function( event, ui ) {
+					$('.ui-dialog').css('display', 'flex');
+				}
 			});
 		});
 	});
 
 }
-

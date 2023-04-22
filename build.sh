@@ -13,9 +13,8 @@
 ### Paths
 
 APP_PATH=`pwd`
-CLOSURE_LIB="../closure/closure"
-COMPILER="/usr/share/java/closure-compiler/closure-compiler.jar"
-
+CLOSURE_LIB="./lib/google-closure-library/closure"
+COMPILER="./node_modules/google-closure-compiler/compiler.jar"
 ################################################################################
 ### Options
 
@@ -26,8 +25,8 @@ if [ $# -ne 2 ]
 then
 	if [[ "$1" = "production" ]]
 	then
-		closure_options="-o compiled -c ${COMPILER}"
-		less_options="-yui-compress"
+		closure_options="-o compiled -c ${COMPILER} -f --strict_mode_input=false -f --process_closure_primitives=false"
+		less_options="--compress"
 	fi
 fi
 
@@ -51,11 +50,31 @@ python2 ${CLOSURE_LIB}/bin/calcdeps.py -i ${APP_PATH}/lib/js/jquery-ui-1.8.23.cu
 status
 
 echo "==== Compiling LESS ============================================================"
-/usr/bin/lessc ${APP_PATH}/less/main.less ${APP_PATH}/css/_compiled_main.css ${less_options}
+lessc ${APP_PATH}/less/main.less ${APP_PATH}/css/_compiled_main.css ${less_options}
 status
 
 echo "==== Merging CSS ==============================================================="
+echo "===> jquery-ui => merged.css"
 cat ${APP_PATH}/css/jquery-ui-1.8.23.custom.css > ${APP_PATH}/css/merged.css
+status
+echo "===> jquery.ui.colorPicker => merged.css"
 cat ${APP_PATH}/css/jquery.ui.colorPicker.css >> ${APP_PATH}/css/merged.css
+status
+echo "===> _compiled_main => merged.css"
 cat ${APP_PATH}/css/_compiled_main.css >> ${APP_PATH}/css/merged.css
+status
+
+echo "==== Replcacing JS timestamp  =================================================="
+echo "===> Get compiled.js modification date"
+MERGED_JS_MODIFICATION_TIME=`date -r js/compiled.js +"%s"`
+status
+echo "===> substitute compiled.js timestamp with $MERGED_JS_MODIFICATION_TIME"
+sed -i "s/compiled.js?modified=[0-9]*/compiled.js?modified=$MERGED_JS_MODIFICATION_TIME/" index.html
+status
+
+echo "==== Replcacing JS timestamp  =================================================="
+MERGED_CSS_MODIFICATION_TIME=`date -r css/merged.css +"%s"`
+status
+echo "===> substitute merged.css timestamp with $MERGED_CSS_MODIFICATION_TIME"
+sed -i "s/merged.css?modified=[0-9]*/merged.css?modified=$MERGED_CSS_MODIFICATION_TIME/" index.html
 status
