@@ -1,12 +1,14 @@
 [4bit](https://ciembor.github.io/4bit) Terminal Color Scheme Designer
 =========
 
+![4bit](https://user-images.githubusercontent.com/702108/233796748-249f64b2-bf53-49fc-a7aa-15ba2e63d411.png)
+
 For users
 ---------
 
 1. Go to https://ciembor.github.io/4bit.
 2. Design your terminal look.
-3. Click `Get Scheme` button and select the format of configuration file.
+3. Click `Download Scheme` button and select the format of configuration file.
 
 * __ATerm, Urxvt, Rxvt, XTerm and other libXt terminals:__
 Copy the generated text to `~/.Xresources` file (you may have to create it) and run `xrdb ~/.Xresources`.
@@ -32,7 +34,7 @@ Save the generated file with `.reg` extension and double click it.
 Copy lines within the [profiles] section of the generated configuration file to ~/.config/terminator/config file.
 
 * __Alacritty:__
-Put the generated file to ~/.config/alacritty/alacritty.yml.
+Put the generated file to `~/.config/alacritty/alacritty.yml`.
 
 * __Mintty:__
 Copy the colors and save it in `~/.minttyrc`.
@@ -74,8 +76,8 @@ __Victor Hugo Borja__
 
 __David 'vidister' Weber__
 
-* http://github.com/vidister
-* http://twitter.com/vidister
+* https://github.com/vidister
+* https://twitter.com/vidister
 
 Resources
 ---------

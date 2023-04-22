@@ -64,17 +64,19 @@ echo "===> _compiled_main => merged.css"
 cat ${APP_PATH}/css/_compiled_main.css >> ${APP_PATH}/css/merged.css
 status
 
-echo "==== Replcacing JS timestamp  =================================================="
-echo "===> Get compiled.js modification date"
-MERGED_JS_MODIFICATION_TIME=`date -r js/compiled.js +"%s"`
-status
-echo "===> substitute compiled.js timestamp with $MERGED_JS_MODIFICATION_TIME"
-sed -i "s/compiled.js?modified=[0-9]*/compiled.js?modified=$MERGED_JS_MODIFICATION_TIME/" index.html
-status
+if [[ "$1" = "production" ]]; then
+	echo "==== Replcacing JS timestamp  =================================================="
+	echo "===> Get compiled.js modification date"
+	MERGED_JS_MODIFICATION_TIME=`date -r js/compiled.js +"%s"`
+	status
+	echo "===> substitute compiled.js timestamp with $MERGED_JS_MODIFICATION_TIME"
+	sed -i "s/compiled.js?modified=[0-9]*/compiled.js?modified=$MERGED_JS_MODIFICATION_TIME/" index.html
+	status
 
-echo "==== Replcacing JS timestamp  =================================================="
-MERGED_CSS_MODIFICATION_TIME=`date -r css/merged.css +"%s"`
-status
-echo "===> substitute merged.css timestamp with $MERGED_CSS_MODIFICATION_TIME"
-sed -i "s/merged.css?modified=[0-9]*/merged.css?modified=$MERGED_CSS_MODIFICATION_TIME/" index.html
-status
+	echo "==== Replcacing JS timestamp  =================================================="
+	MERGED_CSS_MODIFICATION_TIME=`date -r css/merged.css +"%s"`
+	status
+	echo "===> substitute merged.css timestamp with $MERGED_CSS_MODIFICATION_TIME"
+	sed -i "s/merged.css?modified=[0-9]*/merged.css?modified=$MERGED_CSS_MODIFICATION_TIME/" index.html
+	status
+fi
