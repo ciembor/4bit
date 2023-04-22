@@ -6,7 +6,7 @@ For users
 
 1. Go to https://ciembor.github.io/4bit.
 2. Design your terminal look.
-3. Click `Get Scheme` button and select the format of configuration file.
+3. Click `Download Scheme` button and select the format of configuration file.
 
 * __ATerm, Urxvt, Rxvt, XTerm and other libXt terminals:__
 Copy the generated text to `~/.Xresources` file (you may have to create it) and run `xrdb ~/.Xresources`.
@@ -74,8 +74,8 @@ __Victor Hugo Borja__
 
 __David 'vidister' Weber__
 
-* http://github.com/vidister
-* http://twitter.com/vidister
+* https://github.com/vidister
+* https://twitter.com/vidister
 
 Resources
 ---------
