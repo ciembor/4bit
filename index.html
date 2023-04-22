@@ -6,7 +6,7 @@
 		<title>4bit. Terminal Color Scheme Designer</title>
 		<meta name="description" content="Design and download custom terminal color schemes. Creator for (almost) any emulator. Supports .Xresources, iTerm2, Gnome, Xfce, Alacritty, Yakuake, and more."/>
 		<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-		<link href="css/merged.css?modified=1682180618" rel="stylesheet" />
+		<link href="css/merged.css?modified=1682186480" rel="stylesheet" />
 		<style id="outline-fix"></style>
 	</head>
 
@@ -111,7 +111,10 @@
 		<div id="dialog-modal" title="Export scheme to the configuration file">
 			<ul>
 				<li>
-					<p>xterm / aterm / rxvt / urxvt <a href="#" id="xresources-button" class="get-scheme-link">.Xresources</a></p>
+					<p>alacritty <a href="#" target="_blank" id="alacritty-button" class="get-scheme-link">alacritty.yml</a>
+				</li>
+				<li>
+					<p>aterm / rxvt / urxvt / xterm<a href="#" id="xresources-button" class="get-scheme-link">.Xresources</a></p>
 				</li>
 				<li>
 					<p>gnome terminal <a href="#" id="gnome-terminal-button" class="get-scheme-link">shell</a>
@@ -120,13 +123,10 @@
 					<p>guake <a href="#" id="guake-button" class="get-scheme-link">shell</a>
 				</li>
 				<li>
-					<p>konsole / yakuake <a href="#" id="konsole-button" class="get-scheme-link">*.colorscheme</a>
-				</li>
-				<li>
-					<p>xfce4 terminal <a href="#" id="xfce-terminal-button" class="get-scheme-link">*.scheme</a>
-				</li>
-				<li>
 					<p>iTerm2 <a href="#" id="iterm2-button" class="get-scheme-link">*.itermcolors</a>
+				</li>
+				<li>
+					<p>konsole / yakuake <a href="#" id="konsole-button" class="get-scheme-link">*.colorscheme</a>
 				</li>
 				<li>
 					<p>mintty <a href="#" id="mintty-button" class="get-scheme-link">.minttyrc</a>
@@ -138,7 +138,7 @@
 					<p>terminator <a href="#" id="terminator-button" class="get-scheme-link">config</a>
 				</li>
 				<li>
-					<p>alacritty <a href="#" target="_blank" id="alacritty-button" class="get-scheme-link">alacritty.yml</a>
+					<p>xfce4 terminal <a href="#" id="xfce-terminal-button" class="get-scheme-link">*.scheme</a>
 				</li>
 			</ul>
 		</div>
@@ -154,7 +154,7 @@
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
 		<script>window.Backbone || document.write("<script src='lib/js/backbone-min.js'>\x3C/script>")</script>
 
-		<script src="js/compiled.js?modified=1682180618"></script>
+		<script src="js/compiled.js?modified=1682186480"></script>
 
 		<script>_4bit();</script>
 
