@@ -12577,33 +12577,39 @@ _4bit = function() {
 				var link = $(event.target);
 
 				link.attr('href', blobURL);
-				link.attr('download', 'terminalrc');
+				link.attr('download', '4bit.scheme');
 			});
 		},
 
 		render: function() {
 			var that = this;
-			var terminalrc = '[Configuration]\n';
-			var counter = 1;
+			var out = '[Scheme]\n';
+			var bright_color_names = COLOR_NAMES.filter(function(color_name) {
+				return color_name.startsWith('bright_');
+			});
+			var standard_color_names = COLOR_NAMES.filter(color_name => !bright_color_names.includes(color_name));
+			var color_palette = [];
 
-			// special colors
-			terminalrc += 'ColorBackground=' + that.model.get('colors')['background'] + '\n';
-			terminalrc += 'ColorForeground=' + that.model.get('colors')['foreground'] + '\n';
-			terminalrc += 'ColorCursor=' + that.model.get('colors')['foreground'] + '\n';
-
-			// standard colors
-			_.each(COLOR_NAMES, function(name) {
-				var number = counter / 2 + 0.5;
-
-				if (0 === name.indexOf('bright_')) {
-					number += 7.5;
-				}
-
-				terminalrc += 'ColorPalette' + number + '=' + that.model.get('colors')[name] + '\n';
-				counter += 1;
+			_.each(standard_color_names, function(color_name) {
+				color_palette.push(that.model.get('colors')[color_name])
 			});
 
-			return new Blob([terminalrc], { type: 'text/text' });
+			_.each(bright_color_names, function(color_name) {
+				color_palette.push(that.model.get('colors')[color_name])
+			});
+
+			out += 'Name=4bit-terminal-color-scheme-designer' + '\n';
+
+			// special colors
+			out += 'ColorBackground=' + that.model.get('colors')['background'] + '\n';
+			out += 'ColorForeground=' + that.model.get('colors')['foreground'] + '\n';
+			out += 'ColorCursor=' + that.model.get('colors')['foreground'] + '\n';
+
+			// standard colors
+			out += 'ColorPalette=';
+			out += color_palette.join(';');
+
+			return new Blob([out], { type: 'text/text' });
 		}
 
 	});

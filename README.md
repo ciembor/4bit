@@ -15,7 +15,7 @@ Copy the generated text to `~/.Xresources` file (you may have to create it) and 
 Save the generated script into set_colors.sh, make this file executable `$ chmod +x set_colors.sh` and run it `$ ./set_colors.sh`. Alternatively copy generated lines directly into your shell.
 
 * __XFCE4 Terminal:__
-Backup `~/.config/Terminal/terminalrc` file and replace it with generated text. Take into account that this file contains all XFCE4 Terminal settings, not only color scheme.
+Save file as `~/.local/share/xfce4/terminal/colorschemes/4bit.scheme` and choose it in terminal preferences.
 
 * __Konsole and Yakuake:__
 Put the generated file to `~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme` and restart the terminal.
