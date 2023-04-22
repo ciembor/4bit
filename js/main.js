@@ -917,6 +917,61 @@ _4bit = function() {
 		}
 	});
 
+	var SchemeAlacrittyView = Backbone.View.extend({
+
+		model: scheme,
+
+		initialize: function() {
+			_.bindAll(this, 'render');
+			var that = this;
+			$('#alacritty-button').hover(function() {
+				that.render();
+			});
+			$('#alacritty-button').focus(function() {
+				that.render();
+			});
+		},
+
+		render: function() {
+			var that = this;
+			var alacritty = '';
+			var counter = 0;
+
+			alacritty += '# --- ~/.config/alacritty/alacritty.yml ----------------------------------------\n';
+			alacritty += '# ------------------------------------------------------------------------------\n';
+			alacritty += '# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
+			alacritty += '# ------------------------------------------------------------------------------\n';
+			alacritty += '# --- http://ciembor.github.com/4bit -------------------------------------------\n';
+			alacritty += '# ------------------------------------------------------------------------------\n\n';
+			alacritty += 'colors:\n';
+			alacritty += '  primary:\n';
+			alacritty += '    background: \'0x' + String(that.model.get('colors')['background']).substring(1) + '\'\n';
+			alacritty += '    foreground: \'0x' + String(that.model.get('colors')['foreground']).substring(1) + '\'\n\n';
+
+                        alacritty += '  normal:\n';
+			_.each(COLOR_NAMES, function(name) {
+				if (0 !== name.indexOf('bright_')) {
+					alacritty += '    ' + name + ': \'0x' + String(that.model.get('colors')[name]).substring(1) + '\'\n';
+				}
+			});
+			
+                        alacritty += '\n  bright:\n';	
+			_.each(COLOR_NAMES, function(name) {
+				if (0 === name.indexOf('bright_')) {
+					alacritty += '    ' + name.substring('bright_'.length) + ': \'0x' + String(that.model.get('colors')[name]).substring(1) + '\'\n';
+				}
+			});
+
+			alacritty += '\n# ------------------------------------------------------------------------------\n';
+			alacritty += '# --- end of terminal colors section -------------------------------------------\n';
+			alacritty += '# ------------------------------------------------------------------------------\n\n';
+
+			$('#alacritty-button').attr('href', 'data:text/plain,' + encodeURIComponent(alacritty));
+		}
+
+	});
+
+
 	var ControlsView = Backbone.View.extend({
 
 		el: $('#controls'),
@@ -1081,6 +1136,7 @@ _4bit = function() {
 	var schemeXfceTerminalView = new SchemeXfceTerminalView();
 	var schemePuttyView = new SchemePuttyView();
 	var schemeTerminatorView = new SchemeTerminatorView();
+	var schemeAlacrittyView = new SchemeAlacrittyView();
 	var controlsView = new ControlsView();
 
 	// basic layout behaviour /////////////////////////////

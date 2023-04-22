@@ -31,6 +31,9 @@ Save the generated file with `.reg` extension and double click it.
 * __Terminator:__
 Copy lines within the [profiles] section of the generated configuration file to ~/.config/terminator/config file.
 
+* __Alacritty:__
+Put the generated file to ~/.config/alacritty/alacritty.yml.
+
 * __Mintty:__
 Copy the colors and save it in `~/.minttyrc`.
 
@@ -68,6 +71,11 @@ __Victor Hugo Borja__
 
 * https://github.com/vic
 * https://twitter.com/vborja
+
+__David 'vidister' Weber__
+
+* http://github.com/vidister
+* http://twitter.com/vidister
 
 Resources
 ---------
