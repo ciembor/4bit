@@ -61,6 +61,7 @@ __Maciej Ciemborowicz__
 
 * https://twitter.com/ciembor
 * https://linkedin.com/in/maciej-ciemborowicz/
+
 Contributors
 ---------
 
