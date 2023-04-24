@@ -60,8 +60,7 @@ Author
 __Maciej Ciemborowicz__
 
 * https://twitter.com/ciembor
-* https://pl.linkedin.com/in/maciej-ciemborowicz-57202470
-
+* https://linkedin.com/in/maciej-ciemborowicz/
 Contributors
 ---------
 
