@@ -3,5 +3,12 @@
     "google-closure-compiler": "^20170806.0.0",
     "pinia": "^2.3.0",
     "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "install": "^0.13.0",
+    "less": "^4.2.1",
+    "less-loader": "^12.2.0",
+    "npm": "^11.0.0",
+    "vite": "^6.0.5"
   }
 }
