@@ -23,25 +23,31 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+
+blockquote::before, blockquote::after,
+q::before, q::after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -55,7 +61,7 @@ a {
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 @font-face {
-	font-family: 'Rationale';
+	font-family: Rationale;
 	src: url('../fonts/rationale/rationale-webfont.eot');
 	src: url('../fonts/rationale/rationale-webfont.eot?#iefix') format('embedded-opentype'),
 			 url('../fonts/rationale/rationale-webfont.woff') format('woff'),
@@ -66,7 +72,7 @@ a {
 }
 
 @font-face {
-	font-family: 'Inconsolata';
+	font-family: Inconsolata;
 	src: url('../fonts/inconsolata/ttf-inconsolata-webfont.eot');
 	src: url('../fonts/inconsolata/ttf-inconsolata-webfont.eot?#iefix') format('embedded-opentype'),
 			 url('../fonts/inconsolata/ttf-inconsolata-webfont.woff') format('woff'),
@@ -80,7 +86,9 @@ a {
 
 @app_width: 1190px;
 @app_height: 555px;
+
 @header_height: 60px;
+
 @footer_height: 40px;
 
 html, body {
@@ -90,50 +98,62 @@ html, body {
 
 body {
 	background-color: #eee;
-	font-family: 'Rationale', sans-serif;
+	font-family: Rationale, sans-serif;
+
 	h1 {
 		color: #777;
 		font-size: 48px;
 		display: inline-block;
 		margin: 18px 0 0 20px;
+
 		a {
 			color: #777;
 		}
 	}
+
 	header {
 		position: relative;
 		min-width: @app_width;
 		height: @header_height;
 		overflow: visible;
 	}
+
 	footer {
-		// display: none;
-		min-width: @app_width;
-		height: @footer_height;
-		overflow: visible;
-		font-size: 20px;
+		// display: none;displaydisplaydisplaydisplaydisplaydisplaydisplay
+		min-width: @app_width;min-widthmin-widthmin-widthmin-widthmin-widthmin-width
+		height: @footer_height;heightheightheightheightheight
+		overflow: visible;overflowoverflowoverflowoverflow
+		font-size: 20px;font-sizefont-sizefont-size
 		width: 100%;
+
+widthwidth
+
 		p {
 			display: inline-block;
 		}
+
 		.left {
 			float: left;
 			margin-left: 20px;
 			padding-bottom: 20px;
+
 			img {
 				width: 20px;
 				height: 20px;
-				margin: 0 0 -2px 0;
+				margin: 0 0 -2px;
 			}
 		}
+
 		.right {
 			float: right;
 			margin-right: 20px;
 			padding-bottom: 20px;
 		}
+
 		.left, .right {
 			opacity: 0.5;
 		}
+
 		.left:hover, .right:hover {
 			opacity: 1;
 		}
@@ -168,136 +188,16 @@ body {
 	height: @footer_height;
 }
 
-.twitter-follow-button {
-	display: inline-block;
-	margin-bottom: -3px;
-	width: 60px;
-}
 
-.twitter-follow-button, .twitter-share-button {
-	font-size: 0;
-}
-
-#skews {
-	display: none;
-	position: absolute;
-	top: 23px;
-	right: 23px;
-	height: 34px;
-}
-
-.skew {
-	vertical-align: top;
-	display: block;
-	height: 34px;
-	-webkit-transform: skew(-30deg);
-	-moz-transform: skewX(-30deg);
-	-o-transform: skew(-30deg);
-	transform: skew(-30deg);
-	border-radius: 6px;
-	margin-right: 4px;
-	margin-top: 0;
-}
-
-.skew > * {
-	-webkit-transform: skew(30deg);
-	-moz-transform: skewX(30deg);
-	-o-transform: skew(30deg);
-	transform: skew(30deg);
-}
-
-#social-media {
-	border: 1px solid #AAA;
-	background-color: #C9C9C9;
-	position: relative;
-	padding: 7px 15px 0 15px;
-	width: 74px;
-	height: 26px;
-	display: inline-block;
-	white-space: nowrap;
-	.buttons {
-		display: inline-block;
-	}
-	.inner {
-		position: absolute;
-		display: block;
-		width: 74px;
-		height: 20px;
-	}
-}
-
-#get-scheme-button {
-	width: 163px;
-	border: 1px solid #ccc;
-
-	span {
-		white-space: nowrap;
-		font-size: 20px;
-		display: inline-block;
-		-webkit-transform: skew(30deg);
-		-moz-transform: skewX(30deg);
-		-o-transform: skew(30deg);
-		transform: skew(30deg);
-		padding: 7px 20px 0 15px;
-	}
-
-	&:hover, &:active {
-		border: 1px solid #bbb;
-	}
-}
-
-#get-scheme-button, .get-scheme-link {
-	display: inline-block;
-	color: inherit;
-	background: rgb(254,254,254); /* Old browsers */
-	background: -moz-linear-gradient(top,	rgba(254,254,254,1) 0%, rgba(223,223,223,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,254,254,1)), color-stop(100%,rgba(223,223,223,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,	rgba(254,254,254,1) 0%,rgba(223,223,223,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,	rgba(254,254,254,1) 0%,rgba(223,223,223,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,	rgba(254,254,254,1) 0%,rgba(223,223,223,1) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,	rgba(254,254,254,1) 0%,rgba(223,223,223,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#dfdfdf',GradientType=0 ); /* IE6-9 */
-
-	&:hover {
-		background: rgb(247,247,247); /* Old browsers */
-		background: -moz-linear-gradient(top,	rgba(247,247,247,1) 0%, rgba(224,224,224,1) 76%, rgba(218,218,218,1) 88%, rgba(209,209,209,1) 100%); /* FF3.6+ */
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(247,247,247,1)), color-stop(76%,rgba(224,224,224,1)), color-stop(88%,rgba(218,218,218,1)), color-stop(100%,rgba(209,209,209,1))); /* Chrome,Safari4+ */
-		background: -webkit-linear-gradient(top,	rgba(247,247,247,1) 0%,rgba(224,224,224,1) 76%,rgba(218,218,218,1) 88%,rgba(209,209,209,1) 100%); /* Chrome10+,Safari5.1+ */
-		background: -o-linear-gradient(top,	rgba(247,247,247,1) 0%,rgba(224,224,224,1) 76%,rgba(218,218,218,1) 88%,rgba(209,209,209,1) 100%); /* Opera 11.10+ */
-		background: -ms-linear-gradient(top,	rgba(247,247,247,1) 0%,rgba(224,224,224,1) 76%,rgba(218,218,218,1) 88%,rgba(209,209,209,1) 100%); /* IE10+ */
-		background: linear-gradient(to bottom,	rgba(247,247,247,1) 0%,rgba(224,224,224,1) 76%,rgba(218,218,218,1) 88%,rgba(209,209,209,1) 100%); /* W3C */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */
-	}
-	&:active {
-		background: rgb(225,225,225); /* Old browsers */
-		background: -moz-linear-gradient(top,	rgba(225,225,225,1) 0%, rgba(225,225,225,1) 7%, rgba(232,232,232,1) 16%, rgba(238,238,238,1) 31%, rgba(218,218,218,1) 95%, rgba(217,217,217,1) 96%, rgba(187,187,187,1) 98%, rgba(187,187,187,1) 100%); /* FF3.6+ */
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(225,225,225,1)), color-stop(7%,rgba(225,225,225,1)), color-stop(16%,rgba(232,232,232,1)), color-stop(31%,rgba(238,238,238,1)), color-stop(95%,rgba(218,218,218,1)), color-stop(96%,rgba(217,217,217,1)), color-stop(98%,rgba(187,187,187,1)), color-stop(100%,rgba(187,187,187,1))); /* Chrome,Safari4+ */
-		background: -webkit-linear-gradient(top,	rgba(225,225,225,1) 0%,rgba(225,225,225,1) 7%,rgba(232,232,232,1) 16%,rgba(238,238,238,1) 31%,rgba(218,218,218,1) 95%,rgba(217,217,217,1) 96%,rgba(187,187,187,1) 98%,rgba(187,187,187,1) 100%); /* Chrome10+,Safari5.1+ */
-		background: -o-linear-gradient(top,	rgba(225,225,225,1) 0%,rgba(225,225,225,1) 7%,rgba(232,232,232,1) 16%,rgba(238,238,238,1) 31%,rgba(218,218,218,1) 95%,rgba(217,217,217,1) 96%,rgba(187,187,187,1) 98%,rgba(187,187,187,1) 100%); /* Opera 11.10+ */
-		background: -ms-linear-gradient(top,	rgba(225,225,225,1) 0%,rgba(225,225,225,1) 7%,rgba(232,232,232,1) 16%,rgba(238,238,238,1) 31%,rgba(218,218,218,1) 95%,rgba(217,217,217,1) 96%,rgba(187,187,187,1) 98%,rgba(187,187,187,1) 100%); /* IE10+ */
-		background: linear-gradient(to bottom,	rgba(225,225,225,1) 0%,rgba(225,225,225,1) 7%,rgba(232,232,232,1) 16%,rgba(238,238,238,1) 31%,rgba(218,218,218,1) 95%,rgba(217,217,217,1) 96%,rgba(187,187,187,1) 98%,rgba(187,187,187,1) 100%); /* W3C */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1e1e1', endColorstr='#bbbbbb',GradientType=0 ); /* IE6-9 */
-	}
-}
-
-.get-scheme-link {
-	padding: 5px 10px;
-	float: right;
-	border: 1px solid #bbb;
-	border-radius: 6px;
-	&:hover, &:active {
-		border: 1px solid #aaa;
-	}
-}
 
 #dialog-modal {
 	display: none;
 }
 
-#app {
-	opacity: 0;
-	white-space: nowrap;
-}
+// #app {
+// 	opacity: 0;opacityopacityopacityopacityopacityopacityopacity
+// 	white-space: nowrap;white-spacewhite-spacewhite-spacewhite-spacewhite-spacewhite-spacewhite-space
+// }
 
 #controls {
 	vertical-align: top;
@@ -308,19 +208,19 @@ body {
 
 	h2 {
 		font-size: 26px;
-		margin: 20px 0 5px 0;
+		margin: 20px 0 5px;
 	}
 
 	h3 {
 		font-size: 18px;
-		margin: 10px 0 5px 0;
+		margin: 10px 0 5px;
 	}
 
 }
 
 #advanced {
 	font-size: 18px;
-	font-family: 'Rationale', sans-serif;
+	font-family: Rationale, sans-serif;
 	border: none;
 	background: none;
 
@@ -331,7 +231,7 @@ body {
 	a {
 		color: #000 !important;
 		font-weight: normal;
-		padding: 2px 16px 3px 16px;
+		padding: 2px 16px 3px;
 	}
 
 	&>.ui-tabs-nav>.ui-state-active {
@@ -354,8 +254,6 @@ body {
 		min-height: 0 !important;
 		border: 1px solid #999;
 		-moz-border-radius-top-right: 6px;
-		-webkit-border-top-right-radius: 6px;
-		-khtml-border-top-right-radius: 6px;
 		border-top-right-radius: 6px;
 	}
 
@@ -382,9 +280,7 @@ body {
 	margin: 26px 0 0 20px;
 	width: auto;
 	height: auto;
-	padding: 1px 2px 1px 2px;
-	-moz-box-shadow: 0 0 10px #666;
-	-webkit-box-shadow: 0 0 10px #666;
+	padding: 1px 2px;
 	box-shadow: 0 0 10px #666;
 
 	table {
@@ -395,7 +291,7 @@ body {
 
 	td {
 		margin-left: 1em;
-		padding: 0 1em 0 1em;
+		padding: 0 1em;
 	}
 
 	.row-th {
@@ -445,13 +341,13 @@ body {
 		display: block;
 		height: 18px;
 		width: 115px;
-		margin: -2px 0 0 0;
+		margin: -2px 0 0;
 		padding: 0;
 		border: 1px solid #999 !important;
+
 		.ui-button-text {
 			font-family: Arial, Verdana, sans-serif;
-			margin: 1px 0 0 0;
-			padding: 0;
+			margin: 1px 0 0;
 			font-size: 12px;
 			color: #000;
 			font-weight: normal;
@@ -463,13 +359,14 @@ body {
 #dye-radio label {
 	height: 23px !important;
 	margin-bottom: -1px;
+
 	.ui-button-text {
-		margin: 3px 0 0 0;
+		margin: 3px 0 0;
 	}
 }
 
 .ui-dialog {
-	font-family: 'Rationale', sans-serif;
+	font-family: Rationale, sans-serif;
 	background: #c9c9c9 !important;
 	display: flex;
 	flex-direction: column;
@@ -487,7 +384,7 @@ body {
 		overflow: scroll;
 		background: #c9c9c9 !important;
 		height: auto !important;
-		padding: 1em 0.8em 0.8em 0.8em;
+		padding: 1em 0.8em 0.8em;
 	}
 
 	.ui-icon-closethick {
@@ -503,13 +400,14 @@ body {
 		border-radius: 6px;
 
 		li {
-			padding: 10px 0 10px 0;
+			padding: 10px 0;
 
 			p {
 				font-size: 22px;
 				position: relative;
 				line-height: 30px;
-				padding: 0 10px 0 10px;
+				padding: 0 10px;
+
 				a {
 					line-height: 1em;
 					font-size: 18px;
