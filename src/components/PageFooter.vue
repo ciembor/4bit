@@ -12,13 +12,52 @@ export default {
 </script>
 
 <style lang="less">
-.twitter-follow-button {
-  display: inline-block;
-  margin-bottom: -4px;
-  width: 78px;
+@app_width: 1190px;
+@footer_height: 40px;
+
+footer {
+  min-width: @app_width;
+  height: @footer_height;
+  overflow: visible;
+  font-size: 20px;
+  width: 100%;
+
+  p {
+    display: inline-block;
+  }
+
+  .left {
+    float: left;
+    margin-left: 20px;
+    padding-bottom: 20px;
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin: 0 0 -2px;
+    }
+  }
+
+  .right {
+    float: right;
+    margin-right: 20px;
+    padding-bottom: 20px;
+  }
+
+  .left, .right {
+    opacity: 0.5;
+  }
+
+  .left:hover, .right:hover {
+    opacity: 1;
+  }
 }
 
 .twitter-follow-button {
+  display: inline-block;
+  margin-bottom: -4px;
   font-size: 0;
+  width: 78px;
 }
+
 </style>
