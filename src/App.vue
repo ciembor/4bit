@@ -5,7 +5,7 @@
       <MainMenu />
     </header>
   <div class="distance"></div>
-  <div id="real-app" class="vertical-center">
+  <div id="editor" class="vertical-center">
     <TerminalDisplay />
   </div>
 </div>
@@ -18,6 +18,7 @@ import AppLogo from './components/page_header/AppLogo.vue';
 import MainMenu from './components/page_header/MainMenu.vue';
 import TerminalDisplay from './components/TerminalDisplay.vue';
 import PageFooter from './components/PageFooter.vue';
+import DynamicStyle from './services/DynamicStyle';
 
 export default {
   name: 'App',
@@ -27,8 +28,8 @@ export default {
     TerminalDisplay,
     PageFooter
   },
-
   mounted() {
+    DynamicStyle.observeStore();
     this.loadTwitterWidget();
   },
   methods: {
@@ -86,7 +87,7 @@ body {
   }
 }
 
-#real-app {
+#editor {
 	// opacity: 0;
 	white-space: nowrap;
 }

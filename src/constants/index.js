@@ -1,0 +1,18 @@
+export const COLOR_NAMES = [
+  'black',
+  'brightBlack',
+  'red',
+  'brightRed',
+  'green',
+  'brightGreen',
+  'yellow',
+  'brightYellow',
+  'blue',
+  'brightBlue',
+  'magenta',
+  'brightMagenta',
+  'cyan',
+  'brightCyan',
+  'white',
+  'brightWhite',
+];

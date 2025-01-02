@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "color": "^4.2.3",
     "pinia": "^2.3.0",
     "vue": "^3.5.13"
   },
