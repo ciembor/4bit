@@ -4,17 +4,21 @@
       <h2>Global Properties</h2>
       <h3>Hue: </h3>
       <HueSlider />
+			<h3>Saturation:</h3>
+			<SaturationSlider />
     </section>
   </section>
 </template>
 
 <script>
 import HueSlider from './controls/sliders/HueSlider.vue';
+import SaturationSlider from './controls/sliders/SaturationSlider.vue';
 
 export default {
   name: 'EditorControls',
   components: {   
-    HueSlider
+    HueSlider,
+		SaturationSlider
   },
 };
 </script>
