@@ -7,6 +7,7 @@
   <div class="distance"></div>
   <div id="editor" class="vertical-center">
     <TerminalDisplay />
+    <EditorControls />
   </div>
 </div>
   <PageFooter />
@@ -17,6 +18,7 @@
 import AppLogo from './components/page_header/AppLogo.vue';
 import MainMenu from './components/page_header/MainMenu.vue';
 import TerminalDisplay from './components/TerminalDisplay.vue';
+import EditorControls from './components/EditorControls.vue'
 import PageFooter from './components/PageFooter.vue';
 import DynamicStyle from './services/DynamicStyle';
 
@@ -26,6 +28,7 @@ export default {
     AppLogo,
     MainMenu,
     TerminalDisplay,
+    EditorControls,
     PageFooter
   },
   mounted() {

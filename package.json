@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "color": "^4.2.3",
+    "jquery": "^3.7.1",
+    "jquery-ui": "^1.14.1",
     "pinia": "^2.3.0",
     "vue": "^3.5.13"
   },
