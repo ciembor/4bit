@@ -6,6 +6,13 @@
       <HueSlider />
 			<h3>Saturation:</h3>
 			<SaturationSlider />
+			<h2>Lightness</h2>
+			<h3>Color:</h3>
+			<ColorLightnessSlider />
+			<h3>Black:</h3>
+			<BlackLightnessSlider />
+			<h3>White:</h3>
+			<WhiteLightnessSlider />
     </section>
   </section>
 </template>
@@ -13,12 +20,18 @@
 <script>
 import HueSlider from './controls/sliders/HueSlider.vue';
 import SaturationSlider from './controls/sliders/SaturationSlider.vue';
+import ColorLightnessSlider from './controls/sliders/ColorLightnessSlider.vue';
+import BlackLightnessSlider from './controls/sliders/BlackLightnessSlider.vue';
+import WhiteLightnessSlider from './controls/sliders/WhiteLightnessSlider.vue';
 
 export default {
   name: 'EditorControls',
   components: {   
     HueSlider,
-		SaturationSlider
+		SaturationSlider,
+		ColorLightnessSlider,
+		BlackLightnessSlider,
+		WhiteLightnessSlider
   },
 };
 </script>
