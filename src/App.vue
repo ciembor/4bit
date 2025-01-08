@@ -4,12 +4,12 @@
       <AppLogo />
       <MainMenu />
     </header>
-  <div class="distance"></div>
-  <div id="editor" class="vertical-center">
-    <TerminalDisplay />
-    <EditorControls />
+    <div class="distance"></div>
+    <div id="editor" class="vertical-center">
+      <TerminalDisplay />
+      <EditorControls />
+    </div>
   </div>
-</div>
   <PageFooter />
 
 </template>
@@ -20,6 +20,7 @@ import MainMenu from './components/page_header/MainMenu.vue';
 import TerminalDisplay from './components/TerminalDisplay.vue';
 import EditorControls from './components/EditorControls.vue'
 import PageFooter from './components/PageFooter.vue';
+import SchemeCalculator from './services/SchemeCalculator';
 import DynamicStyle from './services/DynamicStyle';
 
 export default {
@@ -32,7 +33,8 @@ export default {
     PageFooter
   },
   mounted() {
-    DynamicStyle.observeStore();
+    this.schemeCalculator = new SchemeCalculator();
+    this.dynamicScheme = new DynamicStyle();
     this.loadTwitterWidget();
   },
   methods: {

@@ -1,12 +1,15 @@
 import { watch } from 'vue';
-import { useSchemeStore } from '../stores/Scheme';
+import { useCalculatedSchemeStore } from '../stores/CalculatedScheme';
 import { COLOR_NAMES } from '../constants';
 
 class DynamicStyle {
   constructor() {
+    this.calculatedSchemeStore = useCalculatedSchemeStore();
     this.stylesheetId = 'dynamic-styles';
     this.stylesheet = null;
     this.storeWatcher = null;
+
+    this.observeStore();
   }
 
   initializeStylesheet() {
@@ -40,20 +43,17 @@ class DynamicStyle {
   }
 
   observeStore() {
-    const schemeStore = useSchemeStore();
-    schemeStore.initialize();
-
     if (!this.storeWatcher) {
       this.storeWatcher = watch(
-        () => schemeStore.scheme.colors,
-        (colors) => {
-          const rules = this.generateRules(colors, COLOR_NAMES);
+        () => this.calculatedSchemeStore.calculatedScheme,
+        (calculatedScheme) => {
+          const rules = this.generateRules(calculatedScheme, COLOR_NAMES);
           this.setRules(rules);
         },
-        { deep: true, immediate: true }
+        { immediate: true }
       );
     }
   }
 }
 
-export default new DynamicStyle();
+export default DynamicStyle;

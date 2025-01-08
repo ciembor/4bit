@@ -42,7 +42,6 @@ export default {
     updateLightness(values) {
       this.schemeStore.scheme.normalWhiteLightness = values[0] / 2.56;
       this.schemeStore.scheme.brightWhiteLightness = values[1] / 2.56;
-      this.schemeStore.recalculateColors();
     },
   },
 };

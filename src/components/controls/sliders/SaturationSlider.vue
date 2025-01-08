@@ -39,7 +39,6 @@ export default {
     updateSaturation(sliderValue) {
       const newSaturation = sliderValue;
       this.schemeStore.scheme.saturation = newSaturation;
-      this.schemeStore.recalculateColors();
     },
   },
 };

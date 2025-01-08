@@ -39,7 +39,6 @@ export default {
     updateHue(sliderValue) {
       const newHue = sliderValue - 30;
       this.schemeStore.scheme.hue = newHue;
-      this.schemeStore.recalculateColors();
     },
   },
 };
