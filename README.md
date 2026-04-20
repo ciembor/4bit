@@ -1,7 +1,7 @@
 [4bit](https://ciembor.github.io/4bit) Terminal Color Scheme Designer
 =========
 
-![4bit](4bit-terminal-color-scheme-designer.webp)
+[![4bit](4bit-terminal-color-scheme-designer.webp)]((https://ciembor.github.io/4bit))
 
 For users
 ---------
