@@ -1,7 +1,7 @@
 [4bit](https://ciembor.github.io/4bit) Terminal Color Scheme Designer
 =========
 
-![4bit](https://user-images.githubusercontent.com/702108/233796748-249f64b2-bf53-49fc-a7aa-15ba2e63d411.png)
+![4bit](https://maciej-ciemborowicz.eu/videos/4bit-terminal-color-scheme-designer.webm)
 
 For users
 ---------
