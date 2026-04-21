@@ -62,22 +62,22 @@ a {
 
 @font-face {
 	font-family: Rationale;
-	src: url('../fonts/rationale/rationale-webfont.eot');
-	src: url('../fonts/rationale/rationale-webfont.eot?#iefix') format('embedded-opentype'),
-			 url('../fonts/rationale/rationale-webfont.woff') format('woff'),
-			 url('../fonts/rationale/rationale-webfont.ttf') format('truetype'),
-			 url('../fonts/rationale/rationale-webfont.svg#webfontregular') format('svg');
+	src: url('../../../fonts/rationale/rationale-webfont.eot');
+	src: url('../../../fonts/rationale/rationale-webfont.eot?#iefix') format('embedded-opentype'),
+			 url('../../../fonts/rationale/rationale-webfont.woff') format('woff'),
+			 url('../../../fonts/rationale/rationale-webfont.ttf') format('truetype'),
+			 url('../../../fonts/rationale/rationale-webfont.svg#webfontregular') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: Inconsolata;
-	src: url('../fonts/inconsolata/ttf-inconsolata-webfont.eot');
-	src: url('../fonts/inconsolata/ttf-inconsolata-webfont.eot?#iefix') format('embedded-opentype'),
-			 url('../fonts/inconsolata/ttf-inconsolata-webfont.woff') format('woff'),
-			 url('../fonts/inconsolata/ttf-inconsolata-webfont.ttf') format('truetype'),
-			 url('../fonts/inconsolata/ttf-inconsolata-webfont.svg#webfontregular') format('svg');
+	src: url('../../../fonts/inconsolata/ttf-inconsolata-webfont.eot');
+	src: url('../../../fonts/inconsolata/ttf-inconsolata-webfont.eot?#iefix') format('embedded-opentype'),
+			 url('../../../fonts/inconsolata/ttf-inconsolata-webfont.woff') format('woff'),
+			 url('../../../fonts/inconsolata/ttf-inconsolata-webfont.ttf') format('truetype'),
+			 url('../../../fonts/inconsolata/ttf-inconsolata-webfont.svg#webfontregular') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -87,10 +87,6 @@ a {
 // .push {
 // 	height: @footer_height;
 // }
-
-#dialog-modal {
-	display: none;
-}
 
 // #app {
 // 	opacity: 0;
@@ -206,70 +202,4 @@ a {
 	.ui-button-text {
 		margin: 3px 0 0;
 	}
-}
-
-.ui-dialog {
-	font-family: Rationale, sans-serif;
-	background: #c9c9c9 !important;
-	display: flex;
-	flex-direction: column;
-	max-height: 90vh;
-
-	&>.ui-widget-header {
-		padding-left: 15px;
-		font-size: 26px;
-		font-weight: normal;
-		color: #000;
-		background: #eee !important;
-	}
-
-	&>.ui-widget-content {
-		overflow: scroll;
-		background: #c9c9c9 !important;
-		height: auto !important;
-		padding: 1em 0.8em 0.8em;
-	}
-
-	.ui-icon-closethick {
-		background: url("../images/cross.png") 3px 3px no-repeat !important;
-	}
-
-	.ui-state-hover > .ui-icon-closethick {
-		background: url("../images/cross_active.png") 3px 3px no-repeat !important;
-	}
-
-	ul {
-		background-color: #eee;
-		border-radius: 6px;
-
-		li {
-			padding: 10px 0;
-
-			p {
-				font-size: 22px;
-				position: relative;
-				line-height: 30px;
-				padding: 0 10px;
-
-				a {
-					line-height: 1em;
-					font-size: 18px;
-				}
-			}
-		}
-
-		li:nth-child(even) {
-			background-color: #ddd;
-		}
-
-		li:last-child {
-			border-bottom-left-radius: 6px;
-			border-bottom-right-radius: 6px;
-		}
-	}
-
-}
-
-.ui-widget-overlay {
-	background: #000;
 }

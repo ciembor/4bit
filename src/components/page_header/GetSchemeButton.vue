@@ -1,12 +1,23 @@
 <template>
-  <a href="#" id="get-scheme-button" class="skew">
+  <a href="#" id="get-scheme-button" class="skew" @click.prevent="isDialogOpen = true">
     <span>Download Scheme</span>
   </a>
+  <DownloadSchemeDialog :open="isDialogOpen" @close="isDialogOpen = false" />
 </template>
 
 <script>
+import DownloadSchemeDialog from './DownloadSchemeDialog.vue';
+
 export default {
   name: 'GetSchemeButton',
+  components: {
+    DownloadSchemeDialog,
+  },
+  data() {
+    return {
+      isDialogOpen: false,
+    };
+  },
 };
 </script>
 
