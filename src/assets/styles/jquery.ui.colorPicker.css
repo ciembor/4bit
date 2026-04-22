@@ -1,0 +1,76 @@
+div.colorpicker {
+  margin: 0;
+  position: relative;
+}
+
+div.colorpicker canvas {
+  float: left;
+}
+
+div.colorpicker div.circle {
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  background-clip: padding-box;
+}
+
+div.colorpicker div.circle.alpha {
+  background-image: url('/images/transparent.gif');
+  opacity: 0;
+}
+
+div.colorpicker div.circle.lightness {
+  background-color: rgb(0 0 0 / 0%);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+  border: 1px solid #fff;
+  margin: -1px 0 0 -1px;
+}
+
+div.colorpicker span.picker,
+div.colorpicker span.handle {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: rgb(0 0 0 / 40%);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 50%), 0 0 4px #000 inset;
+  border: 1px solid #fff;
+  cursor: pointer;
+  margin: -5px;
+  position: absolute;
+  z-index: 2;
+}
+
+div.colorpicker div.slider {
+  width: 6px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-radius: 6px;
+  border: 1px solid #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 15%), 0 1px 2px rgb(0 0 0 / 20%) inset;
+  float: left;
+  margin: -1px 0 0 10px;
+}
+
+div.colorpicker div.slider span.handle {
+  margin: -5px -2px;
+}
+
+div.colorpicker div.slider.lightness {
+  background-image: linear-gradient(to bottom, rgb(0 0 0 / 0%), rgb(0 0 0 / 100%));
+}
+
+div.colorpicker div.slider.alpha {
+  background:
+    linear-gradient(to bottom, rgb(255 255 255 / 100%), rgb(255 255 255 / 60%)),
+    url('/images/transparent.gif') center;
+}
+
+div.colorpicker input.colorInput {
+  margin-top: 10px;
+  border: 1px solid #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 15%);
+  background-color: #fafafa;
+  border-radius: 3px;
+  padding: 5px 8px;
+}

@@ -31,6 +31,8 @@ class DynamicStyle {
   generateRules(colors, colorNames) {
     const rules = [];
     rules.push(`#terminal-display { color: ${colors.foreground?.hex()}; background-color: ${colors.background?.hex()}; }`);
+    rules.push(`#footer p:hover .footer-link { color: ${colors.blue?.hex()}; }`);
+    rules.push(`#footer p:hover .footer-link:visited { color: ${colors.magenta?.hex()}; }`);
 
     colorNames.forEach((name) => {
       if (colors[name]) {

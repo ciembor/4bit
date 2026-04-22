@@ -22,7 +22,7 @@ export default {
 #skews {
   position: absolute;
   top: 23px;
-  right: 23px;
+  right: 27px;
   height: 34px;
 }
 
@@ -32,7 +32,7 @@ export default {
   height: 34px;
   transform: skew(-30deg);
   border-radius: 6px;
-  margin-right: 4px;
+  margin-left: 7px;
   margin-top: 0;
 }
 

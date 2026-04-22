@@ -15,12 +15,25 @@ export const useSchemeStore = defineStore('scheme', {
       normalWhiteLightness: 87.5,             // float [0-100]
       brightWhiteLightness: 100,              // float [0-100]
       // special
-      dyeScope: null,                         // enum (null, 'all', 'achromatic', 'chromatic')
-      dyeColor: null,                         // HSLA Color
-      background: null,                       // enum ('custom', 'black', 'brightBlack', 'white', 'brightWhite')
-      customBackgroundColor: null,            // HSL Color
-      foreground: null,                       // enum ('custom', 'black', 'brightBlack', 'white', 'brightWhite')
-      customForegroundColor: null             // HSL Color
+      dyeScope: 'none',                       // enum ('none', 'all', 'achromatic', 'color')
+      dyeColor: {
+        hue: 210,
+        saturation: 50,
+        lightness: 50,
+        alpha: 0.2
+      },
+      background: 'black',                    // enum ('custom', 'black', 'bright_black', 'white', 'bright_white')
+      customBackgroundColor: {
+        hue: 210,
+        saturation: 50,
+        lightness: 10
+      },
+      foreground: 'white',                    // enum ('custom', 'black', 'bright_black', 'white', 'bright_white')
+      customForegroundColor: {
+        hue: 210,
+        saturation: 50,
+        lightness: 90
+      }
     }
   })
 });

@@ -1,7 +1,35 @@
 <template>
   <footer id="footer">
-    <p class="left"><a href="http://github.com/ciembor/4bit" target="_blank"><img src="/images/github.png" alt="" /> Fork 4bit on GitHub.</a></p>
-    <p class="right">Developed by <a href="https://pl.linkedin.com/in/maciej-ciemborowicz-57202470" rel="me" target="_blank">Maciej Ciemborowicz</a> <a href="https://twitter.com/ciembor" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">follow</a> and <a href="https://github.com/ciembor/4bit#contributors" target="_blank">contributors</a> since 2012.</p>
+    <p class="left">
+      <a
+        href="http://github.com/ciembor/4bit"
+        target="_blank"
+        class="footer-link"
+      ><img src="/images/github.png" alt="" /> Fork 4bit on GitHub.</a>
+    </p>
+    <p class="right">
+      Developed by
+      <a
+        href="https://pl.linkedin.com/in/maciej-ciemborowicz-57202470"
+        rel="me"
+        target="_blank"
+        class="footer-link"
+      >Maciej Ciemborowicz</a>{{ ' ' }}
+      <a
+        href="https://twitter.com/ciembor"
+        class="twitter-follow-button"
+        data-show-count="false"
+        data-show-screen-name="false"
+        :class="'footer-link'"
+      >follow</a>
+      {{ ' and ' }}
+      <a
+        href="https://github.com/ciembor/4bit#contributors"
+        target="_blank"
+        class="footer-link"
+      >contributors</a>
+      {{ ' since 2012.' }}
+    </p>
   </footer>
 </template>
 
@@ -44,11 +72,13 @@ footer {
     padding-bottom: 20px;
   }
 
-  .left, .right {
+  .left,
+  .right {
     opacity: 0.5;
   }
 
-  .left:hover, .right:hover {
+  .left:hover,
+  .right:hover {
     opacity: 1;
   }
 }

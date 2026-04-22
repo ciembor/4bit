@@ -6,14 +6,17 @@
       <HueSlider />
 			<h3>Saturation:</h3>
 			<SaturationSlider />
-			<h2>Lightness</h2>
-			<h3>Color:</h3>
-			<ColorLightnessSlider />
-			<h3>Black:</h3>
-			<BlackLightnessSlider />
-			<h3>White:</h3>
-			<WhiteLightnessSlider />
     </section>
+    <section id="lightness">
+      <h2>Lightness</h2>
+      <h3>Color:</h3>
+      <ColorLightnessSlider />
+      <h3>Black:</h3>
+      <BlackLightnessSlider />
+      <h3>White:</h3>
+      <WhiteLightnessSlider />
+    </section>
+    <AdvancedControls />
   </section>
 </template>
 
@@ -23,6 +26,7 @@ import SaturationSlider from './controls/sliders/SaturationSlider.vue';
 import ColorLightnessSlider from './controls/sliders/ColorLightnessSlider.vue';
 import BlackLightnessSlider from './controls/sliders/BlackLightnessSlider.vue';
 import WhiteLightnessSlider from './controls/sliders/WhiteLightnessSlider.vue';
+import AdvancedControls from './controls/AdvancedControls.vue';
 
 export default {
   name: 'EditorControls',
@@ -31,7 +35,8 @@ export default {
 		SaturationSlider,
 		ColorLightnessSlider,
 		BlackLightnessSlider,
-		WhiteLightnessSlider
+		WhiteLightnessSlider,
+    AdvancedControls
   },
 };
 </script>
@@ -39,9 +44,8 @@ export default {
 <style lang="less">
 #controls {
 	vertical-align: top;
-	// visibility: hidden;
 	display: inline-block;
-	margin-left: 16px;
+	margin-left: 19px;
 	width: 300px;
 
 	h2 {
