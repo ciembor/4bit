@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="base-slider">
     <div ref="slider"></div>
   </div>
 </template>
@@ -97,12 +97,12 @@ export default {
 };
 </script>
 
-<style>
-.ui-slider {
+<style scoped>
+.base-slider :deep(.ui-slider) {
   font-size: 12px;
 }
 
-.ui-slider-handle {
+.base-slider :deep(.ui-slider-handle) {
   outline: 0 !important;
   cursor: pointer !important;
 }

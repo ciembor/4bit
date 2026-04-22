@@ -100,14 +100,26 @@ export default {
 @footer_height: 40px;
 
 html, body {
-	height: 100%;
-	width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
+body {
+  background-color: #eee;
+  font-family: Rationale, sans-serif;
+}
+</style>
+
+<style lang="less" scoped>
+@app_width: 1190px;
+@app_height: 555px;
+@header_height: 60px;
+@footer_height: 40px;
+
 .wrapper {
-	min-height: @header_height + @app_height + @footer_height;
-	height: 100%;
-	margin: 0 auto (-@footer_height - 2px); /* the bottom margin is the negative value of the footer's height */
+  min-height: @header_height + @app_height + @footer_height;
+  height: 100%;
+  margin: 0 auto (-@footer_height - 2px); /* the bottom margin is the negative value of the footer's height */
 }
 
 header {
@@ -117,42 +129,26 @@ header {
   overflow: visible;
 }
 
-body {
-  background-color: #eee;
-	font-family: Rationale, sans-serif;
-
-    h1 {
-      color: #777;
-      font-size: 48px;
-      display: inline-block;
-      margin: 18px 0 0 20px;
-
-    a {
-      color: #777;
-    }
-  }
-}
-
 #editor {
-	// opacity: 0;
-	white-space: nowrap;
+  // opacity: 0;
+  white-space: nowrap;
 }
 
 .distance {
-	min-height: ((@app_height) / 2) - @header_height -10px;
-	margin-bottom: -(((@app_height) / 2) + @header_height) + 10px;
-	width: 1px;
-	height: 50%;
-	margin-top: 0;
-	float: left;
+  min-height: ((@app_height) / 2) - @header_height - 10px;
+  margin-bottom: -(((@app_height) / 2) + @header_height) + 10px;
+  width: 1px;
+  height: 50%;
+  margin-top: 0;
+  float: left;
 }
 
 .vertical-center {
-	width: @app_width;
-	height: @app_height;
-	z-index: 1;
-	position: relative;
-	margin: 0 auto;
-	clear: left;
+  width: @app_width;
+  height: @app_height;
+  z-index: 1;
+  position: relative;
+  margin: 0 auto;
+  clear: left;
 }
 </style>

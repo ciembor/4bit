@@ -38,7 +38,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @app_width: 1190px;
 @footer_height: 40px;
 
@@ -80,7 +80,6 @@ footer {
   .right:hover {
     opacity: 1;
   }
-
 }
 
 #footer p:hover .footer-link {
@@ -91,11 +90,11 @@ footer {
   color: var(--color-magenta);
 }
 
-.twitter-follow-button {
+:deep(.twitter-follow-button),
+:deep(.twitter-follow-button-rendered) {
   display: inline-block;
   margin-bottom: -4px;
   font-size: 0;
   width: 74px;
 }
-
 </style>

@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 #skews {
   position: absolute;
   top: 23px;
@@ -26,7 +26,7 @@ export default {
   height: 34px;
 }
 
-.skew {
+:deep(.skew) {
   vertical-align: top;
   display: inline-block;
   height: 34px;
@@ -36,7 +36,7 @@ export default {
   margin-top: 0;
 }
 
-.skew > * {
+:deep(.skew > *) {
   transform: skew(30deg);
 }
 </style>

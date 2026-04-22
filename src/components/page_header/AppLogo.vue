@@ -14,6 +14,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
+#logo {
+  color: #777;
+  font-size: 48px;
+  display: inline-block;
+  margin: 18px 0 0 20px;
+
+  a {
+    color: #777;
+  }
+}
+
 .blue {
   color: var(--color-blue);
 }

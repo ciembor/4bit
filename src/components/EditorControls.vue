@@ -41,21 +41,21 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 #controls {
-	vertical-align: top;
-	display: inline-block;
-	margin-left: 19px;
-	width: 300px;
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 19px;
+  width: 300px;
 
-	h2 {
-		font-size: 26px;
-		margin: 20px 0 5px;
-	}
+  h2 {
+    font-size: 26px;
+    margin: 20px 0 5px;
+  }
 
-	h3 {
-		font-size: 18px;
-		margin: 10px 0 5px;
-	}
+  h3 {
+    font-size: 18px;
+    margin: 10px 0 5px;
+  }
 }
 </style>

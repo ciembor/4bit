@@ -134,7 +134,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .download-scheme-modal {
   position: fixed;
   inset: 0;

@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 #get-scheme-button {
   width: 163px;
   border: 1px solid #ccc;

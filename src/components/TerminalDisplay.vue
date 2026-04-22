@@ -86,7 +86,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 #terminal-display {
   visibility: visible;
   display: inline-block;
@@ -112,7 +112,7 @@ export default {
   }
 
   .bold {
-	  font-weight: bold; // opera sux
+    font-weight: bold; // opera sux
   }
 
   .row-th {

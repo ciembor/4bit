@@ -261,7 +261,8 @@ export default {
   padding: 0 !important;
 
   h2 {
-    margin-bottom: 10px;
+    font-size: 26px;
+    margin: 20px 0 5px;
   }
 
   a {

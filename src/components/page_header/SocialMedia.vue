@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 #social-media {
   border: 1px solid #AAA;
   background-color: #C9C9C9;
