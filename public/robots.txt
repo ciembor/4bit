@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://ciembor.github.io/4bit/sitemap.xml
+Sitemap: https://ciembor.github.io/4bit/sitemap.txt

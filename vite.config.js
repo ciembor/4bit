@@ -7,7 +7,8 @@ const jqueryUiVersion = JSON.parse(
   readFileSync('./node_modules/jquery-ui/package.json', 'utf8')
 ).version;
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/4bit/' : '/',
   plugins: [vue()],
   resolve: {
     alias: {
@@ -17,4 +18,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ['jquery', 'jquery-ui'],
   }
-});
+}));

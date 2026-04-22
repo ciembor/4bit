@@ -16,6 +16,8 @@ Early history is grouped by day to keep the file readable while still covering t
 - Replaced runtime `<style>` injection with CSS variables driven by the calculated scheme store.
 - Scoped component layout styles and moved more styling closer to Vue components.
 - Added SEO metadata, JSON-LD, `robots.txt`, `sitemap.xml`, and a dedicated social preview image.
+- Configured the Vite production base path for GitHub Pages project-site deploys.
+- Simplified the XML sitemap, added a text sitemap fallback, and disabled Jekyll processing for GitHub Pages.
 - Updated developer setup notes in the README.
 - Updated author links in the README and footer.
 
