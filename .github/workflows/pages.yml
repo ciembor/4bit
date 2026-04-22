@@ -38,10 +38,9 @@ jobs:
 
       - name: Upload Pages artifact
         if: github.event_name == 'push'
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
-          include-hidden-files: true
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
@@ -59,4 +58,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
