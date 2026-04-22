@@ -10,7 +10,7 @@
     <p class="right">
       Developed by
       <a
-        href="https://pl.linkedin.com/in/maciej-ciemborowicz-57202470"
+        href="https://maciej-ciemborowicz.eu"
         rel="me"
         target="_blank"
         class="footer-link"
