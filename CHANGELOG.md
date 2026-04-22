@@ -18,6 +18,8 @@ Early history is grouped by day to keep the file readable while still covering t
 - Added SEO metadata, JSON-LD, `robots.txt`, `sitemap.xml`, and a dedicated social preview image.
 - Configured the Vite production base path for GitHub Pages project-site deploys.
 - Simplified the XML sitemap, added a text sitemap fallback, and disabled Jekyll processing for GitHub Pages.
+- Added unit tests for palette calculation and export generation.
+- Added a GitHub Actions workflow that runs tests and deploys GitHub Pages from `master`.
 - Updated developer setup notes in the README.
 - Updated author links in the README and footer.
 

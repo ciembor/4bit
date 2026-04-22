@@ -1,6 +1,11 @@
 [4bit](https://ciembor.github.io/4bit) Terminal Color Scheme Designer
 =========
 
+[![Tests and build](https://img.shields.io/github/actions/workflow/status/ciembor/4bit/pages.yml?branch=master&label=tests%20%26%20build&style=flat-square)](https://github.com/ciembor/4bit/actions/workflows/pages.yml)
+[![Live site](https://img.shields.io/badge/live%20site-ciembor.github.io%2F4bit-2ea44f?style=flat-square)](https://ciembor.github.io/4bit/)
+[![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](LICENSE.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ciembor/4bit/pulls)
+
 [![4bit Terminal Color Scheme Designer](4bit-terminal-color-scheme-designer.webp)](https://ciembor.github.io/4bit)
 
 For users
@@ -47,13 +52,16 @@ This app is built with Vue 3, Vite and Pinia.
 
 Most of the UI is now regular Vue components. The remaining legacy part is the color wheel used in `Advanced`, which is wrapped in Vue but still powered by the old jQuery plugin.
 
+GitHub Pages deployments now run from GitHub Actions after `npm test` and `npm run build` pass on `master`.
+
 Useful commands:
 
 1. Install dependencies with `npm install`
 2. Start the dev server with `npm run dev`
 3. Build production assets with `npm run build`
 4. Preview the production build with `npm run preview`
-5. Run lint fixes with `npm run lint`
+5. Run the test suite with `npm test`
+6. Run lint fixes with `npm run lint`
 
 Project structure:
 

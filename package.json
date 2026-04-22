@@ -13,12 +13,14 @@
     "eslint-plugin-vue": "^9.32.0",
     "globals": "^15.14.0",
     "less": "^4.2.1",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "vitest": "^4.1.5"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "vitest run",
     "lint": "eslint src --fix"
   }
 }
