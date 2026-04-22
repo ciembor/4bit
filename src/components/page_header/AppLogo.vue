@@ -12,3 +12,21 @@ export default {
   name: 'AppLogo',
 };
 </script>
+
+<style lang="less" scoped>
+.blue {
+  color: var(--color-blue);
+}
+
+.cyan {
+  color: var(--color-cyan);
+}
+
+.magenta {
+  color: var(--color-magenta);
+}
+
+.red {
+  color: var(--color-red);
+}
+</style>

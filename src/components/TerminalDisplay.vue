@@ -86,7 +86,6 @@ export default {
 };
 </script>
 
-
 <style lang="less">
 #terminal-display {
   visibility: visible;
@@ -98,6 +97,8 @@ export default {
   height: auto;
   padding: 1px 2px;
   box-shadow: 0 0 10px #666;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
 
   table {
     border-collapse: separate;
@@ -118,4 +119,47 @@ export default {
     text-align: right;
   }
 }
+
+.foreground,
+.brightForeground {
+  color: var(--color-foreground);
+}
+
+.backgroundBg {
+  background-color: var(--color-background);
+}
+
+.black { color: var(--color-black); }
+.brightBlack { color: var(--color-bright-black); }
+.red { color: var(--color-red); }
+.brightRed { color: var(--color-bright-red); }
+.green { color: var(--color-green); }
+.brightGreen { color: var(--color-bright-green); }
+.yellow { color: var(--color-yellow); }
+.brightYellow { color: var(--color-bright-yellow); }
+.blue { color: var(--color-blue); }
+.brightBlue { color: var(--color-bright-blue); }
+.magenta { color: var(--color-magenta); }
+.brightMagenta { color: var(--color-bright-magenta); }
+.cyan { color: var(--color-cyan); }
+.brightCyan { color: var(--color-bright-cyan); }
+.white { color: var(--color-white); }
+.brightWhite { color: var(--color-bright-white); }
+
+.blackBg { background-color: var(--color-black); }
+.brightBlackBg { background-color: var(--color-bright-black); }
+.redBg { background-color: var(--color-red); }
+.brightRedBg { background-color: var(--color-bright-red); }
+.greenBg { background-color: var(--color-green); }
+.brightGreenBg { background-color: var(--color-bright-green); }
+.yellowBg { background-color: var(--color-yellow); }
+.brightYellowBg { background-color: var(--color-bright-yellow); }
+.blueBg { background-color: var(--color-blue); }
+.brightBlueBg { background-color: var(--color-bright-blue); }
+.magentaBg { background-color: var(--color-magenta); }
+.brightMagentaBg { background-color: var(--color-bright-magenta); }
+.cyanBg { background-color: var(--color-cyan); }
+.brightCyanBg { background-color: var(--color-bright-cyan); }
+.whiteBg { background-color: var(--color-white); }
+.brightWhiteBg { background-color: var(--color-bright-white); }
 </style>

@@ -11,33 +11,74 @@
     </div>
   </div>
   <PageFooter />
-
 </template>
 
 <script>
+import { watch } from 'vue';
 import AppLogo from './components/page_header/AppLogo.vue';
 import MainMenu from './components/page_header/MainMenu.vue';
 import TerminalDisplay from './components/TerminalDisplay.vue';
-import EditorControls from './components/EditorControls.vue'
+import EditorControls from './components/EditorControls.vue';
 import PageFooter from './components/PageFooter.vue';
 import SchemeCalculator from './services/SchemeCalculator';
-import DynamicStyle from './services/DynamicStyle';
+import { useCalculatedSchemeStore } from './stores/CalculatedScheme';
+import { COLOR_NAMES, SPECIAL_COLOR_NAMES } from './constants';
+
+function cssVariableName(colorName) {
+  return `--color-${colorName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()}`;
+}
 
 export default {
   name: 'App',
-  components: {   
+  components: {
     AppLogo,
     MainMenu,
     TerminalDisplay,
     EditorControls,
-    PageFooter
+    PageFooter,
+  },
+  setup() {
+    const calculatedSchemeStore = useCalculatedSchemeStore();
+
+    return { calculatedSchemeStore };
   },
   mounted() {
     this.schemeCalculator = new SchemeCalculator();
-    this.dynamicScheme = new DynamicStyle();
+    this.themeVariablesWatcher = watch(
+      () => this.calculatedSchemeStore.calculatedScheme,
+      (colors) => {
+        this.applyThemeVariables(colors);
+      },
+      { immediate: true, deep: true }
+    );
     this.loadTwitterWidget();
   },
+  beforeUnmount() {
+    this.themeVariablesWatcher?.();
+    this.clearThemeVariables();
+  },
   methods: {
+    applyThemeVariables(colors) {
+      const themeRoot = document.body;
+
+      [...COLOR_NAMES, ...SPECIAL_COLOR_NAMES].forEach((colorName) => {
+        const color = colors[colorName];
+        const variableName = cssVariableName(colorName);
+
+        if (color) {
+          themeRoot.style.setProperty(variableName, color.hex());
+        } else {
+          themeRoot.style.removeProperty(variableName);
+        }
+      });
+    },
+    clearThemeVariables() {
+      const themeRoot = document.body;
+
+      [...COLOR_NAMES, ...SPECIAL_COLOR_NAMES].forEach((colorName) => {
+        themeRoot.style.removeProperty(cssVariableName(colorName));
+      });
+    },
     loadTwitterWidget() {
       if (!document.getElementById('twitter-wjs')) {
         const js = document.createElement('script');

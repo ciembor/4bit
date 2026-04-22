@@ -80,6 +80,15 @@ footer {
   .right:hover {
     opacity: 1;
   }
+
+}
+
+#footer p:hover .footer-link {
+  color: var(--color-blue);
+}
+
+#footer p:hover .footer-link:visited {
+  color: var(--color-magenta);
 }
 
 .twitter-follow-button {
