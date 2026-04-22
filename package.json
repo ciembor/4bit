@@ -1,26 +1,30 @@
 {
+  "engines": {
+    "node": "^24.0.0"
+  },
   "dependencies": {
-    "color": "^4.2.3",
-    "jquery": "^3.7.1",
-    "jquery-ui": "^1.14.1",
-    "pinia": "^2.3.0",
-    "vue": "^3.5.13"
+    "color": "^5.0.3",
+    "jquery": "^4.0.0",
+    "jquery-ui": "^1.14.2",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.33"
   },
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "eslint": "^8.57.1",
-    "eslint-plugin-vue": "^9.32.0",
-    "globals": "^15.14.0",
-    "less": "^4.2.1",
-    "vite": "^6.0.5",
-    "vitest": "^4.1.5"
+    "@eslint/js": "^10.0.1",
+    "@vitejs/plugin-vue": "^6.0.6",
+    "eslint": "^10.2.1",
+    "eslint-plugin-vue": "^10.9.0",
+    "globals": "^17.5.0",
+    "less": "^4.6.4",
+    "vite": "^8.0.9",
+    "vitest": "^4.1.5",
+    "vue-eslint-parser": "^10.4.0"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run --pool=threads",
     "lint": "eslint src --fix"
   }
 }

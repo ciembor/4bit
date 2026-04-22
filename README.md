@@ -54,6 +54,8 @@ Most of the UI is now regular Vue components. The remaining legacy part is the c
 
 GitHub Pages deployments now run from GitHub Actions after `npm test` and `npm run build` pass on `master`.
 
+Use Node `24.15.0` from [`.nvmrc`](./.nvmrc) before installing dependencies or running local checks.
+
 Useful commands:
 
 1. Install dependencies with `npm install`

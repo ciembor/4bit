@@ -323,11 +323,11 @@ $.widget('oal.colorPicker', {
         colorString = `rgba(${r}, ${g}, ${b}, ${a})`;
         break;
       case 'rgb':
-        [r, g, b, a] = this._toRgba(hue, saturation, lightness);
+        [r, g, b] = this._toRgba(hue, saturation, lightness);
         colorString = `rgb(${r}, ${g}, ${b})`;
         break;
       case 'hex':
-        [r, g, b, a] = this._toRgba(hue, saturation, lightness);
+        [r, g, b] = this._toRgba(hue, saturation, lightness);
         redString = r.toString(16);
         greenString = g.toString(16);
         blueString = b.toString(16);
