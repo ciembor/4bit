@@ -1,5 +1,6 @@
 <template>
-  <BaseRangeSlider
+  <BaseSlider
+    :range="true"
     :values="sliderValues"
     :min="min"
     :max="max"
@@ -9,13 +10,13 @@
 </template>
 
 <script>
-import BaseRangeSlider from "./BaseRangeSlider.vue";
+import BaseSlider from "./BaseSlider.vue";
 import { useSchemeStore } from "../../../stores/Scheme";
 
 export default {
   name: "ColorLightnessRangeSlider",
   components: {
-    BaseRangeSlider,
+    BaseSlider,
   },
   setup() {
     const schemeStore = useSchemeStore();

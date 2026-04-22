@@ -5,12 +5,27 @@
 </template>
 
 <script>
+import jQuery from 'jquery';
+
 export default {
-  name: "BaseSlider",
+  name: 'BaseSlider',
   props: {
     value: {
       type: Number,
-      required: true,
+      default: null,
+    },
+    values: {
+      type: Array,
+      default: null,
+      validator: (value) => value === null || (
+        Array.isArray(value) &&
+        value.length === 2 &&
+        value.every((entry) => typeof entry === 'number')
+      ),
+    },
+    range: {
+      type: Boolean,
+      default: false,
     },
     min: {
       type: Number,
@@ -25,21 +40,58 @@ export default {
       default: 1,
     },
   },
-  emits: ["update"],
+  emits: ['update'],
   mounted() {
-    window.$(this.$refs.slider).slider({
-      value: this.value,
-      min: this.min,
-      max: this.max,
-      step: this.step,
-      slide: (event, ui) => {
-        this.$emit("update", ui.value);
-      },
-    });
+    this.slider = jQuery(this.$refs.slider);
+    this.slider.slider(this.sliderOptions());
+  },
+  beforeUnmount() {
+    if (this.slider) {
+      this.slider.slider('destroy');
+      this.slider = null;
+    }
   },
   watch: {
+    range() {
+      this.reinitializeSlider();
+    },
     value(newValue) {
-      window.$(this.$refs.slider).slider("value", newValue);
+      if (!this.range && this.slider) {
+        this.slider.slider('value', newValue);
+      }
+    },
+    values(newValues) {
+      if (this.range && this.slider) {
+        this.slider.slider('values', newValues);
+      }
+    },
+  },
+  methods: {
+    sliderOptions() {
+      return {
+        min: this.min,
+        max: this.max,
+        step: this.step,
+        ...(this.range
+          ? {
+              range: true,
+              values: this.values,
+            }
+          : {
+              value: this.value,
+            }),
+        slide: (event, ui) => {
+          this.$emit('update', this.range ? ui.values : ui.value);
+        },
+      };
+    },
+    reinitializeSlider() {
+      if (!this.slider) {
+        return;
+      }
+
+      this.slider.slider('destroy');
+      this.slider.slider(this.sliderOptions());
     },
   },
 };
