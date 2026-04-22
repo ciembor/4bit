@@ -43,11 +43,26 @@ Generate one of the supported formats and copy hex values into the configuration
 For developers
 ---------
 
-This branch is the Vue/Vite version of the app.
+This app is built with Vue 3, Vite and Pinia.
 
-1. Run `npm install`
-2. Start development with `npm run dev`
+Most of the UI is now regular Vue components. The remaining legacy part is the color wheel used in `Advanced`, which is wrapped in Vue but still powered by the old jQuery plugin.
+
+Useful commands:
+
+1. Install dependencies with `npm install`
+2. Start the dev server with `npm run dev`
 3. Build production assets with `npm run build`
+4. Preview the production build with `npm run preview`
+5. Run lint fixes with `npm run lint`
+
+Project structure:
+
+* `src/components` - UI components
+* `src/stores` - Pinia stores for editable scheme state and calculated colors
+* `src/services` - color calculation and export logic
+* `src/lib/jquery.ui.colorPicker.js` - wrapped legacy color picker plugin
+* `src/assets/styles` - global base styles and imported third-party CSS
+* `public` - static assets copied to the final build, including images and SEO files
 
 Author
 ---------
