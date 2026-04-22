@@ -21,9 +21,7 @@ export default {
   border: 1px solid #AAA;
   background-color: #C9C9C9;
   position: relative;
-  padding: 7px 15px 0;
-  width: 74px;
-  height: 27px;
+  width: 104px;
   display: inline-block;
   white-space: nowrap;
 
@@ -33,8 +31,10 @@ export default {
 
   .inner {
     position: absolute;
+    top: 7px;
+    left: 15px;
     display: block;
-    width: 74px;
+    width: 73px;
     height: 20px;
   }
 

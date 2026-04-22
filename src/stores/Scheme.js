@@ -17,20 +17,20 @@ export const useSchemeStore = defineStore('scheme', {
       // special
       dyeScope: 'none',                       // enum ('none', 'all', 'achromatic', 'color')
       dyeColor: {
-        hue: 210,
+        hue: 180,
         saturation: 50,
         lightness: 50,
-        alpha: 0.2
+        alpha: 0.25
       },
       background: 'black',                    // enum ('custom', 'black', 'bright_black', 'white', 'bright_white')
       customBackgroundColor: {
-        hue: 210,
+        hue: 180,
         saturation: 50,
         lightness: 10
       },
       foreground: 'white',                    // enum ('custom', 'black', 'bright_black', 'white', 'bright_white')
       customForegroundColor: {
-        hue: 210,
+        hue: 180,
         saturation: 50,
         lightness: 90
       }

@@ -7,6 +7,14 @@ function isBrightColorName(name) {
   return name.startsWith('bright');
 }
 
+function standardColorNames() {
+  return COLOR_NAMES.filter((name) => !isBrightColorName(name));
+}
+
+function brightColorNames() {
+  return COLOR_NAMES.filter((name) => isBrightColorName(name));
+}
+
 function normalColorName(name) {
   if (!isBrightColorName(name)) {
     return name;
@@ -61,8 +69,14 @@ function minttyName(name) {
 }
 
 function buildGuake(colors) {
-  const palette = COLOR_NAMES.map((name) => gnomeColor(colors[name]));
+  const palette = [
+    ...standardColorNames(),
+    ...brightColorNames(),
+  ].map((name) => gnomeColor(colors[name]));
   let out = '';
+
+  palette.push(gnomeColor(colors.foreground));
+  palette.push(gnomeColor(colors.background));
 
   out += '#!/bin/bash \n\n';
   out += '# Save this script into set_colors.sh, make this file executable and run it: \n';
@@ -72,17 +86,16 @@ function buildGuake(colors) {
   out += '# \n';
   out += '# Alternatively copy lines below directly into your shell. \n\n';
 
-  out += `gconftool-2 -s -t string /apps/guake/style/background/color '${gnomeColor(colors.background)}'\n`;
-  out += `gconftool-2 -s -t string /apps/guake/style/font/color '${gnomeColor(colors.foreground)}'\n`;
-  out += `gconftool-2 -s -t string /apps/guake/style/font/palette '${palette.join(':')}'\n`;
+  out += `dconf write /apps/guake/style/font/palette "'${palette.join(':')}'"\n`;
+  out += `dconf write /apps/guake/style/font/palette-name "'4bit Color Scheme Designer'"\n`;
 
   return out;
 }
 
 function buildGnomeTerminal(colors) {
   const palette = [
-    ...COLOR_NAMES.filter((name) => !isBrightColorName(name)),
-    ...COLOR_NAMES.filter((name) => isBrightColorName(name)),
+    ...standardColorNames(),
+    ...brightColorNames(),
   ].map((name) => gnomeColor(colors[name]));
   let out = '';
 
@@ -238,23 +251,48 @@ function buildXresources(colors) {
 }
 
 function buildXfceTerminal(colors) {
-  let out = '[Configuration]\n';
-  let counter = 1;
+  const palette = [
+    ...standardColorNames(),
+    ...brightColorNames(),
+  ].map((name) => colorHex(colors[name]));
+  let out = '[Scheme]\n';
 
+  out += 'Name=4bit-terminal-color-scheme-designer\n';
   out += `ColorBackground=${colorHex(colors.background)}\n`;
   out += `ColorForeground=${colorHex(colors.foreground)}\n`;
   out += `ColorCursor=${colorHex(colors.foreground)}\n`;
+  out += `ColorPalette=${palette.join(';')}`;
 
-  COLOR_NAMES.forEach((name) => {
-    let number = counter / 2 + 0.5;
+  return out;
+}
 
-    if (isBrightColorName(name)) {
-      number += 7.5;
-    }
+function buildAlacritty(colors) {
+  let out = '';
 
-    out += `ColorPalette${number}=${colorHex(colors[name])}\n`;
-    counter += 1;
+  out += '# --- ~/.config/alacritty/alacritty.yml ----------------------------------------\n';
+  out += '# ------------------------------------------------------------------------------\n';
+  out += '# --- generated with 4bit Terminal Color Scheme Designer -----------------------\n';
+  out += '# ------------------------------------------------------------------------------\n';
+  out += '# --- https://ciembor.github.io/4bit -------------------------------------------\n';
+  out += '# ------------------------------------------------------------------------------\n\n';
+  out += 'colors:\n';
+  out += '  primary:\n';
+  out += `    background: '0x${colorHex(colors.background).slice(1)}'\n`;
+  out += `    foreground: '0x${colorHex(colors.foreground).slice(1)}'\n\n`;
+  out += '  normal:\n';
+
+  standardColorNames().forEach((name) => {
+    out += `    ${name}: '0x${colorHex(colors[name]).slice(1)}'\n`;
   });
+
+  out += '\n  bright:\n';
+  brightColorNames().forEach((name) => {
+    out += `    ${normalColorName(name)}: '0x${colorHex(colors[name]).slice(1)}'\n`;
+  });
+
+  out += '\n# ------------------------------------------------------------------------------\n';
+  out += '# --- end of terminal colors section -------------------------------------------\n';
+  out += '# ------------------------------------------------------------------------------\n\n';
 
   return out;
 }
@@ -320,6 +358,7 @@ function buildTerminator(colors) {
 }
 
 const EXPORT_BUILDERS = {
+  alacritty: buildAlacritty,
   xresources: buildXresources,
   guake: buildGuake,
   gnomeTerminal: buildGnomeTerminal,
@@ -333,9 +372,17 @@ const EXPORT_BUILDERS = {
 
 export const SCHEME_DOWNLOADS = [
   {
+    id: 'alacritty',
+    buttonId: 'alacritty-button',
+    text: 'alacritty',
+    linkLabel: 'alacritty.yml',
+    downloadName: 'alacritty.yml',
+    mimeType: TEXT_MIME_TYPE,
+  },
+  {
     id: 'xresources',
     buttonId: 'xresources-button',
-    text: 'xterm / aterm / rxvt / urxvt',
+    text: 'aterm / rxvt / urxvt / xterm',
     linkLabel: '.Xresources',
     downloadName: '.Xresources',
     mimeType: TEXT_MIME_TYPE,
@@ -357,22 +404,6 @@ export const SCHEME_DOWNLOADS = [
     mimeType: TEXT_MIME_TYPE,
   },
   {
-    id: 'konsole',
-    buttonId: 'konsole-button',
-    text: 'konsole / yakuake',
-    linkLabel: '*.colorscheme',
-    downloadName: '4bit.colorscheme',
-    mimeType: TEXT_MIME_TYPE,
-  },
-  {
-    id: 'xfceTerminal',
-    buttonId: 'xfce-terminal-button',
-    text: 'xfce4 terminal',
-    linkLabel: 'terminalrc',
-    downloadName: 'terminalrc',
-    mimeType: TEXT_MIME_TYPE,
-  },
-  {
     id: 'iTerm2',
     buttonId: 'iterm2-button',
     text: 'iTerm2',
@@ -381,11 +412,19 @@ export const SCHEME_DOWNLOADS = [
     mimeType: XML_MIME_TYPE,
   },
   {
+    id: 'konsole',
+    buttonId: 'konsole-button',
+    text: 'konsole / yakuake',
+    linkLabel: '*.colorscheme',
+    downloadName: '4bit.colorscheme',
+    mimeType: TEXT_MIME_TYPE,
+  },
+  {
     id: 'mintty',
     buttonId: 'mintty-button',
     text: 'mintty',
     linkLabel: '.minttyrc',
-    downloadName: '4bit-mintty-color-scheme',
+    downloadName: '4bit-color-scheme.minttyrc',
     mimeType: TEXT_MIME_TYPE,
   },
   {
@@ -402,6 +441,14 @@ export const SCHEME_DOWNLOADS = [
     text: 'terminator',
     linkLabel: 'config',
     downloadName: 'config',
+    mimeType: TEXT_MIME_TYPE,
+  },
+  {
+    id: 'xfceTerminal',
+    buttonId: 'xfce-terminal-button',
+    text: 'xfce4 terminal',
+    linkLabel: '*.scheme',
+    downloadName: '4bit.scheme',
     mimeType: TEXT_MIME_TYPE,
   },
 ];

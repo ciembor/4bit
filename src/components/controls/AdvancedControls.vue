@@ -95,20 +95,20 @@ const SPECIAL_COLOR_OPTIONS = [
 const LEGACY_ADVANCED_DEFAULTS = {
   dyeScope: 'none',
   dyeColor: {
-    hue: 210,
+    hue: 180,
     saturation: 50,
     lightness: 50,
-    alpha: 0.2,
+    alpha: 0.25,
   },
   background: 'black',
   customBackgroundColor: {
-    hue: 210,
+    hue: 180,
     saturation: 50,
     lightness: 10,
   },
   foreground: 'white',
   customForegroundColor: {
-    hue: 210,
+    hue: 180,
     saturation: 50,
     lightness: 90,
   },

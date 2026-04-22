@@ -4,14 +4,17 @@
 		<meta charset="utf-8">
 		<meta name="author" content="Maciej Ciemborowicz" />
 		<title>4bit. Terminal Color Scheme Designer</title>
-		<meta name="description" content="This application
-		allows you to create custom theme for a Linux terminal
-		and export it to the .Xresources / .Xdefaults
-		configuration file (xterm, aterm, eterm, rxvt, urxvt),
-		*.colorscheme (konsole, yakuake) and *.itermcolors
-		(iTerm2 for Mac)"/>
+		<meta name="description" content="Design and download custom terminal color schemes. Creator for (almost) any emulator. Supports .Xresources, iTerm2, Gnome, Xfce, Alacritty, Yakuake, and more."/>
 		<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
 		<style id="outline-fix"></style>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-DV8LQSJD83"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-DV8LQSJD83');
+		</script>
 	</head>
 	<body id="app" onmousedown="document.getElementById('outline-fix').innerHTML='a{outline:none}';" onkeydown="document.getElementById('outline-fix').innerHTML=''">
     <script type="module" src="/src/main.js"></script>

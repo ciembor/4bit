@@ -17,10 +17,9 @@
       >Maciej Ciemborowicz</a>{{ ' ' }}
       <a
         href="https://twitter.com/ciembor"
-        class="twitter-follow-button"
+        class="twitter-follow-button footer-link"
         data-show-count="false"
         data-show-screen-name="false"
-        :class="'footer-link'"
       >follow</a>
       {{ ' and ' }}
       <a
@@ -87,7 +86,7 @@ footer {
   display: inline-block;
   margin-bottom: -4px;
   font-size: 0;
-  width: 78px;
+  width: 74px;
 }
 
 </style>

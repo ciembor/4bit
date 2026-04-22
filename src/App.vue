@@ -66,7 +66,7 @@ html, body {
 .wrapper {
 	min-height: @header_height + @app_height + @footer_height;
 	height: 100%;
-	margin: 0 auto (-@footer_height - 1px); /* the bottom margin is the negative value of the footer's height */
+	margin: 0 auto (-@footer_height - 2px); /* the bottom margin is the negative value of the footer's height */
 }
 
 header {
