@@ -21,6 +21,7 @@ import TerminalDisplay from './components/TerminalDisplay.vue';
 import EditorControls from './components/EditorControls.vue';
 import PageFooter from './components/PageFooter.vue';
 import SchemeCalculator from './services/SchemeCalculator';
+import { SchemeUrlSync } from './services/SchemeUrlState';
 import { useCalculatedSchemeStore } from './stores/CalculatedScheme';
 import { COLOR_NAMES, SPECIAL_COLOR_NAMES } from './constants';
 
@@ -44,6 +45,8 @@ export default {
   },
   mounted() {
     this.schemeCalculator = new SchemeCalculator();
+    this.schemeUrlSync = new SchemeUrlSync();
+    this.schemeUrlSync.start(watch);
     this.themeVariablesWatcher = watch(
       () => this.calculatedSchemeStore.calculatedScheme,
       (colors) => {
@@ -54,6 +57,7 @@ export default {
     this.loadTwitterWidget();
   },
   beforeUnmount() {
+    this.schemeUrlSync?.stop();
     this.themeVariablesWatcher?.();
     this.clearThemeVariables();
   },

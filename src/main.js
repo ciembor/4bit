@@ -10,6 +10,7 @@ window.jQuery = window.$ = jQuery
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import App from './App.vue';
+import { hydrateSchemeStoreFromLocation } from './services/SchemeUrlState';
 
 async function startApp() {
   await import('jquery-ui/ui/version');
@@ -24,6 +25,7 @@ async function startApp() {
   await import('./lib/jquery.ui.colorPicker.js');
 
   const pinia = createPinia();
+  hydrateSchemeStoreFromLocation(pinia);
   createApp(App).use(pinia).mount('#app');
 }
 

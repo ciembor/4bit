@@ -72,7 +72,7 @@ describe('calculateSchemeColors', () => {
     expect(colorHex(colors.magenta)).toBe(colorHex(Color({ h: 150, s: 50, l: 50 })));
   });
 
-  it('keeps uno hue-distance variants inside one hue family', () => {
+  it('keeps monochrome hue-distance variants inside one hue family', () => {
     const colors = calculateSchemeColors(createScheme({
       hue: 0,
       degrees: [0, 20, 10, 350, 340, 355],
@@ -88,7 +88,7 @@ describe('calculateSchemeColors', () => {
     expect(colorHex(colors.blue)).not.toBe(colorHex(colors.red));
   });
 
-  it('keeps duo hue-distance variants inside red and green hue families', () => {
+  it('keeps duotone hue-distance variants inside red and green hue families', () => {
     const colors = calculateSchemeColors(createScheme({
       hue: 0,
       degrees: [0, 20, 120, 140, 100, 340],
@@ -105,7 +105,7 @@ describe('calculateSchemeColors', () => {
     expect(colorHex(colors.cyan)).not.toBe(colorHex(colors.green));
   });
 
-  it('keeps the classic standard palette when all advanced distances are neutral', () => {
+  it('keeps the classic hexachrome palette when all advanced distances are neutral', () => {
     const legacyColors = calculateSchemeColors(createScheme({
       hue: 0,
       degrees: [0, 60, 120, 180, 240, 300],
@@ -121,7 +121,7 @@ describe('calculateSchemeColors', () => {
     expect(colorHex(legacyColors.magenta)).toBe(colorHex(Color({ h: 300, s: 50, l: 50 })));
   });
 
-  it('supports offsetting the standard hue-set while keeping six distinct slots', () => {
+  it('supports offsetting the hexachrome hue-set while keeping six distinct slots', () => {
     const colors = calculateSchemeColors(createScheme({
       hue: 0,
       degrees: [0, 80, 130, 170, 220, 295],
