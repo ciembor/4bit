@@ -1,9 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
+import { createPinia } from 'pinia';
 import { createDefaultScheme } from '../src/services/SchemeState';
 import { degreesForHueSet } from '../src/services/HueSetPresets';
 import {
   buildSchemeSearch,
+  hydrateSchemeStoreFromLocation,
   readSchemeFromSearch,
+  resolveInitialSchemeSearch,
+  SCHEME_STORAGE_KEY,
   SchemeUrlSync,
 } from '../src/services/SchemeUrlState';
 
@@ -128,5 +132,82 @@ describe('SchemeUrlState', () => {
     expect(scheme.dyeColor).toEqual(defaults.dyeColor);
     expect(scheme.foreground).toBe(defaults.foreground);
     expect(scheme.customForegroundColor).toEqual(defaults.customForegroundColor);
+  });
+
+  it('prefers explicit scheme params in the URL over persisted state', () => {
+    const storage = {
+      getItem: vi.fn(() => '?hue=45&dyeScope=all'),
+    };
+
+    expect(resolveInitialSchemeSearch('?hue=12', storage)).toBe('?hue=12');
+  });
+
+  it('falls back to persisted scheme params and preserves unrelated URL params', () => {
+    const storage = {
+      getItem: vi.fn(() => '?hue=45&dyeScope=all'),
+    };
+
+    expect(resolveInitialSchemeSearch('?utm_source=readme', storage))
+      .toBe('?utm_source=readme&hue=45&dyeScope=all');
+  });
+
+  it('hydrates the store from persisted search when the URL has no scheme params', () => {
+    const pinia = createPinia();
+    const storage = {
+      getItem: vi.fn(() => '?hue=45&dyeScope=all'),
+    };
+    const location = {
+      pathname: '/4bit/',
+      search: '',
+      hash: '#preview',
+    };
+    const history = {
+      state: { from: 'test' },
+      replaceState: vi.fn(),
+    };
+
+    const schemeStore = hydrateSchemeStoreFromLocation(pinia, {
+      search: location.search,
+      storage,
+      location,
+      history,
+    });
+
+    expect(schemeStore.scheme.hue).toBe(45);
+    expect(schemeStore.scheme.dyeScope).toBe('all');
+    expect(history.replaceState).toHaveBeenCalledWith(
+      history.state,
+      '',
+      '/4bit/?hue=45&dyeScope=all#preview'
+    );
+  });
+
+  it('persists the current scheme search for future visits', () => {
+    const scheme = createDefaultScheme();
+    scheme.hue = 10;
+    scheme.dyeScope = 'all';
+
+    const storage = {
+      setItem: vi.fn(),
+    };
+
+    new SchemeUrlSync({
+      schemeStore: { scheme },
+      location: {
+        pathname: '/4bit/',
+        search: '',
+        hash: '',
+      },
+      history: {
+        state: null,
+        replaceState: vi.fn(),
+      },
+      storage,
+    }).updateLocation(scheme);
+
+    expect(storage.setItem).toHaveBeenCalledWith(
+      SCHEME_STORAGE_KEY,
+      '?hue=10&dyeScope=all'
+    );
   });
 });
