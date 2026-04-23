@@ -3,6 +3,11 @@ import { createDefaultScheme } from '../services/SchemeState';
 
 export const useSchemeStore = defineStore('scheme', {
   state: () => ({
-    scheme: createDefaultScheme()
-  })
+    scheme: createDefaultScheme(),
+  }),
+  actions: {
+    resetScheme() {
+      this.scheme = createDefaultScheme();
+    },
+  },
 });

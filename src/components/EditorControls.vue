@@ -1,7 +1,10 @@
 <template>
   <section id="controls">
     <section id="global-properties">
-      <h2>Global Properties</h2>
+      <div class="section-heading">
+        <h2>Global Properties</h2>
+        <button type="button" class="defaults-button" @click="resetDefaults">defaults</button>
+      </div>
       <h3>Hue: </h3>
       <HueSlider />
 			<h3>Saturation:</h3>
@@ -21,6 +24,7 @@
 </template>
 
 <script>
+import { useSchemeStore } from '../stores/Scheme';
 import HueSlider from './controls/sliders/HueSlider.vue';
 import SaturationSlider from './controls/sliders/SaturationSlider.vue';
 import ColorLightnessSlider from './controls/sliders/ColorLightnessSlider.vue';
@@ -37,6 +41,16 @@ export default {
 		BlackLightnessSlider,
 		WhiteLightnessSlider,
     AdvancedControls
+  },
+  setup() {
+    const schemeStore = useSchemeStore();
+
+    return { schemeStore };
+  },
+  methods: {
+    resetDefaults() {
+      this.schemeStore.resetScheme();
+    },
   },
 };
 </script>
@@ -56,6 +70,54 @@ export default {
   h3 {
     font-size: 18px;
     margin: 10px 0 5px;
+  }
+
+  .section-heading {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .defaults-button {
+    background: rgb(254 254 254);
+    background: linear-gradient(
+      to bottom,
+      rgb(254 254 254 / 100%) 0%,
+      rgb(223 223 223 / 100%) 100%
+    );
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-top: 15px;
+    padding: 3px 8px 2px;
+    white-space: nowrap;
+  }
+
+  .defaults-button:hover {
+    background: rgb(247 247 247);
+    background: linear-gradient(
+      to bottom,
+      rgb(247 247 247 / 100%) 0%,
+      rgb(224 224 224 / 100%) 76%,
+      rgb(218 218 218 / 100%) 88%,
+      rgb(209 209 209 / 100%) 100%
+    );
+    border: 1px solid #bbb;
+  }
+
+  .defaults-button:active {
+    background: rgb(225 225 225);
+    background: linear-gradient(
+      to bottom,
+      rgb(225 225 225 / 100%) 0%,
+      rgb(218 218 218 / 100%) 100%
+    );
+    border: 1px solid #bbb;
   }
 }
 </style>

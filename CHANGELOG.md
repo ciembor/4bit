@@ -23,6 +23,7 @@ Early history is grouped by day to keep the file readable while still covering t
 - Upgraded the project runtime target to Node 24 and refreshed the dependency stack, including jQuery 4 and Color 5.
 - Added an Advanced `Hue Set` tab for choosing Monochrome, Duotone, Tricolor, or Hexachrome chromatic presets with adjustable hue, saturation, and lightness ranges, including neutral defaults that preserve the legacy standard palette.
 - Added query-string persistence for the full scheme state so generated palettes can be shared as links, with backward-compatible hue-set aliases for older URLs and automatic restoration of the last used scheme when returning without query parameters.
+- Added a `defaults` button next to `Global Properties` that resets the full scheme back to the built-in defaults.
 - Updated the X share button to use the current scheme URL and prefill share text while keeping the original widget styling.
 - Updated developer setup notes in the README.
 - Updated author links in the README and footer.
