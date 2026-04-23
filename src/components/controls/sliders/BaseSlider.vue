@@ -1,5 +1,5 @@
 <template>
-  <div class="base-slider">
+  <div :class="['base-slider', { 'base-slider--disabled': disabled }]">
     <div ref="slider"></div>
   </div>
 </template>
@@ -39,6 +39,10 @@ export default {
       type: Number,
       default: 1,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['update'],
   mounted() {
@@ -65,6 +69,11 @@ export default {
         this.slider.slider('values', newValues);
       }
     },
+    disabled(newValue) {
+      if (this.slider) {
+        this.slider.slider('option', 'disabled', newValue);
+      }
+    },
   },
   methods: {
     sliderOptions() {
@@ -72,6 +81,7 @@ export default {
         min: this.min,
         max: this.max,
         step: this.step,
+        disabled: this.disabled,
         ...(this.range
           ? {
               range: true,
@@ -105,5 +115,13 @@ export default {
 .base-slider :deep(.ui-slider-handle) {
   outline: 0 !important;
   cursor: pointer !important;
+}
+
+.base-slider :deep(.ui-slider.ui-state-disabled) {
+  opacity: 0.45;
+}
+
+.base-slider :deep(.ui-state-disabled .ui-slider-handle) {
+  cursor: default !important;
 }
 </style>

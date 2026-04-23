@@ -10,6 +10,12 @@ const LEGACY_SPECIAL_COLOR_NAME_MAP = {
   bright_white: 'brightWhite',
 };
 
+const CHROMATIC_VARIATION_WEIGHTS = [0, 1, 0.5, -0.5, -1, -0.25];
+
+function clampPercentage(value) {
+  return Math.min(100, Math.max(0, value));
+}
+
 function normalizeHue(hue) {
   return ((hue % 360) + 360) % 360;
 }
@@ -80,6 +86,14 @@ function resolveSpecialColor(mode, customColor, calculatedColors, fallbackColorN
   );
 }
 
+function rangeAdjustedPercentage(baseValue, rangeValue, index) {
+  const numericRange = Number(rangeValue);
+  const range = Number.isFinite(numericRange) ? numericRange : 0;
+  const weight = CHROMATIC_VARIATION_WEIGHTS[index] || 0;
+
+  return clampPercentage(baseValue + (range * weight));
+}
+
 class SchemeCalculator {
   constructor() {
     this.schemeStore = useSchemeStore();
@@ -110,8 +124,10 @@ export function calculateSchemeColors(scheme) {
   const {
     hue,
     saturation,
+    saturationRange = 0,
     normalChromaticLightness,
     brightChromaticLightness,
+    lightnessRange = 0,
     degrees,
     normalBlackLightness,
     brightBlackLightness,
@@ -125,11 +141,19 @@ export function calculateSchemeColors(scheme) {
     customForegroundColor
   } = scheme;
 
-  const normalArray = degrees.map(degree =>
-    Color({ h: normalizeHue(hue + degree), s: saturation, l: normalChromaticLightness })
+  const normalArray = degrees.map((degree, index) =>
+    Color({
+      h: normalizeHue(hue + degree),
+      s: rangeAdjustedPercentage(saturation, saturationRange, index),
+      l: rangeAdjustedPercentage(normalChromaticLightness, lightnessRange, index)
+    })
   );
-  const brightArray = degrees.map(degree =>
-    Color({ h: normalizeHue(hue + degree), s: saturation, l: brightChromaticLightness })
+  const brightArray = degrees.map((degree, index) =>
+    Color({
+      h: normalizeHue(hue + degree),
+      s: rangeAdjustedPercentage(saturation, saturationRange, index),
+      l: rangeAdjustedPercentage(brightChromaticLightness, lightnessRange, index)
+    })
   );
 
   const calculatedColors = {

@@ -21,6 +21,7 @@ Early history is grouped by day to keep the file readable while still covering t
 - Added unit tests for palette calculation and export generation.
 - Added a GitHub Actions workflow that runs tests and deploys GitHub Pages from `master`.
 - Upgraded the project runtime target to Node 24 and refreshed the dependency stack, including jQuery 4 and Color 5.
+- Added an Advanced `Hue Set` tab for choosing Uno, Duo, Trio, or Standard chromatic hue presets with adjustable hue, saturation, and lightness ranges, including neutral defaults that preserve the legacy standard palette.
 - Updated developer setup notes in the README.
 - Updated author links in the README and footer.
 

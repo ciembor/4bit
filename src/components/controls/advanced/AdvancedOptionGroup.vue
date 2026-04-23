@@ -54,7 +54,8 @@ export default {
     },
     groupClasses() {
       return {
-        'radio-group--dye': this.id === 'dye-radio',
+        'radio-group--four-options': ['dye-radio', 'hue-set-radio'].includes(this.id),
+        'radio-group--hue-set': this.id === 'hue-set-radio',
       };
     },
     labelClasses(index, value) {
@@ -129,12 +130,16 @@ export default {
   cursor: pointer;
 }
 
-.radio-group--dye label {
+.radio-group--four-options label {
   height: 23px !important;
   margin-bottom: -1px;
 
   .ui-button-text {
     margin: 3px 0 0;
   }
+}
+
+.radio-group--hue-set {
+  margin: 0 0 0 18px !important;
 }
 </style>

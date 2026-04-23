@@ -7,8 +7,10 @@ function createScheme(overrides = {}) {
     hue: -15,
     degrees: [0, 60, 120, 180, 240, 300],
     saturation: 50,
+    saturationRange: 0,
     normalChromaticLightness: 50,
     brightChromaticLightness: 75,
+    lightnessRange: 0,
     normalBlackLightness: 0,
     brightBlackLightness: 12.5,
     normalWhiteLightness: 87.5,
@@ -54,6 +56,111 @@ describe('calculateSchemeColors', () => {
     expect(colorHex(negativeHueColors.brightBlue)).toBe(colorHex(Color({ h: 225, s: 50, l: 75 })));
     expect(colorHex(negativeHueColors.background)).toBe(colorHex(negativeHueColors.black));
     expect(colorHex(negativeHueColors.foreground)).toBe(colorHex(negativeHueColors.white));
+  });
+
+  it('uses custom hue-set degree offsets for chromatic color slots', () => {
+    const colors = calculateSchemeColors(createScheme({
+      hue: 100,
+      degrees: [0, 10, 20, 30, 40, 50],
+    }));
+
+    expect(colorHex(colors.red)).toBe(colorHex(Color({ h: 100, s: 50, l: 50 })));
+    expect(colorHex(colors.yellow)).toBe(colorHex(Color({ h: 110, s: 50, l: 50 })));
+    expect(colorHex(colors.green)).toBe(colorHex(Color({ h: 120, s: 50, l: 50 })));
+    expect(colorHex(colors.cyan)).toBe(colorHex(Color({ h: 130, s: 50, l: 50 })));
+    expect(colorHex(colors.blue)).toBe(colorHex(Color({ h: 140, s: 50, l: 50 })));
+    expect(colorHex(colors.magenta)).toBe(colorHex(Color({ h: 150, s: 50, l: 50 })));
+  });
+
+  it('keeps uno hue-distance variants inside one hue family', () => {
+    const colors = calculateSchemeColors(createScheme({
+      hue: 0,
+      degrees: [0, 20, 10, 350, 340, 355],
+    }));
+
+    expect(colorHex(colors.red)).toBe(colorHex(Color({ h: 0, s: 50, l: 50 })));
+    expect(colorHex(colors.yellow)).toBe(colorHex(Color({ h: 20, s: 50, l: 50 })));
+    expect(colorHex(colors.green)).toBe(colorHex(Color({ h: 10, s: 50, l: 50 })));
+    expect(colorHex(colors.cyan)).toBe(colorHex(Color({ h: 350, s: 50, l: 50 })));
+    expect(colorHex(colors.blue)).toBe(colorHex(Color({ h: 340, s: 50, l: 50 })));
+    expect(colorHex(colors.magenta)).toBe(colorHex(Color({ h: 355, s: 50, l: 50 })));
+    expect(colorHex(colors.yellow)).not.toBe(colorHex(colors.red));
+    expect(colorHex(colors.blue)).not.toBe(colorHex(colors.red));
+  });
+
+  it('keeps duo hue-distance variants inside red and green hue families', () => {
+    const colors = calculateSchemeColors(createScheme({
+      hue: 0,
+      degrees: [0, 20, 120, 140, 100, 340],
+    }));
+
+    expect(colorHex(colors.red)).toBe(colorHex(Color({ h: 0, s: 50, l: 50 })));
+    expect(colorHex(colors.yellow)).toBe(colorHex(Color({ h: 20, s: 50, l: 50 })));
+    expect(colorHex(colors.green)).toBe(colorHex(Color({ h: 120, s: 50, l: 50 })));
+    expect(colorHex(colors.cyan)).toBe(colorHex(Color({ h: 140, s: 50, l: 50 })));
+    expect(colorHex(colors.blue)).toBe(colorHex(Color({ h: 100, s: 50, l: 50 })));
+    expect(colorHex(colors.magenta)).toBe(colorHex(Color({ h: 340, s: 50, l: 50 })));
+    expect(colorHex(colors.red)).not.toBe(colorHex(colors.green));
+    expect(colorHex(colors.yellow)).not.toBe(colorHex(colors.red));
+    expect(colorHex(colors.cyan)).not.toBe(colorHex(colors.green));
+  });
+
+  it('keeps the classic standard palette when all advanced distances are neutral', () => {
+    const legacyColors = calculateSchemeColors(createScheme({
+      hue: 0,
+      degrees: [0, 60, 120, 180, 240, 300],
+      saturationRange: 0,
+      lightnessRange: 0,
+    }));
+
+    expect(colorHex(legacyColors.red)).toBe(colorHex(Color({ h: 0, s: 50, l: 50 })));
+    expect(colorHex(legacyColors.yellow)).toBe(colorHex(Color({ h: 60, s: 50, l: 50 })));
+    expect(colorHex(legacyColors.green)).toBe(colorHex(Color({ h: 120, s: 50, l: 50 })));
+    expect(colorHex(legacyColors.cyan)).toBe(colorHex(Color({ h: 180, s: 50, l: 50 })));
+    expect(colorHex(legacyColors.blue)).toBe(colorHex(Color({ h: 240, s: 50, l: 50 })));
+    expect(colorHex(legacyColors.magenta)).toBe(colorHex(Color({ h: 300, s: 50, l: 50 })));
+  });
+
+  it('supports offsetting the standard hue-set while keeping six distinct slots', () => {
+    const colors = calculateSchemeColors(createScheme({
+      hue: 0,
+      degrees: [0, 80, 130, 170, 220, 295],
+    }));
+
+    expect(colorHex(colors.red)).toBe(colorHex(Color({ h: 0, s: 50, l: 50 })));
+    expect(colorHex(colors.yellow)).toBe(colorHex(Color({ h: 80, s: 50, l: 50 })));
+    expect(colorHex(colors.green)).toBe(colorHex(Color({ h: 130, s: 50, l: 50 })));
+    expect(colorHex(colors.cyan)).toBe(colorHex(Color({ h: 170, s: 50, l: 50 })));
+    expect(colorHex(colors.blue)).toBe(colorHex(Color({ h: 220, s: 50, l: 50 })));
+    expect(colorHex(colors.magenta)).toBe(colorHex(Color({ h: 295, s: 50, l: 50 })));
+    expect(new Set([
+      colorHex(colors.red),
+      colorHex(colors.yellow),
+      colorHex(colors.green),
+      colorHex(colors.cyan),
+      colorHex(colors.blue),
+      colorHex(colors.magenta),
+    ]).size).toBe(6);
+  });
+
+  it('applies saturation and lightness ranges across chromatic slots', () => {
+    const colors = calculateSchemeColors(createScheme({
+      hue: 0,
+      saturation: 50,
+      saturationRange: 20,
+      normalChromaticLightness: 50,
+      brightChromaticLightness: 75,
+      lightnessRange: 10,
+    }));
+
+    expect(colorHex(colors.red)).toBe(colorHex(Color({ h: 0, s: 50, l: 50 })));
+    expect(colorHex(colors.yellow)).toBe(colorHex(Color({ h: 60, s: 70, l: 60 })));
+    expect(colorHex(colors.green)).toBe(colorHex(Color({ h: 120, s: 60, l: 55 })));
+    expect(colorHex(colors.cyan)).toBe(colorHex(Color({ h: 180, s: 40, l: 45 })));
+    expect(colorHex(colors.blue)).toBe(colorHex(Color({ h: 240, s: 30, l: 40 })));
+    expect(colorHex(colors.magenta)).toBe(colorHex(Color({ h: 300, s: 45, l: 47.5 })));
+    expect(colorHex(colors.brightYellow)).toBe(colorHex(Color({ h: 60, s: 70, l: 85 })));
+    expect(colorHex(colors.brightBlue)).toBe(colorHex(Color({ h: 240, s: 30, l: 65 })));
   });
 
   it('tints only chromatic colors for the legacy color dye scope', () => {
