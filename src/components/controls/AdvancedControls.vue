@@ -136,6 +136,7 @@ import {
   HUE_DISTANCE_MIN,
   inferHueSetFromDegrees,
   isHueSetValue,
+  normalizeHueForHueSet,
   normalizeHueSetValue,
 } from '../../services/HueSetPresets';
 
@@ -349,6 +350,10 @@ export default {
       }
 
       this.schemeStore.scheme.hueSet = mode;
+      this.schemeStore.scheme.hue = normalizeHueForHueSet(
+        this.schemeStore.scheme.hue,
+        mode
+      );
       this.schemeStore.scheme.degrees = degrees;
     },
     updateHueDistance(distance) {

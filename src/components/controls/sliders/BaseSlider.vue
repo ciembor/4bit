@@ -59,6 +59,15 @@ export default {
     range() {
       this.reinitializeSlider();
     },
+    min() {
+      this.reinitializeSlider();
+    },
+    max() {
+      this.reinitializeSlider();
+    },
+    step() {
+      this.reinitializeSlider();
+    },
     value(newValue) {
       if (!this.range && this.slider) {
         this.slider.slider('value', newValue);

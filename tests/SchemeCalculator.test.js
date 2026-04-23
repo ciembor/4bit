@@ -88,17 +88,17 @@ describe('calculateSchemeColors', () => {
     expect(colorHex(colors.blue)).not.toBe(colorHex(colors.red));
   });
 
-  it('keeps duotone hue-distance variants inside red and green hue families', () => {
+  it('keeps duotone hue-distance variants inside complementary hue families', () => {
     const colors = calculateSchemeColors(createScheme({
       hue: 0,
-      degrees: [0, 20, 120, 140, 100, 340],
+      degrees: [0, 20, 180, 200, 160, 340],
     }));
 
     expect(colorHex(colors.red)).toBe(colorHex(Color({ h: 0, s: 50, l: 50 })));
     expect(colorHex(colors.yellow)).toBe(colorHex(Color({ h: 20, s: 50, l: 50 })));
-    expect(colorHex(colors.green)).toBe(colorHex(Color({ h: 120, s: 50, l: 50 })));
-    expect(colorHex(colors.cyan)).toBe(colorHex(Color({ h: 140, s: 50, l: 50 })));
-    expect(colorHex(colors.blue)).toBe(colorHex(Color({ h: 100, s: 50, l: 50 })));
+    expect(colorHex(colors.green)).toBe(colorHex(Color({ h: 180, s: 50, l: 50 })));
+    expect(colorHex(colors.cyan)).toBe(colorHex(Color({ h: 200, s: 50, l: 50 })));
+    expect(colorHex(colors.blue)).toBe(colorHex(Color({ h: 160, s: 50, l: 50 })));
     expect(colorHex(colors.magenta)).toBe(colorHex(Color({ h: 340, s: 50, l: 50 })));
     expect(colorHex(colors.red)).not.toBe(colorHex(colors.green));
     expect(colorHex(colors.yellow)).not.toBe(colorHex(colors.red));

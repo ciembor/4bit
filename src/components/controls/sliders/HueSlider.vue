@@ -11,6 +11,10 @@
 <script>
 import BaseSlider from "./BaseSlider.vue";
 import { useSchemeStore } from "../../../stores/Scheme";
+import {
+  hueCycleForHueSet,
+  normalizeHueForHueSet,
+} from "../../../services/HueSetPresets";
 
 export default {
   name: "HueSlider",
@@ -22,14 +26,25 @@ export default {
     return { schemeStore };
   },
   computed: {
+    cycle() {
+      return hueCycleForHueSet(this.schemeStore.scheme.hueSet);
+    },
     sliderValue() {
-      return this.schemeStore.scheme.hue + 30;
+      const rawHue = Number(this.schemeStore.scheme.hue);
+      const min = this.min;
+      const max = this.max;
+
+      if (Number.isFinite(rawHue) && rawHue >= min && rawHue <= max) {
+        return rawHue;
+      }
+
+      return normalizeHueForHueSet(rawHue, this.schemeStore.scheme.hueSet);
     },
     min() {
-      return 0;
+      return -(this.cycle / 2);
     },
     max() {
-      return 60;
+      return this.cycle / 2;
     },
     step() {
       return 1;
@@ -37,8 +52,7 @@ export default {
   },
   methods: {
     updateHue(sliderValue) {
-      const newHue = sliderValue - 30;
-      this.schemeStore.scheme.hue = newHue;
+      this.schemeStore.scheme.hue = sliderValue;
     },
   },
 };
