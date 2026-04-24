@@ -73,9 +73,21 @@
     <div id="hue-set" :class="panelClasses('hue-set')" role="tabpanel">
       <div class="hue-set-layout">
         <div class="hue-set-sliders">
-          <div class="hue-set-sliders__title">Distance:</div>
+          <div class="hue-set-sliders__title">Deviation:</div>
           <div class="hue-set-slider">
-            <label class="hue-set-slider__label">Sat</label>
+            <label class="hue-set-slider__label">H</label>
+            <div class="hue-set-slider__control">
+              <BaseSlider
+                :value="hueDistance"
+                :min="hueDistanceMin"
+                :max="hueDistanceMax"
+                :step="1"
+                @update="updateHueDistance"
+              />
+            </div>
+          </div>
+          <div class="hue-set-slider">
+            <label class="hue-set-slider__label">S</label>
             <div class="hue-set-slider__control">
               <BaseSlider
                 :value="saturationRange"
@@ -87,7 +99,7 @@
             </div>
           </div>
           <div class="hue-set-slider">
-            <label class="hue-set-slider__label">Col</label>
+            <label class="hue-set-slider__label">L</label>
             <div class="hue-set-slider__control">
               <BaseSlider
                 :value="lightnessRange"
@@ -95,18 +107,6 @@
                 :max="lightnessRangeMax"
                 :step="1"
                 @update="updateLightnessRange"
-              />
-            </div>
-          </div>
-          <div class="hue-set-slider">
-            <label class="hue-set-slider__label">Hue</label>
-            <div class="hue-set-slider__control">
-              <BaseSlider
-                :value="hueDistance"
-                :min="hueDistanceMin"
-                :max="hueDistanceMax"
-                :step="1"
-                @update="updateHueDistance"
               />
             </div>
           </div>
@@ -226,7 +226,7 @@ export default {
         { id: 'dye', label: 'Dye' },
         { id: 'background', label: 'Bg' },
         { id: 'foreground', label: 'Fg' },
-        { id: 'hue-set', label: 'Hue Set' },
+        { id: 'hue-set', label: 'Color Mode' },
       ],
       dyeOptions: DYE_OPTIONS,
       backgroundOptions: SPECIAL_COLOR_OPTIONS,

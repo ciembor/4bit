@@ -29,6 +29,8 @@ const SCHEME_QUERY_KEYS = Object.freeze([
   'customForegroundColor',
 ]);
 export const SCHEME_STORAGE_KEY = '4bit:scheme-search';
+const LIGHTNESS_STEP = 25 / 64;
+const QUANTIZE_EPSILON = 1e-9;
 
 function browserWindow() {
   return typeof window !== 'undefined' ? window : null;
@@ -66,6 +68,14 @@ function searchParamsFor(search = '') {
   return new URLSearchParams(normalizedSearch ? normalizedSearch.slice(1) : '');
 }
 
+function serializeSearchParams(params) {
+  return Array.from(params.entries())
+    .map(([key, value]) => (
+      `${encodeURIComponent(key)}=${encodeURIComponent(value).replace(/%2C/gi, ',')}`
+    ))
+    .join('&');
+}
+
 function safelyReadPersistedSearch(storage) {
   try {
     return normalizeSearch(storage?.getItem(SCHEME_STORAGE_KEY) || '');
@@ -96,7 +106,7 @@ function mergeSchemeSearch(currentSearch = '', schemeSearch = '') {
     params.set(key, value);
   });
 
-  const mergedSearch = params.toString();
+  const mergedSearch = serializeSearchParams(params);
   return mergedSearch ? `?${mergedSearch}` : '';
 }
 
@@ -172,9 +182,81 @@ function sameValue(first, second) {
   return first === second;
 }
 
+function serializeRoundedNumber(value, maxDecimals) {
+  const roundedValue = Number(value.toFixed(maxDecimals));
+
+  if (Object.is(roundedValue, -0)) {
+    return '0';
+  }
+
+  return String(roundedValue);
+}
+
+function serializeQuantizedNumber(value, { step, maxDecimals }) {
+  const numericValue = Number(value);
+
+  if (!Number.isFinite(numericValue)) {
+    return String(value);
+  }
+
+  const quantizedValue = Math.round(numericValue / step) * step;
+
+  if (Math.abs(numericValue - quantizedValue) <= QUANTIZE_EPSILON) {
+    return serializeRoundedNumber(quantizedValue, maxDecimals);
+  }
+
+  return String(numericValue);
+}
+
+function serializeIntegerLike(value) {
+  return serializeQuantizedNumber(value, { step: 1, maxDecimals: 0 });
+}
+
+function serializePickerNumber(value) {
+  return serializeQuantizedNumber(value, { step: 0.01, maxDecimals: 2 });
+}
+
+function serializeLightnessValue(value) {
+  return serializeQuantizedNumber(value, { step: LIGHTNESS_STEP, maxDecimals: 6 });
+}
+
+function serializeSchemeQueryValue(key, value) {
+  switch (key) {
+    case 'hue':
+    case 'hueDistance':
+    case 'degrees':
+    case 'saturation':
+    case 'saturationRange':
+    case 'lightnessRange':
+      return Array.isArray(value)
+        ? value.map(serializeIntegerLike).join(',')
+        : serializeIntegerLike(value);
+    case 'chromaticLightness':
+    case 'blackLightness':
+    case 'whiteLightness':
+      return value.map(serializeLightnessValue).join(',');
+    case 'dyeColor':
+      return [
+        serializeIntegerLike(value[0]),
+        serializePickerNumber(value[1]),
+        serializePickerNumber(value[2]),
+        serializePickerNumber(value[3]),
+      ].join(',');
+    case 'customBackgroundColor':
+    case 'customForegroundColor':
+      return [
+        serializeIntegerLike(value[0]),
+        serializePickerNumber(value[1]),
+        serializePickerNumber(value[2]),
+      ].join(',');
+    default:
+      return Array.isArray(value) ? value.join(',') : String(value);
+  }
+}
+
 function setParamIfChanged(params, key, value, defaultValue) {
   if (!sameValue(value, defaultValue)) {
-    params.set(key, Array.isArray(value) ? value.join(',') : String(value));
+    params.set(key, serializeSchemeQueryValue(key, value));
   }
 }
 
@@ -397,7 +479,7 @@ export function buildSchemeQueryParams(scheme) {
 }
 
 export function buildSchemeSearch(scheme) {
-  const params = buildSchemeQueryParams(scheme).toString();
+  const params = serializeSearchParams(buildSchemeQueryParams(scheme));
   return params ? `?${params}` : '';
 }
 
@@ -460,7 +542,7 @@ export class SchemeUrlSync {
       currentParams.set(key, value);
     });
 
-    const nextSearch = currentParams.toString();
+    const nextSearch = serializeSearchParams(currentParams);
     const nextUrl = `${this.location.pathname}${nextSearch ? `?${nextSearch}` : ''}${this.location.hash}`;
     const currentUrl = `${this.location.pathname}${this.location.search}${this.location.hash}`;
 

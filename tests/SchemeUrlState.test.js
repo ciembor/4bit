@@ -93,6 +93,43 @@ describe('SchemeUrlState', () => {
     expect(readSchemeFromSearch(buildSchemeSearch(scheme))).toEqual(scheme);
   });
 
+  it('serializes quantized numeric values compactly without losing precision', () => {
+    const scheme = createDefaultScheme();
+
+    scheme.normalChromaticLightness = 127 / 2.56;
+    scheme.brightChromaticLightness = 191 / 2.56;
+    scheme.normalBlackLightness = 1 / 2.56;
+    scheme.brightBlackLightness = 32 / 2.56;
+    scheme.dyeColor = {
+      hue: 180,
+      saturation: 50.1,
+      lightness: 50.25,
+      alpha: 0.25,
+    };
+
+    const params = new URLSearchParams(buildSchemeSearch(scheme).slice(1));
+
+    expect(params.get('chromaticLightness')).toBe('49.609375,74.609375');
+    expect(params.get('blackLightness')).toBe('0.390625,12.5');
+    expect(params.get('dyeColor')).toBe('180,50.1,50.25,0.25');
+    expect(readSchemeFromSearch(`?${params.toString()}`)).toEqual(scheme);
+  });
+
+  it('keeps comma-separated numeric lists readable in the generated URL', () => {
+    const scheme = createDefaultScheme();
+
+    scheme.normalChromaticLightness = 120 / 2.56;
+    scheme.brightChromaticLightness = 192 / 2.56;
+    scheme.normalBlackLightness = 1 / 2.56;
+    scheme.brightBlackLightness = 32 / 2.56;
+
+    const search = buildSchemeSearch(scheme);
+
+    expect(search).toContain('chromaticLightness=46.875,75');
+    expect(search).toContain('blackLightness=0.390625,12.5');
+    expect(search).not.toContain('%2C');
+  });
+
   it('preserves unrelated query params while updating scheme params', () => {
     const scheme = createDefaultScheme();
     scheme.hue = 10;
