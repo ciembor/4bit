@@ -86,8 +86,8 @@ export default {
 
   .inner {
     position: absolute;
-    top: 7px;
-    left: 14px;
+    top: 8px;
+    left: 16px;
   }
 }
 
@@ -97,7 +97,7 @@ export default {
   justify-content: center;
   width: 44px;
   height: 18px;
-  border: 1px solid #999;
+  border: 0;
   border-radius: 999px;
   color: #fff;
   font-family: Arial, Verdana, sans-serif;
@@ -107,17 +107,35 @@ export default {
   line-height: 1;
   text-decoration: none;
   text-transform: none;
+  transition: background-color 120ms ease;
+}
+
+.share-button:focus-visible {
+  outline: 1px dotted #111;
+  outline-offset: 2px;
 }
 
 .share-button--x {
   background: #111;
 }
 
+.share-button--x:hover {
+  background: #2b2b2b;
+}
+
 .share-button--linkedin {
   background: #0a66c2;
 }
 
+.share-button--linkedin:hover {
+  background: #0d76de;
+}
+
 .share-button--facebook {
   background: #1877f2;
+}
+
+.share-button--facebook:hover {
+  background: #2d86f3;
 }
 </style>
