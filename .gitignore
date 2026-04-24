@@ -1,5 +1,7 @@
 *.swp
 node_modules
+dist
+coverage
 js/compiled.js
 css/_compiled_main.css
 css/merged.css

@@ -1,16 +1,16 @@
-import './assets/styles/jquery-ui.custom.css'
-import './assets/styles/jquery.ui.colorPicker.css'
-import './assets/styles/reset.less';
-import './assets/styles/fonts.less';
-import './assets/styles/base.less';
+import './presentation/assets/styles/jquery-ui.custom.css'
+import './presentation/assets/styles/jquery.ui.colorPicker.css'
+import './presentation/assets/styles/reset.less';
+import './presentation/assets/styles/fonts.less';
+import './presentation/assets/styles/base.less';
 
 import jQuery from 'jquery'
 window.jQuery = window.$ = jQuery
 
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
-import App from './App.vue';
-import { hydrateSchemeStoreFromLocation } from './services/SchemeUrlState';
+import App from './presentation/App.vue';
+import { hydrateSchemeStoreFromLocation } from './infrastructure/browser/scheme-url-sync';
 
 async function startApp() {
   await import('jquery-ui/ui/version');
@@ -22,7 +22,7 @@ async function startApp() {
   await import('jquery-ui/ui/widgets/mouse');
   await import('jquery-ui/ui/widgets/draggable');
   await import('jquery-ui/ui/widgets/slider');
-  await import('./lib/jquery.ui.colorPicker.js');
+  await import('./infrastructure/vendor/jquery.ui.colorPicker.js');
 
   const pinia = createPinia();
   hydrateSchemeStoreFromLocation(pinia);

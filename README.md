@@ -1,9 +1,10 @@
 [4bit](https://ciembor.github.io/4bit) Terminal Color Scheme Designer
 =========
 
-[![Tests and build](https://img.shields.io/github/actions/workflow/status/ciembor/4bit/pages.yml?branch=master&label=tests%20%26%20build&style=flat-square)](https://github.com/ciembor/4bit/actions/workflows/pages.yml)
 [![Live site](https://img.shields.io/badge/live%20site-ciembor.github.io%2F4bit-2ea44f?style=flat-square)](https://ciembor.github.io/4bit/)
 [![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square)](LICENSE.md)
+[![Tests and build](https://img.shields.io/github/actions/workflow/status/ciembor/4bit/pages.yml?branch=master&label=tests%20%26%20build&style=flat-square)](https://github.com/ciembor/4bit/actions/workflows/pages.yml)
+[![Coverage](https://img.shields.io/badge/coverage-95.27%25-brightgreen?style=flat-square)](#coverage)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ciembor/4bit/pulls)
 
 [![4bit Terminal Color Scheme Designer](4bit-terminal-color-scheme-designer.webp)](https://ciembor.github.io/4bit)
@@ -63,16 +64,26 @@ Useful commands:
 3. Build production assets with `npm run build`
 4. Preview the production build with `npm run preview`
 5. Run the test suite with `npm test`
-6. Run lint fixes with `npm run lint`
+6. Measure unit-test coverage with `npm run test:coverage`
+7. Refresh the README coverage badge with `npm run coverage:badge`
+8. Run lint fixes with `npm run lint`
 
 Project structure:
 
-* `src/components` - UI components
-* `src/stores` - Pinia stores for editable scheme state and calculated colors
-* `src/services` - color calculation and export logic
-* `src/lib/jquery.ui.colorPicker.js` - wrapped legacy color picker plugin
-* `src/assets/styles` - global base styles and imported third-party CSS
+* `src/domain` - pure scheme rules, defaults, color naming, and color-mode logic
+* `src/application` - synchronization/use-case layer that applies domain logic to app state
+* `src/infrastructure` - URL/query codecs, export serializers, browser sync, and wrapped legacy vendor code
+* `src/presentation` - Vue components, Pinia stores, fonts, and styles
 * `public` - static assets copied to the final build, including images and SEO files
+
+Coverage
+---------
+
+`npm run test:coverage` writes HTML, LCOV, and JSON summary reports to `coverage/`.
+
+The coverage badge above is generated from the line coverage in `coverage/coverage-summary.json` by `npm run coverage:badge`.
+
+Coverage is measured for `src/**/*.js`, excluding `src/main.js` and the vendored jQuery color picker wrapper in `src/infrastructure/vendor`.
 
 Author
 ---------

@@ -17,5 +17,18 @@ export default defineConfig(({ command }) => ({
   },
   optimizeDeps: {
     include: ['jquery', 'jquery-ui'],
-  }
+  },
+  test: {
+    coverage: {
+      provider: 'v8',
+      all: true,
+      reportsDirectory: './coverage',
+      reporter: ['text-summary', 'json-summary', 'html', 'lcov'],
+      include: ['src/**/*.js'],
+      exclude: [
+        'src/main.js',
+        'src/infrastructure/vendor/**',
+      ],
+    },
+  },
 }));
