@@ -76,6 +76,22 @@ Project structure:
 * `src/presentation` - Vue components, Pinia stores, fonts, and styles
 * `public` - static assets copied to the final build, including images and SEO files
 
+Adding a new terminal export
+---------
+
+To add support for a new terminal:
+
+1. Add a serializer in `src/infrastructure/serialization/scheme-exports/`, following the existing `serialize...` functions there.
+2. Reuse helpers from `src/infrastructure/serialization/scheme-exports/shared.js` when the target format maps the standard 16-color palette, foreground, or background.
+3. Register the new serializer in `src/infrastructure/serialization/scheme-exporters.js`:
+   add it to `EXPORT_BUILDERS`, then add a matching entry to `SCHEME_DOWNLOADS` with `id`, `buttonId`, `text`, `linkLabel`, `downloadName`, and `mimeType`.
+4. Update the user-facing list in the `For users` section above with short installation instructions for the new terminal.
+5. Extend `tests/infrastructure/serialization/scheme-exporters.test.js`:
+   keep the generic “all formats build a blob” coverage, and add at least one format-specific assertion that checks the actual output structure or color mapping.
+6. Verify locally with `npm test`, `npm run build`, and, if you touched test scope or reporting, `npm run test:coverage`.
+
+The download dialog reads `SCHEME_DOWNLOADS` directly, so after registration the new export should appear automatically unless you want extra UI changes.
+
 Coverage
 ---------
 
