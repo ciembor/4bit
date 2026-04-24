@@ -399,13 +399,17 @@ export function buildSchemeQueryParams(scheme) {
   const params = new URLSearchParams();
   const defaults = createDefaultScheme();
   const hueSet = resolvedHueSet(scheme);
+  const presetDegrees = hueSet ? degreesForHueSet(hueSet, scheme.hueDistance) : null;
+  const hasRedundantDegrees = presetDegrees && sameValue(scheme.degrees, presetDegrees);
 
   setParamIfChanged(params, 'hue', scheme.hue, defaults.hue);
   if (hueSet && hueSet !== defaults.hueSet) {
     params.set('hueSet', hueSet);
   }
   setParamIfChanged(params, 'hueDistance', scheme.hueDistance, defaults.hueDistance);
-  setParamIfChanged(params, 'degrees', scheme.degrees, defaults.degrees);
+  if (!hasRedundantDegrees) {
+    setParamIfChanged(params, 'degrees', scheme.degrees, defaults.degrees);
+  }
   setParamIfChanged(params, 'saturation', scheme.saturation, defaults.saturation);
   setParamIfChanged(params, 'saturationRange', scheme.saturationRange, defaults.saturationRange);
   setParamIfChanged(

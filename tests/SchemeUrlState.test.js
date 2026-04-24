@@ -54,6 +54,17 @@ describe('SchemeUrlState', () => {
     expect(buildSchemeSearch(createDefaultScheme())).toBe('');
   });
 
+  it('omits degrees when they are implied by hue-set and hue-distance', () => {
+    const scheme = createDefaultScheme();
+
+    scheme.hue = 12;
+    scheme.hueSet = 'duotone';
+    scheme.hueDistance = 18;
+    scheme.degrees = degreesForHueSet('duotone', 18);
+
+    expect(buildSchemeSearch(scheme)).toBe('?hue=12&hueSet=duotone&hueDistance=18');
+  });
+
   it('roundtrips a custom scheme through the query string', () => {
     const scheme = createDefaultScheme();
 

@@ -18,7 +18,7 @@ describe('SocialShare', () => {
       origin: 'https://ciembor.github.io',
       pathname: '/4bit/',
     })).toBe(
-      'https://ciembor.github.io/4bit/?hue=12&hueSet=duotone&hueDistance=18&degrees=0,18,180,198,162,342'
+      'https://ciembor.github.io/4bit/?hue=12&hueSet=duotone&hueDistance=18'
     );
   });
 
