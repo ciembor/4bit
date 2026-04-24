@@ -28,6 +28,7 @@ describe('ColorMode', () => {
     expect(normalizeHueForColorMode(210, 'duotone')).toBe(30);
     expect(normalizeHueForColorMode(100, 'tricolor')).toBe(-20);
     expect(normalizeHueForColorMode(75, 'hexachrome')).toBe(15);
+    expect(normalizeHueForColorMode('oops', 'duotone')).toBe(0);
   });
 
   it('accepts aliases and validates known color modes', () => {

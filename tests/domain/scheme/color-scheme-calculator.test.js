@@ -201,6 +201,25 @@ describe('calculateSchemeColors', () => {
     expect(colorHex(result.foreground)).toBe(colorHex(overlayColor));
   });
 
+  it('tints only achromatic colors when the dye scope is achromatic', () => {
+    const result = calculateSchemeColors(createScheme({
+      dyeScope: 'achromatic',
+      dyeColor: {
+        hue: 180,
+        saturation: 100,
+        lightness: 50,
+        alpha: 1,
+      },
+    }));
+
+    const overlayColor = Color({ h: 180, s: 100, l: 50 });
+
+    expect(colorHex(result.black)).toBe(colorHex(overlayColor));
+    expect(colorHex(result.white)).toBe(colorHex(overlayColor));
+    expect(colorHex(result.red)).toBe(colorHex(Color({ h: 345, s: 50, l: 50 })));
+    expect(colorHex(result.cyan)).toBe(colorHex(Color({ h: 165, s: 50, l: 50 })));
+  });
+
   it('resolves legacy special color names and custom special colors', () => {
     const customForegroundColor = {
       hue: 210,
@@ -219,5 +238,32 @@ describe('calculateSchemeColors', () => {
       s: customForegroundColor.saturation,
       l: customForegroundColor.lightness,
     })));
+  });
+
+  it('falls back to black and white when custom or unknown special colors cannot be resolved', () => {
+    const result = calculateSchemeColors(createScheme({
+      dyeColor: null,
+      background: 'custom',
+      customBackgroundColor: null,
+      foreground: 'unknown',
+      customForegroundColor: null,
+    }));
+
+    expect(colorHex(result.background)).toBe(colorHex(result.black));
+    expect(colorHex(result.foreground)).toBe(colorHex(result.white));
+  });
+
+  it('treats invalid saturation and lightness ranges as zero adjustments', () => {
+    const baseline = calculateSchemeColors(createScheme({
+      saturationRange: 0,
+      lightnessRange: 0,
+    }));
+    const invalidRanges = calculateSchemeColors(createScheme({
+      saturationRange: 'oops',
+      lightnessRange: Number.POSITIVE_INFINITY,
+    }));
+
+    expect(colorHex(invalidRanges.yellow)).toBe(colorHex(baseline.yellow));
+    expect(colorHex(invalidRanges.brightBlue)).toBe(colorHex(baseline.brightBlue));
   });
 });

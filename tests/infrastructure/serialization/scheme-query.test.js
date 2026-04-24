@@ -121,6 +121,31 @@ describe('scheme-query', () => {
     expect(readSchemeFromSearch(`?${params.toString()}`)).toEqual(scheme);
   });
 
+  it('serializes negative near-zero picker values as 0 instead of -0', () => {
+    const scheme = createDefaultScheme();
+
+    scheme.dyeColor = {
+      hue: 180,
+      saturation: -0.0000000001,
+      lightness: 50,
+      alpha: 0.25,
+    };
+
+    const params = new URLSearchParams(buildSchemeSearch(scheme).slice(1));
+
+    expect(params.get('dyeColor')).toBe('180,0,50,0.25');
+  });
+
+  it('serializes non-finite values verbatim instead of crashing quantization', () => {
+    const scheme = createDefaultScheme();
+
+    scheme.hue = Number.POSITIVE_INFINITY;
+
+    const params = new URLSearchParams(buildSchemeSearch(scheme).slice(1));
+
+    expect(params.get('hue')).toBe('Infinity');
+  });
+
   it('keeps comma-separated numeric lists readable in the generated URL', () => {
     const scheme = createDefaultScheme();
 
@@ -134,6 +159,19 @@ describe('scheme-query', () => {
     expect(search).toContain('chromaticLightness=46.875,75');
     expect(search).toContain('blackLightness=0.390625,12.5');
     expect(search).not.toContain('%2C');
+  });
+
+  it('keeps explicit degrees when the declared color mode no longer matches a preset', () => {
+    const scheme = createDefaultScheme();
+
+    scheme.colorMode = 'duotone';
+    scheme.hueDistance = 18;
+    scheme.degrees = [0, 1, 2, 3, 4, 5];
+
+    const params = new URLSearchParams(buildSchemeSearch(scheme).slice(1));
+
+    expect(params.get('colorMode')).toBeNull();
+    expect(params.get('degrees')).toBe('0,1,2,3,4,5');
   });
 
   it('ignores malformed values and falls back to defaults for those fields', () => {

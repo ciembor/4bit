@@ -43,6 +43,16 @@ describe('scheme-state', () => {
     expect(normalizeSchemeRanges(undefined)).toBeUndefined();
   });
 
+  it('defaults hue distance while normalizing ranges when it is missing', () => {
+    const scheme = createDefaultScheme();
+
+    scheme.hueDistance = undefined;
+
+    normalizeSchemeRanges(scheme);
+
+    expect(scheme.hueDistance).toBe(DEFAULT_HUE_DISTANCE);
+  });
+
   it('applies preset color mode invariants to the scheme', () => {
     const scheme = createDefaultScheme();
 
@@ -67,6 +77,11 @@ describe('scheme-state', () => {
     expect(scheme.colorMode).toBe(original.colorMode);
     expect(scheme.hue).toBe(original.hue);
     expect(scheme.degrees).toEqual(original.degrees);
+  });
+
+  it('returns false when applying a color mode to a nullish scheme', () => {
+    expect(applyColorModeToScheme(null, 'duotone')).toBe(false);
+    expect(applyColorModeToScheme(undefined, 'duotone')).toBe(false);
   });
 
   it('updates hue distance and recalculates preset degrees', () => {

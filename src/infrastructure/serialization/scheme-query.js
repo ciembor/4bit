@@ -62,32 +62,11 @@ function sameValue(first, second) {
     );
   }
 
-  if (
-    first &&
-    second &&
-    typeof first === 'object' &&
-    typeof second === 'object'
-  ) {
-    const firstKeys = Object.keys(first);
-    const secondKeys = Object.keys(second);
-
-    return (
-      firstKeys.length === secondKeys.length &&
-      firstKeys.every((key) => first[key] === second[key])
-    );
-  }
-
   return first === second;
 }
 
 function serializeRoundedNumber(value, maxDecimals) {
-  const roundedValue = Number(value.toFixed(maxDecimals));
-
-  if (Object.is(roundedValue, -0)) {
-    return '0';
-  }
-
-  return String(roundedValue);
+  return String(Number(value.toFixed(maxDecimals)));
 }
 
 function serializeQuantizedNumber(value, { step, maxDecimals }) {
@@ -148,7 +127,7 @@ function serializeSchemeQueryValue(key, value) {
         serializePickerNumber(value[2]),
       ].join(',');
     default:
-      return Array.isArray(value) ? value.join(',') : String(value);
+      return String(value);
   }
 }
 
@@ -176,11 +155,7 @@ function applyPresetDegreesIfMissing(scheme, hasDegreesParam) {
     return;
   }
 
-  const presetDegrees = degreesForColorMode(scheme.colorMode, scheme.hueDistance);
-
-  if (presetDegrees) {
-    scheme.degrees = presetDegrees;
-  }
+  scheme.degrees = degreesForColorMode(scheme.colorMode, scheme.hueDistance);
 }
 
 function normalizeColorMode(scheme) {

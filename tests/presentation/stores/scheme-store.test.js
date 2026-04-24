@@ -57,4 +57,53 @@ describe('Scheme store', () => {
     expect(schemeStore.scheme.saturationRange).toBe(50);
     expect(schemeStore.scheme.lightnessRange).toBe(30);
   });
+
+  it('updates the remaining scheme fields through dedicated actions', () => {
+    const schemeStore = useSchemeStore();
+    const dyeColor = {
+      hue: 210,
+      saturation: 65,
+      lightness: 55,
+      alpha: 0.4,
+    };
+    const backgroundColor = {
+      hue: 20,
+      saturation: 15,
+      lightness: 12,
+    };
+    const foregroundColor = {
+      hue: 240,
+      saturation: 25,
+      lightness: 85,
+    };
+
+    schemeStore.setSaturation(63);
+    schemeStore.setChromaticLightnessRange(48, 72);
+    schemeStore.setBlackLightnessRange(3, 14);
+    schemeStore.setWhiteLightnessRange(86, 99);
+    schemeStore.setDyeColor(dyeColor);
+    schemeStore.setDyeScope('all');
+    schemeStore.setBackgroundColor(backgroundColor);
+    schemeStore.setBackgroundMode('custom');
+    schemeStore.setForegroundColor(foregroundColor);
+    schemeStore.setForegroundMode('bright_white');
+
+    expect(schemeStore.scheme.saturation).toBe(63);
+    expect(schemeStore.scheme.normalChromaticLightness).toBe(48);
+    expect(schemeStore.scheme.brightChromaticLightness).toBe(72);
+    expect(schemeStore.scheme.normalBlackLightness).toBe(3);
+    expect(schemeStore.scheme.brightBlackLightness).toBe(14);
+    expect(schemeStore.scheme.normalWhiteLightness).toBe(86);
+    expect(schemeStore.scheme.brightWhiteLightness).toBe(99);
+    expect(schemeStore.scheme.dyeScope).toBe('all');
+    expect(schemeStore.scheme.background).toBe('custom');
+    expect(schemeStore.scheme.foreground).toBe('bright_white');
+
+    expect(schemeStore.scheme.dyeColor).toEqual(dyeColor);
+    expect(schemeStore.scheme.dyeColor).not.toBe(dyeColor);
+    expect(schemeStore.scheme.customBackgroundColor).toEqual(backgroundColor);
+    expect(schemeStore.scheme.customBackgroundColor).not.toBe(backgroundColor);
+    expect(schemeStore.scheme.customForegroundColor).toEqual(foregroundColor);
+    expect(schemeStore.scheme.customForegroundColor).not.toBe(foregroundColor);
+  });
 });
