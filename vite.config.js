@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import { readFileSync } from 'fs';
+import { configDefaults } from 'vitest/config';
 
 const jqueryUiVersion = JSON.parse(
   readFileSync('./node_modules/jquery-ui/package.json', 'utf8')
@@ -19,6 +20,10 @@ export default defineConfig(({ command }) => ({
     include: ['jquery', 'jquery-ui'],
   },
   test: {
+    exclude: [
+      ...configDefaults.exclude,
+      'tests/e2e/**',
+    ],
     coverage: {
       provider: 'v8',
       all: true,

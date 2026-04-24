@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.59.1",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vitest/coverage-v8": "^4.1.5",
     "eslint": "^10.2.1",
@@ -27,6 +28,10 @@
     "preview": "vite preview",
     "test": "vitest run --pool=threads",
     "test:coverage": "vitest run --pool=threads --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:install": "playwright install chromium",
     "coverage:badge": "node scripts/update-coverage-badge.mjs",
     "lint": "eslint src --fix"
   }

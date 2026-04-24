@@ -65,8 +65,17 @@ Useful commands:
 4. Preview the production build with `npm run preview`
 5. Run the test suite with `npm test`
 6. Measure unit-test coverage with `npm run test:coverage`
-7. Refresh the README coverage badge with `npm run coverage:badge`
-8. Run lint fixes with `npm run lint`
+7. Run browser smoke tests with `npm run test:e2e`
+8. Install the Playwright browser with `npm run test:e2e:install`
+9. Refresh the README coverage badge with `npm run coverage:badge`
+10. Run lint fixes with `npm run lint`
+
+Playwright notes:
+
+* E2E tests live in `tests/e2e`.
+* The Playwright config starts Vite automatically on `127.0.0.1:4173`.
+* If the bundled browser causes local issues, you can try an installed browser with `PLAYWRIGHT_CHANNEL=chrome npm run test:e2e`.
+* Current smoke coverage focuses on URL hydration, advanced option changes, share links, and the download dialog.
 
 Project structure:
 
