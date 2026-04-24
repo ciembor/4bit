@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { createDefaultScheme } from '../../../src/domain/scheme/scheme-defaults';
 import {
+  buildFacebookShareHref,
+  buildLinkedInShareHref,
   buildShareUrl,
   buildTwitterShareHref,
   defaultShareBaseUrl,
@@ -23,7 +25,7 @@ describe('share-urls', () => {
     );
   });
 
-  it('builds a twitter intent link with the share text and encoded URL', () => {
+  it('builds a twitter intent link with the encoded URL', () => {
     const scheme = createDefaultScheme();
     scheme.dyeScope = 'all';
 
@@ -35,8 +37,46 @@ describe('share-urls', () => {
 
     expect(`${url.origin}${url.pathname}`).toBe('https://twitter.com/intent/tweet');
     expect(url.searchParams.get('text')).toBe(SHARE_TEXT);
-    expect(url.searchParams.get('via')).toBe('ciembor');
     expect(url.searchParams.get('url')).toBe('https://ciembor.github.io/4bit/?dyeScope=all');
+    expect(url.searchParams.get('via')).toBe('ciembor');
+  });
+
+  it('falls back to the public share URL when current location is local', () => {
+    const scheme = createDefaultScheme();
+    scheme.dyeScope = 'all';
+
+    expect(buildShareUrl(scheme, {
+      origin: 'http://localhost:5173',
+      pathname: '/',
+    })).toBe('https://ciembor.github.io/4bit/?dyeScope=all');
+  });
+
+  it('builds a linkedin share link with the encoded URL', () => {
+    const scheme = createDefaultScheme();
+    scheme.dyeScope = 'all';
+
+    const href = buildLinkedInShareHref(scheme, {
+      origin: 'https://ciembor.github.io',
+      pathname: '/4bit/',
+    });
+    const url = new URL(href);
+
+    expect(`${url.origin}${url.pathname}`).toBe('https://www.linkedin.com/sharing/share-offsite/');
+    expect(url.searchParams.get('url')).toBe('https://ciembor.github.io/4bit/?dyeScope=all');
+  });
+
+  it('builds a facebook share link with the encoded URL', () => {
+    const scheme = createDefaultScheme();
+    scheme.dyeScope = 'all';
+
+    const href = buildFacebookShareHref(scheme, {
+      origin: 'https://ciembor.github.io',
+      pathname: '/4bit/',
+    });
+    const url = new URL(href);
+
+    expect(`${url.origin}${url.pathname}`).toBe('https://www.facebook.com/sharer/sharer.php');
+    expect(url.searchParams.get('u')).toBe('https://ciembor.github.io/4bit/?dyeScope=all');
   });
 
   it('uses the production share URL defaults when location is unavailable', () => {

@@ -1,14 +1,28 @@
 <template>
   <div id="social-media" class="skew">
     <div class="inner">
-      <div ref="buttons" class="buttons">
+      <div class="buttons">
         <a
-          :href="shareHref"
-          aria-label="post on x"
-          class="buttons__overlay"
+          :href="xShareHref"
+          aria-label="share on x"
+          class="share-button share-button--x"
           rel="noopener noreferrer"
           target="_blank"
-        ></a>
+        >X</a>
+        <a
+          :href="linkedInShareHref"
+          aria-label="share on linkedin"
+          class="share-button share-button--linkedin"
+          rel="noopener noreferrer"
+          target="_blank"
+        >in</a>
+        <a
+          :href="facebookShareHref"
+          aria-label="share on facebook"
+          class="share-button share-button--facebook"
+          rel="noopener noreferrer"
+          target="_blank"
+        >f</a>
       </div>
     </div>
   </div>
@@ -17,12 +31,10 @@
 <script>
 import { useSchemeStore } from '../../stores/scheme';
 import {
-  buildShareUrl,
+  buildFacebookShareHref,
+  buildLinkedInShareHref,
   buildTwitterShareHref,
-  defaultShareBaseUrl,
 } from '../../../infrastructure/serialization/share-urls';
-
-const WIDGET_RETRY_MS = 500;
 
 export default {
   name: 'SocialMedia',
@@ -31,52 +43,27 @@ export default {
 
     return { schemeStore };
   },
-  data() {
-    return {
-      retryTimerId: null,
-    };
-  },
   computed: {
-    shareUrl() {
-      return buildShareUrl(
-        this.schemeStore.scheme,
-        typeof window !== 'undefined' ? window.location : null
-      );
+    currentLocation() {
+      return typeof window !== 'undefined' ? window.location : null;
     },
-    shareHref() {
+    xShareHref() {
       return buildTwitterShareHref(
         this.schemeStore.scheme,
-        typeof window !== 'undefined' ? window.location : null
+        this.currentLocation
       );
     },
-  },
-  mounted() {
-    this.renderShareButton();
-  },
-  beforeUnmount() {
-    window.clearTimeout(this.retryTimerId);
-  },
-  methods: {
-    renderShareButton() {
-      const buttonContainer = this.$refs.buttons;
-
-      if (!buttonContainer) {
-        return;
-      }
-
-      if (!window.twttr?.widgets?.createShareButton) {
-        window.clearTimeout(this.retryTimerId);
-        this.retryTimerId = window.setTimeout(() => {
-          this.renderShareButton();
-        }, WIDGET_RETRY_MS);
-        return;
-      }
-
-      window.clearTimeout(this.retryTimerId);
-      window.twttr.widgets.createShareButton(defaultShareBaseUrl(), buttonContainer, {
-        count: 'none',
-        via: 'ciembor',
-      });
+    linkedInShareHref() {
+      return buildLinkedInShareHref(
+        this.schemeStore.scheme,
+        this.currentLocation
+      );
+    },
+    facebookShareHref() {
+      return buildFacebookShareHref(
+        this.schemeStore.scheme,
+        this.currentLocation
+      );
     },
   },
 };
@@ -87,30 +74,50 @@ export default {
   border: 1px solid #AAA;
   background-color: #C9C9C9;
   position: relative;
-  width: 104px;
+  width: 180px;
   display: inline-block;
   white-space: nowrap;
 
   .buttons {
-    display: inline-block;
-    min-width: 73px;
-    min-height: 20px;
-    position: relative;
-  }
-
-  .buttons__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
+    display: flex;
+    gap: 6px;
+    align-items: center;
   }
 
   .inner {
     position: absolute;
     top: 7px;
-    left: 15px;
-    display: block;
-    width: 73px;
-    height: 20px;
+    left: 14px;
   }
+}
+
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 18px;
+  border: 1px solid #999;
+  border-radius: 999px;
+  color: #fff;
+  font-family: Arial, Verdana, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.share-button--x {
+  background: #111;
+}
+
+.share-button--linkedin {
+  background: #0a66c2;
+}
+
+.share-button--facebook {
+  background: #1877f2;
 }
 </style>
