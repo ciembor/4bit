@@ -6,6 +6,13 @@ Early history is grouped by day to keep the file readable while still covering t
 
 ## 2026
 
+### 2026-05-10
+
+- Added compact `s` query-string serialization for complete scheme settings while keeping backward compatibility with legacy shared URLs.
+- Added mintty drag-and-drop URL payload support so generated palettes can be dropped into mintty from shared links.
+- Updated social sharing and browser URL synchronization to use the compressed scheme settings and mintty drag payload.
+- Extended unit and browser smoke coverage for compressed settings, legacy URL hydration, sharing URLs, and mintty drag serialization.
+
 ### 2026-04-22
 
 - Completed the Vue migration of the remaining UI pieces.

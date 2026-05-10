@@ -1,11 +1,13 @@
 import { useSchemeStore } from '../../presentation/stores/scheme';
+import { calculateSchemeColors } from '../../domain/scheme/color-scheme-calculator';
 import {
   buildSchemeQueryParams,
   buildSchemeSearch,
   readSchemeFromSearch,
   SCHEME_QUERY_KEYS,
   serializeSearchParams,
-} from '../serialization/scheme-query';
+} from '../url/scheme-query';
+import { buildMinttyDragSchemeHash } from '../url/mintty-drag-scheme';
 export const SCHEME_STORAGE_KEY = '4bit:scheme-search';
 
 function browserWindow() {
@@ -105,6 +107,10 @@ function replaceLocationSearch(nextSearch, location, history) {
   }
 }
 
+function buildSchemeHash(scheme) {
+  return buildMinttyDragSchemeHash(calculateSchemeColors(scheme));
+}
+
 export function hydrateSchemeStoreFromLocation(pinia, options = browserLocation().search) {
   const settings = typeof options === 'string'
     ? { search: options }
@@ -165,7 +171,11 @@ export class SchemeUrlSync {
     });
 
     const nextSearch = serializeSearchParams(currentParams);
-    const nextUrl = `${this.location.pathname}${nextSearch ? `?${nextSearch}` : ''}${this.location.hash}`;
+    const nextUrl = [
+      this.location.pathname,
+      nextSearch ? `?${nextSearch}` : '',
+      buildSchemeHash(scheme),
+    ].join('');
     const currentUrl = `${this.location.pathname}${this.location.search}${this.location.hash}`;
 
     if (nextUrl !== currentUrl) {

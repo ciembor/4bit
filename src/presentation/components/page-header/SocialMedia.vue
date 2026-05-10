@@ -30,40 +30,45 @@
 
 <script>
 import { useSchemeStore } from '../../stores/scheme';
+import { useCalculatedSchemeStore } from '../../stores/calculated-scheme';
 import {
   buildFacebookShareHref,
   buildLinkedInShareHref,
   buildTwitterShareHref,
-} from '../../../infrastructure/serialization/share-urls';
+} from '../../../infrastructure/url/share-urls';
 
 export default {
   name: 'SocialMedia',
   setup() {
     const schemeStore = useSchemeStore();
+    const calculatedSchemeStore = useCalculatedSchemeStore();
 
-    return { schemeStore };
+    return { calculatedSchemeStore, schemeStore };
   },
   computed: {
     currentLocation() {
       return typeof window !== 'undefined' ? window.location : null;
     },
     xShareHref() {
-      return buildTwitterShareHref(
-        this.schemeStore.scheme,
-        this.currentLocation
-      );
+      return buildTwitterShareHref({
+        scheme: this.schemeStore.scheme,
+        colors: this.calculatedSchemeStore.calculatedScheme,
+        location: this.currentLocation,
+      });
     },
     linkedInShareHref() {
-      return buildLinkedInShareHref(
-        this.schemeStore.scheme,
-        this.currentLocation
-      );
+      return buildLinkedInShareHref({
+        scheme: this.schemeStore.scheme,
+        colors: this.calculatedSchemeStore.calculatedScheme,
+        location: this.currentLocation,
+      });
     },
     facebookShareHref() {
-      return buildFacebookShareHref(
-        this.schemeStore.scheme,
-        this.currentLocation
-      );
+      return buildFacebookShareHref({
+        scheme: this.schemeStore.scheme,
+        colors: this.calculatedSchemeStore.calculatedScheme,
+        location: this.currentLocation,
+      });
     },
   },
 };

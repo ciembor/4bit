@@ -81,7 +81,10 @@ Project structure:
 
 * `src/domain` - pure scheme rules, defaults, color naming, and color-mode logic
 * `src/application` - synchronization/use-case layer that applies domain logic to app state
-* `src/infrastructure` - URL/query codecs, export serializers, browser sync, and wrapped legacy vendor code
+* `src/infrastructure/url` - URL/query codecs, share URL builders, and URL-only scheme settings formats
+* `src/infrastructure/serialization` - terminal export serializers
+* `src/infrastructure/browser` - browser URL/storage synchronization
+* `src/infrastructure/vendor` - wrapped legacy vendor code
 * `src/presentation` - Vue components, Pinia stores, fonts, and styles
 * `public` - static assets copied to the final build, including images and SEO files
 

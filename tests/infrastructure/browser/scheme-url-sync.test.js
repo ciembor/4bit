@@ -1,6 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createPinia } from 'pinia';
+import { calculateSchemeColors } from '../../../src/domain/scheme/color-scheme-calculator';
 import { createDefaultScheme } from '../../../src/domain/scheme/scheme-defaults';
+import { buildMinttyDragSchemeHash } from '../../../src/infrastructure/url/mintty-drag-scheme';
+import { buildSchemeSearch } from '../../../src/infrastructure/url/scheme-query';
 import {
   hydrateSchemeStoreFromLocation,
   resolveInitialSchemeSearch,
@@ -8,8 +11,16 @@ import {
   SchemeUrlSync,
 } from '../../../src/infrastructure/browser/scheme-url-sync';
 
+function expectedMinttyHash(scheme) {
+  return buildMinttyDragSchemeHash(calculateSchemeColors(scheme));
+}
+
+function expectedSchemeSearch(scheme) {
+  return buildSchemeSearch(scheme);
+}
+
 describe('SchemeUrlSync', () => {
-  it('preserves unrelated query params while updating scheme params', () => {
+  it('preserves unrelated query params while updating scheme params and mintty drag payload', () => {
     const scheme = createDefaultScheme();
     scheme.hue = 10;
     scheme.dyeScope = 'all';
@@ -33,7 +44,7 @@ describe('SchemeUrlSync', () => {
     expect(history.replaceState).toHaveBeenCalledWith(
       history.state,
       '',
-      '/4bit/?utm_source=readme&hue=10&dyeScope=all#preview'
+      `/4bit/?utm_source=readme&${expectedSchemeSearch(scheme).slice(1)}${expectedMinttyHash(scheme)}`
     );
   });
 
@@ -71,8 +82,12 @@ describe('SchemeUrlSync', () => {
   });
 
   it('prefers explicit scheme params in the URL over persisted state', () => {
+    const persistedScheme = createDefaultScheme();
+    persistedScheme.hue = 45;
+    persistedScheme.dyeScope = 'all';
+
     const storage = {
-      getItem: vi.fn(() => '?hue=45&dyeScope=all'),
+      getItem: vi.fn(() => expectedSchemeSearch(persistedScheme)),
     };
 
     expect(resolveInitialSchemeSearch('?hue=12', storage)).toBe('?hue=12');
@@ -97,12 +112,16 @@ describe('SchemeUrlSync', () => {
   });
 
   it('falls back to persisted scheme params and preserves unrelated URL params', () => {
+    const scheme = createDefaultScheme();
+    scheme.hue = 45;
+    scheme.dyeScope = 'all';
+
     const storage = {
-      getItem: vi.fn(() => '?hue=45&dyeScope=all'),
+      getItem: vi.fn(() => expectedSchemeSearch(scheme)),
     };
 
     expect(resolveInitialSchemeSearch('?utm_source=readme', storage))
-      .toBe('?utm_source=readme&hue=45&dyeScope=all');
+      .toBe(`?utm_source=readme&${expectedSchemeSearch(scheme).slice(1)}`);
   });
 
   it('ignores persisted search values that do not contain any actual params', () => {
@@ -239,7 +258,7 @@ describe('SchemeUrlSync', () => {
 
     expect(storage.setItem).toHaveBeenCalledWith(
       SCHEME_STORAGE_KEY,
-      '?hue=10&dyeScope=all'
+      expectedSchemeSearch(scheme)
     );
   });
 
@@ -269,13 +288,14 @@ describe('SchemeUrlSync', () => {
     expect(history.replaceState).toHaveBeenCalledWith(
       history.state,
       '',
-      '/4bit/?hue=10'
+      `/4bit/${expectedSchemeSearch(scheme)}${expectedMinttyHash(scheme)}`
     );
   });
 
   it('does not replace history when the current URL already matches the scheme', () => {
     const scheme = createDefaultScheme();
     scheme.hue = 10;
+    const hash = expectedMinttyHash(scheme);
     const history = {
       state: null,
       replaceState: vi.fn(),
@@ -285,8 +305,8 @@ describe('SchemeUrlSync', () => {
       schemeStore: { scheme },
       location: {
         pathname: '/4bit/',
-        search: '?hue=10',
-        hash: '',
+        search: expectedSchemeSearch(scheme),
+        hash,
       },
       history,
       storage: null,
@@ -295,7 +315,7 @@ describe('SchemeUrlSync', () => {
     expect(history.replaceState).not.toHaveBeenCalled();
   });
 
-  it('keeps the URL empty for the default scheme when no extra params are present', () => {
+  it('adds the mintty drag payload for the default scheme when no extra params are present', () => {
     const scheme = createDefaultScheme();
     const history = {
       state: null,
@@ -313,6 +333,10 @@ describe('SchemeUrlSync', () => {
       storage: null,
     }).updateLocation(scheme);
 
-    expect(history.replaceState).not.toHaveBeenCalled();
+    expect(history.replaceState).toHaveBeenCalledWith(
+      history.state,
+      '',
+      `/4bit/${expectedSchemeSearch(scheme)}${expectedMinttyHash(scheme)}`
+    );
   });
 });

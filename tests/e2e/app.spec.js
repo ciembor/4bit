@@ -10,6 +10,16 @@ function nestedShareTarget(href, key) {
   return new URL(shareUrl.searchParams.get(key));
 }
 
+function minttyDragScheme(target) {
+  const hashParams = new URLSearchParams(target.hash.replace(/^#\?/, ''));
+
+  return hashParams.get('scheme');
+}
+
+function compressedSettings(target) {
+  return target.searchParams.get('s');
+}
+
 async function shareTargets(page) {
   const xHref = await page.getByLabel('share on x').getAttribute('href');
   const linkedInHref = await page.getByLabel('share on linkedin').getAttribute('href');
@@ -46,8 +56,11 @@ test('loads the app and renders the main editor controls', async ({ page }) => {
 
   expect(targets.x.origin).toBe('https://ciembor.github.io');
   expect(targets.x.pathname).toBe('/4bit/');
-  expect(targets.linkedIn.href).toBe(targets.x.href);
-  expect(targets.facebook.href).toBe(targets.x.href);
+  expect(compressedSettings(targets.x)).toMatch(/^2[A-Za-z0-9_-]+$/);
+  expect(minttyDragScheme(targets.x)).toBeNull();
+  expect(targets.linkedIn.search).toBe(targets.x.search);
+  expect(minttyDragScheme(targets.linkedIn)).toMatch(/^([0-9A-F]{6}:){18}[0-9A-F]{6}$/);
+  expect(targets.facebook.href).toBe(targets.linkedIn.href);
 });
 
 test('hydrates scheme state from the query string and keeps share links in sync', async ({ page }) => {
@@ -59,13 +72,16 @@ test('hydrates scheme state from the query string and keeps share links in sync'
 
   const targets = await shareTargets(page);
 
-  expect(targets.x.searchParams.get('hue')).toBe('12');
-  expect(targets.x.searchParams.get('colorMode')).toBe('duotone');
-  expect(targets.x.searchParams.get('hueDistance')).toBe('18');
-  expect(targets.x.searchParams.get('dyeScope')).toBe('all');
-  expect(targets.x.searchParams.get('background')).toBe('white');
-  expect(targets.linkedIn.href).toBe(targets.x.href);
-  expect(targets.facebook.href).toBe(targets.x.href);
+  expect(compressedSettings(targets.x)).toMatch(/^2[A-Za-z0-9_-]+$/);
+  expect(targets.x.searchParams.get('hue')).toBeNull();
+  expect(targets.x.searchParams.get('colorMode')).toBeNull();
+  expect(targets.x.searchParams.get('hueDistance')).toBeNull();
+  expect(targets.x.searchParams.get('dyeScope')).toBeNull();
+  expect(targets.x.searchParams.get('background')).toBeNull();
+  expect(minttyDragScheme(targets.x)).toBeNull();
+  expect(targets.linkedIn.search).toBe(targets.x.search);
+  expect(minttyDragScheme(targets.linkedIn)).toMatch(/^([0-9A-F]{6}:){18}[0-9A-F]{6}$/);
+  expect(targets.facebook.href).toBe(targets.linkedIn.href);
 });
 
 test('updates URL and share links when advanced options change', async ({ page }) => {
@@ -83,16 +99,20 @@ test('updates URL and share links when advanced options change', async ({ page }
   await checkRadioValue(page, '#hue-set-radio', 'duotone');
   await expect(page.locator('#hue-set-radio input[value="duotone"]')).toBeChecked();
 
-  await expect.poll(() => new URL(page.url()).search).toContain('background=white');
-  await expect.poll(() => new URL(page.url()).search).toContain('dyeScope=all');
-  await expect.poll(() => new URL(page.url()).search).toContain('colorMode=duotone');
+  await expect.poll(() => new URL(page.url()).searchParams.get('s')).toMatch(/^2[A-Za-z0-9_-]+$/);
+  expect(new URL(page.url()).searchParams.get('background')).toBeNull();
+  expect(new URL(page.url()).searchParams.get('dyeScope')).toBeNull();
+  expect(new URL(page.url()).searchParams.get('colorMode')).toBeNull();
+  await expect.poll(() => new URL(page.url()).hash).toMatch(/^#\?scheme=/);
 
   const targets = await shareTargets(page);
 
-  expect(targets.x.searchParams.get('background')).toBe('white');
-  expect(targets.x.searchParams.get('dyeScope')).toBe('all');
-  expect(targets.x.searchParams.get('colorMode')).toBe('duotone');
+  expect(compressedSettings(targets.x)).toMatch(/^2[A-Za-z0-9_-]+$/);
+  expect(targets.x.searchParams.get('background')).toBeNull();
+  expect(targets.x.searchParams.get('dyeScope')).toBeNull();
+  expect(targets.x.searchParams.get('colorMode')).toBeNull();
   expect(targets.x.searchParams.get('degrees')).toBeNull();
+  expect(minttyDragScheme(targets.x)).toBeNull();
 });
 
 test('opens the export dialog and downloads an iTerm2 file', async ({ page }) => {

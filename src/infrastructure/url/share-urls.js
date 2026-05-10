@@ -1,4 +1,5 @@
 import { buildSchemeSearch } from './scheme-query';
+import { buildMinttyDragSchemeHash } from './mintty-drag-scheme';
 
 export const SHARE_TEXT = 'Terminal color scheme from 4bit:';
 const SHARE_BASE_URL = 'https://ciembor.github.io/4bit/';
@@ -27,33 +28,38 @@ function resolveShareBaseLocation(location = null) {
   };
 }
 
-export function buildShareUrl(scheme, location = null) {
+export function buildShareUrl({ scheme, colors = null, location = null }) {
   const { origin, pathname } = resolveShareBaseLocation(location);
 
-  return `${origin}${pathname}${buildSchemeSearch(scheme)}`;
+  return [
+    origin,
+    pathname,
+    buildSchemeSearch(scheme),
+    buildMinttyDragSchemeHash(colors),
+  ].join('');
 }
 
-export function buildTwitterShareHref(scheme, location = null) {
+export function buildTwitterShareHref({ scheme, location = null }) {
   const params = new URLSearchParams({
     text: SHARE_TEXT,
-    url: buildShareUrl(scheme, location),
+    url: buildShareUrl({ scheme, location }),
     via: 'ciembor',
   });
 
   return `https://twitter.com/intent/tweet?${params.toString()}`;
 }
 
-export function buildLinkedInShareHref(scheme, location = null) {
+export function buildLinkedInShareHref({ scheme, colors = null, location = null }) {
   const params = new URLSearchParams({
-    url: buildShareUrl(scheme, location),
+    url: buildShareUrl({ scheme, colors, location }),
   });
 
   return `https://www.linkedin.com/sharing/share-offsite/?${params.toString()}`;
 }
 
-export function buildFacebookShareHref(scheme, location = null) {
+export function buildFacebookShareHref({ scheme, colors = null, location = null }) {
   const params = new URLSearchParams({
-    u: buildShareUrl(scheme, location),
+    u: buildShareUrl({ scheme, colors, location }),
   });
 
   return `https://www.facebook.com/sharer/sharer.php?${params.toString()}`;

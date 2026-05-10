@@ -4,14 +4,18 @@ import { createDefaultScheme } from '../../../src/domain/scheme/scheme-defaults'
 import {
   buildSchemeSearch,
   readSchemeFromSearch,
-} from '../../../src/infrastructure/serialization/scheme-query';
+} from '../../../src/infrastructure/url/scheme-query';
+
+function compressedParamsFor(scheme) {
+  return new URLSearchParams(buildSchemeSearch(scheme).slice(1));
+}
 
 describe('scheme-query', () => {
   it('returns the default scheme when the query string is empty', () => {
     expect(readSchemeFromSearch('')).toEqual(createDefaultScheme());
   });
 
-  it('hydrates missing fields from defaults and derives preset degrees when omitted', () => {
+  it('hydrates legacy params from defaults and derives preset degrees when omitted', () => {
     const scheme = readSchemeFromSearch(
       '?hue=25&colorMode=duotone&hueDistance=15&foreground=custom&customForegroundColor=210,60,70'
     );
@@ -37,19 +41,24 @@ describe('scheme-query', () => {
     expect(scheme.degrees).toEqual(degreesForColorMode('duotone', 15));
   });
 
-  it('canonicalizes legacy hue-set aliases when serializing them back to a link', () => {
+  it('serializes legacy aliases back through the compressed s param', () => {
     const scheme = readSchemeFromSearch('?hueSet=duo&hueDistance=15');
-    const params = new URLSearchParams(buildSchemeSearch(scheme).slice(1));
+    const params = compressedParamsFor(scheme);
 
-    expect(params.get('colorMode')).toBe('duotone');
+    expect(params.get('s')).toBeTruthy();
+    expect(params.get('colorMode')).toBeNull();
     expect(params.get('hueSet')).toBeNull();
+    expect(readSchemeFromSearch(`?${params.toString()}`).colorMode).toBe('duotone');
   });
 
-  it('omits default values from the generated search string', () => {
-    expect(buildSchemeSearch(createDefaultScheme())).toBe('');
+  it('serializes the default scheme into a complete compressed s param', () => {
+    const params = compressedParamsFor(createDefaultScheme());
+
+    expect(params.get('s')).toMatch(/^2[A-Za-z0-9_-]+$/);
+    expect(params.get('hue')).toBeNull();
   });
 
-  it('omits degrees when they are implied by hue-set and hue-distance', () => {
+  it('writes only the compressed setting param for preset schemes', () => {
     const scheme = createDefaultScheme();
 
     scheme.hue = 12;
@@ -57,10 +66,16 @@ describe('scheme-query', () => {
     scheme.hueDistance = 18;
     scheme.degrees = degreesForColorMode('duotone', 18);
 
-    expect(buildSchemeSearch(scheme)).toBe('?hue=12&colorMode=duotone&hueDistance=18');
+    const params = compressedParamsFor(scheme);
+
+    expect(params.get('s')).toBeTruthy();
+    expect(params.get('hue')).toBeNull();
+    expect(params.get('colorMode')).toBeNull();
+    expect(params.get('hueDistance')).toBeNull();
+    expect(readSchemeFromSearch(buildSchemeSearch(scheme))).toEqual(scheme);
   });
 
-  it('roundtrips a custom scheme through the query string', () => {
+  it('roundtrips a custom scheme through the compressed query string', () => {
     const scheme = createDefaultScheme();
 
     scheme.hue = 12;
@@ -99,7 +114,7 @@ describe('scheme-query', () => {
     expect(readSchemeFromSearch(buildSchemeSearch(scheme))).toEqual(scheme);
   });
 
-  it('serializes quantized numeric values compactly without losing precision', () => {
+  it('serializes quantized numeric values in the packed payload without losing precision', () => {
     const scheme = createDefaultScheme();
 
     scheme.normalChromaticLightness = 127 / 2.56;
@@ -113,12 +128,11 @@ describe('scheme-query', () => {
       alpha: 0.25,
     };
 
-    const params = new URLSearchParams(buildSchemeSearch(scheme).slice(1));
+    const settings = compressedParamsFor(scheme).get('s');
 
-    expect(params.get('chromaticLightness')).toBe('49.609375,74.609375');
-    expect(params.get('blackLightness')).toBe('0.390625,12.5');
-    expect(params.get('dyeColor')).toBe('180,50.1,50.25,0.25');
-    expect(readSchemeFromSearch(`?${params.toString()}`)).toEqual(scheme);
+    expect(settings).toMatch(/^2[A-Za-z0-9_-]+$/);
+    expect(settings.length).toBeLessThan(55);
+    expect(readSchemeFromSearch(buildSchemeSearch(scheme))).toEqual(scheme);
   });
 
   it('serializes negative near-zero picker values as 0 instead of -0', () => {
@@ -131,9 +145,10 @@ describe('scheme-query', () => {
       alpha: 0.25,
     };
 
-    const params = new URLSearchParams(buildSchemeSearch(scheme).slice(1));
+    const settings = compressedParamsFor(scheme).get('s');
 
-    expect(params.get('dyeColor')).toBe('180,0,50,0.25');
+    expect(settings).toMatch(/^2[A-Za-z0-9_-]+$/);
+    expect(readSchemeFromSearch(buildSchemeSearch(scheme)).dyeColor.saturation).toBe(0);
   });
 
   it('serializes non-finite values verbatim instead of crashing quantization', () => {
@@ -141,12 +156,10 @@ describe('scheme-query', () => {
 
     scheme.hue = Number.POSITIVE_INFINITY;
 
-    const params = new URLSearchParams(buildSchemeSearch(scheme).slice(1));
-
-    expect(params.get('hue')).toBe('Infinity');
+    expect(compressedParamsFor(scheme).get('s')).toContain('Infinity');
   });
 
-  it('keeps comma-separated numeric lists readable in the generated URL', () => {
+  it('keeps the packed setting payload URL-safe', () => {
     const scheme = createDefaultScheme();
 
     scheme.normalChromaticLightness = 120 / 2.56;
@@ -156,8 +169,7 @@ describe('scheme-query', () => {
 
     const search = buildSchemeSearch(scheme);
 
-    expect(search).toContain('chromaticLightness=46.875,75');
-    expect(search).toContain('blackLightness=0.390625,12.5');
+    expect(search).toMatch(/^\?s=2[A-Za-z0-9_-]+$/);
     expect(search).not.toContain('%2C');
   });
 
@@ -168,13 +180,31 @@ describe('scheme-query', () => {
     scheme.hueDistance = 18;
     scheme.degrees = [0, 1, 2, 3, 4, 5];
 
-    const params = new URLSearchParams(buildSchemeSearch(scheme).slice(1));
+    const params = compressedParamsFor(scheme);
+    const decoded = readSchemeFromSearch(`?${params.toString()}`);
 
-    expect(params.get('colorMode')).toBeNull();
-    expect(params.get('degrees')).toBe('0,1,2,3,4,5');
+    expect(params.get('degrees')).toBeNull();
+    expect(decoded.colorMode).toBe('custom');
+    expect(decoded.degrees).toEqual(scheme.degrees);
   });
 
-  it('ignores malformed values and falls back to defaults for those fields', () => {
+  it('prefers compressed settings over legacy params when both are present', () => {
+    const scheme = createDefaultScheme();
+    scheme.hue = 44;
+
+    const compressedSearch = buildSchemeSearch(scheme);
+
+    expect(readSchemeFromSearch(`${compressedSearch}&hue=12`).hue).toBe(44);
+  });
+
+  it('falls back to legacy params when the compressed payload is malformed', () => {
+    const scheme = readSchemeFromSearch('?s=invalid&hue=12&dyeScope=all');
+
+    expect(scheme.hue).toBe(12);
+    expect(scheme.dyeScope).toBe('all');
+  });
+
+  it('ignores malformed legacy values and falls back to defaults for those fields', () => {
     const scheme = readSchemeFromSearch(
       '?hue=oops&degrees=1,2,3&dyeColor=1,2,3&foreground=invalid&customForegroundColor=4,5'
     );
