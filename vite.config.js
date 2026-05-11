@@ -11,6 +11,14 @@ const jqueryUiVersion = JSON.parse(
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? '/4bit/' : '/',
   plugins: [vue()],
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        about: resolve(__dirname, 'about/index.html'),
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
@@ -31,7 +39,8 @@ export default defineConfig(({ command }) => ({
       reporter: ['text-summary', 'json-summary', 'html', 'lcov'],
       include: ['src/**/*.js'],
       exclude: [
-        'src/main.js',
+        'src/presentation/editor-page/main.js',
+        'src/presentation/about-page/main.js',
         'src/infrastructure/vendor/**',
       ],
     },

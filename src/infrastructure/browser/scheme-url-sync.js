@@ -1,4 +1,3 @@
-import { useSchemeStore } from '../../presentation/stores/scheme';
 import { calculateSchemeColors } from '../../domain/scheme/color-scheme-calculator';
 import {
   buildSchemeQueryParams,
@@ -8,7 +7,9 @@ import {
   serializeSearchParams,
 } from '../url/scheme-query';
 import { buildMinttyDragSchemeHash } from '../url/mintty-drag-scheme';
-export const SCHEME_STORAGE_KEY = '4bit:scheme-search';
+import { SCHEME_STORAGE_KEY } from './scheme-storage-key';
+
+export { SCHEME_STORAGE_KEY };
 
 function browserWindow() {
   return typeof window !== 'undefined' ? window : null;
@@ -111,7 +112,7 @@ function buildSchemeHash(scheme) {
   return buildMinttyDragSchemeHash(calculateSchemeColors(scheme));
 }
 
-export function hydrateSchemeStoreFromLocation(pinia, options = browserLocation().search) {
+export function hydrateSchemeStoreFromLocation(schemeStore, options = browserLocation().search) {
   const settings = typeof options === 'string'
     ? { search: options }
     : options;
@@ -122,7 +123,6 @@ export function hydrateSchemeStoreFromLocation(pinia, options = browserLocation(
     history = browserHistory(),
   } = settings;
   const resolvedSearch = resolveInitialSchemeSearch(search, storage);
-  const schemeStore = useSchemeStore(pinia);
   schemeStore.replaceScheme(readSchemeFromSearch(resolvedSearch));
 
   replaceLocationSearch(resolvedSearch, location, history);
@@ -132,11 +132,15 @@ export function hydrateSchemeStoreFromLocation(pinia, options = browserLocation(
 
 export class SchemeUrlSync {
   constructor({
-    schemeStore = useSchemeStore(),
+    schemeStore,
     location = browserLocation(),
     history = browserHistory(),
     storage = browserStorage(),
   } = {}) {
+    if (!schemeStore) {
+      throw new Error('SchemeUrlSync requires a schemeStore');
+    }
+
     this.schemeStore = schemeStore;
     this.location = location;
     this.history = history;

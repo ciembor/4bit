@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createPinia } from 'pinia';
+import { useSchemeStore } from '../../../src/presentation/shared/stores/scheme';
 import { calculateSchemeColors } from '../../../src/domain/scheme/color-scheme-calculator';
 import { createDefaultScheme } from '../../../src/domain/scheme/scheme-defaults';
 import { buildMinttyDragSchemeHash } from '../../../src/infrastructure/url/mintty-drag-scheme';
@@ -147,7 +148,7 @@ describe('SchemeUrlSync', () => {
       replaceState: vi.fn(),
     };
 
-    const schemeStore = hydrateSchemeStoreFromLocation(pinia, {
+    const schemeStore = hydrateSchemeStoreFromLocation(useSchemeStore(pinia), {
       search: location.search,
       storage,
       location,
@@ -166,7 +167,7 @@ describe('SchemeUrlSync', () => {
   it('hydrates from the string overload using browser fallbacks in non-browser tests', () => {
     const pinia = createPinia();
 
-    const schemeStore = hydrateSchemeStoreFromLocation(pinia, '?hue=12&dyeScope=all');
+    const schemeStore = hydrateSchemeStoreFromLocation(useSchemeStore(pinia), '?hue=12&dyeScope=all');
 
     expect(schemeStore.scheme.hue).toBe(12);
     expect(schemeStore.scheme.dyeScope).toBe('all');
@@ -194,7 +195,7 @@ describe('SchemeUrlSync', () => {
     };
 
     try {
-      const schemeStore = hydrateSchemeStoreFromLocation(pinia);
+      const schemeStore = hydrateSchemeStoreFromLocation(useSchemeStore(pinia));
 
       expect(schemeStore.scheme.hue).toBe(33);
       expect(history.replaceState).toHaveBeenCalledWith(
@@ -223,7 +224,7 @@ describe('SchemeUrlSync', () => {
       hash: '#preview',
     };
 
-    hydrateSchemeStoreFromLocation(pinia, {
+    hydrateSchemeStoreFromLocation(useSchemeStore(pinia), {
       search: '?hue=12',
       storage: null,
       location,

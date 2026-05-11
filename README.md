@@ -111,7 +111,7 @@ Coverage
 
 The coverage badge above is generated from the line coverage in `coverage/coverage-summary.json` by `npm run coverage:badge`.
 
-Coverage is measured for `src/**/*.js`, excluding `src/main.js` and the vendored jQuery color picker wrapper in `src/infrastructure/vendor`.
+Coverage is measured for `src/**/*.js`, excluding page entrypoints and the vendored jQuery color picker wrapper in `src/infrastructure/vendor`.
 
 Author
 ---------

@@ -50,6 +50,7 @@ test('loads the app and renders the main editor controls', async ({ page }) => {
   await expect(page.getByText('Welcome to fish, the friendly interactive shell')).toBeVisible();
   await expect(page.locator('#controls')).toBeVisible();
   await expect(page.locator('#advanced')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about/');
   await expect(page.getByRole('link', { name: 'Download Scheme' })).toBeVisible();
 
   const targets = await shareTargets(page);
@@ -61,6 +62,20 @@ test('loads the app and renders the main editor controls', async ({ page }) => {
   expect(targets.linkedIn.search).toBe(targets.x.search);
   expect(minttyDragScheme(targets.linkedIn)).toMatch(/^([0-9A-F]{6}:){18}[0-9A-F]{6}$/);
   expect(targets.facebook.href).toBe(targets.linkedIn.href);
+});
+
+test('opens the about page from the header', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('link', { name: 'About' }).click();
+
+  await expect(page).toHaveURL(/\/about\/$/);
+  await expect(page.getByRole('heading', { name: 'About 4bit' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Editor' })).toHaveAttribute('href', '../');
+  await expect(page.getByRole('link', { name: 'Download Scheme' })).toHaveCount(0);
+  await expect(page.getByRole('dialog', { name: 'Export scheme to the configuration file' })).toBeHidden();
+  await expect(page.getByText(/terminal color themes/).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Create a Terminal Color Scheme' })).toHaveAttribute('href', '../');
 });
 
 test('hydrates scheme state from the query string and keeps share links in sync', async ({ page }) => {

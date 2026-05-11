@@ -6,6 +6,14 @@ Early history is grouped by day to keep the file readable while still covering t
 
 ## 2026
 
+### 2026-05-11
+
+- Added a dedicated SEO-focused About page for 4bit with project history, supported terminal links, source references, and an explanation of the color-generation model.
+- Reworked the page header navigation so the About page links back to the editor while the editor keeps the download workflow.
+- Shared the page shell, header, footer, button, theme, asset, and store code between the editor and About page.
+- Reorganized presentation code into `about-page`, `editor-page`, and `shared` areas to reduce coupling between page-specific UI and shared layout.
+- Decoupled browser URL synchronization from Pinia by passing the scheme store into the infrastructure adapter.
+
 ### 2026-05-10
 
 - Added compact `s` query-string serialization for complete scheme settings while keeping backward compatibility with legacy shared URLs.
