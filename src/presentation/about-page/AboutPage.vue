@@ -51,21 +51,21 @@
       <section class="section" aria-labelledby="why">
         <h2 id="why">Why 4bit Exists</h2>
         <div class="grid">
-          <article class="card">
+          <article class="card terminal-card terminal-card--red">
             <h3>Terminal Colors</h3>
             <p>
               A useful terminal theme needs more than a few nice hex values. The foreground, background,
               normal colors, and bright colors should work together when real command output fills the screen.
             </p>
           </article>
-          <article class="card">
+          <article class="card terminal-card terminal-card--blue">
             <h3>Terminal Schemes</h3>
             <p>
               4bit turns a small set of controls into a complete terminal scheme. It is useful when you want
               your own palette instead of another downloaded theme.
             </p>
           </article>
-          <article class="card">
+          <article class="card terminal-card terminal-card--green">
             <h3>Terminal Themes</h3>
             <p>
               The same palette can be exported for several terminal apps. That matters if you move between
@@ -296,8 +296,37 @@ export default {
   background: var(--paper);
 }
 
-.card p,
-li {
+.terminal-card {
+  border-color: var(--color-bright-black);
+  background: var(--color-background);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 6%),
+    0 18px 36px rgb(0 0 0 / 18%);
+}
+
+.terminal-card h3 {
+  color: var(--terminal-card-heading-color);
+}
+
+.terminal-card p {
+  color: var(--color-foreground);
+  font-family: Inconsolata, monospace;
+}
+
+.terminal-card--red {
+  --terminal-card-heading-color: var(--color-red);
+}
+
+.terminal-card--blue {
+  --terminal-card-heading-color: var(--color-blue);
+}
+
+.terminal-card--green {
+  --terminal-card-heading-color: var(--color-green);
+}
+
+.card:not(.terminal-card) p,
+.about-content li {
   color: var(--muted);
 }
 
