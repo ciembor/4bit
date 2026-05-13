@@ -37,6 +37,9 @@ Save the generated file with `.reg` extension and double click it.
 * __Terminator:__
 Copy lines within the `[profiles]` section of the generated configuration file to `~/.config/terminator/config`.
 
+* __Termite:__
+Copy the generated `[colors]` section into the Termite configuration file.
+
 * __Alacritty:__
 Put the generated file to `~/.config/alacritty/alacritty.yml`.
 

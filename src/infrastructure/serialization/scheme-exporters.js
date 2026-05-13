@@ -6,6 +6,7 @@ import { serializeITerm2 } from './scheme-exports/iterm2';
 import { serializeKonsole } from './scheme-exports/konsole';
 import { serializeMintty } from './scheme-exports/mintty';
 import { serializePutty } from './scheme-exports/putty';
+import { serializeTermite } from './scheme-exports/termite';
 import { serializeTerminator } from './scheme-exports/terminator';
 import { serializeWindowsTerminal } from './scheme-exports/windows-terminal';
 import { serializeXfceTerminal } from './scheme-exports/xfce-terminal';
@@ -25,6 +26,7 @@ const EXPORT_BUILDERS = {
   xfceTerminal: serializeXfceTerminal,
   mintty: serializeMintty,
   putty: serializePutty,
+  termite: serializeTermite,
   terminator: serializeTerminator,
   windowsTerminal: serializeWindowsTerminal,
 };
@@ -100,6 +102,14 @@ export const SCHEME_DOWNLOADS = [
     text: 'terminator',
     linkLabel: 'config',
     downloadName: 'config',
+    mimeType: TEXT_MIME_TYPE,
+  },
+  {
+    id: 'termite',
+    buttonId: 'termite-button',
+    text: 'termite',
+    linkLabel: 'config',
+    downloadName: 'termite-config',
     mimeType: TEXT_MIME_TYPE,
   },
   {

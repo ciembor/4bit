@@ -93,6 +93,7 @@
           <li><a href="https://apps.kde.org/yakuake/">Yakuake</a></li>
           <li><a href="https://mintty.github.io/">mintty</a></li>
           <li><a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a></li>
+          <li><a href="https://github.com/thestinger/termite">Termite</a></li>
           <li><a href="https://gnome-terminator.org/">Terminator</a></li>
           <li><a href="https://docs.xfce.org/apps/xfce4-terminal/start">Xfce4-terminal</a></li>
           <li><a href="https://wiki.archlinux.org/title/X_resources">Xresources-compatible terminals</a></li>

@@ -108,6 +108,19 @@ describe('SchemeExporters', () => {
     }
   });
 
+  it('generates a Termite colors section', async () => {
+    const text = await buildSchemeDownload('termite', createColors()).text();
+
+    expect(text).toContain('[colors]\n');
+    expect(text).toContain('foreground = #F0F0F0');
+    expect(text).toContain('background = #101010');
+    expect(text).toContain('cursor = #F0F0F0');
+    expect(text).toContain('cursor_foreground = #101010');
+    expect(text).toContain('color0 = #000000');
+    expect(text).toContain('color8 = #808080');
+    expect(text).toContain('color15 = #FFFFFF');
+  });
+
   it('generates a Windows Terminal JSON scheme', async () => {
     const blob = buildSchemeDownload('windowsTerminal', createColors());
     const scheme = JSON.parse(await blob.text());
