@@ -84,7 +84,7 @@ describe('SchemeExporters', () => {
   });
 
   it('generates a ConEmu palette XML fragment', async () => {
-    const dateNowSpy = vi.spyOn(Date, 'now').mockReturnValue(1519081200000);
+    const dateNowSpy = vi.spyOn(Date, 'now').mockReturnValue(1519084800000);
 
     try {
       const blob = buildSchemeDownload('conEmu', createColors());
@@ -99,7 +99,7 @@ describe('SchemeExporters', () => {
       expect(text).toContain('<value name="ColorTable31" type="dword" data="00ffffff"/>');
       expect(text).toMatchInlineSnapshot(`
         "<key name="Palette1" modified="2018-02-20 00:00:00" build="180131">
-        	<value name="Name" type="string" data="4bit generated 1519081200" />
+        	<value name="Name" type="string" data="4bit generated 1519084800" />
         	<value name="ExtendColors" type="hex" data="00" />
         	<value name="ExtendColorIdx" type="hex" data="0E" />
         	<value name="TextColorIdx" type="hex" data="10"/>

@@ -44,13 +44,13 @@ function padDatePart(value) {
 
 function conEmuModifiedDate(date) {
   return [
-    date.getFullYear(),
-    padDatePart(date.getMonth() + 1),
-    padDatePart(date.getDate()),
+    date.getUTCFullYear(),
+    padDatePart(date.getUTCMonth() + 1),
+    padDatePart(date.getUTCDate()),
   ].join('-') + ' ' + [
-    padDatePart(date.getHours()),
-    padDatePart(date.getMinutes()),
-    padDatePart(date.getSeconds()),
+    padDatePart(date.getUTCHours()),
+    padDatePart(date.getUTCMinutes()),
+    padDatePart(date.getUTCSeconds()),
   ].join(':');
 }
 
