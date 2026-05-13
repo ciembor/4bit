@@ -7,10 +7,12 @@ import { serializeKonsole } from './scheme-exports/konsole';
 import { serializeMintty } from './scheme-exports/mintty';
 import { serializePutty } from './scheme-exports/putty';
 import { serializeTerminator } from './scheme-exports/terminator';
+import { serializeWindowsTerminal } from './scheme-exports/windows-terminal';
 import { serializeXfceTerminal } from './scheme-exports/xfce-terminal';
 import { serializeXresources } from './scheme-exports/xresources';
 
 const TEXT_MIME_TYPE = 'text/plain;charset=utf-8';
+const JSON_MIME_TYPE = 'application/json;charset=utf-8';
 const XML_MIME_TYPE = 'application/xml;charset=utf-8';
 
 const EXPORT_BUILDERS = {
@@ -24,6 +26,7 @@ const EXPORT_BUILDERS = {
   mintty: serializeMintty,
   putty: serializePutty,
   terminator: serializeTerminator,
+  windowsTerminal: serializeWindowsTerminal,
 };
 
 export const SCHEME_DOWNLOADS = [
@@ -98,6 +101,14 @@ export const SCHEME_DOWNLOADS = [
     linkLabel: 'config',
     downloadName: 'config',
     mimeType: TEXT_MIME_TYPE,
+  },
+  {
+    id: 'windowsTerminal',
+    buttonId: 'windows-terminal-button',
+    text: 'windows terminal',
+    linkLabel: '*.json',
+    downloadName: '4bit-windows-terminal.json',
+    mimeType: JSON_MIME_TYPE,
   },
   {
     id: 'xfceTerminal',

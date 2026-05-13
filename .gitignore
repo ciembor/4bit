@@ -4,6 +4,7 @@ dist
 coverage
 playwright-report
 test-results
+TODO.md
 js/compiled.js
 css/_compiled_main.css
 css/merged.css

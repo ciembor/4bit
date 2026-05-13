@@ -93,6 +93,42 @@ describe('SchemeExporters', () => {
     }
   });
 
+  it('generates a Windows Terminal JSON scheme', async () => {
+    const blob = buildSchemeDownload('windowsTerminal', createColors());
+    const scheme = JSON.parse(await blob.text());
+    const terminalColorKeys = [
+      'black',
+      'red',
+      'green',
+      'yellow',
+      'blue',
+      'purple',
+      'cyan',
+      'white',
+      'brightBlack',
+      'brightRed',
+      'brightGreen',
+      'brightYellow',
+      'brightBlue',
+      'brightPurple',
+      'brightCyan',
+      'brightWhite',
+    ];
+
+    expect(blob.type).toBe('application/json;charset=utf-8');
+    expect(scheme.name).toBe('4bit');
+    expect(scheme.background).toBe('#101010');
+    expect(scheme.foreground).toBe('#F0F0F0');
+    expect(scheme.cursorColor).toBe('#F0F0F0');
+    expect(scheme.selectionBackground).toBe('#808080');
+    expect(scheme.purple).toBe('#AA00AA');
+    expect(scheme.brightPurple).toBe('#FF55FF');
+
+    terminalColorKeys.forEach((key) => {
+      expect(scheme[key]).toMatch(/^#[0-9A-F]{6}$/);
+    });
+  });
+
   it('throws for unknown export formats', () => {
     expect(() => buildSchemeDownload('unknown-format', createColors())).toThrow(
       'Unknown export format: unknown-format'

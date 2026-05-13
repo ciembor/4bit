@@ -43,6 +43,9 @@ Put the generated file to `~/.config/alacritty/alacritty.yml`.
 * __Mintty:__
 Copy the colors and save them in `~/.minttyrc`.
 
+* __Windows Terminal:__
+Copy the generated JSON object into the `schemes` array in Windows Terminal `settings.json`, then select `4bit` as the profile color scheme.
+
 * __Other terminals:__
 Generate one of the supported formats and copy hex values into the configuration file, preferences panel, or import tool of your terminal.
 
