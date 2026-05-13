@@ -1,5 +1,6 @@
 import { COLOR_NAMES } from '../../domain/scheme/color-names';
 import { serializeAlacritty } from './scheme-exports/alacritty';
+import { serializeConEmu } from './scheme-exports/conemu';
 import { serializeGnomeTerminal } from './scheme-exports/gnome-terminal';
 import { serializeGuake } from './scheme-exports/guake';
 import { serializeITerm2 } from './scheme-exports/iterm2';
@@ -18,6 +19,7 @@ const XML_MIME_TYPE = 'application/xml;charset=utf-8';
 
 const EXPORT_BUILDERS = {
   alacritty: serializeAlacritty,
+  conEmu: serializeConEmu,
   xresources: serializeXresources,
   guake: serializeGuake,
   gnomeTerminal: serializeGnomeTerminal,
@@ -39,6 +41,14 @@ export const SCHEME_DOWNLOADS = [
     linkLabel: 'alacritty.yml',
     downloadName: 'alacritty.yml',
     mimeType: TEXT_MIME_TYPE,
+  },
+  {
+    id: 'conEmu',
+    buttonId: 'conemu-button',
+    text: 'conemu',
+    linkLabel: '*.xml',
+    downloadName: 'conemu-palette.xml',
+    mimeType: XML_MIME_TYPE,
   },
   {
     id: 'xresources',

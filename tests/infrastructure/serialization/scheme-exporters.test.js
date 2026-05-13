@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import Color from 'color';
+import { bgrHex } from '../../../src/infrastructure/serialization/scheme-exports/conemu';
 import {
   SCHEME_DOWNLOADS,
   buildSchemeDownload,
@@ -76,6 +77,72 @@ describe('SchemeExporters', () => {
     expect(text).toContain('<key>Background Color</key>');
     expect(text).toContain('<key>Ansi 0 Color</key>');
     expect(text).toContain('<key>Ansi 15 Color</key>');
+  });
+
+  it('converts RGB color hex to ConEmu BGR dword hex', () => {
+    expect(bgrHex(Color('#112233'))).toBe('332211');
+  });
+
+  it('generates a ConEmu palette XML fragment', async () => {
+    const dateNowSpy = vi.spyOn(Date, 'now').mockReturnValue(1519081200000);
+
+    try {
+      const blob = buildSchemeDownload('conEmu', createColors());
+      const text = await blob.text();
+
+      expect(blob.type).toBe('application/xml;charset=utf-8');
+      expect(text).toContain('<key name="Palette1"');
+      expect(text).toContain('<value name="ColorTable00" type="dword" data="00000000"/>');
+      expect(text).toContain('<value name="ColorTable01" type="dword" data="00AA0000"/>');
+      expect(text).toContain('<value name="ColorTable04" type="dword" data="000000CC"/>');
+      expect(text).toContain('<value name="ColorTable15" type="dword" data="00FFFFFF"/>');
+      expect(text).toContain('<value name="ColorTable31" type="dword" data="00ffffff"/>');
+      expect(text).toMatchInlineSnapshot(`
+        "<key name="Palette1" modified="2018-02-20 00:00:00" build="180131">
+        	<value name="Name" type="string" data="4bit generated 1519081200" />
+        	<value name="ExtendColors" type="hex" data="00" />
+        	<value name="ExtendColorIdx" type="hex" data="0E" />
+        	<value name="TextColorIdx" type="hex" data="10"/>
+        	<value name="BackColorIdx" type="hex" data="10"/>
+        	<value name="PopTextColorIdx" type="hex" data="10"/>
+        	<value name="PopBackColorIdx" type="hex" data="10"/>
+        	<value name="ColorTable00" type="dword" data="00000000"/>
+        	<value name="ColorTable01" type="dword" data="00AA0000"/>
+        	<value name="ColorTable02" type="dword" data="0000AA00"/>
+        	<value name="ColorTable03" type="dword" data="00AAAA00"/>
+        	<value name="ColorTable04" type="dword" data="000000CC"/>
+        	<value name="ColorTable05" type="dword" data="00AA00AA"/>
+        	<value name="ColorTable06" type="dword" data="000055AA"/>
+        	<value name="ColorTable07" type="dword" data="00AAAAAA"/>
+        	<value name="ColorTable08" type="dword" data="00808080"/>
+        	<value name="ColorTable09" type="dword" data="00FF5555"/>
+        	<value name="ColorTable10" type="dword" data="0055FF55"/>
+        	<value name="ColorTable11" type="dword" data="00FFFF55"/>
+        	<value name="ColorTable12" type="dword" data="005555FF"/>
+        	<value name="ColorTable13" type="dword" data="00FF55FF"/>
+        	<value name="ColorTable14" type="dword" data="0055FFFF"/>
+        	<value name="ColorTable15" type="dword" data="00FFFFFF"/>
+        	<value name="ColorTable16" type="dword" data="00000000"/>
+        	<value name="ColorTable17" type="dword" data="00800000"/>
+        	<value name="ColorTable18" type="dword" data="00008000"/>
+        	<value name="ColorTable19" type="dword" data="00808000"/>
+        	<value name="ColorTable20" type="dword" data="00000080"/>
+        	<value name="ColorTable21" type="dword" data="00800080"/>
+        	<value name="ColorTable22" type="dword" data="00008080"/>
+        	<value name="ColorTable23" type="dword" data="00c0c0c0"/>
+        	<value name="ColorTable24" type="dword" data="00808080"/>
+        	<value name="ColorTable25" type="dword" data="00ff0000"/>
+        	<value name="ColorTable26" type="dword" data="0000ff00"/>
+        	<value name="ColorTable27" type="dword" data="00ffff00"/>
+        	<value name="ColorTable28" type="dword" data="000000ff"/>
+        	<value name="ColorTable29" type="dword" data="00ff00ff"/>
+        	<value name="ColorTable30" type="dword" data="0000ffff"/>
+        	<value name="ColorTable31" type="dword" data="00ffffff"/>
+        </key>"
+      `);
+    } finally {
+      dateNowSpy.mockRestore();
+    }
   });
 
   it('generates a GNOME Terminal dconf script for the default profile', async () => {

@@ -34,6 +34,9 @@ Create a file `~/NAME-OF-SCHEME.itermcolors` with the generated XML content and 
 * __Putty:__
 Save the generated file with `.reg` extension and double click it.
 
+* __ConEmu:__
+Copy the generated XML into `%APPDATA%\ConEmu.xml` under the `<key name="Colors"...>` node. If you add it as a new palette, rename `Palette1` and update the `<value name="Count"...>` value to match the palette count, then reload ConEmu settings.
+
 * __Terminator:__
 Copy lines within the `[profiles]` section of the generated configuration file to `~/.config/terminator/config`.
 

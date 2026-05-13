@@ -86,6 +86,7 @@
           <li><a href="http://rxvt.sourceforge.net/">rxvt</a></li>
           <li><a href="http://software.schmorp.de/pkg/rxvt-unicode.html">urxvt</a></li>
           <li><a href="https://invisible-island.net/xterm/">xterm</a></li>
+          <li><a href="https://conemu.github.io/">ConEmu</a></li>
           <li><a href="https://apps.gnome.org/Ptyxis/">GNOME Terminal</a></li>
           <li><a href="https://guake.github.io/">Guake</a></li>
           <li><a href="https://iterm2.com/">iTerm2</a></li>
