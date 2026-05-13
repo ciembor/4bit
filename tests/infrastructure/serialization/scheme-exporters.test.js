@@ -78,6 +78,21 @@ describe('SchemeExporters', () => {
     expect(text).toContain('<key>Ansi 15 Color</key>');
   });
 
+  it('generates a GNOME Terminal dconf script for the default profile', async () => {
+    const text = await buildSchemeDownload('gnomeTerminal', createColors()).text();
+
+    expect(text).toContain('gsettings get org.gnome.Terminal.ProfilesList default');
+    expect(text).toContain('PROFILE_PATH="/org/gnome/terminal/legacy/profiles:/:${PROFILE_ID}/"');
+    expect(text).toContain('dconf write "${PROFILE_PATH}use-theme-colors" false');
+    expect(text).toContain('dconf write "${PROFILE_PATH}background-color" "\'#101010\'"');
+    expect(text).toContain('dconf write "${PROFILE_PATH}foreground-color" "\'#F0F0F0\'"');
+    expect(text).toContain(
+      'dconf write "${PROFILE_PATH}palette" "[\'#000000\', \'#CC0000\', \'#00AA00\', \'#AA5500\', \'#0000AA\', \'#AA00AA\', \'#00AAAA\', \'#AAAAAA\', \'#808080\', \'#FF5555\', \'#55FF55\', \'#FFFF55\', \'#5555FF\', \'#FF55FF\', \'#55FFFF\', \'#FFFFFF\']"'
+    );
+    expect(text).not.toContain('gconftool-2');
+    expect(text).not.toContain('/apps/gnome-terminal/profiles/Default');
+  });
+
   it('generates the terminator palette in normal-then-bright order', async () => {
     const dateNowSpy = vi.spyOn(Date, 'now').mockReturnValue(42);
 

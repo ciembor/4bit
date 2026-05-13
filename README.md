@@ -20,7 +20,7 @@ For users
 Copy the generated text to `~/.Xresources` file (you may have to create it) and run `xrdb ~/.Xresources`.
 
 * __Gnome Terminal, Guake:__
-Save the generated script into `set_colors.sh`, make this file executable with `chmod +x set_colors.sh`, and run it with `./set_colors.sh`. Alternatively copy generated lines directly into your shell.
+Save the generated script into `set_colors.sh`, make this file executable with `chmod +x set_colors.sh`, and run it with `./set_colors.sh`. The GNOME Terminal script updates the default profile through `gsettings` and `dconf`; Guake uses its own `dconf` keys. Alternatively copy generated lines directly into your shell.
 
 * __XFCE4 Terminal:__
 Save file as `~/.local/share/xfce4/terminal/colorschemes/4bit.scheme` and choose it in terminal preferences.
