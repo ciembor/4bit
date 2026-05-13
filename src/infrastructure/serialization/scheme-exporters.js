@@ -6,6 +6,7 @@ import { serializeGuake } from './scheme-exports/guake';
 import { serializeITerm2 } from './scheme-exports/iterm2';
 import { serializeKitty } from './scheme-exports/kitty';
 import { serializeKonsole } from './scheme-exports/konsole';
+import { serializeMacosTerminal } from './scheme-exports/macos-terminal/index';
 import { serializeMintty } from './scheme-exports/mintty';
 import { serializePutty } from './scheme-exports/putty';
 import { serializeTermite } from './scheme-exports/termite';
@@ -16,6 +17,7 @@ import { serializeXresources } from './scheme-exports/xresources';
 
 const TEXT_MIME_TYPE = 'text/plain;charset=utf-8';
 const JSON_MIME_TYPE = 'application/json;charset=utf-8';
+const PLIST_MIME_TYPE = 'application/x-plist;charset=utf-8';
 const XML_MIME_TYPE = 'application/xml;charset=utf-8';
 
 const EXPORT_BUILDERS = {
@@ -26,6 +28,7 @@ const EXPORT_BUILDERS = {
   gnomeTerminal: serializeGnomeTerminal,
   kitty: serializeKitty,
   konsole: serializeKonsole,
+  macosTerminal: serializeMacosTerminal,
   iTerm2: serializeITerm2,
   xfceTerminal: serializeXfceTerminal,
   mintty: serializeMintty,
@@ -99,6 +102,14 @@ export const SCHEME_DOWNLOADS = [
     linkLabel: '*.colorscheme',
     downloadName: '4bit.colorscheme',
     mimeType: TEXT_MIME_TYPE,
+  },
+  {
+    id: 'macosTerminal',
+    buttonId: 'macos-terminal-button',
+    text: 'macOS Terminal.app',
+    linkLabel: '*.terminal',
+    downloadName: '4bit.terminal',
+    mimeType: PLIST_MIME_TYPE,
   },
   {
     id: 'mintty',

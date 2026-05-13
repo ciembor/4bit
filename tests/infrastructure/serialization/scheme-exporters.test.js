@@ -30,6 +30,20 @@ function createColors() {
   };
 }
 
+function bytesFromBase64(value) {
+  return Uint8Array.from(atob(value), (character) => character.charCodeAt(0));
+}
+
+function bytesToAscii(bytes) {
+  return String.fromCharCode(...bytes);
+}
+
+function dataForKey(plist, key) {
+  const match = plist.match(new RegExp(`<key>${key}</key>\\n\\t<data>([^<]+)</data>`));
+
+  return match?.[1];
+}
+
 describe('SchemeExporters', () => {
   it('detects whether a full exportable color set is present', () => {
     const colors = createColors();
@@ -162,6 +176,50 @@ describe('SchemeExporters', () => {
 
     lines.forEach((line, index) => {
       expect(line).toMatch(new RegExp(`^Colour${index}\\\\\\d+,\\d+,\\d+\\\\$`));
+    });
+  });
+
+  it('generates a macOS Terminal.app profile with archived color data', async () => {
+    const blob = buildSchemeDownload('macosTerminal', createColors());
+    const text = await blob.text();
+    const colorKeys = [
+      'ANSIBlackColor',
+      'ANSIRedColor',
+      'ANSIGreenColor',
+      'ANSIYellowColor',
+      'ANSIBlueColor',
+      'ANSIMagentaColor',
+      'ANSICyanColor',
+      'ANSIWhiteColor',
+      'ANSIBrightBlackColor',
+      'ANSIBrightRedColor',
+      'ANSIBrightGreenColor',
+      'ANSIBrightYellowColor',
+      'ANSIBrightBlueColor',
+      'ANSIBrightMagentaColor',
+      'ANSIBrightCyanColor',
+      'ANSIBrightWhiteColor',
+      'BackgroundColor',
+      'TextColor',
+      'TextBoldColor',
+      'CursorColor',
+      'SelectionColor',
+    ];
+
+    expect(blob.type).toBe('application/x-plist;charset=utf-8');
+    expect(text.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true);
+    expect(text).toContain('<key>ProfileCurrentVersion</key>');
+    expect(text).toContain('<real>2.04</real>');
+    expect(text).toContain('<key>name</key>');
+    expect(text).toContain('<string>4bit</string>');
+    expect(text).toContain('<key>type</key>');
+    expect(text).toContain('<string>Window Settings</string>');
+
+    colorKeys.forEach((key) => {
+      const data = dataForKey(text, key);
+
+      expect(data).toBeTruthy();
+      expect(bytesToAscii(bytesFromBase64(data).slice(0, 8))).toBe('bplist00');
     });
   });
 

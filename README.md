@@ -31,6 +31,9 @@ Put the generated file to `~/.kde/share/apps/konsole/NAME-OF-SCHEME.colorscheme`
 * __iTerm2 for Mac:__
 Create a file `~/NAME-OF-SCHEME.itermcolors` with the generated XML content and load it with the `Load Presets...` button under `iTerm2 / Preferences / Profiles / <Your Profile> / Colors`.
 
+* __macOS Terminal.app:__
+Open the generated `.terminal` file, then manage it under `Terminal / Settings / Profiles`.
+
 * __Putty:__
 Save the generated file with `.reg` extension and double click it.
 

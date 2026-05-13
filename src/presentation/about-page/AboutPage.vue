@@ -92,6 +92,7 @@
           <li><a href="https://iterm2.com/">iTerm2</a></li>
           <li><a href="https://www.9bis.net/kitty/">KiTTY</a></li>
           <li><a href="https://konsole.kde.org/">Konsole</a></li>
+          <li><a href="https://support.apple.com/guide/terminal/welcome/mac">macOS Terminal.app</a></li>
           <li><a href="https://apps.kde.org/yakuake/">Yakuake</a></li>
           <li><a href="https://mintty.github.io/">mintty</a></li>
           <li><a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a></li>
