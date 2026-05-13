@@ -145,6 +145,26 @@ describe('SchemeExporters', () => {
     }
   });
 
+  it('generates KiTTY portable session color lines matching PuTTY colors', async () => {
+    const text = await buildSchemeDownload('kitty', createColors()).text();
+    const lines = text.trimEnd().split('\n');
+
+    expect(lines).toHaveLength(22);
+    expect(lines[0]).toBe('Colour0\\240,240,240\\');
+    expect(lines[1]).toBe('Colour1\\240,240,240\\');
+    expect(lines[2]).toBe('Colour2\\16,16,16\\');
+    expect(lines[5]).toBe('Colour5\\240,240,240\\');
+    expect(lines[6]).toBe('Colour6\\0,0,0\\');
+    expect(lines[7]).toBe('Colour7\\128,128,128\\');
+    expect(lines[21]).toBe('Colour21\\255,255,255\\');
+    expect(text).not.toContain('[KiTTY]');
+    expect(text).not.toContain('=');
+
+    lines.forEach((line, index) => {
+      expect(line).toMatch(new RegExp(`^Colour${index}\\\\\\d+,\\d+,\\d+\\\\$`));
+    });
+  });
+
   it('generates a GNOME Terminal dconf script for the default profile', async () => {
     const text = await buildSchemeDownload('gnomeTerminal', createColors()).text();
 

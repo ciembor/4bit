@@ -4,6 +4,7 @@ import { serializeConEmu } from './scheme-exports/conemu';
 import { serializeGnomeTerminal } from './scheme-exports/gnome-terminal';
 import { serializeGuake } from './scheme-exports/guake';
 import { serializeITerm2 } from './scheme-exports/iterm2';
+import { serializeKitty } from './scheme-exports/kitty';
 import { serializeKonsole } from './scheme-exports/konsole';
 import { serializeMintty } from './scheme-exports/mintty';
 import { serializePutty } from './scheme-exports/putty';
@@ -23,6 +24,7 @@ const EXPORT_BUILDERS = {
   xresources: serializeXresources,
   guake: serializeGuake,
   gnomeTerminal: serializeGnomeTerminal,
+  kitty: serializeKitty,
   konsole: serializeKonsole,
   iTerm2: serializeITerm2,
   xfceTerminal: serializeXfceTerminal,
@@ -81,6 +83,14 @@ export const SCHEME_DOWNLOADS = [
     linkLabel: '*.itermcolors',
     downloadName: '4bit.itermcolors',
     mimeType: XML_MIME_TYPE,
+  },
+  {
+    id: 'kitty',
+    buttonId: 'kitty-button',
+    text: 'KiTTY',
+    linkLabel: '*.ktx',
+    downloadName: '4bit.kitty.ktx',
+    mimeType: TEXT_MIME_TYPE,
   },
   {
     id: 'konsole',
