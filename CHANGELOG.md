@@ -6,6 +6,30 @@ Early history is grouped by day to keep the file readable while still covering t
 
 ## 2026
 
+### 2026-05-15
+
+- Reorganized the xterm.js terminal preview modules around terminal-view naming to avoid confusion with the xterm export format.
+- Split terminal preview command builders into a dedicated commands area.
+- Added a live `usability` command that reports WCAG-based text contrast for the current terminal palette.
+- Updated terminal help output with grouped tools and example commands, including colored command names and short descriptions.
+
+### 2026-05-14
+
+- Migrated the terminal preview window to xterm.js while preserving the classic 4bit terminal proportions and font behavior.
+- Added an interactive terminal preview prompt with commands for color matrix, `git diff`, `git status`, `ls`, `ls -al`, `clear`, and help output.
+- Kept terminal preview content stable during slider changes by updating the theme without restoring the boot transcript.
+- Fixed terminal view dimensions while the page and font are loading.
+
+### 2026-05-13
+
+- Added export support for Windows Terminal, Termite, ConEmu, KiTTY, and macOS Terminal.
+- Updated GNOME Terminal export support for the newer format without keeping the old fallback.
+- Stabilized the ConEmu snapshot date used in generated output.
+
+### 2026-05-12
+
+- Restyled About page feature cards to resemble terminal previews.
+
 ### 2026-05-11
 
 - Added a dedicated SEO-focused About page for 4bit with project history, supported terminal links, source references, and an explanation of the color-generation model.

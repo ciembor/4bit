@@ -24,9 +24,10 @@ export default {
   },
   mounted() {
     this.previewSequence = buildTerminalPreviewSequence();
+    this.currentColors = null;
     this.terminalPreview = createTerminalView(this.$refs.terminalElement, {
       prompt: renderTerminalPreviewPrompt(),
-      runCommand: runTerminalPreviewCommand,
+      runCommand: (command) => runTerminalPreviewCommand(command, { colors: this.currentColors }),
     });
     this.stopThemeWatcher = watch(
       () => this.calculatedSchemeStore.calculatedScheme,
@@ -42,7 +43,9 @@ export default {
   },
   methods: {
     renderTerminalPreview(colors) {
+      this.currentColors = colors;
       this.terminalPreview?.render(this.previewSequence, terminalViewThemeFromScheme(colors));
+      this.terminalPreview?.refreshDynamicCommand();
     },
   },
 };

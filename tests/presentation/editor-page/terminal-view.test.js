@@ -178,4 +178,82 @@ describe('createTerminalView', () => {
     expect(terminal.reset).toHaveBeenCalledTimes(1);
     expect(terminal.options.theme).toEqual({ background: '#111111' });
   });
+
+  it('refreshes the active dynamic command without restoring the boot transcript', async () => {
+    const { TerminalClass, instances } = createTerminalClass();
+    const runCommand = vi.fn((command) => ({
+      type: 'dynamic',
+      content: `report-${command}-${runCommand.mock.calls.length}`,
+    }));
+    const preview = createTerminalView({}, {
+      prompt: '> ',
+      runCommand,
+    }, {
+      TerminalClass,
+      waitForFont: () => Promise.resolve(),
+    });
+
+    preview.render('boot-sequence', { background: '#000000' });
+    await Promise.resolve();
+
+    const terminal = instances[0];
+    terminal.write.mockClear();
+    terminal.reset.mockClear();
+
+    terminal.dataHandler('usability');
+    terminal.dataHandler('\r');
+
+    expect(terminal.reset).not.toHaveBeenCalled();
+    expect(terminal.write.mock.calls.map(([value]) => value)).toEqual([
+      'usability',
+      '\r\n',
+      'report-usability-1',
+      '\r\n',
+      '\r\n',
+      '> ',
+    ]);
+
+    terminal.write.mockClear();
+    terminal.reset.mockClear();
+
+    preview.render('boot-sequence', { background: '#111111' });
+    preview.refreshDynamicCommand();
+
+    expect(terminal.reset).not.toHaveBeenCalled();
+    expect(terminal.write.mock.calls.map(([value]) => value)).toEqual([
+      '\x1b[2A\r\x1b[J',
+      'report-usability-2',
+      '\r\n',
+      '\r\n',
+      '> ',
+    ]);
+    expect(terminal.options.theme).toEqual({ background: '#111111' });
+  });
+
+  it('stops refreshing the active dynamic command after the user starts typing', async () => {
+    const { TerminalClass, instances } = createTerminalClass();
+    const runCommand = vi.fn(() => ({ type: 'dynamic', content: 'report' }));
+    const preview = createTerminalView({}, {
+      prompt: '> ',
+      runCommand,
+    }, {
+      TerminalClass,
+      waitForFont: () => Promise.resolve(),
+    });
+
+    preview.render('boot-sequence', {});
+    await Promise.resolve();
+
+    const terminal = instances[0];
+    terminal.dataHandler('usability');
+    terminal.dataHandler('\r');
+    terminal.write.mockClear();
+    terminal.reset.mockClear();
+
+    terminal.dataHandler('l');
+    preview.refreshDynamicCommand();
+
+    expect(terminal.write.mock.calls.map(([value]) => value)).toEqual(['l']);
+    expect(terminal.reset).not.toHaveBeenCalled();
+  });
 });
