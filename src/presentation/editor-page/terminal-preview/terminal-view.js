@@ -19,7 +19,7 @@ function waitForTerminalFont() {
   return document.fonts.load(TERMINAL_FONT_LOAD).then(() => document.fonts.ready);
 }
 
-export function createXtermTerminalPreview(container, options = {}, dependencies = {}) {
+export function createTerminalView(container, options = {}, dependencies = {}) {
   const TerminalClass = dependencies.TerminalClass ?? Terminal;
   const waitForFont = dependencies.waitForFont ?? waitForTerminalFont;
   let terminal = null;

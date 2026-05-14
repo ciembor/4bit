@@ -2,12 +2,12 @@ import {
   TERMINAL_PREVIEW_COLUMNS,
   TERMINAL_PREVIEW_ROWS,
   TERMINAL_PREVIEW_SAMPLE_TEXT,
-} from '../../domain/terminal-preview/terminal-preview-model';
+} from '../../../domain/terminal-preview/terminal-preview-model';
 import {
   joinTerminalLines,
   resetSgr,
   styledText,
-} from './ansi-terminal-sequence';
+} from '../ansi-terminal-sequence';
 
 const ROW_LABEL_WIDTH = 6;
 const CELL_WIDTH = 7;

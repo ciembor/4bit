@@ -1,4 +1,4 @@
-import { joinTerminalLines, styledText } from './ansi-terminal-sequence';
+import { joinTerminalLines, styledText } from '../ansi-terminal-sequence';
 
 const FILE_TYPE_STYLES = {
   archive: [1, 31],

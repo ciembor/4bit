@@ -1,6 +1,6 @@
 <template>
   <section id="terminal-display">
-    <div ref="terminalElement" class="terminal-display__xterm" aria-label="Terminal color preview"></div>
+    <div ref="terminalElement" class="terminal-display__terminal-view" aria-label="Terminal color preview"></div>
   </section>
 </template>
 
@@ -12,8 +12,8 @@ import {
   runTerminalPreviewCommand,
 } from '../../../application/terminal-preview/terminal-preview-shell';
 import { useCalculatedSchemeStore } from '../../shared/stores/calculated-scheme';
-import { createXtermTerminalPreview } from '../terminal-preview/xterm-terminal-preview';
-import { xtermThemeFromScheme } from '../terminal-preview/xterm-theme';
+import { createTerminalView } from '../terminal-preview/terminal-view';
+import { terminalViewThemeFromScheme } from '../terminal-preview/terminal-view-theme';
 
 export default {
   name: 'TerminalDisplay',
@@ -24,7 +24,7 @@ export default {
   },
   mounted() {
     this.previewSequence = buildTerminalPreviewSequence();
-    this.terminalPreview = createXtermTerminalPreview(this.$refs.terminalElement, {
+    this.terminalPreview = createTerminalView(this.$refs.terminalElement, {
       prompt: renderTerminalPreviewPrompt(),
       runCommand: runTerminalPreviewCommand,
     });
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     renderTerminalPreview(colors) {
-      this.terminalPreview?.render(this.previewSequence, xtermThemeFromScheme(colors));
+      this.terminalPreview?.render(this.previewSequence, terminalViewThemeFromScheme(colors));
     },
   },
 };

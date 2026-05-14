@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildColorsPreviewCommand } from '../../../src/application/terminal-preview/build-colors-preview-command';
+import { buildColorsPreviewCommand } from '../../../../src/application/terminal-preview/commands/build-colors-preview-command';
 
 function stripAnsi(value) {
   return value.replace(/\x1b\[[0-9;]*m/g, '');

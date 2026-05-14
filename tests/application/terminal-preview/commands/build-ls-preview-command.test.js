@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildLsAllPreviewCommand,
   buildLsPreviewCommand,
-} from '../../../src/application/terminal-preview/build-ls-preview-command';
+} from '../../../../src/application/terminal-preview/commands/build-ls-preview-command';
 
 function stripAnsi(value) {
   return value.replace(/\x1b\[[0-9;]*m/g, '');

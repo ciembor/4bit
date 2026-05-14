@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildDiffPreviewCommand } from '../../../src/application/terminal-preview/build-diff-preview-command';
+import { buildDiffPreviewCommand } from '../../../../src/application/terminal-preview/commands/build-diff-preview-command';
 
 function stripAnsi(value) {
   return value.replace(/\x1b\[[0-9;]*m/g, '');

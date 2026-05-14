@@ -2,7 +2,7 @@ import {
   terminalPreviewHeaderLines,
   terminalPreviewPromptCommand,
 } from '../../domain/terminal-preview/terminal-preview-model';
-import { buildColorsPreviewCommand } from './build-colors-preview-command';
+import { buildColorsPreviewCommand } from './commands/build-colors-preview-command';
 import { joinTerminalLines } from './ansi-terminal-sequence';
 import {
   renderTerminalPreviewHelpLine,

@@ -1,11 +1,11 @@
 import { terminalPreviewPromptCommand } from '../../domain/terminal-preview/terminal-preview-model';
-import { buildColorsPreviewCommand } from './build-colors-preview-command';
-import { buildDiffPreviewCommand } from './build-diff-preview-command';
-import { buildGitStatusPreviewCommand } from './build-git-status-preview-command';
+import { buildColorsPreviewCommand } from './commands/build-colors-preview-command';
+import { buildDiffPreviewCommand } from './commands/build-diff-preview-command';
+import { buildGitStatusPreviewCommand } from './commands/build-git-status-preview-command';
 import {
   buildLsAllPreviewCommand,
   buildLsPreviewCommand,
-} from './build-ls-preview-command';
+} from './commands/build-ls-preview-command';
 import { joinTerminalLines, styledText } from './ansi-terminal-sequence';
 
 export const TERMINAL_PREVIEW_CLEAR_COMMAND = { type: 'clear' };

@@ -1,4 +1,4 @@
-import { joinTerminalLines, styledText } from './ansi-terminal-sequence';
+import { joinTerminalLines, styledText } from '../ansi-terminal-sequence';
 
 export function buildDiffPreviewCommand() {
   return joinTerminalLines([

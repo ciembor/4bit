@@ -2,7 +2,7 @@ function colorHex(colors, name) {
   return colors[name]?.hex?.() ?? '#000000';
 }
 
-export function xtermThemeFromScheme(colors) {
+export function terminalViewThemeFromScheme(colors) {
   return {
     background: colorHex(colors, 'background'),
     foreground: colorHex(colors, 'foreground'),

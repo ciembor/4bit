@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import Color from 'color';
-import { xtermThemeFromScheme } from '../../../src/presentation/editor-page/terminal-preview/xterm-theme';
+import { terminalViewThemeFromScheme } from '../../../src/presentation/editor-page/terminal-preview/terminal-view-theme';
 
 function createColors() {
   return {
@@ -25,9 +25,9 @@ function createColors() {
   };
 }
 
-describe('xtermThemeFromScheme', () => {
-  it('maps the 4bit color scheme to an xterm.js theme', () => {
-    expect(xtermThemeFromScheme(createColors())).toEqual({
+describe('terminalViewThemeFromScheme', () => {
+  it('maps the 4bit color scheme to a terminal view theme', () => {
+    expect(terminalViewThemeFromScheme(createColors())).toEqual({
       background: '#101010',
       foreground: '#F0F0F0',
       cursor: '#F0F0F0',

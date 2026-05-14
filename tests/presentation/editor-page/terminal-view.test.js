@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createXtermTerminalPreview } from '../../../src/presentation/editor-page/terminal-preview/xterm-terminal-preview';
+import { createTerminalView } from '../../../src/presentation/editor-page/terminal-preview/terminal-view';
 
 function createTerminalClass() {
   const instances = [];
@@ -23,8 +23,8 @@ function createTerminalClass() {
   return { TerminalClass, instances };
 }
 
-describe('createXtermTerminalPreview', () => {
-  it('waits for the terminal font before opening xterm', async () => {
+describe('createTerminalView', () => {
+  it('waits for the terminal font before opening the terminal view', async () => {
     const { TerminalClass, instances } = createTerminalClass();
     let resolveFont;
     const waitForFont = vi.fn(() => new Promise((resolve) => {
@@ -32,7 +32,7 @@ describe('createXtermTerminalPreview', () => {
     }));
     const container = {};
 
-    createXtermTerminalPreview(container, {}, { TerminalClass, waitForFont });
+    createTerminalView(container, {}, { TerminalClass, waitForFont });
 
     expect(waitForFont).toHaveBeenCalledTimes(1);
     expect(instances).toHaveLength(0);
@@ -49,7 +49,7 @@ describe('createXtermTerminalPreview', () => {
 
   it('updates theme without rewriting unchanged terminal content', async () => {
     const { TerminalClass, instances } = createTerminalClass();
-    const preview = createXtermTerminalPreview({}, {}, {
+    const preview = createTerminalView({}, {}, {
       TerminalClass,
       waitForFont: () => Promise.resolve(),
     });
@@ -72,7 +72,7 @@ describe('createXtermTerminalPreview', () => {
 
   it('rewrites terminal content when the sequence changes', async () => {
     const { TerminalClass, instances } = createTerminalClass();
-    const preview = createXtermTerminalPreview({}, {}, {
+    const preview = createTerminalView({}, {}, {
       TerminalClass,
       waitForFont: () => Promise.resolve(),
     });
@@ -88,7 +88,7 @@ describe('createXtermTerminalPreview', () => {
 
   it('echoes typed commands and writes command output on enter', async () => {
     const { TerminalClass, instances } = createTerminalClass();
-    const preview = createXtermTerminalPreview({}, {
+    const preview = createTerminalView({}, {
       prompt: 'ciembor@browser ~> ',
       runCommand: (command) => command === 'diff' ? 'diff-output' : '',
     }, {
@@ -118,7 +118,7 @@ describe('createXtermTerminalPreview', () => {
   it('supports backspace while editing the current command', async () => {
     const { TerminalClass, instances } = createTerminalClass();
     const runCommand = vi.fn(() => 'ok');
-    const preview = createXtermTerminalPreview({}, {
+    const preview = createTerminalView({}, {
       prompt: '> ',
       runCommand,
     }, {
@@ -143,7 +143,7 @@ describe('createXtermTerminalPreview', () => {
 
   it('clears the terminal and keeps later theme updates from restoring the boot transcript', async () => {
     const { TerminalClass, instances } = createTerminalClass();
-    const preview = createXtermTerminalPreview({}, {
+    const preview = createTerminalView({}, {
       prompt: '> ',
       runCommand: (command) => command === 'clear' ? { type: 'clear' } : '',
     }, {
