@@ -53,8 +53,8 @@ export default {
   visibility: visible;
   display: inline-block;
   margin: 26px 0 0 20px;
-  width: auto;
-  height: auto;
+  width: 800px;
+  height: 500px;
   padding: 1px 2px;
   box-shadow: 0 0 10px #666;
   background-color: var(--color-background);
