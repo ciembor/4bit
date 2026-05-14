@@ -35,8 +35,8 @@ export const TERMINAL_PREVIEW_SAMPLE_TEXT = 'gYw';
 
 export function terminalPreviewHeaderLines() {
   return [
-    'Welcome to fish, the friendly interactive shell',
-    'Type help for instructions on how to use fish',
+    'Welcome to 4bit, the Terminal Color Scheme Designer.',
+    'Type help to see available commands.',
   ];
 }
 
@@ -45,7 +45,7 @@ export function terminalPreviewPromptCommand() {
     user: 'ciembor',
     host: 'browser',
     directory: '~',
-    command: './colors.sh',
+    command: 'colors',
   };
 }
 

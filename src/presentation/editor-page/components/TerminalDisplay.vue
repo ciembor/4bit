@@ -7,6 +7,10 @@
 <script>
 import { watch } from 'vue';
 import { buildTerminalPreviewSequence } from '../../../application/terminal-preview/build-terminal-preview-sequence';
+import {
+  renderTerminalPreviewPrompt,
+  runTerminalPreviewCommand,
+} from '../../../application/terminal-preview/terminal-preview-shell';
 import { useCalculatedSchemeStore } from '../../shared/stores/calculated-scheme';
 import { createXtermTerminalPreview } from '../terminal-preview/xterm-terminal-preview';
 import { xtermThemeFromScheme } from '../terminal-preview/xterm-theme';
@@ -20,7 +24,10 @@ export default {
   },
   mounted() {
     this.previewSequence = buildTerminalPreviewSequence();
-    this.terminalPreview = createXtermTerminalPreview(this.$refs.terminalElement);
+    this.terminalPreview = createXtermTerminalPreview(this.$refs.terminalElement, {
+      prompt: renderTerminalPreviewPrompt(),
+      runCommand: runTerminalPreviewCommand,
+    });
     this.stopThemeWatcher = watch(
       () => this.calculatedSchemeStore.calculatedScheme,
       (colors) => {

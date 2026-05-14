@@ -47,7 +47,7 @@ test('loads the app and renders the main editor controls', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('#terminal-display')).toBeVisible();
-  await expect(page.getByText('Welcome to fish, the friendly interactive shell')).toBeVisible();
+  await expect(page.getByText('Welcome to 4bit, the Terminal Color Scheme Designer.')).toBeVisible();
   await expect(page.locator('#controls')).toBeVisible();
   await expect(page.locator('#advanced')).toBeVisible();
   await expect(page.getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about/');

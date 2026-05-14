@@ -10,14 +10,14 @@ import {
 describe('TerminalPreviewModel', () => {
   it('preserves the visible shell intro and prompt command', () => {
     expect(terminalPreviewHeaderLines()).toEqual([
-      'Welcome to fish, the friendly interactive shell',
-      'Type help for instructions on how to use fish',
+      'Welcome to 4bit, the Terminal Color Scheme Designer.',
+      'Type help to see available commands.',
     ]);
     expect(terminalPreviewPromptCommand()).toEqual({
       user: 'ciembor',
       host: 'browser',
       directory: '~',
-      command: './colors.sh',
+      command: 'colors',
     });
     expect(TERMINAL_PREVIEW_SAMPLE_TEXT).toBe('gYw');
   });

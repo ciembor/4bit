@@ -10,9 +10,9 @@ describe('buildTerminalPreviewSequence', () => {
     const sequence = buildTerminalPreviewSequence();
     const plainText = stripAnsi(sequence);
 
-    expect(plainText).toContain('Welcome to fish, the friendly interactive shell');
-    expect(plainText).toContain('Type help for instructions on how to use fish');
-    expect(plainText).toContain('ciembor@browser ~> ./colors.sh');
+    expect(plainText).toContain('Welcome to 4bit, the Terminal Color Scheme Designer.');
+    expect(plainText).toContain('Type help to see available commands.');
+    expect(plainText).toContain('ciembor@browser ~> colors');
     expect(plainText).toContain('ciembor@browser ~>');
     expect(plainText).toContain('40m');
   });
@@ -22,7 +22,8 @@ describe('buildTerminalPreviewSequence', () => {
 
     expect(sequence).toContain('\x1b[32mhelp\x1b[0m');
     expect(sequence).toContain('\x1b[36mciembor\x1b[0m');
-    expect(sequence).toContain('\x1b[34m./colors.sh\x1b[0m');
+    expect(sequence).toContain('> colors');
+    expect(sequence).not.toContain('\x1b[34mcolors\x1b[0m');
     expect(sequence).toContain('\r\n');
   });
 });
