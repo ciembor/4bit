@@ -6,6 +6,7 @@
 [![Tests and build](https://img.shields.io/github/actions/workflow/status/ciembor/4bit/pages.yml?branch=master&label=tests%20%26%20build&style=flat-square)](https://github.com/ciembor/4bit/actions/workflows/pages.yml)
 [![Coverage](https://img.shields.io/badge/coverage-95.27%25-brightgreen?style=flat-square)](#coverage)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ciembor/4bit/pulls)
+[![Polish Repo badge](https://polish-open-source.pl/en/badges/repositories/github/ciembor/4bit.svg)](https://polish-open-source.pl/en/latest)
 
 [![4bit Terminal Color Scheme Designer](4bit-terminal-color-scheme-designer.webp)](https://ciembor.github.io/4bit)
 
